@@ -1,0 +1,54 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="geartronixLabel">
+        <item name="android:layout_marginTop">10dp</item>
+
+        <item name="android:textStyle">bold</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="mediumLabel" parent="geartronixLabel">
+        <item name="android:textSize">@dimen/medium_font_size</item>
+    </style>
+
+    <style name="geartronixTextBox">
+        <item name="android:layout_marginTop">10dp</item>
+
+        <item name="android:paddingLeft">@dimen/medium_textBox_horizontal_padding</item>
+        <item name="android:paddingRight">@dimen/medium_textBox_horizontal_padding</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/geartronix_textbox_background</item>
+    </style>
+
+    <style name="mediumTextBox" parent="geartronixTextBox">
+        <item name="android:layout_height">@dimen/medium_textbox_height</item>
+    </style>
+
+    <style name="geartronixButton">
+        <item name="android:layout_marginTop">20dp</item>
+
+        <item name="android:paddingLeft">@dimen/medium_button_horizontal_padding</item>
+        <item name="android:paddingRight">@dimen/medium_button_horizontal_padding</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/geartronix_button_background</item>
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
+
+    <style name="mediumButton" parent="geartronixButton">
+        <item name="android:layout_height">@dimen/medium_button_height</item>
+    </style>
+
+</resources>

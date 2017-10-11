@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="gallery_image_width">100dp</dimen>
+    <dimen name="gallery_image_height">100dp</dimen>
+
+    <dimen name="medium_textbox_height">40dp</dimen>
+
+    <dimen name="medium_button_height">45dp</dimen>
+    <dimen name="medium_button_horizontal_padding">9dp</dimen>
+
+
+    <dimen name="medium_textBox_horizontal_padding">10dp</dimen>
+    <dimen name="textBoxCournerRadius">10dp</dimen>
+
+
+    <dimen name="buttonCournerRadius">10dp</dimen>
+
+
+    <dimen name="medium_font_size">14sp</dimen>
+    <dimen name="large_font_size">20sp</dimen>
+
+    <dimen name="grid_vertical_padding">1dp</dimen>
+    <dimen name="grid_horizontal_padding">2dp</dimen>
+</resources>
