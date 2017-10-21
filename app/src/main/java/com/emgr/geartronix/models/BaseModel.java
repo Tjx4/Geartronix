@@ -2,7 +2,7 @@ package com.emgr.geartronix.models;
 
 import android.content.pm.PackageInstaller;
 
-public class BaseModel {
+public abstract class BaseModel {
 
     private boolean isSuccessful;
     public String message;

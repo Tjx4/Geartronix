@@ -1,4 +1,6 @@
+/*
 package com.emgr.geartronix.activities;
+
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -118,19 +120,7 @@ public class GalleryActivity extends BaseActivity {
 
         float width = 0;
         float height = 0;
-/*      Point size = new Point();
-        WindowManager w = getWindowManager();
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB)    {
-            w.getDefaultDisplay().getSize(size);
-            width = size.x;
-            height = size.y;
-        }else{
-            Display d = w.getDefaultDisplay();
-            width = d.getWidth();
-            height = d.getHeight();
-        }
-*/
         width =  getWindowManager().getDefaultDisplay().getWidth();
         height = getWindowManager().getDefaultDisplay().getHeight();
 
@@ -161,11 +151,11 @@ public class GalleryActivity extends BaseActivity {
 
     public void animateClickedView(View view) {
 
-        /*Animation anim = AnimationUtils.loadAnimation(context, R.anim.item_anim);
-        anim.setStartOffset(1 * 200);
+        //Animation anim = AnimationUtils.loadAnimation(context, R.anim.item_anim);
+        //anim.setStartOffset(1 * 200);
 
-        view.setAnimation(anim);
-        anim.start();*/
+        //view.setAnimation(anim);
+        //anim.start();
 
         if(lastItem == null) currentItem = (FrameLayout)view;
 
@@ -211,4 +201,4 @@ public class GalleryActivity extends BaseActivity {
         currentItem.setBackgroundColor(color);
     }
 
-}
+}  */

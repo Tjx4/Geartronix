@@ -15,20 +15,22 @@
     android:background="@drawable/page_background"
     tools:context="com.emgr.geartronix.activities.LoginActivity">
 
-    <include layout="@layout/medium_label"
-             android:id="@+id/txtBox1" />
+    <TextView style="@style/mediumLabel"
+              android:text="@string/username" />
 
-    <include layout="@layout/medium_textbox"
-             android:id="@+id/txtBox1" />
+    <EditText android:id="@+id/txtUsername"
+              style="@style/mediumTextBox" />
 
-    <include layout="@layout/medium_label"
-             android:id="@+id/txtBox1" />
+    <TextView style="@style/mediumLabel"
+              android:text="@string/password" />
 
-    <include layout="@layout/medium_textbox"
-             android:id="@+id/txtBox2" />
+    <EditText android:id="@+id/txtPassword"
+               style="@style/mediumTextBox" />
 
-    <include layout="@layout/medium_button"
-             android:id="@+id/Button1" />
+    <Button style="@style/mediumButton"
+            android:id="@+id/btnLogin"
+            android:text="@string/sign_in"
+            android:layout_width="match_parent"/>
 
 </LinearLayout>
 

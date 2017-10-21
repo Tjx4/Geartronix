@@ -2,35 +2,41 @@ package com.emgr.geartronix.activities;
 
 import android.os.Bundle;
 import android.view.View;
-import com.emgr.geartronix.R;
 import com.emgr.geartronix.presenters.LoginPresenter;
-import com.emgr.geartronix.views.ILoginView;
+import com.emgr.geartronix.views.ILoginViewI;
 
-public class LoginActivity extends BaseActivity implements ILoginView{
-
-    private LoginPresenter loginPresenter;
+public class LoginActivity extends BaseActivity implements ILoginViewI {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        comonOnCreate(R.layout.activity_main);
+        setPresenter();
+        getPresenter().onCreate();
+    }
 
+    @Override
+    public void setPresenter() {
         presenter = new LoginPresenter(this);
-        loginPresenter = (LoginPresenter)presenter;
+    }
+
+    @Override
+    public LoginPresenter getPresenter() {
+        return (LoginPresenter)presenter;
     }
 
     @Override
     public void onLoginButtonClicked(View view) {
-        loginPresenter.loginUser();
+        getPresenter().loginUser();
     }
 
     @Override
     public void onRegisterButtonClicked(View view) {
-        loginPresenter.registerUser();
+        getPresenter().registerUser();
     }
 
     @Override
     public void onForgotPasswordClicked(View view) {
-        loginPresenter.resetPassword();
+        getPresenter().resetPassword();
     }
+
 }

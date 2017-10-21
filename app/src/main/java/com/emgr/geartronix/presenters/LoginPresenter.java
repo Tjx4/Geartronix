@@ -1,16 +1,21 @@
 package com.emgr.geartronix.presenters;
 
 import android.support.v7.app.ActionBar;
-import android.view.View;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
-import com.emgr.geartronix.activities.GalleryActivity;
-import com.emgr.geartronix.views.ILoginView;
+import com.emgr.geartronix.views.ILoginViewI;
 
 public class LoginPresenter extends BasePresenter implements ILoginPresenter {
 
-    public LoginPresenter(ILoginView iLoginView) {
+    public LoginPresenter(ILoginViewI iLoginView) {
         activity = (BaseActivity) iLoginView;
+    }
+
+    @Override
+    public void onCreate() {
+        slideInActivity();
+        comonOnCreate(R.layout.activity_login);
+        configureActionBar();
     }
 
     @Override
@@ -26,7 +31,6 @@ public class LoginPresenter extends BasePresenter implements ILoginPresenter {
 
     @Override
     public void loginUser() {
-        goToActivity(GalleryActivity.class);
     }
 
     @Override
