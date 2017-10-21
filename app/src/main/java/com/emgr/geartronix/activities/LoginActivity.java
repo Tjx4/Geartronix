@@ -1,15 +1,16 @@
-package com.emgr.geartronix;
+package com.emgr.geartronix.activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.transition.TransitionManager;
 import android.view.View;
 import android.widget.Button;
 
-public class MainActivity extends AppCompatActivity {
+import com.emgr.geartronix.R;
+
+public class LoginActivity extends AppCompatActivity {
 
     protected Context context;
     private Button btnOne;

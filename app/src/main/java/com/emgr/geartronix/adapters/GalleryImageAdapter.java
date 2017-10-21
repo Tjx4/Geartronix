@@ -13,7 +13,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.emgr.geartronix.GalleryActivity;
 import com.emgr.geartronix.R;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.emgr.geartronix;
+package com.emgr.geartronix.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -9,12 +9,13 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.emgr.geartronix.R;
 import com.emgr.geartronix.adapters.GalleryImageAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GalleryActivity extends MainActivity {
+public class GalleryActivity extends LoginActivity {
 
     private GridView imageGridlayout;
     private View gridItemView;
