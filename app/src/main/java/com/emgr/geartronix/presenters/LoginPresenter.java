@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.activities.LoginActivity;
@@ -48,7 +47,7 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
 
     protected boolean attemptsExceeded(View button) {
 
-        if(attempts < 4)
+        if(attempts < 8)
             return false;
 
         showErrorMessage("You've exceeded the max number os attempts", "Error");

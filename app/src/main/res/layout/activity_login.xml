@@ -51,6 +51,7 @@
 
                 <EditText
                     android:id="@+id/txtPassword"
+                    android:inputType="textWebPassword"
                     style="@style/mediumTextBox"/>
 
                 <Button
