@@ -3,7 +3,6 @@ package com.emgr.geartronix.activities;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import com.emgr.geartronix.R;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -15,7 +14,7 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void goToLogin() {
-        Intent i = new Intent(this, LoginActivity.class);
+        Intent i = new Intent(this, LoginActivityLoginView.class);
         startActivity(i);
         finish();
     }

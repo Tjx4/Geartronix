@@ -10,7 +10,7 @@ import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.providers.DataServiceProvider;
 import com.emgr.geartronix.providers.HttpConnectionProvider;
-import com.emgr.geartronix.views.ILoginViewI;
+import com.emgr.geartronix.views.ILoginView;
 
 public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresenter {
 
@@ -20,7 +20,7 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
     private EditText usernameTxt;
     private EditText passwordTxt;
 
-    public LoginPresenter(ILoginViewI iLoginView) {
+    public LoginPresenter(ILoginView iLoginView) {
         activity = (BaseActivity) iLoginView;
     }
 
@@ -54,13 +54,12 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
     }
 
     @Override
-    protected void onPositiveDialogButtonClicked(DialogInterface dialogInterface, int i)
-    {
+    protected void onPositiveDialogButtonClicked(DialogInterface dialogInterface, int i){
       showLongToast("Positive button works");
     }
+
     @Override
-    protected  void onNagativeButtonClicked(DialogInterface dialogInterface, int i)
-    {
+    protected  void onNagativeButtonClicked(DialogInterface dialogInterface, int i){
       showLongToast("Nagative button works");
     }
 
@@ -74,13 +73,13 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
     }
 
     @Override
-    public void onRegisterClicked() {
-
+    public void onRegisterClicked(View view) {
+        showLongToast("Register");
     }
 
     @Override
-    public void onForgotPasswordClicked() {
-
+    public void onForgotPasswordClicked(View view) {
+        showLongToast("Forgot password.");
     }
 
     private void setViews() {
@@ -122,7 +121,7 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
 
     @Override
     protected Object doAsyncOperation(Object... args) throws Exception {
-        Log.i(BASE_LOG, "Thread started ... ...");
+Log.i(BASE_LOG, "Thread started ... ...");
 
         setLoginDetails();
         Bundle payload = new Bundle();
@@ -146,6 +145,12 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
 
             case R.id.btnLogin:
                 onLoginButtonClicked(button);
+                break;
+            case R.id.btnRegister:
+                onRegisterClicked(button);
+                break;
+            case R.id.txtForgotPassword:
+                onForgotPasswordClicked(button);
                 break;
 
             default:

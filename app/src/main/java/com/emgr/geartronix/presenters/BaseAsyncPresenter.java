@@ -1,14 +1,11 @@
 package com.emgr.geartronix.presenters;
 
-
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
-
 import com.emgr.geartronix.constants.Constants;
 import com.emgr.geartronix.providers.HttpConnectionProvider;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -99,10 +96,18 @@ public abstract class BaseAsyncPresenter extends BasePresenter{
 
         @Override
         protected void onPostExecute(Object outputData) {
+
+            if(appDisposed())
+                return;
+
             super.onPostExecute(outputData);
             afterAsyncCall(outputData);
 
             resetIfTriggeredByView(triggerView);
+        }
+
+        private boolean appDisposed() {
+            return activity == null;
         }
 
     }

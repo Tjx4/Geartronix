@@ -13,7 +13,7 @@
     android:padding="20dp"
     android:focusableInTouchMode="true"
     android:background="@drawable/page_background"
-    tools:context="com.emgr.geartronix.activities.LoginActivity">
+    tools:context="com.emgr.geartronix.activities.LoginActivityLoginView">
 
     <TextView style="@style/mediumLabel"
               android:text="@string/username" />
@@ -27,9 +27,19 @@
     <EditText android:id="@+id/txtPassword"
                style="@style/mediumTextBox" />
 
+    <TextView android:id="@+id/txtForgotPassword"
+              style="@style/forgotPasswordLabel"
+              android:text="@string/forgot_password" />
+
     <Button style="@style/mediumButton"
             android:id="@+id/btnLogin"
             android:text="@string/sign_in"
+            android:layout_width="match_parent"
+            android:onClick="handleButtonsClickedEvent"/>
+
+    <Button style="@style/mediumButton"
+            android:id="@+id/btnRegister"
+            android:text="@string/register"
             android:layout_width="match_parent"
             android:onClick="handleButtonsClickedEvent"/>
 

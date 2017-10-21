@@ -3,9 +3,9 @@ package com.emgr.geartronix.activities;
 import android.os.Bundle;
 import android.view.View;
 import com.emgr.geartronix.presenters.LoginPresenter;
-import com.emgr.geartronix.views.ILoginViewI;
+import com.emgr.geartronix.views.ILoginView;
 
-public class LoginActivity extends BaseAsyncActivity implements ILoginViewI {
+public class LoginActivityLoginView extends BaseAsyncActivity implements ILoginView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -7,11 +7,10 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
-
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 
-public abstract class BasePresenter{
+public abstract class BasePresenter {
 
     protected Context context;
     protected String BASE_LOG = "base_log";

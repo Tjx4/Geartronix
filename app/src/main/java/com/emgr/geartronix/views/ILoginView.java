@@ -1,8 +1,7 @@
 package com.emgr.geartronix.views;
 
-import android.view.View;
 import com.emgr.geartronix.presenters.LoginPresenter;
 
-public interface ILoginViewI extends IBaseAsyncView {
+public interface ILoginView extends IBaseAsyncView {
     LoginPresenter getPresenter();
 }
