@@ -2,8 +2,9 @@ package com.emgr.geartronix.providers;
 
 public enum HostProvider {
 
-    localHost("http://localhost/", "http://192.168.225.2/"),
-    onlineHost("http://demos.emilygracetechnologies.com/", "http://192.168.91.2/");
+    localHost("http://localhost/", "http://10.0.2.2/"),
+    demoHost("http://demos.emilygracetechnologies.com/demos/geartronix/", "http://192.168.91.2/"),
+    liveHost("http://", "http://");
 
     private String url;
     private String ip;
