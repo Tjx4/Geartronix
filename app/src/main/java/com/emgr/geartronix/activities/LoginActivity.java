@@ -25,46 +25,8 @@ public class LoginActivity extends BaseAsyncActivity implements ILoginViewI {
     }
 
     @Override
-    public void onLoginButtonClicked(View view) {
-        getPresenter().loginUser();
-    }
-
-    @Override
-    public void onRegisterButtonClicked(View view) {
-        getPresenter().registerUser();
-    }
-
-    @Override
-    public void onForgotPasswordClicked(View view) {
-        getPresenter().resetPassword();
-    }
-
-
-// -----------------------------------------------------------------------------------------
-
-    @Override
-    protected void beforeAsyncCall() {
-
-    }
-
-    @Override
-    protected void duringAsyncCall(Integer... values) {
-
-    }
-
-    @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
-        return null;
-    }
-
-    @Override
-    protected void afterAsyncCall(Object result) {
-
-    }
-
-    @Override
-    protected void handleButtonClickedEvent(View button) {
-
+    public void handleButtonsClickedEvent(View button) {
+        getPresenter().onAsyncButtonClickeEvent(button);
     }
 
 }

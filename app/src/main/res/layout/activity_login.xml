@@ -30,7 +30,8 @@
     <Button style="@style/mediumButton"
             android:id="@+id/btnLogin"
             android:text="@string/sign_in"
-            android:layout_width="match_parent"/>
+            android:layout_width="match_parent"
+            android:onClick="handleButtonsClickedEvent"/>
 
 </LinearLayout>
 
