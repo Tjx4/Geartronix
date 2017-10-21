@@ -4,6 +4,8 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.FrameLayout;
+
 import com.emgr.geartronix.constants.Constants;
 import com.emgr.geartronix.providers.HttpConnectionProvider;
 import java.io.IOException;
@@ -14,6 +16,7 @@ public abstract class BaseAsyncPresenter extends BasePresenter{
     protected int httpConTimeout = 6000;
     protected String environment = Constants.CURRENTENVIRONMENT;
     protected List<View> activeButtons  = new ArrayList<>();
+    public FrameLayout loadingScreenFrm;
 
     // Abstract methods
     protected abstract void beforeAsyncCall();
@@ -22,7 +25,6 @@ public abstract class BaseAsyncPresenter extends BasePresenter{
     protected abstract void afterAsyncCall(Object result);
     protected abstract void handleAsyncButtonClickedEvent(View button);
 
-
     public void onAsyncButtonClickeEvent(View button) {
         if (isCurrentlyWorking(button))
             return;
@@ -30,6 +32,14 @@ public abstract class BaseAsyncPresenter extends BasePresenter{
         activeButtons.add(button);
         //setBusy(true);
         handleAsyncButtonClickedEvent(button);
+    }
+
+
+    protected void showLoadingScreen() {
+        loadingScreenFrm.setVisibility(View.VISIBLE);
+    }
+    protected void hideLoadingScreen() {
+        loadingScreenFrm.setVisibility(View.GONE);
     }
 
     private boolean isCurrentlyWorking(View button) {

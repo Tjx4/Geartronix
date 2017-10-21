@@ -60,4 +60,15 @@
         <item name="android:layout_height">@dimen/medium_button_height</item>
     </style>
 
+    <style name="loadingScreen">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+    </style>
+
+    <style name="loadingSpinner" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/blue_one</item>
+        <item name="android:textColorPrimary">@color/colorTransparent</item>
+        <item name="android:background">@color/colorTransparent</item>
+    </style>
+
 </resources>

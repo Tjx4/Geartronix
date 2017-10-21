@@ -6,8 +6,11 @@ import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
+import com.emgr.geartronix.activities.LoginActivity;
 import com.emgr.geartronix.providers.DataServiceProvider;
 import com.emgr.geartronix.providers.HttpConnectionProvider;
 import com.emgr.geartronix.views.ILoginView;
@@ -88,8 +91,9 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
 
     private void setViews() {
         //loginBtn = (Button)findViewById(R.id.btnLogin);
-        usernameTxt = (EditText)activity.findViewById(R.id.txtUsername);
-        passwordTxt = (EditText)activity.findViewById(R.id.txtPassword);
+        usernameTxt = (EditText)getActivity().findViewById(R.id.txtUsername);
+        passwordTxt = (EditText)getActivity().findViewById(R.id.txtPassword);
+        loadingScreenFrm = (FrameLayout) getActivity().findViewById(R.id.frmLoadingScreen);
     }
 
 
@@ -97,6 +101,11 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
     public void setLoginDetails() {
         setUsername(usernameTxt.getText().toString());
         setPassword(passwordTxt.getText().toString());
+    }
+
+    @Override
+    public LoginActivity getActivity() {
+        return (LoginActivity)activity;
     }
 
     public String getUsername() {
@@ -115,7 +124,7 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
 
     @Override
     protected void beforeAsyncCall() {
-
+        showLoadingScreen();
     }
 
     @Override
@@ -143,6 +152,7 @@ Log.i(BASE_LOG, "Thread started ... ...");
         String respnse = result.toString();
         Log.e(BASE_LOG, respnse);
         showLongToast(respnse);
+        hideLoadingScreen();
     }
 
     @Override
