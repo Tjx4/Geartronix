@@ -7,6 +7,6 @@
     <string name="ok">Ok</string>
     <string name="forgot_password">Cant login? please click here</string>
     <string name="register">Register</string>
-    <string name="create_a_new_account">Not yet a member? create a new account</string>
+    <string name="create_a_new_account">Not yet a member? create a new account...</string>
     <string name="welcome_message"> Welcome to Geartronix</string>
 </resources>
