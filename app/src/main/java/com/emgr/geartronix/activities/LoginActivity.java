@@ -5,7 +5,7 @@ import android.view.View;
 import com.emgr.geartronix.presenters.LoginPresenter;
 import com.emgr.geartronix.views.ILoginView;
 
-public class LoginActivityLoginView extends BaseAsyncActivity implements ILoginView {
+public class LoginActivity extends BaseAsyncActivity implements ILoginView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

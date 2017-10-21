@@ -18,7 +18,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".activities.LoginActivityLoginView"/>
+        <activity android:name=".activities.LoginActivity"/>
         <activity android:name=".activities.GalleryActivity"/>
         <activity android:name=".activities.CollToolbarActivity"/>
         <activity android:name=".activities.BaseAsyncActivity">
