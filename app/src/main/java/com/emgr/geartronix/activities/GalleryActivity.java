@@ -15,7 +15,7 @@ import com.emgr.geartronix.adapters.GalleryImageAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GalleryActivity extends LoginActivity {
+public class GalleryActivity extends BaseActivity {
 
     private GridView imageGridlayout;
     private View gridItemView;

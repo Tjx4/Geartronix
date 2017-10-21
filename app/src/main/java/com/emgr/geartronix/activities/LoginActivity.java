@@ -1,53 +1,36 @@
 package com.emgr.geartronix.activities;
 
-import android.content.Context;
-import android.content.Intent;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-
 import com.emgr.geartronix.R;
+import com.emgr.geartronix.presenters.LoginPresenter;
+import com.emgr.geartronix.views.ILoginView;
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity implements ILoginView{
 
-    protected Context context;
-    private Button btnOne;
+    private LoginPresenter loginPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        context = this;
+        comonOnCreate(R.layout.activity_main);
 
-        ActionBar ab = basicActionBarConfiguration(getString(R.string.app_name));
-        ab.setLogo(R.mipmap.ic_launcher);
-        ab.setDisplayUseLogoEnabled(true);
-        ab.setDisplayShowHomeEnabled(true);
-
-        /*ab.setTitle(getResources().getString(R.string.app_name));
-        ab.setDisplayHomeAsUpEnabled(true);*/
-
-        btnOne = (Button)findViewById(R.id.Button1);
-        btnOne.setOnClickListener(new View.OnClickListener(){
-
-            @Override
-            public void onClick(View view) {
-                goToGallery(view);
-            }
-        });
+        presenter = new LoginPresenter(this);
+        loginPresenter = (LoginPresenter)presenter;
     }
 
-    public void goToGallery(View view) {
-        Intent i = new Intent(context, GalleryActivity.class);
-        startActivity(i);
+    @Override
+    public void onLoginButtonClicked(View view) {
+        loginPresenter.loginUser();
     }
 
-    protected ActionBar basicActionBarConfiguration(String title) {
-        ActionBar ab = getSupportActionBar();
-        ab.setTitle(title);
+    @Override
+    public void onRegisterButtonClicked(View view) {
+        loginPresenter.registerUser();
+    }
 
-        return ab;
+    @Override
+    public void onForgotPasswordClicked(View view) {
+        loginPresenter.resetPassword();
     }
 }
