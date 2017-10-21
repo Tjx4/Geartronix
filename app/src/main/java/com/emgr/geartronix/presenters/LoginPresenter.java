@@ -75,11 +75,15 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
     @Override
     public void onRegisterClicked(View view) {
         showLongToast("Register");
+
+        resetIfTriggeredByView(view);
     }
 
     @Override
     public void onForgotPasswordClicked(View view) {
         showLongToast("Forgot password.");
+
+        resetIfTriggeredByView(view);
     }
 
     private void setViews() {
@@ -127,7 +131,8 @@ Log.i(BASE_LOG, "Thread started ... ...");
         Bundle payload = new Bundle();
         payload.putString("username", username);
         payload.putString("password", password);
-        String url = environment + DataServiceProvider.login + "index.php";
+        String service = DataServiceProvider.login.getPath();
+        String url = environment + service + "index.php";
 
         return new HttpConnectionProvider(payload).makeCallForData(url, "GET", true, true, httpConTimeout);
 
@@ -135,7 +140,9 @@ Log.i(BASE_LOG, "Thread started ... ...");
 
     @Override
     protected void afterAsyncCall(Object result) {
-
+        String respnse = result.toString();
+        Log.e(BASE_LOG, respnse);
+        showLongToast(respnse);
     }
 
     @Override

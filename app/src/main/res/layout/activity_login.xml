@@ -25,11 +25,12 @@
               android:text="@string/password" />
 
     <EditText android:id="@+id/txtPassword"
-               style="@style/mediumTextBox" />
+              style="@style/mediumTextBox" />
 
     <TextView android:id="@+id/txtForgotPassword"
               style="@style/forgotPasswordLabel"
-              android:text="@string/forgot_password" />
+              android:text="@string/forgot_password"
+              android:onClick="handleButtonsClickedEvent"/>
 
     <Button style="@style/mediumButton"
             android:id="@+id/btnLogin"

@@ -40,7 +40,7 @@ public abstract class BaseAsyncPresenter extends BasePresenter{
         activeButtons.remove(button);
         //setBusy(false);
     }
-    private void resetIfTriggeredByView(View triggerView) {
+    protected void resetIfTriggeredByView(View triggerView) {
         if(triggerView != null)
             resetButtonState(triggerView);
     }

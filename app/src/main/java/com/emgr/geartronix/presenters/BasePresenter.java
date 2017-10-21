@@ -44,15 +44,15 @@ public abstract class BasePresenter {
     }
 
     protected void showLongToast(String message){
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
     }
     protected void showShortToast(String message){
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
     }
 
     protected AlertDialog.Builder setupBasicMessage(String message, String title){
 
-        AlertDialog.Builder ab = new AlertDialog.Builder(context);
+        AlertDialog.Builder ab = new AlertDialog.Builder(activity);
         ab.setMessage(message)
                 .setTitle(title)
                 .setPositiveButton(activity.getString(R.string.ok), new DialogInterface.OnClickListener() {
