@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Geartronix</string>
     <string name="default_text">text</string>
-    <string name="username">E mail or phone number</string>
+    <string name="username">E mail or contact number</string>
     <string name="password">Password</string>
     <string name="sign_in">Sign in</string>
     <string name="ok">Ok</string>
