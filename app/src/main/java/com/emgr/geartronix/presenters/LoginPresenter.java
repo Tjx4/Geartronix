@@ -39,9 +39,6 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
         ab.setLogo(R.drawable.signin_icon);
         ab.setDisplayUseLogoEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
-
-        /*ab.setTitle(getResources().getString(R.string.app_name));
-        ab.setDisplayHomeAsUpEnabled(true);*/
     }
 
     protected boolean attemptsExceeded(View button) {

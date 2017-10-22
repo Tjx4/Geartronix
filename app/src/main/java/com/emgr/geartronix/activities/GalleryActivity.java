@@ -5,7 +5,7 @@ package com.emgr.geartronix.activities;
 import android.os.Bundle;
 import android.view.View;
 
-import com.emgr.geartronix.presenters.GallaryPresenter;
+import com.emgr.geartronix.presenters.GalleryPresenter;
 import com.emgr.geartronix.views.IGalleryView;
 
 public class GalleryActivity extends BaseActivity implements IGalleryView {
@@ -18,11 +18,16 @@ public class GalleryActivity extends BaseActivity implements IGalleryView {
 
     @Override
     public void setPresenter() {
-        presenter = new GallaryPresenter(this);
+        presenter = new GalleryPresenter(this);
     }
 
     @Override
     public void handleButtonsClickedEvent(View button) {
 
+    }
+
+    @Override
+    public GalleryPresenter getPresenter() {
+        return (GalleryPresenter)presenter;
     }
 }

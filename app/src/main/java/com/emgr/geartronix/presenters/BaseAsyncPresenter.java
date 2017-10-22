@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
-
 import com.emgr.geartronix.constants.Constants;
 import com.emgr.geartronix.providers.HttpConnectionProvider;
 import java.io.IOException;
@@ -33,7 +32,6 @@ public abstract class BaseAsyncPresenter extends BasePresenter{
         //setBusy(true);
         handleAsyncButtonClickedEvent(button);
     }
-
 
     protected void showLoadingScreen() {
         loadingScreenFrm.setVisibility(View.VISIBLE);

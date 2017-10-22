@@ -17,14 +17,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GallaryPresenter extends BaseAsyncPresenter implements IGallaryPresenter {
+public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPresenter {
 
     private GridView imageGridlayout;
     private View gridItemView;
     private List<ArrayList> items;
     private int columnCount;
 
-    public GallaryPresenter(IGalleryView iGalleryView) {
+    public GalleryPresenter(IGalleryView iGalleryView) {
         setDependancies((BaseActivity) iGalleryView, R.layout.activity_gallery);
         setGrid(null);
     }
@@ -34,15 +34,12 @@ public class GallaryPresenter extends BaseAsyncPresenter implements IGallaryPres
         ActionBar ab = basicActionBarConfiguration(activity.getString(R.string.Gallery));
         ab.setDisplayUseLogoEnabled(false);
         ab.setDisplayHomeAsUpEnabled(true);
-
-        /*ab.setTitle(getResources().getString(R.string.app_name));
-        ab.setDisplayHomeAsUpEnabled(true);*/
     }
 
 
     private void setGridItems(int layout) {
         imageGridlayout = (GridView)activity.findViewById(R.id.imageGrid);
-        ArrayAdapter imgGridAdapter = new GalleryImageAdapter(context, imageGridlayout, layout, getItems(), getColumnWidth());
+        ArrayAdapter imgGridAdapter = new GalleryImageAdapter(activity, imageGridlayout, layout, getItems(), getColumnWidth());
         setImageGridItems(imgGridAdapter);
     }
 
@@ -62,7 +59,7 @@ public class GallaryPresenter extends BaseAsyncPresenter implements IGallaryPres
         ArrayList item3 = new ArrayList();
         item3.add("GearBox 3");
         item3.add("3 This is the description 2 for this gearbox");
-        item3.add(R.drawable.bg1);
+        item3.add(R.drawable.bg_landscape);
 
         ArrayList item4 = new ArrayList();
         item4.add("GearBox 4");

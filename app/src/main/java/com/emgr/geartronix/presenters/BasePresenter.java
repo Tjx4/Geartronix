@@ -1,26 +1,50 @@
 package com.emgr.geartronix.presenters;
 
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.view.Display;
+import android.view.View;
+import android.view.WindowManager;
 import android.widget.Toast;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 
+import static android.content.Context.WINDOW_SERVICE;
+
 public abstract class BasePresenter {
 
-    protected Context context;
     protected String BASE_LOG = "base_log";
     public BaseActivity activity;
+    public int deviceOrientation;
 
     protected void setDependancies(BaseActivity activity, int contentView) {
         this.activity = activity;
         activity.setContentView(contentView);
         configureActionBar();
         slideInActivity();
+        setBackgroundImage(contentView);
+    }
+
+    private void setBackgroundImage(int contentView) {
+
+        try {
+            View view = (View) activity.findViewById(contentView);
+            deviceOrientation = activity.getResources().getConfiguration().orientation;
+
+            if(deviceOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+                view.setBackgroundResource(R.drawable.page_background);
+            } else {
+                view.setBackgroundResource(R.drawable.page_background_portrait);
+            }
+        }
+        catch (Exception e){
+
+        }
+
     }
 
     public void configureActionBar() {
@@ -39,7 +63,7 @@ public abstract class BasePresenter {
     }
 
     protected void goToActivity(Class activity) {
-        Intent i = new Intent(context, activity);
+        Intent i = new Intent(this.activity, activity);
         this.activity.startActivity(i);
     }
 

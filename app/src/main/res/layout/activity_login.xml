@@ -12,18 +12,17 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/frmLoginBottom">
+        android:layout_above="@+id/frmLoginBottom"
+       >
 
         <ScrollView
             android:id="@+id/scrLogin"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/appBackground">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@drawable/page_background"
                 android:focusableInTouchMode="true"
                 android:orientation="vertical"
                 android:padding="20dp"
@@ -68,7 +67,6 @@
                     android:onClick="handleButtonsClickedEvent"
                     android:text="@string/forgot_password"
                     android:textAlignment="center"/>
-
 
             </LinearLayout>
 

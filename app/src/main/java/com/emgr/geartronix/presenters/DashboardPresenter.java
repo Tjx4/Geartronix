@@ -1,10 +1,12 @@
 package com.emgr.geartronix.presenters;
 
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
+import com.emgr.geartronix.activities.GalleryActivity;
 import com.emgr.geartronix.models.AccountModel;
 import com.emgr.geartronix.views.IDashboardView;
 
@@ -49,5 +51,16 @@ public class DashboardPresenter extends BaseAsyncPresenter implements IDashboard
     @Override
     public void saveLoginDetails() {
         //String user = activity.getIntent().getExtras().getBundle("payload").getString("user");
+    }
+
+    @Override
+    public void menuOptionSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.action_gallery:
+                goToActivity(GalleryActivity.class);
+                break;
+        }
     }
 }
