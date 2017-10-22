@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Geartronix</string>
     <string name="default_text">text</string>
-    <string name="username">Username</string>
+    <string name="username">E mail or phone number</string>
     <string name="password">Password</string>
     <string name="sign_in">Sign in</string>
     <string name="ok">Ok</string>
@@ -9,6 +9,7 @@
     <string name="register">Register</string>
     <string name="create_a_new_account">Not yet a member? create a new account...</string>
     <string name="welcome_message"> Welcome to Geartronix</string>
+    <string name="signin_welcome_message">Welcome please sign in to your account to continue</string>
     <string name="Gallery">Gallery</string>
     <string name="settings">Settings</string>
 </resources>

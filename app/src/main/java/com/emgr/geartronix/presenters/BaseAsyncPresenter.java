@@ -115,7 +115,7 @@ public abstract class BaseAsyncPresenter extends BasePresenter{
         }
 
         private boolean appDisposed() {
-            return activity == null;
+            return activity.presenter == null;
         }
 
     }

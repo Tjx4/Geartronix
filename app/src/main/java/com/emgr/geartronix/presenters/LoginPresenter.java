@@ -36,7 +36,7 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
     @Override
     public void configureActionBar() {
         ActionBar ab = basicActionBarConfiguration(" "+activity.getString(R.string.sign_in));
-        ab.setLogo(R.drawable.signin_icon);
+        ab.setLogo(R.mipmap.ic_launcher);
         ab.setDisplayUseLogoEnabled(true);
         ab.setDisplayShowHomeEnabled(true);
     }
