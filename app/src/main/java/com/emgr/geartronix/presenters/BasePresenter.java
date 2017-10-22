@@ -16,8 +16,15 @@ public abstract class BasePresenter {
     protected String BASE_LOG = "base_log";
     public BaseActivity activity;
 
-    protected void comonOnCreate(int contentView) {
+    protected void comonOnCreate(BaseActivity activity, int contentView) {
+        this.activity = activity;
         activity.setContentView(contentView);
+        configureActionBar();
+        slideInActivity();
+    }
+
+    public void configureActionBar() {
+        ActionBar ab = basicActionBarConfiguration(" "+activity.getString(R.string.app_name));
     }
 
     protected void slideInActivity() {

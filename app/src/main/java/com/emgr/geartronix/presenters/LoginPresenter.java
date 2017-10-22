@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
+import com.emgr.geartronix.activities.DashboardActivity;
 import com.emgr.geartronix.activities.LoginActivity;
 import com.emgr.geartronix.models.LoginModel;
 import com.emgr.geartronix.providers.DataServiceProvider;
@@ -27,10 +28,7 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
     private LoginModel responseModel;
 
     public LoginPresenter(ILoginView iLoginView) {
-        activity = (BaseActivity) iLoginView;
-        slideInActivity();
-        comonOnCreate(R.layout.activity_login);
-        configureActionBar();
+        comonOnCreate((BaseActivity)iLoginView, R.layout.activity_login);
         setViews();
         responseModel = new LoginModel();
     }
@@ -89,14 +87,6 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
         resetIfTriggeredByView(view);
     }
 
-    private void setViews() {
-        //loginBtn = (Button)findViewById(R.id.btnLogin);
-        usernameTxt = (EditText)getActivity().findViewById(R.id.txtUsername);
-        passwordTxt = (EditText)getActivity().findViewById(R.id.txtPassword);
-        loadingScreenFrm = (FrameLayout) getActivity().findViewById(R.id.frmLoadingScreen);
-    }
-
-
     @Override
     public void setLoginDetails() {
         setUsername(usernameTxt.getText().toString());
@@ -105,12 +95,25 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
 
     @Override
     public void goToDashBoard() {
-        //goToActivity();
+       Bundle loginDetails = new Bundle();
+       loginDetails.putString("user", responseModel.getUser());
+       loginDetails.putInt("userId", responseModel.getUserId());
+       loginDetails.putString("session", responseModel.getSession());
+
+       goToActivityWithPayload(DashboardActivity.class, loginDetails);
     }
 
     @Override
     public LoginActivity getActivity() {
         return (LoginActivity)activity;
+    }
+
+    @Override
+    public void setViews() {
+        //loginBtn = (Button)findViewById(R.id.btnLogin);
+        usernameTxt = (EditText)getActivity().findViewById(R.id.txtUsername);
+        passwordTxt = (EditText)getActivity().findViewById(R.id.txtPassword);
+        loadingScreenFrm = (FrameLayout) getActivity().findViewById(R.id.frmLoadingScreen);
     }
 
     public String getUsername() {
@@ -149,7 +152,6 @@ Log.i(BASE_LOG, "Thread started ... ...");
         String url = environment + service + "index.php";
 
         return new HttpConnectionProvider(payload).makeCallForData(url, "GET", true, true, httpConTimeout);
-
     }
 
     @Override
@@ -157,14 +159,19 @@ Log.i(BASE_LOG, "Thread started ... ...");
 
         try {
             setResponseModel(result.toString());
+            hideLoadingScreen();
+
+            if(responseModel.isSuccessful){
+                goToDashBoard();
+            }
+            else {
+                showErrorMessage(responseModel.message, "Login error");
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        showShortToast("session:" + responseModel.session + "| message:" + responseModel.message + "| isSuccessful:" + responseModel.isSuccessful);
-
-        hideLoadingScreen();
     }
 
     @Override

@@ -13,4 +13,5 @@ public interface ILoginPresenter extends IBaseAsyncPresenter {
     void setLoginDetails();
     void goToDashBoard();
     LoginActivity getActivity();
+    void setViews();
 }

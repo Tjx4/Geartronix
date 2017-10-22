@@ -23,6 +23,8 @@
         <activity android:name=".activities.CollToolbarActivity"/>
         <activity android:name=".activities.BaseAsyncActivity">
         </activity>
+        <activity android:name=".activities.DashboardActivity">
+        </activity>
     </application>
 
 </manifest>
