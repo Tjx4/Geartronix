@@ -1,24 +1,21 @@
 package com.emgr.geartronix.models;
 
-import android.content.pm.PackageInstaller;
-
 public abstract class BaseModel {
 
-    private boolean isSuccessful;
+    public boolean isSuccessful;
     public String message;
-    private String responseCode;
-    private PackageInstaller.Session session;
+    public String responseCode;
 
-    public Object getDefault(Object property) {
-        return property;
+    public String getResponse() {
+        return response;
     }
 
-    public void setDefault(Object property, Object value) {
-        property = value;
+    public void setResponse(String response) {
+        this.response = response;
     }
 
+    private String response;
 
-    /*
     public boolean isSuccessful() {
         return isSuccessful;
     }
@@ -43,12 +40,4 @@ public abstract class BaseModel {
         this.responseCode = responseCode;
     }
 
-    public PackageInstaller.Session getSession() {
-        return session;
-    }
-
-    public void setSession(PackageInstaller.Session session) {
-        this.session = session;
-    }
-    */
 }

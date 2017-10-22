@@ -11,7 +11,6 @@ public class LoginActivity extends BaseAsyncActivity implements ILoginView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setPresenter();
-        getPresenter().onCreate();
     }
 
     @Override

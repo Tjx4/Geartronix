@@ -10,9 +10,12 @@ import android.widget.FrameLayout;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.activities.LoginActivity;
+import com.emgr.geartronix.models.LoginModel;
 import com.emgr.geartronix.providers.DataServiceProvider;
 import com.emgr.geartronix.providers.HttpConnectionProvider;
 import com.emgr.geartronix.views.ILoginView;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresenter {
 
@@ -21,17 +24,15 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
     private String password;
     private EditText usernameTxt;
     private EditText passwordTxt;
+    private LoginModel responseModel;
 
     public LoginPresenter(ILoginView iLoginView) {
         activity = (BaseActivity) iLoginView;
-    }
-
-    @Override
-    public void onCreate() {
         slideInActivity();
         comonOnCreate(R.layout.activity_login);
         configureActionBar();
         setViews();
+        responseModel = new LoginModel();
     }
 
     @Override
@@ -103,6 +104,11 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
     }
 
     @Override
+    public void goToDashBoard() {
+        //goToActivity();
+    }
+
+    @Override
     public LoginActivity getActivity() {
         return (LoginActivity)activity;
     }
@@ -148,11 +154,28 @@ Log.i(BASE_LOG, "Thread started ... ...");
 
     @Override
     protected void afterAsyncCall(Object result) {
-        String respnse = result.toString();
-        Log.e(BASE_LOG, respnse);
-        showLongToast(respnse);
+
+        try {
+            setResponseModel(result.toString());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        showShortToast("session:" + responseModel.session + "| message:" + responseModel.message + "| isSuccessful:" + responseModel.isSuccessful);
+
         hideLoadingScreen();
     }
+
+    @Override
+    public void setResponseModel(String response) throws JSONException {
+        JSONObject responseJson = new JSONObject(response);
+        responseModel.setResponse(responseJson.toString());
+        responseModel.setMessage(responseJson.getString("message"));
+        responseModel.setSuccessful(responseJson.getBoolean("isSuccessful"));
+        responseModel.setSession(responseJson.getString("session"));
+    }
+
 
     @Override
     protected void handleAsyncButtonClickedEvent(View button) {
