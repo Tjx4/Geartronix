@@ -2,6 +2,7 @@ package com.emgr.geartronix.activities;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 import com.emgr.geartronix.presenters.DashboardPresenter;
 import com.emgr.geartronix.views.IDashboardView;
 

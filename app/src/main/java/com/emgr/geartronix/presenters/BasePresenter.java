@@ -16,7 +16,7 @@ public abstract class BasePresenter {
     protected String BASE_LOG = "base_log";
     public BaseActivity activity;
 
-    protected void comonOnCreate(BaseActivity activity, int contentView) {
+    protected void setDependancies(BaseActivity activity, int contentView) {
         this.activity = activity;
         activity.setContentView(contentView);
         configureActionBar();
@@ -45,7 +45,7 @@ public abstract class BasePresenter {
 
     protected void goToActivityWithPayload(Class activity, Bundle bundle) {
         Bundle payload = bundle;
-        Intent i = new Intent(context, activity);
+        Intent i = new Intent(this.activity, activity);
         i.putExtra("payload", payload);
         this.activity.startActivity(i);
     }
@@ -59,7 +59,7 @@ public abstract class BasePresenter {
 
     protected AlertDialog.Builder setupBasicMessage(String message, String title){
 
-        AlertDialog.Builder ab = new AlertDialog.Builder(activity);
+        AlertDialog.Builder ab = new AlertDialog.Builder(activity, R.style.AlertDialogCustom);
         ab.setMessage(message)
                 .setTitle(title)
                 .setPositiveButton(activity.getString(R.string.ok), new DialogInterface.OnClickListener() {

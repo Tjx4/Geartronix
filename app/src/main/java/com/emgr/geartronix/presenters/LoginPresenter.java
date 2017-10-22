@@ -28,7 +28,7 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
     private LoginModel responseModel;
 
     public LoginPresenter(ILoginView iLoginView) {
-        comonOnCreate((BaseActivity)iLoginView, R.layout.activity_login);
+        setDependancies((BaseActivity)iLoginView, R.layout.activity_login);
         setViews();
         responseModel = new LoginModel();
     }
@@ -57,6 +57,7 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
     @Override
     protected void onPositiveDialogButtonClicked(DialogInterface dialogInterface, int i){
       showLongToast("Positive button works");
+      attempts++;
     }
 
     @Override
@@ -70,7 +71,6 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
             return;
 
         new DoAsyncCall(button).execute();
-        attempts++;
     }
 
     @Override
@@ -178,6 +178,8 @@ Log.i(BASE_LOG, "Thread started ... ...");
     public void setResponseModel(String response) throws JSONException {
         JSONObject responseJson = new JSONObject(response);
         responseModel.setResponse(responseJson.toString());
+        responseModel.setUserId(responseJson.getInt("userId"));
+        responseModel.setUser(responseJson.getString("user"));
         responseModel.setMessage(responseJson.getString("message"));
         responseModel.setSuccessful(responseJson.getBoolean("isSuccessful"));
         responseModel.setSession(responseJson.getString("session"));

@@ -70,5 +70,12 @@
         <item name="android:textColorPrimary">@color/colorTransparent</item>
         <item name="android:background">@color/colorTransparent</item>
     </style>
+    <style name="AlertDialogCustom" parent="@android:style/Theme.Dialog">
+        <item name="android:textColor">#dddddd</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:background">@color/colorPrimaryDark</item>
+        <item name="android:color">#cccccc</item>
+    </style>
 
 </resources>
