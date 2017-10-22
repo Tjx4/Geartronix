@@ -1,6 +1,7 @@
 package com.emgr.geartronix.activities;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.widget.Toast;
 import com.emgr.geartronix.presenters.DashboardPresenter;
@@ -27,5 +28,10 @@ public class DashboardActivity extends BaseAsyncActivity implements IDashboardVi
     @Override
     public void handleButtonsClickedEvent(View button) {
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return super.onCreateOptionsMenu(menu);
     }
 }

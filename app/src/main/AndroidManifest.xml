@@ -20,11 +20,13 @@
         </activity>
         <activity android:name=".activities.LoginActivity"/>
         <activity android:name=".activities.GalleryActivity"/>
-        <activity android:name=".activities.CollToolbarActivity"/>
-        <activity android:name=".activities.BaseAsyncActivity">
+        <activity android:name=".activities.CollToolbarActivity"
+                  android:parentActivityName=".activities.DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.DashboardActivity"/>
         </activity>
-        <activity android:name=".activities.DashboardActivity">
-        </activity>
+        <activity android:name=".activities.DashboardActivity"></activity>
     </application>
 
 </manifest>

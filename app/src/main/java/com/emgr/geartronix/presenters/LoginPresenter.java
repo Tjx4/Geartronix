@@ -55,15 +55,10 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
     }
 
     @Override
-    protected void onPositiveDialogButtonClicked(DialogInterface dialogInterface, int i){
-      showLongToast("Positive button works");
+    protected void onPositiveDialogButtonClicked(DialogInterface dialogInterface, int i) {
       attempts++;
     }
 
-    @Override
-    protected  void onNagativeButtonClicked(DialogInterface dialogInterface, int i){
-      showLongToast("Nagative button works");
-    }
 
     @Override
     public void onLoginButtonClicked(View button) {
