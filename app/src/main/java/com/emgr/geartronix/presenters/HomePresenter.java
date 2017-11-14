@@ -8,6 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
+
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.activities.GalleryActivity;
@@ -19,6 +21,7 @@ public class HomePresenter extends BaseAsyncPresenter implements IHomePresenter 
 
     private AccountModel responseModel;
     private DrawerLayout mDrawerLayout;
+    private GridView homeTileContainer;
 
     public HomePresenter(IHomeView iHomeView) {
         setDependanciesNoActionBar((BaseActivity) iHomeView, R.layout.activity_home);
@@ -99,6 +102,8 @@ public class HomePresenter extends BaseAsyncPresenter implements IHomePresenter 
 
         NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener)getActivity());
+
+        homeTileContainer = (GridView) getActivity().findViewById(R.id.grdHomeTiles);
     }
 
     @Override
