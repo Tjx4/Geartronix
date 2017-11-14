@@ -16,11 +16,18 @@ public class DashboardPresenter extends BaseAsyncPresenter implements IDashboard
 
     public DashboardPresenter(IDashboardView iDashboardView) {
         setDependancies((BaseActivity)iDashboardView, R.layout.activity_dashboard2);
-        //setViews();
         responseModel = new AccountModel();
 
-        String user = activity.getIntent().getExtras().getBundle("payload").getString("user");
-        showShortToast("Welcome "+user);
+        try {
+
+            String user = activity.getIntent().getExtras().getBundle("payload").getString("user");
+            showShortToast("Welcome "+user);
+        }
+        catch (Exception e){
+
+            slideOutActivity();
+        }
+
     }
 
     @Override

@@ -93,6 +93,7 @@
                 android:onClick="handleButtonsClickedEvent"/>
 </FrameLayout>
 
+
 <include
     android:id="@+id/frmLoadingScreen"
     android:layout_height="match_parent"

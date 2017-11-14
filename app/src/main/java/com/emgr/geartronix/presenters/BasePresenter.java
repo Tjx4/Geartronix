@@ -55,6 +55,10 @@ public abstract class BasePresenter {
         activity.overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 
+    protected void slideOutActivity() {
+        activity.overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+    }
+
     protected ActionBar basicActionBarConfiguration(String title) {
         ActionBar ab = this.activity.getSupportActionBar();
         ab.setTitle(title);

@@ -39,7 +39,7 @@ public class SplashActivity extends AppCompatActivity {
                     {
                         int curProg = i;
                         startingProgress.setProgress(curProg);
-                        Thread.sleep(80);
+                        Thread.sleep(0);
                     }
 
                     goToLogin();

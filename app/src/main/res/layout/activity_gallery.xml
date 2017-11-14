@@ -66,14 +66,14 @@
             android:background="@color/transBlack">
 
             <ImageButton
-                android:id="@+id/imgIconone"
+                android:id="@+id/imgCloseDetailedView"
                 android:layout_width="50dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="40dp"
                 android:background="@color/colorTransparent"
-                android:src="@drawable/close_icon"
-                android:onClick="closeDetailedView" />
+                android:onClick="handleButtonsClickedEvent"
+                android:src="@drawable/close_icon"/>
 
             <ImageButton
                 android:id="@+id/imgIconTwo"
@@ -81,8 +81,8 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
                 android:layout_marginLeft="3dp"
-                android:layout_toEndOf="@+id/imgIconone"
-                android:layout_toRightOf="@+id/imgIconone"
+                android:layout_toEndOf="@+id/imgCloseDetailedView"
+                android:layout_toRightOf="@+id/imgCloseDetailedView"
                 android:background="@color/colorTransparent"
                 android:src="@drawable/share_icon"/>
 
