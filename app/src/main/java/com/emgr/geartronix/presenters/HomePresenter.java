@@ -17,6 +17,7 @@ import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.activities.GalleryActivity;
 import com.emgr.geartronix.activities.HomeActivity;
 import com.emgr.geartronix.adapters.HomeTileAdapter;
+import com.emgr.geartronix.constants.Constants;
 import com.emgr.geartronix.models.AccountModel;
 import com.emgr.geartronix.views.IHomeView;
 
@@ -173,6 +174,27 @@ showShortToast("handleNavigationItemSelected");
     @Override
     public void handleTileClicked(View view) {
 
+        setActiveInactiveColor(view);
+
+        switch (view.getId()){
+
+            case Constants.PROFILEID:
+                showShortToast("Profile");
+            break;
+            case Constants.BOOKSERVICEID:
+                showShortToast("book service");
+            break;
+            case Constants.GALLERYID:
+                showShortToast("Gallery");
+            break;
+            case Constants.FINDUSID:
+                showShortToast("Find us");
+            break;
+        }
+
+    }
+
+    private void setActiveInactiveColor(View view) {
         if(view == lastView)
             return;
 
@@ -185,7 +207,6 @@ showShortToast("handleNavigationItemSelected");
             lastView.setBackgroundColor(inactive);
 
         lastView = view;
-
     }
 
 }

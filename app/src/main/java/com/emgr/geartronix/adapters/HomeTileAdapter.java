@@ -10,6 +10,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.emgr.geartronix.R;
+import com.emgr.geartronix.constants.Constants;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,12 +28,16 @@ public class HomeTileAdapter extends ArrayAdapter {
         this.items = items;
     }
 
+    private int viewId;
+
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
 
         LayoutInflater li = activity.getLayoutInflater();
-        View  parentView = li.inflate(layout, parent, false);
+        View parentView = li.inflate(layout, parent, false);
+
+        parentView.setId(generateId(position));
 
         ImageView itemIcon = (ImageView)parentView.findViewById(R.id.imgHomeTile);
         itemIcon.setImageResource((int)items.get(position).get(0));
@@ -42,6 +48,26 @@ public class HomeTileAdapter extends ArrayAdapter {
         return parentView;
 
      }
+
+    private int generateId(int position) {
+        switch (position)
+        {
+            case 0:
+                viewId =  Constants.PROFILEID;
+            break;
+            case 1:
+                viewId =  Constants.BOOKSERVICEID;
+            break;
+            case 2:
+                viewId = Constants.GALLERYID;
+            break;
+            case 3:
+                viewId = Constants.FINDUSID;
+            break;
+        }
+
+        return viewId;
+    }
 
 
 }

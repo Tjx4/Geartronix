@@ -38,6 +38,12 @@ public abstract class BasePresenter {
         slideInActivity();
     }
 
+    protected boolean isTablet() {
+        return (activity.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+
+    }
 
     private void setBackgroundImage(int contentView) {
 
