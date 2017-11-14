@@ -2,10 +2,17 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/action_view_services"
+            android:icon="@drawable/progress_icon"
+            android:title="View our Services"/>
+
         <item
             android:id="@+id/action_make_booking"
             android:icon="@drawable/booking_icon"
             android:title="Book a service"/>
+
         <item
             android:id="@+id/action_check_progress"
             android:icon="@drawable/progress_icon"
@@ -18,11 +25,17 @@
             <item
                 android:id="@+id/nav_share"
                 android:icon="@android:drawable/ic_menu_share"
-                android:title="Share"/>
+                android:title="Contact us"/>
+
             <item
                 android:id="@+id/nav_send"
                 android:icon="@android:drawable/ic_popup_sync"
-                android:title="Send"/>
+                android:title="Find us"/>
+
+            <item
+                android:id="@+id/action_send_message"
+                android:icon="@drawable/common_full_open_on_phone"
+                android:title="Send message"/>
         </menu>
     </item>
 

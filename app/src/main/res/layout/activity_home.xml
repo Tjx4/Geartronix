@@ -22,6 +22,7 @@
         android:background="@color/colorTransparentBlack"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header_home"
+        app:itemIconTint="@color/common_google_signin_btn_text_dark_default"
         app:itemTextColor="@color/textWhite"
         app:menu="@menu/activity_home_drawer"/>
 

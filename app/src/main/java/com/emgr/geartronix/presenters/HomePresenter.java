@@ -88,6 +88,7 @@ public class HomePresenter extends BaseAsyncPresenter implements IHomePresenter 
     public void setViews() {
 
         Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
+        toolbar.setTitle(R.string.app_name);
         getActivity().setSupportActionBar(toolbar);
 
         DrawerLayout drawer = (DrawerLayout)getActivity().findViewById(R.id.drawer_layout);
