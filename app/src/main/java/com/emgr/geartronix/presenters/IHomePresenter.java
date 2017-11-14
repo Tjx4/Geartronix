@@ -5,7 +5,6 @@ import android.view.MenuItem;
 import com.emgr.geartronix.activities.HomeActivity;
 
 public interface IHomePresenter extends IBaseAsyncPresenter {
-    void saveLoginDetails();
     void menuOptionSelected(MenuItem item);
     void setViews();
     HomeActivity getActivity();

@@ -14,14 +14,19 @@ import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.activities.GalleryActivity;
 import com.emgr.geartronix.activities.HomeActivity;
+import com.emgr.geartronix.adapters.HomeTileAdapter;
 import com.emgr.geartronix.models.AccountModel;
 import com.emgr.geartronix.views.IHomeView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomePresenter extends BaseAsyncPresenter implements IHomePresenter {
 
     private AccountModel responseModel;
     private DrawerLayout mDrawerLayout;
     private GridView homeTileContainer;
+    private List<ArrayList> homeItems;
 
     public HomePresenter(IHomeView iHomeView) {
         setDependanciesNoActionBar((BaseActivity) iHomeView, R.layout.activity_home);
@@ -72,11 +77,6 @@ public class HomePresenter extends BaseAsyncPresenter implements IHomePresenter 
     }
 
     @Override
-    public void saveLoginDetails() {
-        //String user = activity.getIntent().getExtras().getBundle("payload").getString("user");
-    }
-
-    @Override
     public void menuOptionSelected(MenuItem item) {
 
         switch (item.getItemId()){
@@ -103,7 +103,36 @@ public class HomePresenter extends BaseAsyncPresenter implements IHomePresenter 
         NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener)getActivity());
 
+        // Set tiles
         homeTileContainer = (GridView) getActivity().findViewById(R.id.grdHomeTiles);
+        homeTileContainer.setAdapter(getAdapter());
+    }
+
+    public HomeTileAdapter getAdapter() {
+
+        ArrayList item1 = new ArrayList();
+        item1.add(R.mipmap.profile_icon);
+        item1.add("Your profile");
+
+        ArrayList item2 = new ArrayList();
+        item2.add(R.mipmap.service_icon);
+        item2.add("Book a service");
+
+        ArrayList item3 = new ArrayList();
+        item3.add(R.mipmap.gallery_icon);
+        item3.add("View Gallery");
+
+        ArrayList item4 = new ArrayList();
+        item4.add(R.mipmap.find_us_icon);
+        item4.add("Find us");
+
+        homeItems = new ArrayList<>();
+        homeItems.add(item1);
+        homeItems.add(item2);
+        homeItems.add(item3);
+        homeItems.add(item4);
+
+        return new HomeTileAdapter(getActivity(), R.layout.home_tile_item, homeItems);
     }
 
     @Override

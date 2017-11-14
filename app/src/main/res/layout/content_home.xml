@@ -10,11 +10,16 @@
     tools:showIn="@layout/app_bar_home">
 
 
-    <GridLayout
+    <GridView
         android:id="@+id/grdHomeTiles"
-        android:layout_width="wrap_content"
+        android:background="@color/blue_one"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center">
+        android:layout_gravity="center"
+        android:columnWidth="130dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:horizontalSpacing="10dp"
+        android:verticalSpacing="10dp" />
 
-    </GridLayout>
 </FrameLayout>
