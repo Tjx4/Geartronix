@@ -22,12 +22,22 @@ public abstract class BasePresenter {
     public int deviceOrientation;
 
     protected void setDependancies(BaseActivity activity, int contentView) {
+        setBasicDependancies(activity,contentView);
+        configureActionBar();
+    }
+
+    protected void setDependanciesNoActionBar(BaseActivity activity, int contentView) {
+
+        setBasicDependancies(activity,contentView);
+    }
+
+    protected void setBasicDependancies(BaseActivity activity, int contentView) {
         this.activity = activity;
         activity.setContentView(contentView);
-        configureActionBar();
-        slideInActivity();
         setBackgroundImage(contentView);
+        slideInActivity();
     }
+
 
     private void setBackgroundImage(int contentView) {
 

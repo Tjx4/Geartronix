@@ -19,14 +19,19 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.LoginActivity"/>
-        <activity android:name=".activities.GalleryActivity"
-                  android:parentActivityName=".activities.DashboardActivity">
-        <meta-data
-            android:name="android.support.PARENT_ACTIVITY"
-            android:value=".activities.DashboardActivity"/>
-       </activity>
+        <activity
+            android:name=".activities.GalleryActivity"
+            android:parentActivityName=".activities.DashboardActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.DashboardActivity"/>
+        </activity>
         <activity android:name=".activities.CollToolbarActivity"/>
-        <activity android:name=".activities.DashboardActivity"></activity>
+        <activity
+            android:name=".activities.HomeActivity"
+            android:label="@string/title_activity_home"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>

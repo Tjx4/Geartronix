@@ -1,5 +1,4 @@
 package com.emgr.geartronix.activities;
-
 import android.support.v7.app.AppCompatActivity;
 import com.emgr.geartronix.presenters.BasePresenter;
 

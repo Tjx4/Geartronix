@@ -1,15 +1,15 @@
 package com.emgr.geartronix.activities;
 
 import android.os.Bundle;
+import android.view.View;
+import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
 import com.emgr.geartronix.R;
-import com.emgr.geartronix.presenters.DashboardPresenter;
-import com.emgr.geartronix.views.IDashboardView;
+import com.emgr.geartronix.presenters.HomePresenter;
+import com.emgr.geartronix.views.IHomeView;
 
-public class DashboardActivity extends BaseAsyncActivity implements IDashboardView {
+public class HomeActivity extends BaseAsyncActivity implements IHomeView, NavigationView.OnNavigationItemSelectedListener  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,18 +18,18 @@ public class DashboardActivity extends BaseAsyncActivity implements IDashboardVi
     }
 
     @Override
-    public DashboardPresenter getPresenter() {
-        return (DashboardPresenter)presenter;
+    public HomePresenter getPresenter() {
+        return (HomePresenter)presenter;
     }
 
     @Override
     public void setPresenter() {
-        presenter = new DashboardPresenter(this);
+        presenter = new HomePresenter(this);
     }
 
     @Override
     public void handleButtonsClickedEvent(View button) {
-
+        // Handles click events for buttons on screen
     }
 
     @Override
@@ -42,5 +42,17 @@ public class DashboardActivity extends BaseAsyncActivity implements IDashboardVi
     public boolean onOptionsItemSelected(MenuItem item) {
         getPresenter().menuOptionSelected(item);
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        getPresenter().handleBackButtonPressed();
+    }
+
+    @SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+
+        return getPresenter().handleNavigationItemSelected(item);
     }
 }

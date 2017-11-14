@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
-import com.emgr.geartronix.activities.DashboardActivity;
+import com.emgr.geartronix.activities.HomeActivity;
 import com.emgr.geartronix.activities.LoginActivity;
 import com.emgr.geartronix.models.LoginModel;
 import com.emgr.geartronix.providers.DataServiceProvider;
@@ -92,7 +92,7 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
        loginDetails.putInt("userId", responseModel.getUserId());
        loginDetails.putString("session", responseModel.getSession());
 
-       goToActivityWithPayload(DashboardActivity.class, loginDetails);
+       goToActivityWithPayload(HomeActivity.class, loginDetails);
     }
 
     @Override
@@ -106,6 +106,9 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
         usernameTxt = (EditText)getActivity().findViewById(R.id.txtUsername);
         passwordTxt = (EditText)getActivity().findViewById(R.id.txtPassword);
         loadingScreenFrm = (FrameLayout) getActivity().findViewById(R.id.frmLoadingScreen);
+
+        usernameTxt.setText("rocboyt@gmail.com");
+        passwordTxt.setText("123");
     }
 
     public String getUsername() {
