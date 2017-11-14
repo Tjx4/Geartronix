@@ -12,8 +12,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_above="@+id/frmLoginBottom"
-       >
+        android:layout_above="@+id/frmLoginBottom">
 
         <ScrollView
             android:id="@+id/scrLogin"
@@ -74,32 +73,31 @@
 
     </FrameLayout>
 
-<FrameLayout
-    android:id="@+id/frmLoginBottom"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:background="@color/login_bottom_background">
+    <FrameLayout
+        android:id="@+id/frmLoginBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/login_bottom_background">
 
-    <TextView   style="@style/mediumLabel"
-                android:id="@+id/btnRegister"
-                android:text="@string/create_a_new_account"
-                android:layout_width="match_parent"
-                android:layout_marginTop="0dp"
-                android:layout_marginBottom="0dp"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:onClick="handleButtonsClickedEvent"/>
-</FrameLayout>
+        <TextView   style="@style/mediumLabel"
+                    android:id="@+id/btnRegister"
+                    android:text="@string/create_a_new_account"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="0dp"
+                    android:layout_marginBottom="0dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:onClick="handleButtonsClickedEvent"/>
+    </FrameLayout>
 
-
-<include
-    android:id="@+id/frmLoadingScreen"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:layout_alignParentBottom="true"
-    layout="@layout/loading_screen"
-    android:visibility="gone"/>
+    <include
+        android:id="@+id/frmLoadingScreen"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        layout="@layout/loading_screen"
+        android:visibility="gone"/>
 
 </RelativeLayout>

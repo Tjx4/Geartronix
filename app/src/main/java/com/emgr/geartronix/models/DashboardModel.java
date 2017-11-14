@@ -1,6 +1,6 @@
 package com.emgr.geartronix.models;
 
-public class LoginModel extends BaseModel{
+public class DashboardModel extends BaseModel{
 
     public String session;
     public int userId;

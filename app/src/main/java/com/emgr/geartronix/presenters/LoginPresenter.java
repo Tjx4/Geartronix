@@ -177,7 +177,6 @@ Log.i(BASE_LOG, "Thread started ... ...");
         responseModel.setSession(responseJson.getString("session"));
     }
 
-
     @Override
     protected void handleAsyncButtonClickedEvent(View button) {
 
