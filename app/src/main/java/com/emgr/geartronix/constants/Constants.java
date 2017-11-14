@@ -11,4 +11,6 @@ public class Constants {
     public static final int BOOKSERVICEID = 001;
     public static final int FINDUSID = R.id.action_gallery;
     public static final int GALLERYID = 004;
+    public static final int CONTACTUSID = 005;
+    public static final int CHATID = 006;
 }

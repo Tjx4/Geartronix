@@ -26,6 +26,9 @@
         <item name="android:textSize">@dimen/medium_font_size</item>
     </style>
 
+    <style name="largeLabel" parent="geartronixLabel">
+        <item name="android:textSize">@dimen/large_font_size</item>
+    </style>
     <style name="forgotPasswordLabel" parent="mediumLabel">
         <item name="android:textColor">#cccccc</item>
         <item name="android:layout_marginTop">20dp</item>
