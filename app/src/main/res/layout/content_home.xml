@@ -12,7 +12,6 @@
 
     <GridView
         android:id="@+id/grdHomeTiles"
-        android:background="@color/blue_one"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

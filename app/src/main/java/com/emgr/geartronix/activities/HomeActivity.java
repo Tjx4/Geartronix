@@ -23,6 +23,11 @@ public class HomeActivity extends BaseAsyncActivity implements IHomeView, Naviga
     }
 
     @Override
+    public void onTileClicked(View view) {
+        getPresenter().handleTileClicked(view);
+    }
+
+    @Override
     public void setPresenter() {
         presenter = new HomePresenter(this);
     }

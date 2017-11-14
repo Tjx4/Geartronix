@@ -1,5 +1,7 @@
 package com.emgr.geartronix.presenters;
 
+import android.graphics.Color;
+import android.os.Build;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -51,6 +53,7 @@ public class HomePresenter extends BaseAsyncPresenter implements IHomePresenter 
     public HomeActivity getActivity() {
         return (HomeActivity)activity;
     }
+
     @Override
     protected void beforeAsyncCall() {
 
@@ -164,4 +167,25 @@ showShortToast("handleNavigationItemSelected");
 
         return true;
     }
+
+    private View lastView;
+
+    @Override
+    public void handleTileClicked(View view) {
+
+        if(view == lastView)
+            return;
+
+        int active = Color.parseColor("#0088cc");
+        int inactive = getActivity().getResources().getColor(R.color.tileTransBlack);
+
+        view.setBackgroundColor(active);
+
+        if(lastView != null)
+            lastView.setBackgroundColor(inactive);
+
+        lastView = view;
+
+    }
+
 }

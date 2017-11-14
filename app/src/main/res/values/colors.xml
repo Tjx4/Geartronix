@@ -9,6 +9,8 @@
     <color name="appBackground">#222222</color>
     <color name="colorProgressBackgroud">#444444</color>
     <color name="colorProgressBar">#555555</color>
+    <color name="tileTransBlack">#d6000000</color>
+
     <color name="transBlack">#d80d0707</color>
 
     <color name="login_bottom_background">#333333</color>
