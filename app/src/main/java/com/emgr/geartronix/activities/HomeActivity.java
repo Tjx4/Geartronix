@@ -39,7 +39,7 @@ public class HomeActivity extends BaseAsyncActivity implements IHomeView, Naviga
     }
 
     @Override
-    public void handleButtonsClickedEvent(View button) {
+    public void onButtonClickedEvent(View button) {
         // Handles click events for buttons on screen
     }
 

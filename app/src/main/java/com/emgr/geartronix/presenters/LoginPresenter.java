@@ -6,10 +6,8 @@ import android.support.v7.app.ActionBar;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
-import com.emgr.geartronix.activities.HomeActivity;
 import com.emgr.geartronix.activities.LoginActivity;
 import com.emgr.geartronix.models.LoginModel;
 import com.emgr.geartronix.providers.DataServiceProvider;
@@ -104,10 +102,10 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
 
     @Override
     public void setViews() {
+        setAsyncViews();
         //loginBtn = (Button)findViewById(R.id.btnLogin);
         usernameTxt = (EditText)getActivity().findViewById(R.id.txtUsername);
         passwordTxt = (EditText)getActivity().findViewById(R.id.txtPassword);
-        loadingScreenFrm = (FrameLayout) getActivity().findViewById(R.id.frmLoadingScreen);
 
         usernameTxt.setText("rocboyt@gmail.com");
         passwordTxt.setText("123");

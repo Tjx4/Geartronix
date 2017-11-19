@@ -8,7 +8,7 @@
              android:paddingBottom="@dimen/grid_vertical_padding"
              android:paddingLeft="@dimen/grid_horizontal_padding"
              android:paddingRight="@dimen/grid_horizontal_padding"
-             android:onClick="animateClickedView">
+             android:onClick="onButtonClickedEvent">
 
     <ImageView
         android:id="@+id/imgTheImage"
@@ -18,13 +18,13 @@
         android:scaleType="fitStart"
         android:src="@android:drawable/ic_lock_lock"/>
 
-    <RelativeLayout
+    <RelativeLayout android:id="@+id/rltyImageContainer"
         android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_margin="0dp"
         android:padding="0dp"
-        android:onClick="openDetailedView">
+        android:onClick="onButtonClickedEvent">
 
         <TextView
             android:id="@+id/txtName"

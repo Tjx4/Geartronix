@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
+import com.emgr.geartronix.activities.GalleryActivity;
 import com.emgr.geartronix.adapters.GalleryImageAdapter;
 import com.emgr.geartronix.views.IGalleryView;
 
@@ -23,24 +24,14 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
     private View gridItemView;
     private List<ArrayList> items;
     private int columnCount;
+    private int viewType;
 
     public GalleryPresenter(IGalleryView iGalleryView) {
-        setDependancies((BaseActivity) iGalleryView, R.layout.activity_gallery);
-        setGrid(null);
-    }
+        setDependanciesChildActivities((BaseActivity) iGalleryView, R.layout.activity_gallery);
+        setPageTitle(getActivity().getString(R.string.Gallery));
+        setViews();
 
-    @Override
-    public void configureActionBar() {
-        ActionBar ab = basicActionBarConfiguration(activity.getString(R.string.Gallery));
-        ab.setDisplayUseLogoEnabled(false);
-        ab.setDisplayHomeAsUpEnabled(true);
-    }
-
-
-    private void setGridItems(int layout) {
-        imageGridlayout = (GridView)activity.findViewById(R.id.imageGrid);
-        ArrayAdapter imgGridAdapter = new GalleryImageAdapter(activity, imageGridlayout, layout, getItems(), getColumnWidth());
-        setImageGridItems(imgGridAdapter);
+        new DoAsyncCall(null).execute();
     }
 
     private List<ArrayList> getItems() {
@@ -92,24 +83,37 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
         return items;
     }
 
+    private ArrayAdapter setGridItems(int layout) {
+        imageGridlayout = (GridView)activity.findViewById(R.id.imageGrid);
+        return new GalleryImageAdapter(activity, imageGridlayout, layout, getItems(), getColumnWidth());
+    }
+
     private void setImageGridItems(ArrayAdapter adapter) {
         imageGridlayout.setAdapter(adapter);
     }
 
-    public void setInline(View view) {
+    public void setInline() {
         if(imageGridlayout.getNumColumns() == 1)
             return;
 
-        setGridItems(R.layout.image_gallery_view_for_inline);
+        viewType = 1;
+        new DoAsyncCall(null).execute();
+    }
+
+    public void setGrid() {
+        if(imageGridlayout != null && imageGridlayout.getNumColumns() == GridView.AUTO_FIT)
+            return;
+
+        viewType = 0;
+        new DoAsyncCall(null).execute();
+    }
+
+    private void setInlineView() {
         imageGridlayout.setNumColumns(1);
         imageGridlayout.setColumnWidth((int)getScreenWidth());
     }
 
-    public void setGrid(View view) {
-        if(imageGridlayout != null && imageGridlayout.getNumColumns() == GridView.AUTO_FIT)
-            return;
-
-        setGridItems(R.layout.image_gallery_view_for_grid);
+    private void setGridView() {
         imageGridlayout.setNumColumns(getColumnCount());
         //imageGridlayout.setNumColumns(GridView.AUTO_FIT);
         imageGridlayout.setColumnWidth((int)getColumnWidth());
@@ -174,7 +178,7 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
         ImageView currentImage = (ImageView) currentItem.getChildAt(0);
 
         ImageView largeImage = (ImageView)activity.findViewById(R.id.imgLrg);
-        largeImage.setImageResource(currentImage.getImageAlpha());
+        largeImage.setImageBitmap(getImageViewPic(currentImage));
     }
 
     public void closeDetailedView(View view) {
@@ -200,11 +204,9 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
         currentItem.setBackgroundColor(color);
     }
 
-
-
     @Override
     protected void beforeAsyncCall() {
-
+        showLoadingScreen();
     }
 
     @Override
@@ -214,16 +216,76 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
 
     @Override
     protected Object doAsyncOperation(Object... args) throws Exception {
-        return null;
+
+        int gridViewParams;
+
+        switch (viewType)
+        {
+            case 0:
+                gridViewParams = R.layout.image_gallery_view_for_grid;
+            break;
+            case 1:
+                gridViewParams = R.layout.image_gallery_view_for_inline;
+            break;
+            default:
+                gridViewParams = R.layout.image_gallery_view_for_grid;
+            break;
+        }
+
+        return setGridItems(gridViewParams);
     }
 
     @Override
     protected void afterAsyncCall(Object result) {
 
+        ArrayAdapter imgGridAdapter = (ArrayAdapter)result;
+
+        switch (viewType)
+        {
+            case 0:
+                setGridView();
+            break;
+            case 1:
+                setInlineView();
+            break;
+        }
+
+        setImageGridItems(imgGridAdapter);
+        hideLoadingScreen();
     }
 
     @Override
     protected void handleAsyncButtonClickedEvent(View button) {
 
+    }
+
+    @Override
+    public void setViews() {
+        setAsyncViews();
+    }
+
+    @Override
+    public GalleryActivity getActivity() {
+        return (GalleryActivity) activity;
+    }
+
+    @Override
+    public void handleButtonClickedEvent(View view) {
+
+        switch (view.getId())
+        {
+            case R.id.imgCloseDetailedView:
+                closeDetailedView(view);
+            break;
+            case R.id.imgBtnInlineLayout:
+                setInline();
+            break;
+            case R.id.imgBtnBlockLayout:
+                setGrid();
+            break;
+            case R.id.rltyImageContainer:
+                openDetailedView(view);
+            break;
+        }
     }
 }

@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.activities.HomeActivity;
+import com.emgr.geartronix.constants.Constants;
 
 public abstract class BaseMenuPresenter extends BaseAsyncPresenter {
 
@@ -44,9 +45,23 @@ public abstract class BaseMenuPresenter extends BaseAsyncPresenter {
 
         showShortToast("handleNavigationItemSelected");
 
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
+        // Handle navigation view item clicks here
 
+        switch (item.getItemId()){
+
+            case Constants.PROFILEID:
+                showShortToast("Profile");
+                break;
+            case Constants.BOOKSERVICEID:
+                goToServices();
+                break;
+            case R.id.action_make_booking:
+                goToServices();
+                break;
+            case Constants.FINDUSID:
+                showShortToast("Find us");
+                break;
+        }
 
         DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);

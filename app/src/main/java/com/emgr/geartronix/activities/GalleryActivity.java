@@ -23,14 +23,8 @@ public class GalleryActivity extends BaseActivity implements IGalleryView {
     }
 
     @Override
-    public void handleButtonsClickedEvent(View button) {
-
-        switch (button.getId())
-        {
-            case R.id.imgCloseDetailedView:
-                getPresenter().closeDetailedView(button);
-                break;
-        }
+    public void onButtonClickedEvent(View view) {
+        getPresenter().handleButtonClickedEvent(view);
     }
 
     @Override

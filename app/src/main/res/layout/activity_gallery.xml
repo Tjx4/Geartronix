@@ -19,7 +19,7 @@
             android:layout_alignParentTop="true"
             android:background="@color/appBackground"
             android:src="@drawable/gridlayout_icon"
-            android:onClick="setGrid"/>
+            android:onClick="onButtonClickedEvent"/>
 
         <ImageButton android:layout_marginLeft="3dp"
                      android:id="@+id/imgBtnInlineLayout"
@@ -30,7 +30,7 @@
                      android:layout_alignParentTop="true"
                      android:layout_toRightOf="@+id/imgBtnBlockLayout"
                      android:layout_toEndOf="@+id/imgBtnBlockLayout"
-                     android:onClick="setInline"/>
+                     android:onClick="onButtonClickedEvent"/>
 
     </RelativeLayout>
 
@@ -57,7 +57,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:background="@color/transBlack"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <RelativeLayout
             android:id="@+id/lrgViewMenuStrip"
@@ -72,7 +72,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_marginRight="40dp"
                 android:background="@color/colorTransparent"
-                android:onClick="handleButtonsClickedEvent"
+                android:onClick="onButtonClickedEvent"
                 android:src="@drawable/close_icon"/>
 
             <ImageButton
@@ -107,10 +107,18 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/lrgViewMenuStrip"
-            android:src="@android:drawable/ic_lock_lock"
-            android:background="@color/blue_one"/>
+            android:background="@color/blue_one"
+            android:src="@android:drawable/ic_lock_lock"/>
 
 
     </RelativeLayout>
+
+    <include
+        android:id="@+id/frmLoadingScreen"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        layout="@layout/loading_screen"
+        android:visibility="invisible"/>
 
 </RelativeLayout>

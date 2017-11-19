@@ -5,13 +5,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
+
+import com.emgr.geartronix.R;
 import com.emgr.geartronix.constants.Constants;
 import com.emgr.geartronix.providers.HttpConnectionProvider;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class BaseAsyncPresenter extends BasePresenter{
+public abstract class BaseAsyncPresenter extends BasePresenter {
     protected int httpConTimeout = 6000;
     protected String environment = Constants.CURRENTENVIRONMENT;
     protected List<View> activeButtons  = new ArrayList<>();
@@ -23,6 +25,10 @@ public abstract class BaseAsyncPresenter extends BasePresenter{
     protected abstract Object doAsyncOperation(Object...args) throws Exception;
     protected abstract void afterAsyncCall(Object result);
     protected abstract void handleAsyncButtonClickedEvent(View button);
+
+    protected void setAsyncViews() {
+        loadingScreenFrm = (FrameLayout) activity.findViewById(R.id.frmLoadingScreen);
+    }
 
     public void onAsyncButtonClickeEvent(View button) {
         if (isCurrentlyWorking(button))
@@ -112,6 +118,7 @@ public abstract class BaseAsyncPresenter extends BasePresenter{
             afterAsyncCall(outputData);
 
             resetIfTriggeredByView(triggerView);
+
         }
 
         private boolean appDisposed() {

@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
-import com.emgr.geartronix.activities.GalleryActivity;
 import com.emgr.geartronix.activities.HomeActivity;
 import com.emgr.geartronix.adapters.HomeTileAdapter;
 import com.emgr.geartronix.constants.Constants;
@@ -183,8 +182,8 @@ private View lastView;
     private void animateHomeViews(View view) {
 
         currentTile = (LinearLayout)view;
-
-        Animation animate = getSlideDownAnimation(view.getHeight(),  400);
+        //view.getHeight()
+        Animation animate = getSlideDownAnimation(500,  600);
         animate.setAnimationListener(new Animation.AnimationListener() {
 
             @Override
@@ -192,8 +191,7 @@ private View lastView;
                 currentTile.setVisibility(View.INVISIBLE);
 
                 ImageView currentTileImage = (ImageView)currentTile.getChildAt(0);
-                Bitmap pic = ((BitmapDrawable)currentTileImage.getDrawable()).getBitmap();
-                selectedActivityImg.setImageBitmap(pic);
+                selectedActivityImg.setImageBitmap(getImageViewPic(currentTileImage));
 
                 TextView currentTileLabel = (TextView)currentTile.getChildAt(1);
                 String activityName = currentTileLabel.getText().toString();

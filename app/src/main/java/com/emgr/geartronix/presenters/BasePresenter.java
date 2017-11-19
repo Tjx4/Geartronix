@@ -3,6 +3,8 @@ package com.emgr.geartronix.presenters;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -12,6 +14,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
 import android.view.animation.TranslateAnimation;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
@@ -27,12 +30,17 @@ public abstract class BasePresenter {
     public int deviceOrientation;
     private Animation animate;
 
-    protected void setDependancies(BaseActivity activity, int contentView, String...pageTitle) {
+    protected void setDependancies(BaseActivity activity, int contentView) {
         setBasicDependancies(activity,contentView);
         configureActionBar();
     }
 
-    protected void setDependanciesNoActionBar(BaseActivity activity, int contentView, String...pageTitle) {
+    protected void setDependanciesChildActivities(BaseActivity activity, int contentView) {
+        setBasicDependancies(activity,contentView);
+        configureActionBarChildActivity();
+    }
+
+    protected void setDependanciesNoActionBar(BaseActivity activity, int contentView) {
         setBasicDependancies(activity,contentView);
     }
 
@@ -76,7 +84,13 @@ public abstract class BasePresenter {
     }
 
     public void configureActionBar() {
-        ActionBar ab = basicActionBarConfiguration(" "+pageTitle);
+        ActionBar ab = basicActionBarConfiguration(" "+getPageTitle());
+    }
+
+    public void configureActionBarChildActivity() {
+        ActionBar ab = basicActionBarConfiguration(" "+getPageTitle());
+        ab.setDisplayUseLogoEnabled(false);
+        ab.setDisplayHomeAsUpEnabled(true);
     }
 
     protected void slideInActivity() {
@@ -161,6 +175,11 @@ public abstract class BasePresenter {
     }
     protected void showShortToast(String message){
         Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+    }
+
+    protected Bitmap getImageViewPic(ImageView currImage) {
+        Bitmap pic = ((BitmapDrawable)currImage.getDrawable()).getBitmap();
+        return  pic;
     }
 
     protected AlertDialog.Builder setupBasicMessage(String message, String title){
