@@ -1,6 +1,5 @@
 package com.emgr.geartronix.presenters;
 
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -11,8 +10,4 @@ public interface IHomePresenter extends IBaseAsyncPresenter {
     void setViews();
     HomeActivity getActivity();
     void handleTileClicked(View view);
-
-    boolean handleonPrepareOptionsMenu(Menu menu);
-    void handleBackButtonPressed();
-    boolean handleNavigationItemSelected(MenuItem item);
 }

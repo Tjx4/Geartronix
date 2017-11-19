@@ -1,15 +1,17 @@
 package com.emgr.geartronix.presenters;
 
-
 import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 
-public class BaseMenuPresenter extends BaseAsyncPresenter {
+public abstract class BaseMenuPresenter extends BaseAsyncPresenter {
 
     protected void setMenuDependencies(BaseActivity activity, String title) {
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
@@ -26,28 +28,32 @@ public class BaseMenuPresenter extends BaseAsyncPresenter {
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener)activity);
     }
 
-    @Override
-    protected void beforeAsyncCall() {
+    public boolean handleNavigationItemSelected(MenuItem item) {
 
+        showShortToast("handleNavigationItemSelected");
+
+        // Handle navigation view item clicks here.
+        int id = item.getItemId();
+
+
+        DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+
+        return true;
     }
 
-    @Override
-    protected void duringAsyncCall(Integer... values) {
-
+    public boolean handleonPrepareOptionsMenu(Menu menu) {
+        return true;
     }
 
-    @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
-        return null;
+    public void handleBackButtonPressed() {
+        DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            //getActivity().super.onBackPressed();
+        }
     }
 
-    @Override
-    protected void afterAsyncCall(Object result) {
 
-    }
-
-    @Override
-    protected void handleAsyncButtonClickedEvent(View button) {
-
-    }
 }

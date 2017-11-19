@@ -15,7 +15,6 @@ import com.emgr.geartronix.adapters.HomeTileAdapter;
 import com.emgr.geartronix.constants.Constants;
 import com.emgr.geartronix.models.AccountModel;
 import com.emgr.geartronix.views.IHomeView;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,8 +37,6 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
             String user = activity.getIntent().getExtras().getBundle("payload").getString("user");
             showShortToast("Welcome "+user);
 
-
-            slideOutActivity();
         }
         catch (Exception e){
 
@@ -123,35 +120,7 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
         return new HomeTileAdapter(getActivity(), R.layout.home_tile_item, homeItems);
     }
 
-    @Override
-    public boolean handleonPrepareOptionsMenu(Menu menu) {
-     return true;
-    }
 
-    @Override
-    public void handleBackButtonPressed() {
-        DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-        if (drawer.isDrawerOpen(GravityCompat.START)) {
-            drawer.closeDrawer(GravityCompat.START);
-        } else {
-            //getActivity().super.onBackPressed();
-        }
-    }
-
-    @Override
-    public boolean handleNavigationItemSelected(MenuItem item) {
-
-showShortToast("handleNavigationItemSelected");
-
-        // Handle navigation view item clicks here.
-        int id = item.getItemId();
-
-
-        DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-
-        return true;
-    }
 
     private View lastView;
 
