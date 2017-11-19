@@ -15,7 +15,6 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.activities.GalleryActivity;
@@ -35,11 +34,11 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     private GridView homeTileContainer;
     private TextView homeHeaderText;
     private List<ArrayList> homeItems;
+    private LinearLayout currentTile;
 
     public HomePresenter(IHomeView iHomeView) {
-
         setDependanciesNoActionBar((BaseActivity) iHomeView, R.layout.activity_home);
-        setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_home );
+        setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_home);
         setViews();
 
         responseModel = new AccountModel();
@@ -84,17 +83,6 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     @Override
     protected void handleAsyncButtonClickedEvent(View button) {
 
-    }
-
-    @Override
-    public void menuOptionSelected(MenuItem item) {
-
-        switch (item.getItemId()){
-
-            case R.id.action_settings:
-                showShortToast(getActivity().getString(R.string.settings));
-                break;
-        }
     }
 
     @Override
@@ -147,7 +135,6 @@ private View lastView;
 
     private void goToSelectedActivity(View view) {
 
-
         switch (view.getId()){
 
             case Constants.PROFILEID:
@@ -164,12 +151,7 @@ private View lastView;
             break;
         }
 
-        getActivity().finish();
-
     }
-
-//-------------------------------------------------
-
 
     private void hideHomeTile(View view) {
         final View currentActivity = (LinearLayout)view;
@@ -185,6 +167,7 @@ private View lastView;
             public void onAnimationEnd(Animation animation) {
                 homeTileContainer.setVisibility(View.INVISIBLE);
                 goToSelectedActivity(currentActivity);
+                currentTile.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -200,7 +183,7 @@ private View lastView;
 
     private void animateHomeViews(View view) {
 
-        final LinearLayout currentTile = (LinearLayout)view;
+        currentTile = (LinearLayout)view;
 
         Animation animate = getSlideDownAnimation(view.getHeight(),  400);
         animate.setAnimationListener(new Animation.AnimationListener() {
@@ -232,6 +215,13 @@ private View lastView;
         });
         homeTileContainer.startAnimation(animate);
 
+    }
+
+
+
+    public void resetTiles() {
+        selectedActivityImg.setVisibility(View.INVISIBLE);
+        homeTileContainer.setVisibility(View.VISIBLE);
     }
 
     private void setActiveInactiveColor(View view) {

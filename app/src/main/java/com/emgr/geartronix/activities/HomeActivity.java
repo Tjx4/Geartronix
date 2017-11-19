@@ -18,6 +18,12 @@ public class HomeActivity extends BaseAsyncActivity implements IHomeView, Naviga
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+       getPresenter().resetTiles();
+    }
+
+    @Override
     public HomePresenter getPresenter() {
         return (HomePresenter)presenter;
     }
@@ -51,6 +57,7 @@ public class HomeActivity extends BaseAsyncActivity implements IHomeView, Naviga
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         getPresenter().handleBackButtonPressed();
     }
 

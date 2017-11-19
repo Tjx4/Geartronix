@@ -12,6 +12,7 @@ import android.view.ViewStub;
 import android.widget.FrameLayout;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
+import com.emgr.geartronix.activities.HomeActivity;
 
 public abstract class BaseMenuPresenter extends BaseAsyncPresenter {
 
@@ -19,6 +20,7 @@ public abstract class BaseMenuPresenter extends BaseAsyncPresenter {
     protected FrameLayout parentLayout;
 
     protected void setMenuDependencies(BaseActivity activity, String title, int pageLayout) {
+
         setMainLayout(pageLayout);
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
         toolbar.setTitle(title);
@@ -32,6 +34,10 @@ public abstract class BaseMenuPresenter extends BaseAsyncPresenter {
 
         NavigationView navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener)activity);
+
+        FrameLayout mainFramelayout = (FrameLayout) activity.findViewById(R.id.menuContentHomeID);
+        //dd.setContentDescription("com.emgr.geartronix.activities.HomeActivity");
+
     }
 
     public boolean handleNavigationItemSelected(MenuItem item) {
@@ -56,8 +62,6 @@ public abstract class BaseMenuPresenter extends BaseAsyncPresenter {
         DrawerLayout drawer = (DrawerLayout) activity.findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            //getActivity().super.onBackPressed();
         }
     }
 
@@ -71,5 +75,15 @@ public abstract class BaseMenuPresenter extends BaseAsyncPresenter {
         return currentPageLayout.inflate();
     }
 
+
+    public void menuOptionSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.action_settings:
+                showShortToast(activity.getString(R.string.settings));
+                break;
+        }
+    }
 
 }

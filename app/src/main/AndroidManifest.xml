@@ -32,7 +32,12 @@
             android:label="@string/title_activity_home"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name=".activities.ServicesActivity">
+        <activity android:name=".activities.ServicesActivity"
+                  android:theme="@style/AppTheme.NoActionBar"
+                  android:parentActivityName=".activities.HomeActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".activities.HomeActivity"/>
         </activity>
     </application>
 
