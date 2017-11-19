@@ -82,16 +82,17 @@ public abstract class BasePresenter {
         return ab;
     }
 
-    protected void goToActivity(Class activity) {
-        Intent i = new Intent(this.activity, activity);
-        this.activity.startActivity(i);
+    protected void goToActivity(Class activity, Intent...i) {
+        i[0] = new Intent(this.activity, activity);
+        this.activity.startActivity(i[0]);
     }
 
     protected void goToActivityWithPayload(Class activity, Bundle bundle) {
         Bundle payload = bundle;
         Intent i = new Intent(this.activity, activity);
         i.putExtra("payload", payload);
-        this.activity.startActivity(i);
+
+        goToActivity(activity, i);
     }
 
     protected void showLongToast(String message){
