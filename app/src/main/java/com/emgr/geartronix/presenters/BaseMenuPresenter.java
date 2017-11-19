@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewStub;
 
 import com.emgr.geartronix.R;
@@ -17,7 +18,7 @@ public abstract class BaseMenuPresenter extends BaseAsyncPresenter {
     protected ViewStub currentPageLayout;
 
     protected void setMenuDependencies(BaseActivity activity, String title, int pageLayout) {
-        setTheLayout(pageLayout);
+        setMainLayout(pageLayout);
         Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
         toolbar.setTitle(title);
         activity.setSupportActionBar(toolbar);
@@ -59,9 +60,15 @@ public abstract class BaseMenuPresenter extends BaseAsyncPresenter {
         }
     }
 
-    public void setTheLayout(int pageLayout) {
+    public void setMainLayout(int pageLayout) {
         currentPageLayout = (ViewStub)activity.findViewById(R.id.pageLayout);
         currentPageLayout.setLayoutResource(pageLayout);
     }
+
+
+    protected View getMainLayout() {
+        return currentPageLayout.inflate();
+    }
+
 
 }

@@ -1,11 +1,9 @@
 package com.emgr.geartronix.presenters;
 
 import android.graphics.Color;
-import android.support.annotation.IdRes;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewStub;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import com.emgr.geartronix.R;
@@ -89,13 +87,12 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     @Override
     public void setViews() {
 
-        // Set tiles
-        FrameLayout parentLayout =  (FrameLayout)currentPageLayout.inflate();
+        FrameLayout parentLayout =  (FrameLayout) getMainLayout();
 
+        // Set tiles
         homeTileContainer = (GridView) parentLayout.findViewById(R.id.grdHomeTiles);
         homeTileContainer.setAdapter(getAdapter());
     }
-
 
     public HomeTileAdapter getAdapter() {
 
@@ -125,8 +122,7 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     }
 
 
-
-    private View lastView;
+private View lastView;
 
     @Override
     public void handleTileClicked(View view) {
