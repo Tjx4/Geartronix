@@ -17,6 +17,7 @@ import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.activities.GalleryActivity;
 import com.emgr.geartronix.activities.HomeActivity;
+import com.emgr.geartronix.activities.ServicesActivity;
 
 public abstract class BasePresenter {
 
@@ -149,6 +150,10 @@ public abstract class BasePresenter {
 
     protected void goToHome(Bundle...loginDetails) {
         goToActivityWithPayload(HomeActivity.class, loginDetails);
+    }
+
+    protected void goToServices(Bundle...loginDetails) {
+        goToActivityWithPayload(ServicesActivity.class, loginDetails);
     }
 
     protected void showLongToast(String message){

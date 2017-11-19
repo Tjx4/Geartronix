@@ -141,11 +141,12 @@ private View lastView;
 
     @Override
     public void handleTileClicked(View view) {
-        setActiveInactiveColor(view);
+        //setActiveInactiveColor(view);
         animateHomeViews(view);
     }
 
     private void goToSelectedActivity(View view) {
+
 
         switch (view.getId()){
 
@@ -153,7 +154,7 @@ private View lastView;
                 showShortToast("Profile");
             break;
             case Constants.BOOKSERVICEID:
-                showShortToast("book service");
+                goToServices();
             break;
             case Constants.GALLERYID:
                 goToGallery();
@@ -162,6 +163,9 @@ private View lastView;
                 showShortToast("Find us");
             break;
         }
+
+        getActivity().finish();
+
     }
 
 //-------------------------------------------------
@@ -179,8 +183,8 @@ private View lastView;
 
             @Override
             public void onAnimationEnd(Animation animation) {
-               goToSelectedActivity(currentActivity);
-               homeTileContainer.setVisibility(View.INVISIBLE);
+                homeTileContainer.setVisibility(View.INVISIBLE);
+                goToSelectedActivity(currentActivity);
             }
 
             @Override
@@ -198,7 +202,7 @@ private View lastView;
 
         final LinearLayout currentTile = (LinearLayout)view;
 
-        Animation animate = getSlideDownAnimation(view.getHeight(),  500);
+        Animation animate = getSlideDownAnimation(view.getHeight(),  400);
         animate.setAnimationListener(new Animation.AnimationListener() {
 
             @Override
