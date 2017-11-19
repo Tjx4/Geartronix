@@ -15,6 +15,8 @@ import android.view.animation.TranslateAnimation;
 import android.widget.Toast;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
+import com.emgr.geartronix.activities.GalleryActivity;
+import com.emgr.geartronix.activities.HomeActivity;
 
 public abstract class BasePresenter {
 
@@ -120,16 +122,33 @@ public abstract class BasePresenter {
     }
 
     protected void goToActivity(Class activity, Intent...i) {
-        i[0] = new Intent(this.activity, activity);
-        this.activity.startActivity(i[0]);
+        Intent intnt;
+        if(i != null && i.length > 0) {
+             intnt = i[0];
+        }
+        else  {
+            intnt = new Intent(this.activity, activity);
+        }
+
+        this.activity.startActivity(intnt);
     }
 
-    protected void goToActivityWithPayload(Class activity, Bundle bundle) {
-        Bundle payload = bundle;
+    protected void goToActivityWithPayload(Class activity, Bundle...payload) {
+
         Intent i = new Intent(this.activity, activity);
-        i.putExtra("payload", payload);
+
+        if(payload != null && payload.length > 0)
+            i.putExtra("payload", payload[0]);
 
         goToActivity(activity, i);
+    }
+
+    protected void goToGallery() {
+        goToActivity(GalleryActivity.class);
+    }
+
+    protected void goToHome(Bundle...loginDetails) {
+        goToActivityWithPayload(HomeActivity.class, loginDetails);
     }
 
     protected void showLongToast(String message){

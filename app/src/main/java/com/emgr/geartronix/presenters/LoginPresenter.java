@@ -93,7 +93,8 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
        loginDetails.putInt("userId", responseModel.getUserId());
        loginDetails.putString("session", responseModel.getSession());
 
-       goToActivityWithPayload(HomeActivity.class, loginDetails);
+        goToHome(loginDetails);
+
     }
 
     @Override

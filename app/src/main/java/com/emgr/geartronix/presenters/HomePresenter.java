@@ -91,8 +91,8 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
 
         switch (item.getItemId()){
 
-            case R.id.action_gallery:
-                goToActivity(GalleryActivity.class);
+            case R.id.action_settings:
+                showShortToast(getActivity().getString(R.string.settings));
                 break;
         }
     }
@@ -143,10 +143,10 @@ private View lastView;
     public void handleTileClicked(View view) {
         setActiveInactiveColor(view);
         animateHomeViews(view);
-        goToSelectedActivity(view);
     }
 
     private void goToSelectedActivity(View view) {
+
         switch (view.getId()){
 
             case Constants.PROFILEID:
@@ -156,7 +156,7 @@ private View lastView;
                 showShortToast("book service");
             break;
             case Constants.GALLERYID:
-                showShortToast("Gallery");
+                goToGallery();
             break;
             case Constants.FINDUSID:
                 showShortToast("Find us");
@@ -167,19 +167,19 @@ private View lastView;
 //-------------------------------------------------
 
 
-    private void hideHomeTile() {
-        homeTileContainer.setVisibility(View.INVISIBLE);
+    private void hideHomeTile(View view) {
+        final View currentActivity = (LinearLayout)view;
 
         Animation animate = getfadeOutAnimation(60, 400);
         animate.setAnimationListener(new TranslateAnimation.AnimationListener() {
 
             @Override
             public void onAnimationStart(Animation animation) {
-                showSelectedActivity();
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
+               goToSelectedActivity(currentActivity);
             }
 
             @Override
@@ -192,7 +192,6 @@ private View lastView;
     private void showSelectedActivity() {
         selectedActivityImg.setVisibility(View.VISIBLE);
     }
-
 
     private void animateHomeViews(View view) {
 
@@ -212,11 +211,13 @@ private View lastView;
                 TextView currentTileLabel = (TextView)currentTile.getChildAt(1);
                 String activityName = currentTileLabel.getText().toString();
                 homeHeaderText.setText(activityName);
+
+                showSelectedActivity();
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                hideHomeTile();
+                hideHomeTile(currentTile);
             }
 
             @Override
