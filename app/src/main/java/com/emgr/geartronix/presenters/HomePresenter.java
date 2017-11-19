@@ -167,7 +167,6 @@ private View lastView;
             public void onAnimationEnd(Animation animation) {
                 homeTileContainer.setVisibility(View.INVISIBLE);
                 goToSelectedActivity(currentActivity);
-                currentTile.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -220,8 +219,18 @@ private View lastView;
 
 
     public void resetTiles() {
-        selectedActivityImg.setVisibility(View.INVISIBLE);
-        homeTileContainer.setVisibility(View.VISIBLE);
+
+        int visible = View.VISIBLE;
+        int invisible = View.INVISIBLE;
+
+        if(homeTileContainer.getVisibility() != invisible)
+            selectedActivityImg.setVisibility(invisible);
+
+        if(homeTileContainer.getVisibility() != visible)
+            homeTileContainer.setVisibility(visible);
+
+        if(currentTile != null)
+            currentTile.setVisibility(visible);
     }
 
     private void setActiveInactiveColor(View view) {
