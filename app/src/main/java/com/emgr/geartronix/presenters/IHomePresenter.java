@@ -12,7 +12,6 @@ public interface IHomePresenter extends IBaseAsyncPresenter {
     HomeActivity getActivity();
     void handleTileClicked(View view);
 
-
     boolean handleonPrepareOptionsMenu(Menu menu);
     void handleBackButtonPressed();
     boolean handleNavigationItemSelected(MenuItem item);

@@ -6,9 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.emgr.geartronix.R;
+import com.emgr.geartronix.activities.BaseActivity;
 
 public class BaseFragment extends Fragment {
+
+    protected BaseActivity activity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,7 +23,7 @@ public class BaseFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_base, container, false);
+        return null;
     }
 
 }

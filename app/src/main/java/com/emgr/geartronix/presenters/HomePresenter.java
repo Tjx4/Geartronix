@@ -1,17 +1,12 @@
 package com.emgr.geartronix.presenters;
 
 import android.graphics.Color;
-import android.os.Build;
-import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
-
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.activities.GalleryActivity;
@@ -24,7 +19,7 @@ import com.emgr.geartronix.views.IHomeView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePresenter extends BaseAsyncPresenter implements IHomePresenter {
+public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
 
     private AccountModel responseModel;
     private DrawerLayout mDrawerLayout;
@@ -33,7 +28,9 @@ public class HomePresenter extends BaseAsyncPresenter implements IHomePresenter 
 
     public HomePresenter(IHomeView iHomeView) {
         setDependanciesNoActionBar((BaseActivity) iHomeView, R.layout.activity_home);
+        setMenuDependencies(getActivity(), getActivity().getString(R.string.app_name));
         setViews();
+
         responseModel = new AccountModel();
 
         try {
@@ -93,24 +90,11 @@ public class HomePresenter extends BaseAsyncPresenter implements IHomePresenter 
 
     @Override
     public void setViews() {
-
-        Toolbar toolbar = (Toolbar) getActivity().findViewById(R.id.toolbar);
-        toolbar.setTitle(R.string.app_name);
-        getActivity().setSupportActionBar(toolbar);
-
-        DrawerLayout drawer = (DrawerLayout)getActivity().findViewById(R.id.drawer_layout);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                getActivity(), drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
-        drawer.setDrawerListener(toggle);
-        toggle.syncState();
-
-        NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
-        navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener)getActivity());
-
         // Set tiles
         homeTileContainer = (GridView) getActivity().findViewById(R.id.grdHomeTiles);
         homeTileContainer.setAdapter(getAdapter());
     }
+
 
     public HomeTileAdapter getAdapter() {
 
