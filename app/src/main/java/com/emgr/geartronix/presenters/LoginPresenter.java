@@ -29,6 +29,7 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
 
     public LoginPresenter(ILoginView iLoginView) {
         setDependancies((BaseActivity)iLoginView, R.layout.activity_login);
+        setPageTitle(activity.getString(R.string.sign_in));
         setViews();
         responseModel = new LoginModel();
     }

@@ -25,8 +25,9 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     private List<ArrayList> homeItems;
 
     public HomePresenter(IHomeView iHomeView) {
+
         setDependanciesNoActionBar((BaseActivity) iHomeView, R.layout.activity_home);
-        setMenuDependencies(getActivity(), getActivity().getString(R.string.app_name), R.layout.content_home );
+        setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_home );
         setViews();
 
         responseModel = new AccountModel();

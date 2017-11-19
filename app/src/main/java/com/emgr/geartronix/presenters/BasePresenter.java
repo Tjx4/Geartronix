@@ -6,27 +6,24 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
-import android.view.Display;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Toast;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 
-import static android.content.Context.WINDOW_SERVICE;
-
 public abstract class BasePresenter {
 
     protected String BASE_LOG = "base_log";
+    protected String pageTitle;
     public BaseActivity activity;
     public int deviceOrientation;
 
-    protected void setDependancies(BaseActivity activity, int contentView) {
+    protected void setDependancies(BaseActivity activity, int contentView, String...pageTitle) {
         setBasicDependancies(activity,contentView);
         configureActionBar();
     }
 
-    protected void setDependanciesNoActionBar(BaseActivity activity, int contentView) {
+    protected void setDependanciesNoActionBar(BaseActivity activity, int contentView, String...pageTitle) {
         setBasicDependancies(activity,contentView);
     }
 
@@ -37,11 +34,18 @@ public abstract class BasePresenter {
         slideInActivity();
     }
 
+    protected void setPageTitle(String pageTitle) {
+        this.pageTitle = pageTitle;
+    }
+
+    protected String getPageTitle() {
+        return (pageTitle == null || pageTitle.isEmpty()) ? activity.getString(R.string.app_name) : pageTitle;
+    }
+
     protected boolean isTablet() {
         return (activity.getResources().getConfiguration().screenLayout
                 & Configuration.SCREENLAYOUT_SIZE_MASK)
                 >= Configuration.SCREENLAYOUT_SIZE_LARGE;
-
     }
 
     private void setBackgroundImage(int contentView) {
@@ -63,7 +67,7 @@ public abstract class BasePresenter {
     }
 
     public void configureActionBar() {
-        ActionBar ab = basicActionBarConfiguration(" "+activity.getString(R.string.app_name));
+        ActionBar ab = basicActionBarConfiguration(" "+pageTitle);
     }
 
     protected void slideInActivity() {
