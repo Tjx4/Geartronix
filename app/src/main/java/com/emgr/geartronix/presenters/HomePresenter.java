@@ -223,8 +223,7 @@ private View lastView;
         int visible = View.VISIBLE;
         int invisible = View.INVISIBLE;
 
-        if(homeTileContainer.getVisibility() != invisible)
-            selectedActivityImg.setVisibility(invisible);
+        selectedActivityImg.setVisibility(invisible);
 
         if(homeTileContainer.getVisibility() != visible)
             homeTileContainer.setVisibility(visible);
