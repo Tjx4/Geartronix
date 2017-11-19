@@ -1,11 +1,12 @@
 package com.emgr.geartronix.presenters;
 
 import android.graphics.Color;
-import android.support.v4.view.GravityCompat;
+import android.support.annotation.IdRes;
 import android.support.v4.widget.DrawerLayout;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewStub;
+import android.widget.FrameLayout;
 import android.widget.GridView;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
@@ -27,7 +28,7 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
 
     public HomePresenter(IHomeView iHomeView) {
         setDependanciesNoActionBar((BaseActivity) iHomeView, R.layout.activity_home);
-        setMenuDependencies(getActivity(), getActivity().getString(R.string.app_name));
+        setMenuDependencies(getActivity(), getActivity().getString(R.string.app_name), R.layout.content_home );
         setViews();
 
         responseModel = new AccountModel();
@@ -87,8 +88,11 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
 
     @Override
     public void setViews() {
+
         // Set tiles
-        homeTileContainer = (GridView) getActivity().findViewById(R.id.grdHomeTiles);
+        FrameLayout parentLayout =  (FrameLayout)currentPageLayout.inflate();
+
+        homeTileContainer = (GridView) parentLayout.findViewById(R.id.grdHomeTiles);
         homeTileContainer.setAdapter(getAdapter());
     }
 

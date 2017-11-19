@@ -27,7 +27,6 @@ public abstract class BasePresenter {
     }
 
     protected void setDependanciesNoActionBar(BaseActivity activity, int contentView) {
-
         setBasicDependancies(activity,contentView);
     }
 
