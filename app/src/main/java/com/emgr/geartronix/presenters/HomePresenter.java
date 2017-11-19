@@ -180,6 +180,7 @@ private View lastView;
             @Override
             public void onAnimationEnd(Animation animation) {
                goToSelectedActivity(currentActivity);
+               homeTileContainer.setVisibility(View.INVISIBLE);
             }
 
             @Override
