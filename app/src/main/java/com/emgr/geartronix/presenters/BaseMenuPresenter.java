@@ -9,13 +9,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
-
+import android.widget.FrameLayout;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 
 public abstract class BaseMenuPresenter extends BaseAsyncPresenter {
 
     protected ViewStub currentPageLayout;
+    protected FrameLayout parentLayout;
 
     protected void setMenuDependencies(BaseActivity activity, String title, int pageLayout) {
         setMainLayout(pageLayout);

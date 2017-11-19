@@ -7,6 +7,11 @@ import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.TranslateAnimation;
 import android.widget.Toast;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
@@ -17,6 +22,7 @@ public abstract class BasePresenter {
     protected String pageTitle;
     public BaseActivity activity;
     public int deviceOrientation;
+    private Animation animate;
 
     protected void setDependancies(BaseActivity activity, int contentView, String...pageTitle) {
         setBasicDependancies(activity,contentView);
@@ -72,6 +78,34 @@ public abstract class BasePresenter {
 
     protected void slideInActivity() {
         activity.overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+    }
+    protected Animation getfadeInAnimation(long duration) {
+        animate = new AlphaAnimation(1, 0);
+        animate.setInterpolator(new DecelerateInterpolator()); //add this
+        animate.setDuration(duration);
+
+        return  animate;
+    }
+
+    protected Animation getfadeOutAnimation(long offset, long duration) {
+        animate = new AlphaAnimation(1, 0);
+        animate.setInterpolator(new AccelerateInterpolator()); //and this
+        animate.setStartOffset(offset);
+        animate.setDuration(duration);
+
+        return animate;
+    }
+
+    protected Animation getSlideDownAnimation(long height, long duration) {
+        animate = new TranslateAnimation(
+                0,                 // fromXDelta
+                0,                 // toXDelta
+                0,                 // fromYDelta
+                height); // toYDelta
+        animate.setDuration(duration);
+        animate.setFillAfter(false);
+
+        return animate;
     }
 
     protected void slideOutActivity() {

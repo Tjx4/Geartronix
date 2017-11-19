@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 
 import com.emgr.geartronix.activities.BaseActivity;
 
-public class BaseFragment extends Fragment {
+public abstract class BaseFragment extends Fragment {
 
     protected BaseActivity activity;
 
