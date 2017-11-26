@@ -28,7 +28,7 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
 
     public GalleryPresenter(IGalleryView iGalleryView) {
         setDependanciesChildActivities((BaseActivity) iGalleryView, R.layout.activity_gallery);
-        setPageTitle(getActivity().getString(R.string.Gallery));
+        setPageTitle(activity.getString(R.string.Gallery));
         setViews();
         responseModel = new GalleryModel();
         new DoAsyncCall().execute();
