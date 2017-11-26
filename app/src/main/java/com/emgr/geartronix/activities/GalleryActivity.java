@@ -1,15 +1,11 @@
-
 package com.emgr.geartronix.activities;
-
 
 import android.os.Bundle;
 import android.view.View;
-
-import com.emgr.geartronix.R;
 import com.emgr.geartronix.presenters.GalleryPresenter;
 import com.emgr.geartronix.views.IGalleryView;
 
-public class GalleryActivity extends BaseActivity implements IGalleryView {
+public class GalleryActivity extends BaseAsyncActivity implements IGalleryView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

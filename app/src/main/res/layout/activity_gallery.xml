@@ -8,108 +8,21 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:background="@android:color/darker_gray"
-        android:id="@+id/relativeLayout">
-
-        <ImageButton
-            android:id="@+id/imgBtnBlockLayout"
-            android:layout_width="50dp"
-            android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:background="@color/appBackground"
-            android:src="@drawable/gridlayout_icon"
-            android:onClick="onButtonClickedEvent"/>
-
-        <ImageButton android:layout_marginLeft="3dp"
-                     android:id="@+id/imgBtnInlineLayout"
-                     android:layout_width="50dp"
-                     android:layout_height="match_parent"
-                     android:background="@color/appBackground"
-                     android:src="@drawable/inlinelayout_icon"
-                     android:layout_alignParentTop="true"
-                     android:layout_toRightOf="@+id/imgBtnBlockLayout"
-                     android:layout_toEndOf="@+id/imgBtnBlockLayout"
-                     android:onClick="onButtonClickedEvent"/>
-
-    </RelativeLayout>
-
-    <GridView android:id="@+id/imageGrid"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:paddingTop="@dimen/grid_vertical_padding"
-              android:paddingBottom="@dimen/grid_vertical_padding"
-              android:paddingLeft="@dimen/grid_horizontal_padding"
-              android:paddingRight="@dimen/grid_horizontal_padding"
-              android:horizontalSpacing="0dp"
-              android:verticalSpacing="0dp"
-              android:numColumns="auto_fit"
-              android:stretchMode="columnWidth"
-              android:gravity="left"
-              android:columnWidth="60dp"
-              android:layout_below="@+id/relativeLayout"/>
-
-    <RelativeLayout
-        android:id="@+id/detailedView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/transBlack"
-        android:visibility="gone">
+        android:layout_height="match_parent">
 
         <RelativeLayout
-            android:id="@+id/lrgViewMenuStrip"
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:background="@color/transBlack">
+            android:background="@android:color/darker_gray">
 
-            <ImageButton
-                android:id="@+id/imgCloseDetailedView"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_marginRight="40dp"
-                android:background="@color/colorTransparent"
-                android:onClick="onButtonClickedEvent"
-                android:src="@drawable/close_icon"/>
-
-            <ImageButton
-                android:id="@+id/imgIconTwo"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="3dp"
-                android:layout_toEndOf="@+id/imgCloseDetailedView"
-                android:layout_toRightOf="@+id/imgCloseDetailedView"
-                android:background="@color/colorTransparent"
-                android:src="@drawable/share_icon"/>
-
-            <ImageButton
-                android:id="@+id/imgIconThree"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:layout_alignParentTop="true"
-                android:layout_marginLeft="3dp"
-                android:layout_toEndOf="@+id/imgIconTwo"
-                android:layout_toRightOf="@+id/imgIconTwo"
-                android:background="@color/colorTransparent"
-                android:src="@drawable/comment_icon"/>
 
         </RelativeLayout>
 
-
-        <ImageView
-            android:id="@+id/imgLrg"
+        <GridView
             android:layout_width="match_parent"
-            android:layout_height="400dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/lrgViewMenuStrip"
-            android:background="@color/blue_one"
-            android:src="@android:drawable/ic_lock_lock"/>
-
+            android:layout_height="match_parent"
+            android:layout_below="@+id/relativeLayout"/>
 
     </RelativeLayout>
 

@@ -5,10 +5,10 @@ import org.json.JSONObject;
 
 public class HomeModel extends BaseModel{
 
-    public String session;
-    public String message;
-    public int userId;
-    public String user;
+    private String session;
+    private String message;
+    private int userId;
+    private String user;
 
     @Override
     public void setModel(JSONObject response) throws JSONException {
