@@ -4,6 +4,8 @@ import android.view.View;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.activities.GalleryActivity;
+import com.emgr.geartronix.providers.DataServiceProvider;
+import com.emgr.geartronix.providers.HttpConnectionProvider;
 import com.emgr.geartronix.views.IGalleryView;
 
 
@@ -15,6 +17,7 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
         setPageTitle(getActivity().getString(R.string.Gallery));
         setViews();
 
+        new DoAsyncCall().execute();
     }
 
     @Override
@@ -29,12 +32,14 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
 
     @Override
     protected Object doAsyncOperation(Object... args) throws Exception {
-        return null;
+        String service = DataServiceProvider.gallery.getPath();
+        String url = environment + service + "index.php";
+        return new HttpConnectionProvider().makeCallForData(url, "GET", true, true, httpConTimeout);
     }
 
     @Override
     protected void afterAsyncCall(Object result) {
-
+        String res = result.toString();
     }
 
     @Override

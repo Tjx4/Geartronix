@@ -72,7 +72,7 @@ public abstract class BaseAsyncPresenter extends BasePresenter {
         private View triggerView;
 
         public DoAsyncCall(View...triggerViews) {
-            if(triggerViews != null)
+            if(triggerViews != null && triggerViews.length > 0)
                 this.triggerView = triggerViews[0];
         }
 

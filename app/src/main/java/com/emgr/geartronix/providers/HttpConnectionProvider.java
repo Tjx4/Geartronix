@@ -28,8 +28,9 @@ public class HttpConnectionProvider {
     private int connectionTimeout;
     private HttpURLConnection httpConnect;
 
-    public HttpConnectionProvider(Bundle values) {
-        this.values = values;
+    public HttpConnectionProvider(Bundle...values) {
+        if(values != null && values.length > 0)
+            this.values = values[0];
     }
 
 
@@ -101,6 +102,9 @@ public class HttpConnectionProvider {
                 + "&"+URLEncoder.encode("deviceType", encoding)+"="+URLEncoder.encode(deviceSerial, encoding)
                 + "&"+URLEncoder.encode("deviceSerial", encoding)+"="+URLEncoder.encode(deviceSerial, encoding);
         String key;
+
+        if(values == null)
+            return  "";
 
         Set vals = values.keySet();
 
