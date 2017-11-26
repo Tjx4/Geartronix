@@ -1,7 +1,13 @@
 package com.emgr.geartronix.providers;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.ImageButton;
+
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -116,6 +122,47 @@ public class HttpConnectionProvider {
         }
 
         return postData;
+    }
+
+    public void setRemoteBitmap(ImageButton theImage, String path) {
+        new FetchImage(theImage).execute(path);
+    }
+
+    private class FetchImage extends AsyncTask<String , Integer, Bitmap>{
+
+        private ImageButton theImage;
+
+        public FetchImage(ImageButton theImage) {
+            this.theImage = theImage;
+        }
+
+        @Override
+        protected Bitmap doInBackground(String...params) {
+
+            Bitmap bitmapImage;
+
+            try {
+
+                URL url = new URL(params[0]);
+                HttpURLConnection htpc = (HttpURLConnection) url.openConnection();
+                BufferedInputStream bi = new BufferedInputStream(htpc.getInputStream());
+
+                bitmapImage = BitmapFactory.decodeStream(bi);
+                bi.close();
+                htpc.disconnect();
+            }
+            catch (Exception e){
+                bitmapImage = null;
+            }
+
+            return bitmapImage;
+        }
+
+        @Override
+        protected void onPostExecute(Bitmap bitmap) {
+            super.onPostExecute(bitmap);
+            theImage.setImageBitmap(bitmap);
+        }
     }
 
 

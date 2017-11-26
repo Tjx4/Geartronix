@@ -1,5 +1,9 @@
 package com.emgr.geartronix.models;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +15,26 @@ public class GalleryModel  extends BaseModel {
     private int imageId;
     private String imageDescription;
 
+    @Override
+    public void setModel(JSONObject response) throws JSONException {
+        super.setModel(response);
+        JSONArray itemsArray = response.getJSONArray("items");
+
+        items = new ArrayList<>();
+        for(int i = 0; i < itemsArray.length(); i++){
+
+            JSONObject itemsAr = (JSONObject)itemsArray.get(i);
+
+            ArrayList al = new ArrayList();
+            al.add(itemsAr.getInt("id"));
+            al.add(itemsAr.getString("path"));
+            al.add(itemsAr.getString("description"));
+
+            items.add(al);
+        }
+
+
+    }
     public List<ArrayList> getItems() {
         return items;
     }
