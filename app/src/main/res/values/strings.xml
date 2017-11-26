@@ -29,4 +29,6 @@
     <string name="sign_in2">Sign in</string>
     <string name="ddd">app_name</string>
     <string name="sign_out">Sign out</string>
+    <string name="technical_error">We are currently experiences technical issues please try again later</string>
+    <string name="login_error">Login error</string>
 </resources>

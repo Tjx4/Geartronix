@@ -1,10 +1,24 @@
 package com.emgr.geartronix.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class HomeModel extends BaseModel{
 
     public String session;
+    public String message;
     public int userId;
     public String user;
+
+    @Override
+    public void setModel(JSONObject response) throws JSONException {
+        super.setModel(response);
+        setUserId(response.getInt("userId"));
+        setUser(response.getString("user"));
+        setMessage(response.getString("message"));
+        setSuccessful(response.getBoolean("isSuccessful"));
+        setSession(response.getString("session"));
+    }
 
     public int getUserId() {  return userId;}
     public void setUserId(int userId) {
@@ -24,4 +38,5 @@ public class HomeModel extends BaseModel{
     public void setSession(String session) {
         this.session = session;
     }
+
 }

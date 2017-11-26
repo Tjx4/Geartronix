@@ -151,33 +151,28 @@ Log.i(BASE_LOG, "Thread started ... ...");
 
     @Override
     protected void afterAsyncCall(Object result) {
+        hideLoadingScreen();
 
         try {
             setResponseModel(result.toString());
-            hideLoadingScreen();
 
             if(responseModel.isSuccessful){
                 goToDashBoard();
             }
             else {
-                showErrorMessage(responseModel.message, "Login error");
+                showErrorMessage(responseModel.message, activity.getString(R.string.login_error));
             }
 
         } catch (JSONException e) {
             e.printStackTrace();
+            showErrorMessage(activity.getString(R.string.technical_error), activity.getString(R.string.login_error));
         }
 
     }
 
     @Override
     public void setResponseModel(String response) throws JSONException {
-        JSONObject responseJson = new JSONObject(response);
-        responseModel.setResponse(responseJson.toString());
-        responseModel.setUserId(responseJson.getInt("userId"));
-        responseModel.setUser(responseJson.getString("user"));
-        responseModel.setMessage(responseJson.getString("message"));
-        responseModel.setSuccessful(responseJson.getBoolean("isSuccessful"));
-        responseModel.setSession(responseJson.getString("session"));
+        responseModel.setModel(new JSONObject(response));
     }
 
     @Override

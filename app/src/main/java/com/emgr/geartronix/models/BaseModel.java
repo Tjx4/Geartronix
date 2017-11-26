@@ -1,17 +1,24 @@
 package com.emgr.geartronix.models;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public abstract class BaseModel {
 
     public boolean isSuccessful;
     public String message;
     public String responseCode;
 
-    public String getResponse() {
+    public String setResponse() {
         return response;
     }
 
-    public void setResponse(String response) {
-        this.response = response;
+    public void setResponse(JSONObject response) {
+        this.response = response.toString();
+    }
+
+    protected void setModel(JSONObject response) throws JSONException {
+        setResponse(response);
     }
 
     private String response;
