@@ -11,7 +11,13 @@
         android:layout_height="match_parent"
         android:background="@color/colorPrimaryDark"
         android:scaleType="fitCenter"
-        app:srcCompat="@mipmap/ic_launcher"/>
+        app:srcCompat="@color/colorTransparent"/>
+
+    <ProgressBar
+        android:id="@+id/progressBarSub"
+        android:layout_centerInParent="true"
+        style="@style/loadingSpinner"
+        />
 
     <TextView
         android:id="@+id/txtDescription"

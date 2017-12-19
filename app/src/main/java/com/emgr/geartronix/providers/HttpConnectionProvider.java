@@ -5,7 +5,9 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -124,16 +126,18 @@ public class HttpConnectionProvider {
         return postData;
     }
 
-    public void setRemoteBitmap(ImageButton theImage, String path) {
-        new FetchImage(theImage).execute(path);
+    public void setRemoteBitmap(ProgressBar imageLoading,ImageButton theImage, String path) {
+        new FetchImage(imageLoading, theImage).execute(path);
     }
 
     private class FetchImage extends AsyncTask<String , Integer, Bitmap>{
 
         private ImageButton theImage;
+        private ProgressBar imageLoading;
 
-        public FetchImage(ImageButton theImage) {
+        public FetchImage(ProgressBar imageLoading, ImageButton theImage) {
             this.theImage = theImage;
+            this.imageLoading = imageLoading;
         }
 
         @Override
@@ -161,6 +165,7 @@ public class HttpConnectionProvider {
         @Override
         protected void onPostExecute(Bitmap bitmap) {
             super.onPostExecute(bitmap);
+            imageLoading.setVisibility(View.INVISIBLE);
             theImage.setImageBitmap(bitmap);
         }
     }

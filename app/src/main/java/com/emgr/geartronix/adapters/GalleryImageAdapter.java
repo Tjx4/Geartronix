@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.emgr.geartronix.R;
@@ -40,8 +41,10 @@ public class GalleryImageAdapter extends ArrayAdapter{
         LayoutInflater li = activity.getLayoutInflater();
         parentView  = li.inflate(layout, parent, false);
 
+        ProgressBar imageloading =  parentView.findViewById(R.id.progressBarSub);
         ImageButton image = parentView.findViewById(R.id.imgPic);
-        new HttpConnectionProvider().setRemoteBitmap(image, items.get(position).get(1).toString());
+
+        new HttpConnectionProvider().setRemoteBitmap(imageloading, image, items.get(position).get(1).toString());
 
         TextView description = parentView.findViewById(R.id.txtDescription);
         description.setText(items.get(position).get(2).toString());
