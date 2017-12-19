@@ -40,9 +40,6 @@ public class ServicesPresenter extends BaseMenuPresenter implements IServicesPre
 
     }
 
-
-
-
     @Override
     public void setViews() {
 
@@ -51,5 +48,10 @@ public class ServicesPresenter extends BaseMenuPresenter implements IServicesPre
     @Override
     public ServicesActivity getActivity() {
         return (ServicesActivity)activity;
+    }
+
+    @Override
+    public void handleViewClickedEvent(View view) {
+
     }
 }

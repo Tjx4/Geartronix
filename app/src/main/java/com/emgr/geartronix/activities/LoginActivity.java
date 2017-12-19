@@ -24,8 +24,8 @@ public class LoginActivity extends BaseAsyncActivity implements ILoginView {
     }
 
     @Override
-    public void onButtonClickedEvent(View button) {
-        getPresenter().onAsyncButtonClickeEvent(button);
+    public void onViewClickedEvent(View view) {
+        getPresenter().handleViewClickedEvent(view);
     }
 
 }

@@ -245,4 +245,8 @@ private View lastView;
         lastView = view;
     }
 
+    @Override
+    public void handleViewClickedEvent(View view) {
+
+    }
 }

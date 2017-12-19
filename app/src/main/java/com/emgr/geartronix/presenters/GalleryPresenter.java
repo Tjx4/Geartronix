@@ -1,5 +1,6 @@
 package com.emgr.geartronix.presenters;
 
+import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
@@ -28,7 +29,7 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
 
     public GalleryPresenter(IGalleryView iGalleryView) {
         setDependanciesChildActivities((BaseActivity) iGalleryView, R.layout.activity_gallery);
-        setPageTitle(activity.getString(R.string.Gallery));
+        currentActionBar.setTitle(" "+activity.getString(R.string.Gallery));
         setViews();
         responseModel = new GalleryModel();
         new DoAsyncCall().execute();
@@ -73,7 +74,7 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
 
     @Override
     protected void handleAsyncButtonClickedEvent(View button) {
-
+        showShortToast("Just clicked === "+button.getId());
     }
 
     @Override
@@ -87,7 +88,7 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
     }
 
     @Override
-    public void handleButtonClickedEvent(View view) {
+    public void handleViewClickedEvent(View view) {
 
     }
 

@@ -33,8 +33,8 @@ public class GalleryModel  extends BaseModel {
             items.add(al);
         }
 
-
     }
+
     public List<ArrayList> getItems() {
         return items;
     }

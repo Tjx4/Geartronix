@@ -175,6 +175,7 @@ Log.i(BASE_LOG, "Thread started ... ...");
         responseModel.setModel(new JSONObject(response));
     }
 
+    //Todo: Revise
     @Override
     protected void handleAsyncButtonClickedEvent(View button) {
 
@@ -194,5 +195,10 @@ Log.i(BASE_LOG, "Thread started ... ...");
                 showLongToast("Unknown button");
                 break;
         }
+    }
+
+    @Override
+    public void handleViewClickedEvent(View view) {
+        handleAsyncButtonClickedEvent(view);
     }
 }

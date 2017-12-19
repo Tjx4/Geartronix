@@ -19,8 +19,8 @@ public class GalleryActivity extends BaseAsyncActivity implements IGalleryView {
     }
 
     @Override
-    public void onButtonClickedEvent(View view) {
-        getPresenter().handleButtonClickedEvent(view);
+    public void onViewClickedEvent(View view) {
+        getPresenter().handleViewClickedEvent(view);
     }
 
     @Override

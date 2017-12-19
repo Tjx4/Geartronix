@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,24 +11,61 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <RelativeLayout
-            android:id="@+id/relativeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@android:color/darker_gray">
 
 
-        </RelativeLayout>
+        <!-- Todo: Add decoy row for slide under effect -->
 
-        <GridView android:id="@+id/grdvImageContainer"
+        <GridView
+            android:id="@+id/grdvImageContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
             android:columnWidth="130dp"
             android:horizontalSpacing="0dp"
             android:numColumns="auto_fit"
             android:stretchMode="columnWidth"
-            android:verticalSpacing="0dp"
-            android:layout_below="@+id/relativeLayout"/>
+            android:verticalSpacing="0dp"/>
+
+        <FrameLayout
+            android:id="@+id/frmContrlMenu"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorTransparentBlack">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/imgBtnShare"
+                    android:layout_width="@dimen/gallery_controll_icon_size"
+                    android:layout_height="@dimen/gallery_controll_icon_size"
+                    android:background="@color/colorTransparent"
+                    android:scaleType="fitXY"
+                    android:onClick="onViewClickedEvent"
+                    app:srcCompat="@android:drawable/ic_menu_share"/>
+
+                <ImageButton
+                    android:id="@+id/imgBtnEnlarge"
+                    android:layout_width="@dimen/gallery_controll_icon_size"
+                    android:layout_height="@dimen/gallery_controll_icon_size"
+                    android:layout_marginLeft="20dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="fitXY"
+                    android:onClick="onViewClickedEvent"
+                    app:srcCompat="@android:drawable/ic_menu_report_image"/>
+
+            </LinearLayout>
+
+        </FrameLayout>
 
     </RelativeLayout>
 

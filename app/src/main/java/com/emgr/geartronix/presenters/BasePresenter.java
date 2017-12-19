@@ -29,6 +29,7 @@ public abstract class BasePresenter {
     public BaseActivity activity;
     public int deviceOrientation;
     private Animation animate;
+    protected ActionBar currentActionBar;
 
     protected void setDependancies(BaseActivity activity, int contentView) {
         setBasicDependancies(activity,contentView);
@@ -84,13 +85,13 @@ public abstract class BasePresenter {
     }
 
     public void configureActionBar() {
-        ActionBar ab = basicActionBarConfiguration(" "+getPageTitle());
+        currentActionBar = basicActionBarConfiguration(" "+getPageTitle());
     }
 
     public void configureActionBarChildActivity() {
-        ActionBar ab = basicActionBarConfiguration(" "+getPageTitle());
-        ab.setDisplayUseLogoEnabled(false);
-        ab.setDisplayHomeAsUpEnabled(true);
+        currentActionBar = basicActionBarConfiguration(" "+getPageTitle());
+        currentActionBar.setDisplayUseLogoEnabled(false);
+        currentActionBar.setDisplayHomeAsUpEnabled(true);
     }
 
     protected void slideInActivity() {

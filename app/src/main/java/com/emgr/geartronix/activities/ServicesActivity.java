@@ -29,8 +29,8 @@ public class ServicesActivity extends BaseAsyncActivity implements  IServicesVie
     }
 
     @Override
-    public void onButtonClickedEvent(View button) {
-        // Handles click events for buttons on screen
+    public void onViewClickedEvent(View view) {
+        getPresenter().handleViewClickedEvent(view);
     }
 
     @Override
