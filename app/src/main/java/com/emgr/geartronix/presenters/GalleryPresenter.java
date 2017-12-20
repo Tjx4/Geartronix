@@ -32,6 +32,7 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
     private GalleryModel responseModel;
     private ImageView activeImage;
     private FrameLayout controlMenu;
+    public boolean enlarged;
 
     public GalleryPresenter(IGalleryView iGalleryView) {
         setDependanciesChildActivities((BaseActivity) iGalleryView, R.layout.activity_gallery);
@@ -81,7 +82,28 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
     @Override
     protected void handleAsyncButtonClickedEvent(View view) {
 
-        ImageView selectedImage = (ImageView)view;
+        int viewId = view.getId();
+
+        switch (viewId)
+        {
+            case R.id.imgPic :
+                showEnlargedImage(view);
+            break;
+            case R.id.imgMinimize :
+                hideEnlargedImage();
+            break;
+            case R.id.imgBtnShare :
+                showShortToast("Call share");
+            break;
+            case R.id.imgBtnSavePic :
+                showShortToast("Save picture");
+            break;
+        }
+    }
+
+    @Override
+    public void showEnlargedImage(View view) {
+        ImageView selectedImage = (ImageView) view;
         BitmapDrawable bd = (BitmapDrawable)selectedImage.getDrawable();
         Bitmap image = bd.getBitmap();
 
@@ -89,9 +111,26 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
         showPanels();
     }
 
+    @Override
+    public void hideEnlargedImage() {
+        //ImageView selectedImage = (ImageView) view;
+        //BitmapDrawable bd = (BitmapDrawable)selectedImage.getDrawable();
+        //Bitmap image = bd.getBitmap();
+        //activeImage.setImageBitmap(image);
+
+        hidePanels();
+    }
+
     private void showPanels() {
+        enlarged = true;
         controlMenu.setVisibility(View.VISIBLE);
         activeImage.setVisibility(View.VISIBLE);
+    }
+
+    private void hidePanels() {
+        controlMenu.setVisibility(View.GONE);
+        activeImage.setVisibility(View.GONE);
+        enlarged = false;
     }
 
     @Override

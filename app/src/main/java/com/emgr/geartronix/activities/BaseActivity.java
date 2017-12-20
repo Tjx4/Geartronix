@@ -10,4 +10,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onDestroy();
         //presenter.activity = null;
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        presenter.slideOutActivity();
+    }
 }

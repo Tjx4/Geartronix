@@ -30,6 +30,7 @@ public abstract class BasePresenter {
     public int deviceOrientation;
     private Animation animate;
     protected ActionBar currentActionBar;
+    //public boolean isBack;
 
     protected void setDependancies(BaseActivity activity, int contentView) {
         setBasicDependancies(activity,contentView);
@@ -94,9 +95,14 @@ public abstract class BasePresenter {
         currentActionBar.setDisplayHomeAsUpEnabled(true);
     }
 
-    protected void slideInActivity() {
-        activity.overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
+    public void slideInActivity() {
+        activity.overridePendingTransition(R.anim.slide_in, R.anim.nothing);
     }
+
+    public void slideOutActivity() {
+        activity.overridePendingTransition(R.anim.nothing, R.anim.slide_out);
+    }
+
     protected Animation getfadeInAnimation(long duration) {
         animate = new AlphaAnimation(1, 0);
         animate.setInterpolator(new DecelerateInterpolator()); //add this
@@ -126,9 +132,6 @@ public abstract class BasePresenter {
         return animate;
     }
 
-    protected void slideOutActivity() {
-        activity.overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
-    }
 
     protected ActionBar basicActionBarConfiguration(String title) {
         ActionBar ab = this.activity.getSupportActionBar();
