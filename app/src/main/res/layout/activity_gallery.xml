@@ -30,7 +30,7 @@
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
             android:background="@color/colorTransparentBlack"
-            android:scaleType="fitXY"
+            android:scaleType="fitStart"
             android:visibility="gone"
             app:srcCompat="@android:drawable/ic_menu_share"/>
 
@@ -39,7 +39,7 @@
             android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
             android:background="@color/colorTransparentBlack">
 
             <LinearLayout

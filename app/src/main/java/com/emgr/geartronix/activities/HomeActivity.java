@@ -18,12 +18,6 @@ public class HomeActivity extends BaseAsyncActivity implements IHomeView, Naviga
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-       getPresenter().resetTiles();
-    }
-
-    @Override
     public HomePresenter getPresenter() {
         return (HomePresenter)presenter;
     }
@@ -59,6 +53,18 @@ public class HomeActivity extends BaseAsyncActivity implements IHomeView, Naviga
     public void onBackPressed() {
         super.onBackPressed();
         getPresenter().handleBackButtonPressed();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+// Todo: find a way to check if is back
+            getPresenter().resetTiles();
     }
 
     @SuppressWarnings("StatementWithEmptyBody")

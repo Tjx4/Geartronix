@@ -31,4 +31,5 @@
     <string name="sign_out">Sign out</string>
     <string name="technical_error">We are currently experiences technical issues please try again later</string>
     <string name="login_error">Login error</string>
+    <string name="choose_an_activity">Choose an activity</string>
 </resources>

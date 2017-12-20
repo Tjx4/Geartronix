@@ -92,7 +92,7 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
        loginDetails.putString("session", responseModel.getSession());
 
         goToHome(loginDetails);
-
+        getActivity().finish();
     }
 
     @Override
@@ -177,7 +177,7 @@ Log.i(BASE_LOG, "Thread started ... ...");
 
     //Todo: Revise
     @Override
-    protected void handleAsyncButtonClickedEvent(View button) {
+    public void handleAsyncButtonClickedEvent(View button) {
 
         switch (button.getId()) {
 

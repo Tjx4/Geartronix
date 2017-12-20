@@ -30,7 +30,7 @@ public abstract class BasePresenter {
     public int deviceOrientation;
     private Animation animate;
     protected ActionBar currentActionBar;
-    //public boolean isBack;
+    public boolean isBack;
 
     protected void setDependancies(BaseActivity activity, int contentView) {
         setBasicDependancies(activity,contentView);
@@ -50,7 +50,9 @@ public abstract class BasePresenter {
         this.activity = activity;
         activity.setContentView(contentView);
         setBackgroundImage(contentView);
-        slideInActivity();
+
+        if(!isBack)
+            slideInActivity();
     }
 
     protected void setPageTitle(String pageTitle) {
@@ -97,6 +99,10 @@ public abstract class BasePresenter {
 
     public void slideInActivity() {
         activity.overridePendingTransition(R.anim.slide_in, R.anim.nothing);
+    }
+
+    public void slideInAndFinishActivity() {
+        activity.overridePendingTransition(R.anim.slide_in, R.anim.slide_out);
     }
 
     public void slideOutActivity() {

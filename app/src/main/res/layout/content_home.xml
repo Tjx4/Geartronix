@@ -21,7 +21,7 @@
             style="@style/largeLabel"
             android:layout_marginTop="40dp"
             android:layout_marginBottom="40dp"
-            android:text="Choose an activity"
+            android:text="@string/choose_an_activity"
             android:textAlignment="center"/>
 
 

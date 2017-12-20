@@ -3,6 +3,7 @@ package com.emgr.geartronix.presenters;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Looper;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,6 +35,7 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     private TextView homeHeaderText;
     private List<ArrayList> homeItems;
     private LinearLayout currentTile;
+    private View lastView;
 
     public HomePresenter(IHomeView iHomeView) {
         setDependanciesNoActionBar((BaseActivity) iHomeView, R.layout.activity_home);
@@ -123,13 +125,12 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
         return new HomeTileAdapter(getActivity(), R.layout.home_tile_item, homeItems);
     }
 
-
-private View lastView;
-
     @Override
     public void handleTileClicked(View view) {
         //setActiveInactiveColor(view);
-        animateHomeViews(view);
+        //animateHomeViews(view);
+
+        animateAndGotoActivity(view);
     }
 
     private void goToSelectedActivity(View view) {
@@ -153,18 +154,18 @@ private View lastView;
     }
 
     private void hideHomeTile(View view) {
-        final View currentActivity = (LinearLayout)view;
+        final View currentActivity = view;
 
         Animation animate = getfadeOutAnimation(60, 400);
         animate.setAnimationListener(new TranslateAnimation.AnimationListener() {
 
             @Override
             public void onAnimationStart(Animation animation) {
+                homeTileContainer.setVisibility(View.INVISIBLE);
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                homeTileContainer.setVisibility(View.INVISIBLE);
                 goToSelectedActivity(currentActivity);
             }
 
@@ -179,9 +180,70 @@ private View lastView;
         selectedActivityImg.setVisibility(View.VISIBLE);
     }
 
-    private void animateHomeViews(View view) {
+    public void resetHomeTitle() {
+
+        homeHeaderText.setText(getActivity().getString(R.string.choose_an_activity));
+    }
+
+    private void animateAndGotoActivity(View view) {
 
         currentTile = (LinearLayout)view;
+
+        final View currentActivity = view;
+
+        Animation animate = getfadeOutAnimation(60, 100);
+        animate.setAnimationListener(new TranslateAnimation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+                homeTileContainer.setVisibility(View.INVISIBLE);
+
+                ImageView currentTileImage = (ImageView)currentTile.getChildAt(0);
+                selectedActivityImg.setImageBitmap(getImageViewPic(currentTileImage));
+
+                TextView currentTileLabel = (TextView)currentTile.getChildAt(1);
+                String activityName = currentTileLabel.getText().toString();
+                homeHeaderText.setText(activityName);
+
+                //This is where you animate the selected activity
+                showSelectedActivity();
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+// Todo: find better way to delay
+                Thread lTimer = new Thread() {
+
+                    public void run() {
+
+                        Looper.prepare();
+
+                        try {
+                            Thread.sleep(200);
+                            goToSelectedActivity(currentActivity);
+
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                };
+
+                lTimer.start();
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+        homeTileContainer.startAnimation(animate);
+    }
+
+    private void animateHomeViews(View view) {
+
         //view.getHeight()
         Animation animate = getSlideDownAnimation(500,  600);
         animate.setAnimationListener(new Animation.AnimationListener() {
@@ -198,6 +260,7 @@ private View lastView;
                 homeHeaderText.setText(activityName);
 
                 showSelectedActivity();
+
             }
 
             @Override
@@ -223,11 +286,13 @@ private View lastView;
 
         selectedActivityImg.setVisibility(invisible);
 
-        if(homeTileContainer.getVisibility() != visible)
+        resetHomeTitle();
+
+        //if(homeTileContainer.getVisibility() != visible)
             homeTileContainer.setVisibility(visible);
 
-        if(currentTile != null)
-            currentTile.setVisibility(visible);
+        //if(currentTile != null)
+        //    currentTile.setVisibility(visible);
     }
 
     private void setActiveInactiveColor(View view) {
