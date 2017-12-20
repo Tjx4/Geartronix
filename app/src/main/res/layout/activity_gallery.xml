@@ -11,8 +11,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
-
         <!-- Todo: Add decoy row for slide under effect -->
 
         <GridView
@@ -26,8 +24,19 @@
             android:stretchMode="columnWidth"
             android:verticalSpacing="0dp"/>
 
+        <ImageButton
+            android:id="@+id/imgLarge"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorTransparentBlack"
+            android:scaleType="fitXY"
+            android:visibility="gone"
+            app:srcCompat="@android:drawable/ic_menu_share"/>
+
         <FrameLayout
             android:id="@+id/frmContrlMenu"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -42,6 +51,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginTop="10dp"
+                android:layout_gravity="center_horizontal"
                 android:orientation="horizontal">
 
                 <ImageButton
@@ -49,19 +59,29 @@
                     android:layout_width="@dimen/gallery_controll_icon_size"
                     android:layout_height="@dimen/gallery_controll_icon_size"
                     android:background="@color/colorTransparent"
-                    android:scaleType="fitXY"
                     android:onClick="onViewClickedEvent"
+                    android:scaleType="fitXY"
                     app:srcCompat="@android:drawable/ic_menu_share"/>
 
                 <ImageButton
                     android:id="@+id/imgBtnEnlarge"
                     android:layout_width="@dimen/gallery_controll_icon_size"
                     android:layout_height="@dimen/gallery_controll_icon_size"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="@dimen/gallery_control_icon_spacing"
                     android:background="@android:color/transparent"
-                    android:scaleType="fitXY"
                     android:onClick="onViewClickedEvent"
-                    app:srcCompat="@android:drawable/ic_menu_report_image"/>
+                    android:scaleType="fitXY"
+                    app:srcCompat="@android:drawable/ic_menu_gallery"/>
+
+                <ImageButton
+                    android:id="@+id/imgMinimize"
+                    android:layout_width="@dimen/gallery_controll_icon_size"
+                    android:layout_height="@dimen/gallery_controll_icon_size"
+                    android:layout_marginLeft="@dimen/gallery_control_icon_spacing"
+                    android:background="@android:color/transparent"
+                    android:onClick="onViewClickedEvent"
+                    android:scaleType="fitXY"
+                    app:srcCompat="@android:drawable/ic_menu_crop"/>
 
             </LinearLayout>
 

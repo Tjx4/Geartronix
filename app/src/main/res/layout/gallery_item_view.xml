@@ -1,31 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="wrap_content"
-                android:layout_height="150dp"
-                android:orientation="vertical">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="150dp"
+             android:orientation="vertical">
 
     <ImageButton
         android:id="@+id/imgPic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_gravity="center"
         android:background="@color/colorPrimaryDark"
+        android:onClick="onViewClickedEvent"
         android:scaleType="fitCenter"
         app:srcCompat="@color/colorTransparent"/>
 
     <ProgressBar
         android:id="@+id/progressBarSub"
-        android:layout_centerInParent="true"
         style="@style/loadingSpinner"
-        />
+        android:layout_gravity="center"
+        android:layout_marginTop="-20dp"
+        android:elevation="17dp"/>
 
-    <TextView
-        android:id="@+id/txtDescription"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:background="@color/colorTransparentBlack"
-        android:padding="10dp"
-        android:text="TextView"
-        android:textColor="@color/textWhite"/>
-</RelativeLayout>
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:onClick="onViewClickedEvent"
+            android:scaleType="fitXY"
+            app:srcCompat="@android:drawable/ic_menu_add"/>
+
+        <TextView
+            android:id="@+id/txtDescription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp"
+            android:text="TextView"
+            android:textColor="@color/textWhite"/>
+
+    </LinearLayout>
+
+</FrameLayout>

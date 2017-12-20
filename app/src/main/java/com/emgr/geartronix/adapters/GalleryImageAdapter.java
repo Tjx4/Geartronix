@@ -11,10 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.providers.HttpConnectionProvider;
-
 import java.util.ArrayList;
 import java.util.List;
 

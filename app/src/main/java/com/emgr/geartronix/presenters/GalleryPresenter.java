@@ -1,9 +1,13 @@
 package com.emgr.geartronix.presenters;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.support.v7.app.ActionBar;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
@@ -26,6 +30,8 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
     private GridView images;
     private List<ArrayList> items;
     private GalleryModel responseModel;
+    private ImageView activeImage;
+    private FrameLayout controlMenu;
 
     public GalleryPresenter(IGalleryView iGalleryView) {
         setDependanciesChildActivities((BaseActivity) iGalleryView, R.layout.activity_gallery);
@@ -73,13 +79,26 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
     }
 
     @Override
-    protected void handleAsyncButtonClickedEvent(View button) {
-        showShortToast("Just clicked === "+button.getId());
+    protected void handleAsyncButtonClickedEvent(View view) {
+
+        ImageView selectedImage = (ImageView)view;
+        BitmapDrawable bd = (BitmapDrawable)selectedImage.getDrawable();
+        Bitmap image = bd.getBitmap();
+
+        activeImage.setImageBitmap(image);
+        showPanels();
+    }
+
+    private void showPanels() {
+        controlMenu.setVisibility(View.VISIBLE);
+        activeImage.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void setViews() {
         setAsyncViews();
+        activeImage = (ImageView)getActivity().findViewById(R.id.imgLarge);
+        controlMenu = (FrameLayout)getActivity().findViewById(R.id.frmContrlMenu);
     }
 
     @Override
@@ -89,7 +108,7 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
 
     @Override
     public void handleViewClickedEvent(View view) {
-
+        handleAsyncButtonClickedEvent(view);
     }
 
     @Override
