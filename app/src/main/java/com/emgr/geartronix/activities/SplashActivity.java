@@ -16,9 +16,10 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash_content);
-        delaySplashScreen();
         startingProgress = (ProgressBar)findViewById(R.id.prbSplashProgress);
         startingProgress.setProgress(0);
+        delaySplashScreen();
+
     }
 
     private void goToLogin() {
