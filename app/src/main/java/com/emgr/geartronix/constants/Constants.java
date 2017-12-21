@@ -13,6 +13,8 @@ public class Constants {
     public static final int CONTACTUSID = 005;
     public static final int CHATID = 006;
     public static final int FINDUSID = 007;
+    public static final int MESSAGES = 010;
+    public static final int DIAGNOSTICS = 011;
 
 
 }

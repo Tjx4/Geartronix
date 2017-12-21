@@ -31,6 +31,7 @@ public abstract class BasePresenter {
     private Animation animate;
     protected ActionBar currentActionBar;
     public boolean isBack;
+    public String username;
 
     protected void setDependancies(BaseActivity activity, int contentView) {
         setBasicDependancies(activity,contentView);

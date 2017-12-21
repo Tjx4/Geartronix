@@ -64,6 +64,12 @@ public class HomeTileAdapter extends ArrayAdapter {
             case 3:
                 viewId = Constants.FINDUSID;
             break;
+            case 4:
+                viewId = Constants.MESSAGES;
+            break;
+            case 5:
+                viewId = Constants.DIAGNOSTICS;
+            break;
         }
 
         return viewId;

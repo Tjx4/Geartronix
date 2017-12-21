@@ -15,6 +15,7 @@ import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
@@ -88,7 +89,7 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
 
     @Override
     public void setViews() {
-        parentLayout = (FrameLayout) getMainLayout();
+        parentLayout = (RelativeLayout) getMainLayout();
 
         homeHeaderText = (TextView) parentLayout.findViewById(R.id.txtHomeHeader);
         selectedActivityImg = (ImageView)parentLayout.findViewById(R.id.imgSelectedActivity);
@@ -116,11 +117,21 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
         item4.add(R.mipmap.find_us_icon);
         item4.add("Find us");
 
+        ArrayList item5 = new ArrayList();
+        item5.add(R.mipmap.message_icon);
+        item5.add("Messages");
+
+        ArrayList item6 = new ArrayList();
+        item6.add(R.mipmap.diagnostics_icon);
+        item6.add("Diagnostics");
+
         homeItems = new ArrayList<>();
         homeItems.add(item1);
         homeItems.add(item2);
         homeItems.add(item3);
         homeItems.add(item4);
+        homeItems.add(item5);
+        homeItems.add(item6);
 
         return new HomeTileAdapter(getActivity(), R.layout.home_tile_item, homeItems);
     }
@@ -129,8 +140,8 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     public void handleTileClicked(View view) {
         //setActiveInactiveColor(view);
         //animateHomeViews(view);
-
-        animateAndGotoActivity(view);
+       // animateAndGotoActivity(view);
+        blinkTile(view);
     }
 
     private void goToSelectedActivity(View view) {
@@ -186,12 +197,16 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     }
 
     private void animateAndGotoActivity(View view) {
-
         currentTile = (LinearLayout)view;
+
+        setActiveInactiveColor(currentTile);
+        goToSelectedActivity(currentTile);
+
+        /*
 
         final View currentActivity = view;
 
-        Animation animate = getfadeOutAnimation(60, 100);
+        Animation animate = getfadeOutAnimation(60, 400);
         animate.setAnimationListener(new TranslateAnimation.AnimationListener() {
 
             @Override
@@ -205,6 +220,8 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
                 TextView currentTileLabel = (TextView)currentTile.getChildAt(1);
                 String activityName = currentTileLabel.getText().toString();
                 homeHeaderText.setText(activityName);
+                //
+                homeHeaderText.setVisibility(View.VISIBLE);
 
                 //This is where you animate the selected activity
                 showSelectedActivity();
@@ -240,6 +257,7 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
             }
         });
         homeTileContainer.startAnimation(animate);
+        */
     }
 
     private void animateHomeViews(View view) {
@@ -285,7 +303,7 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
         int invisible = View.INVISIBLE;
 
         selectedActivityImg.setVisibility(invisible);
-
+        homeHeaderText.setVisibility(View.GONE);
         resetHomeTitle();
 
         //if(homeTileContainer.getVisibility() != visible)
@@ -308,6 +326,73 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
             lastView.setBackgroundColor(inactive);
 
         lastView = view;
+    }
+
+    private void blinkTile(View view) {
+
+        final View currentActivity = view;
+
+        Animation animate = getfadeOutAnimation(30, 70) ;
+
+        animate.setAnimationListener(new TranslateAnimation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                goToSelectedActivity(currentActivity);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+
+        currentActivity.startAnimation(animate);
+    }
+
+// Todo: work on this method
+    private void slideInAndOutView(View view, boolean isTwice) {
+
+        final Boolean secondTime = isTwice;
+        final View currentActivity = view;
+        int duration = 200;
+
+        Animation animate;
+
+        if (isTwice) {
+            animate = getfadeInAnimation(duration);
+        }
+        else {
+            animate = getfadeOutAnimation(30, duration) ;
+        }
+
+        animate.setAnimationListener(new TranslateAnimation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+
+                if(secondTime)
+                    goToSelectedActivity(currentActivity);
+                else
+                    slideInAndOutView(currentActivity, true);
+
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+
+        currentActivity.startAnimation(animate);
     }
 
     @Override

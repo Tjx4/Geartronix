@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
+import android.widget.RelativeLayout;
+
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.activities.HomeActivity;
@@ -18,7 +20,7 @@ import com.emgr.geartronix.constants.Constants;
 public abstract class BaseMenuPresenter extends BaseAsyncPresenter {
 
     protected ViewStub currentPageLayout;
-    protected FrameLayout parentLayout;
+    protected RelativeLayout parentLayout;
 
     protected void setMenuDependencies(BaseActivity activity, String title, int pageLayout) {
 
@@ -36,7 +38,7 @@ public abstract class BaseMenuPresenter extends BaseAsyncPresenter {
         NavigationView navigationView = (NavigationView) activity.findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener)activity);
 
-        FrameLayout mainFramelayout = (FrameLayout) activity.findViewById(R.id.menuContentHomeID);
+        RelativeLayout mainFramelayout = (RelativeLayout) activity.findViewById(R.id.menuContentHomeID);
         //dd.setContentDescription("com.emgr.geartronix.activities.HomeActivity");
 
     }
