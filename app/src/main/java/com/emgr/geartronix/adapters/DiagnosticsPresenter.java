@@ -8,10 +8,11 @@ import com.emgr.geartronix.views.IDiagnosticsView;
 class DiagnosticsPresenter extends com.emgr.geartronix.presenters.BaseAppActivityPresenter {
 
     public DiagnosticsPresenter(IDiagnosticsView iDiagnosticsView) {
+        super((BaseActivity)iDiagnosticsView);
     }
 
     public DiagnosticsPresenter(BaseActivity baseActivity, int index) {
-        super();
+        super(baseActivity);
         activity = baseActivity;
     }
 

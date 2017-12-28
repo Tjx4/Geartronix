@@ -37,7 +37,8 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     public boolean enlarged;
 
     public GalleryPresenter(IGalleryView iGalleryView) {
-        setDependanciesChildActivities((BaseActivity) iGalleryView, R.layout.activity_gallery);
+        super((BaseActivity)iGalleryView);
+        setDependanciesChildActivities(R.layout.activity_gallery);
         currentActionBar.setTitle(" "+activity.getString(R.string.Gallery));
         setViews();
         responseModel = new GalleryModel();
@@ -45,8 +46,8 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     }
 
     public GalleryPresenter(BaseActivity baseActivity, int index) {
-        super();
-        activity = baseActivity;
+        super(baseActivity);
+        setIcon(R.mipmap.gallery_icon);
     }
 
     @Override

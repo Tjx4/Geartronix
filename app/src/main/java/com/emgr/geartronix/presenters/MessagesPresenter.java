@@ -2,17 +2,20 @@ package com.emgr.geartronix.presenters;
 
 import android.view.View;
 
+import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.views.IMessagesView;
 
 public class MessagesPresenter extends BaseAppActivityPresenter {
 
     public MessagesPresenter(IMessagesView iMessagesView) {
+        super((BaseActivity)iMessagesView);
     }
 
     public MessagesPresenter(BaseActivity baseActivity, int index) {
-        super();
-        activity = baseActivity;
+        super(baseActivity);
+        setProperties(baseActivity);
+        setIcon(R.mipmap.message_icon);
     }
 
     @Override

@@ -8,17 +8,20 @@ import com.emgr.geartronix.views.IServicesView;
 
 public class ServicesPresenter extends BaseMenuPresenter implements IServicesPresenter {
 
-    public ServicesPresenter(BaseActivity baseActivity, int index) {
-        super();
-        activity = baseActivity;
-    }
 
     public ServicesPresenter(IServicesView iServicesView) {
-        setDependanciesNoActionBar((BaseActivity) iServicesView, R.layout.activity_home);
+        super((BaseActivity)iServicesView);
+        setDependanciesNoActionBar(R.layout.activity_home);
         pageTitle = getActivity().getString(R.string.services);
         setMenuDependencies(getActivity(), getPageTitle(), R.layout.activity_service );
         setViews();
     }
+
+    public ServicesPresenter(BaseActivity baseActivity, int index) {
+        super(baseActivity);
+        setIcon(R.mipmap.service_icon);
+    }
+
 
     @Override
     protected void beforeAsyncCall() {
@@ -64,4 +67,5 @@ public class ServicesPresenter extends BaseMenuPresenter implements IServicesPre
     public void goToCurrentAppActivity() {
         goToServices();
     }
+
 }

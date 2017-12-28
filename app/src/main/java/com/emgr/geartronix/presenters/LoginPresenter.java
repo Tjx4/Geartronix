@@ -16,7 +16,7 @@ import com.emgr.geartronix.views.ILoginView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresenter {
+public class LoginPresenter extends BaseAppActivityPresenter implements ILoginPresenter {
 
     private String username;
     private byte attempts;
@@ -26,7 +26,8 @@ public class LoginPresenter extends BaseAsyncPresenter implements ILoginPresente
     private LoginModel responseModel;
 
     public LoginPresenter(ILoginView iLoginView) {
-        setDependancies((BaseActivity)iLoginView, R.layout.activity_login);
+        super((BaseActivity)iLoginView);
+        setDependancies(R.layout.activity_login);
         setPageTitle(activity.getString(R.string.sign_in));
         setViews();
         responseModel = new LoginModel();

@@ -2,17 +2,28 @@ package com.emgr.geartronix.presenters;
 
 import android.graphics.Color;
 
+import com.emgr.geartronix.R;
+import com.emgr.geartronix.activities.BaseActivity;
+
 public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
 
     protected int icon;
-    protected Color activeColor, inactivecolor;
+    protected int activeColor;
+    protected int inactivecolor;
     protected String activityName, displayName;
     protected BaseAppActivityPresenter currentAppActivity;
 
-    public BaseAppActivityPresenter() {
-       activityName = this.getClass().toString();
-       displayName = this.getClass().getSimpleName();
-       currentAppActivity = this;
+    public BaseAppActivityPresenter(BaseActivity baseActivity) {
+        setProperties(baseActivity);
+    }
+
+    public void setProperties(BaseActivity baseActivity) {
+       activity =  baseActivity;
+       setActivityName(this.getClass().toString());
+       setDisplayName(this.getClass().getSimpleName());
+       setCurrentAppActivity(this);
+       setActiveColor(Color.parseColor("#0088cc"));
+       setInactivecolor(activity.getResources().getColor(R.color.tileTransBlack));
     }
 
     public void goToCurrentAppActivity() {
@@ -27,19 +38,19 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
         this.icon = icon;
     }
 
-    public Color getActiveColor() {
+    public int getActiveColor() {
         return activeColor;
     }
 
-    public void setActiveColor(Color activeColor) {
+    public void setActiveColor(int activeColor) {
         this.activeColor = activeColor;
     }
 
-    public Color getInactivecolor() {
+    public int getInactivecolor() {
         return inactivecolor;
     }
 
-    public void setInactivecolor(Color inactivecolor) {
+    public void setInactivecolor(int inactivecolor) {
         this.inactivecolor = inactivecolor;
     }
 

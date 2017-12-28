@@ -33,22 +33,21 @@ public abstract class BasePresenter {
     public boolean isBack;
     public String username;
 
-    protected void setDependancies(BaseActivity activity, int contentView) {
-        setBasicDependancies(activity,contentView);
+    protected void setDependancies(int contentView) {
+        setBasicDependancies(contentView);
         configureActionBar();
     }
 
-    protected void setDependanciesChildActivities(BaseActivity activity, int contentView) {
-        setBasicDependancies(activity,contentView);
+    protected void setDependanciesChildActivities(int contentView) {
+        setBasicDependancies(contentView);
         configureActionBarChildActivity();
     }
 
-    protected void setDependanciesNoActionBar(BaseActivity activity, int contentView) {
-        setBasicDependancies(activity,contentView);
+    protected void setDependanciesNoActionBar(int contentView) {
+        setBasicDependancies(contentView);
     }
 
-    protected void setBasicDependancies(BaseActivity activity, int contentView) {
-        this.activity = activity;
+    protected void setBasicDependancies(int contentView) {
         activity.setContentView(contentView);
         setBackgroundImage(contentView);
 

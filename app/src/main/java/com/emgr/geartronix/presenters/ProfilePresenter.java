@@ -7,10 +7,11 @@ import com.emgr.geartronix.views.IProfileView;
 public class ProfilePresenter extends BaseAppActivityPresenter {
 
     public ProfilePresenter(IProfileView iProfileView) {
+        super((BaseActivity)iProfileView);
     }
 
     public ProfilePresenter(BaseActivity baseActivity, int index) {
-        super();
+        super(baseActivity);
         activity = baseActivity;
     }
 

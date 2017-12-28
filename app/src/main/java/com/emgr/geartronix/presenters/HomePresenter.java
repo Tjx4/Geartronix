@@ -39,7 +39,8 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     private HomeTileAdapter homeTileAdapter;
 
     public HomePresenter(IHomeView iHomeView) {
-        setDependanciesNoActionBar((BaseActivity) iHomeView, R.layout.activity_home);
+        super((BaseActivity)iHomeView);
+        setDependanciesNoActionBar(R.layout.activity_home);
         setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_home);
         setViews();
 

@@ -2,17 +2,19 @@ package com.emgr.geartronix.presenters;
 
 import android.view.View;
 
+import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.views.IFindUsView;
 
 public class FindUsPresenter extends BaseAppActivityPresenter {
 
     public FindUsPresenter(IFindUsView iFindUsView) {
+        super((BaseActivity)iFindUsView);
     }
 
     public FindUsPresenter(BaseActivity baseActivity, int index) {
-        super();
-        activity = baseActivity;
+        super(baseActivity);
+        setIcon(R.mipmap.find_us_icon);
     }
 
     @Override
