@@ -25,7 +25,7 @@
                 android:focusableInTouchMode="true"
                 android:orientation="vertical"
                 android:padding="20dp"
-                tools:context="com.emgr.geartronix.activities.LoginActivity">
+                tools:context="co.za.geartronix.activities.LoginActivity">
 
                 <ImageView
                     android:id="@+id/imageView"

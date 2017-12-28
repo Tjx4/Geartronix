@@ -5,6 +5,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.emgr.geartronix.activities.CollToolbarActivity">
+    tools:context="co.za.geartronix.activities.CollToolbarActivity">
 
 </android.support.constraint.ConstraintLayout>
