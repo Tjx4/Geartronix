@@ -1,11 +1,11 @@
-package co.za.geartronix.adapters;
+package co.za.geartronix.presenters;
 
 import android.view.View;
 
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.views.IDiagnosticsView;
 
-class DiagnosticsPresenter extends co.za.geartronix.presenters.BaseAppActivityPresenter {
+public class DiagnosticsPresenter extends co.za.geartronix.presenters.BaseAppActivityPresenter {
 
     public DiagnosticsPresenter(IDiagnosticsView iDiagnosticsView) {
         super((BaseActivity)iDiagnosticsView);

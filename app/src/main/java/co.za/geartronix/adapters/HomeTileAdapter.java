@@ -13,14 +13,12 @@ import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.constants.Constants;
 import co.za.geartronix.presenters.BaseAppActivityPresenter;
+import co.za.geartronix.presenters.DiagnosticsPresenter;
 import co.za.geartronix.presenters.FindUsPresenter;
 import co.za.geartronix.presenters.GalleryPresenter;
-import co.za.geartronix.presenters.IHomePresenter;
 import co.za.geartronix.presenters.MessagesPresenter;
 import co.za.geartronix.presenters.ProfilePresenter;
 import co.za.geartronix.presenters.ServicesPresenter;
-import co.za.geartronix.views.IBaseView;
-import co.za.geartronix.views.IHomeView;
 
 import java.util.ArrayList;
 import java.util.List;
