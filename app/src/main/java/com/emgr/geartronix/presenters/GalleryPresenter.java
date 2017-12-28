@@ -16,7 +16,9 @@ import com.emgr.geartronix.adapters.GalleryImageAdapter;
 import com.emgr.geartronix.models.GalleryModel;
 import com.emgr.geartronix.providers.DataServiceProvider;
 import com.emgr.geartronix.providers.HttpConnectionProvider;
+import com.emgr.geartronix.views.IBaseView;
 import com.emgr.geartronix.views.IGalleryView;
+import com.emgr.geartronix.views.IHomeView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPresenter {
+public class GalleryPresenter extends BaseAppActivityPresenter implements IGalleryPresenter {
 
     private GridView images;
     private List<ArrayList> items;
@@ -40,6 +42,11 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
         setViews();
         responseModel = new GalleryModel();
         new DoAsyncCall().execute();
+    }
+
+    public GalleryPresenter(BaseActivity baseActivity, int index) {
+        super();
+        activity = baseActivity;
     }
 
     @Override
@@ -163,5 +170,10 @@ public class GalleryPresenter extends BaseAsyncPresenter implements IGalleryPres
     @Override
     public void porpulateGrid() {
 
+    }
+
+    @Override
+    public void goToCurrentAppActivity() {
+        goToGallery();
     }
 }

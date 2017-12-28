@@ -21,7 +21,6 @@ import com.emgr.geartronix.R;
 import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.activities.HomeActivity;
 import com.emgr.geartronix.adapters.HomeTileAdapter;
-import com.emgr.geartronix.constants.Constants;
 import com.emgr.geartronix.models.AccountModel;
 import com.emgr.geartronix.views.IHomeView;
 import java.util.ArrayList;
@@ -37,6 +36,7 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     private List<ArrayList> homeItems;
     private LinearLayout currentTile;
     private View lastView;
+    private HomeTileAdapter homeTileAdapter;
 
     public HomePresenter(IHomeView iHomeView) {
         setDependanciesNoActionBar((BaseActivity) iHomeView, R.layout.activity_home);
@@ -133,7 +133,10 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
         homeItems.add(item5);
         homeItems.add(item6);
 
-        return new HomeTileAdapter(getActivity(), R.layout.home_tile_item, homeItems);
+        //Todo: fix
+        homeTileAdapter = new HomeTileAdapter(getActivity(), R.layout.home_tile_item, homeItems);
+
+        return homeTileAdapter;
     }
 
     @Override
@@ -145,23 +148,8 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     }
 
     private void goToSelectedActivity(View view) {
-
-        switch (view.getId()){
-
-            case Constants.PROFILEID:
-                showShortToast("Profile");
-            break;
-            case Constants.BOOKSERVICEID:
-                goToServices();
-            break;
-            case Constants.GALLERYID:
-                goToGallery();
-            break;
-            case Constants.FINDUSID:
-                showShortToast("Find us");
-            break;
-        }
-
+      BaseAppActivityPresenter currentAppActivity = homeTileAdapter.generateAppActivity(view.getId());
+      currentAppActivity.goToCurrentAppActivity();
     }
 
     private void hideHomeTile(View view) {
@@ -192,17 +180,15 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     }
 
     public void resetHomeTitle() {
-
         homeHeaderText.setText(getActivity().getString(R.string.choose_an_activity));
     }
 
     private void animateAndGotoActivity(View view) {
+        /*
         currentTile = (LinearLayout)view;
 
         setActiveInactiveColor(currentTile);
         goToSelectedActivity(currentTile);
-
-        /*
 
         final View currentActivity = view;
 
@@ -261,7 +247,7 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     }
 
     private void animateHomeViews(View view) {
-
+/*
         //view.getHeight()
         Animation animate = getSlideDownAnimation(500,  600);
         animate.setAnimationListener(new Animation.AnimationListener() {
@@ -292,10 +278,8 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
             }
         });
         homeTileContainer.startAnimation(animate);
-
+*/
     }
-
-
 
     public void resetTiles() {
 
@@ -314,18 +298,26 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     }
 
     private void setActiveInactiveColor(View view) {
+
+        setActiveColor(view);
+
         if(view == lastView)
             return;
 
-        int active = Color.parseColor("#0088cc");
-        int inactive = getActivity().getResources().getColor(R.color.tileTransBlack);
-
-        view.setBackgroundColor(active);
-
         if(lastView != null)
-            lastView.setBackgroundColor(inactive);
+            revertViewBackgroundColor(lastView);
 
         lastView = view;
+    }
+
+    private void setActiveColor(View view) {
+        int active = Color.parseColor("#0088cc");
+        view.setBackgroundColor(active);
+    }
+
+    private void revertViewBackgroundColor(View lastView) {
+        int inactive = getActivity().getResources().getColor(R.color.tileTransBlack);
+        lastView.setBackgroundColor(inactive);
     }
 
     private void blinkTile(View view) {
@@ -338,11 +330,12 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
 
             @Override
             public void onAnimationStart(Animation animation) {
-
+                setActiveInactiveColor(currentActivity);
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                revertViewBackgroundColor(currentActivity);
                 goToSelectedActivity(currentActivity);
             }
 
@@ -357,6 +350,7 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
 // Todo: work on this method
     private void slideInAndOutView(View view, boolean isTwice) {
 
+        /*
         final Boolean secondTime = isTwice;
         final View currentActivity = view;
         int duration = 200;
@@ -393,10 +387,12 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
         });
 
         currentActivity.startAnimation(animate);
+        */
     }
 
     @Override
     public void handleViewClickedEvent(View view) {
 
     }
+
 }

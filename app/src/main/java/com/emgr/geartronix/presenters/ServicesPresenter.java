@@ -8,6 +8,11 @@ import com.emgr.geartronix.views.IServicesView;
 
 public class ServicesPresenter extends BaseMenuPresenter implements IServicesPresenter {
 
+    public ServicesPresenter(BaseActivity baseActivity, int index) {
+        super();
+        activity = baseActivity;
+    }
+
     public ServicesPresenter(IServicesView iServicesView) {
         setDependanciesNoActionBar((BaseActivity) iServicesView, R.layout.activity_home);
         pageTitle = getActivity().getString(R.string.services);
@@ -53,5 +58,10 @@ public class ServicesPresenter extends BaseMenuPresenter implements IServicesPre
     @Override
     public void handleViewClickedEvent(View view) {
 
+    }
+
+    @Override
+    public void goToCurrentAppActivity() {
+        goToServices();
     }
 }

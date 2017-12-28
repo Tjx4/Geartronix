@@ -17,7 +17,7 @@ import com.emgr.geartronix.activities.BaseActivity;
 import com.emgr.geartronix.activities.HomeActivity;
 import com.emgr.geartronix.constants.Constants;
 
-public abstract class BaseMenuPresenter extends BaseAsyncPresenter {
+public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
 
     protected ViewStub currentPageLayout;
     protected RelativeLayout parentLayout;

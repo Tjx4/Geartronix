@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
-
 import com.emgr.geartronix.R;
 import com.emgr.geartronix.constants.Constants;
 import com.emgr.geartronix.providers.HttpConnectionProvider;
