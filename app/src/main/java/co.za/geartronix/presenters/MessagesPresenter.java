@@ -14,8 +14,9 @@ public class MessagesPresenter extends BaseAppActivityPresenter {
 
     public MessagesPresenter(BaseActivity baseActivity, int index) {
         super(baseActivity);
-        setProperties(baseActivity);
+        setProperties(baseActivity, index);
         setIcon(R.mipmap.message_icon);
+        setDisplayName(activity.getString(R.string.messages));
     }
 
     @Override

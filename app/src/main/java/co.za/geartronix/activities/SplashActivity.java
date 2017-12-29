@@ -4,9 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ProgressBar;
-
 import co.za.geartronix.R;
-
 
 public class SplashActivity extends AppCompatActivity {
 

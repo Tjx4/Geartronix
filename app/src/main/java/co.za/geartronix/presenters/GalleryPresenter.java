@@ -39,15 +39,16 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     public GalleryPresenter(IGalleryView iGalleryView) {
         super((BaseActivity)iGalleryView);
         setDependanciesChildActivities(R.layout.activity_gallery);
-        currentActionBar.setTitle(" "+activity.getString(R.string.Gallery));
+        currentActionBar.setTitle(" "+activity.getString(R.string.gallery));
         setViews();
         responseModel = new GalleryModel();
         new DoAsyncCall().execute();
     }
 
     public GalleryPresenter(BaseActivity baseActivity, int index) {
-        super(baseActivity);
+        super(baseActivity, index);
         setIcon(R.mipmap.gallery_icon);
+        setDisplayName(activity.getString(R.string.gallery));
     }
 
     @Override

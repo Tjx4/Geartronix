@@ -1,6 +1,7 @@
 package co.za.geartronix.presenters;
 import android.view.View;
 
+import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.views.IProfileView;
 
@@ -11,8 +12,9 @@ public class ProfilePresenter extends BaseAppActivityPresenter {
     }
 
     public ProfilePresenter(BaseActivity baseActivity, int index) {
-        super(baseActivity);
-        activity = baseActivity;
+        super(baseActivity, index);
+        setIcon(R.mipmap.profile_icon);
+        setDisplayName(activity.getString(R.string.profile));
     }
 
     @Override

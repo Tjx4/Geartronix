@@ -7,23 +7,32 @@ import co.za.geartronix.activities.BaseActivity;
 
 public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
 
+    protected int AppActivityIndex;
     protected int icon;
     protected int activeColor;
     protected int inactivecolor;
     protected String activityName, displayName;
     protected BaseAppActivityPresenter currentAppActivity;
 
-    public BaseAppActivityPresenter(BaseActivity baseActivity) {
-        setProperties(baseActivity);
+    public BaseAppActivityPresenter(BaseActivity baseActivity, int index) {
+        setProperties(baseActivity, index);
     }
 
-    public void setProperties(BaseActivity baseActivity) {
-       activity =  baseActivity;
-       setActivityName(this.getClass().toString());
-       setDisplayName(this.getClass().getSimpleName());
+    public BaseAppActivityPresenter(BaseActivity baseActivity) {
+        activity = baseActivity;
+    }
+
+    public void setProperties(BaseActivity baseActivity, int index) {
+       activity = baseActivity;
+       setActivityName( this.getClass().toString() );
        setCurrentAppActivity(this);
        setActiveColor(Color.parseColor("#0088cc"));
        setInactivecolor(activity.getResources().getColor(R.color.tileTransBlack));
+    }
+
+    public String getFormatedName(String name) {
+       String formatedName = name.split("Presenter")[0];
+       return formatedName;
     }
 
     public void goToCurrentAppActivity() {

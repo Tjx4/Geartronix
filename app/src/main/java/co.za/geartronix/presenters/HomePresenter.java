@@ -33,7 +33,7 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     private ImageView selectedActivityImg;
     private GridView homeTileContainer;
     private TextView homeHeaderText;
-    private List<ArrayList> homeItems;
+    private List<BaseAppActivityPresenter> homeItems;
     private LinearLayout currentTile;
     private View lastView;
     private HomeTileAdapter homeTileAdapter;
@@ -102,37 +102,13 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
 
     public HomeTileAdapter getAdapter() {
 
-        ArrayList item1 = new ArrayList();
-        item1.add(R.mipmap.profile_icon);
-        item1.add("Your profile");
-
-        ArrayList item2 = new ArrayList();
-        item2.add(R.mipmap.service_icon);
-        item2.add("Book a service");
-
-        ArrayList item3 = new ArrayList();
-        item3.add(R.mipmap.gallery_icon);
-        item3.add("View Gallery");
-
-        ArrayList item4 = new ArrayList();
-        item4.add(R.mipmap.find_us_icon);
-        item4.add("Find us");
-
-        ArrayList item5 = new ArrayList();
-        item5.add(R.mipmap.message_icon);
-        item5.add("Messages");
-
-        ArrayList item6 = new ArrayList();
-        item6.add(R.mipmap.diagnostics_icon);
-        item6.add("Diagnostics");
-
         homeItems = new ArrayList<>();
-        homeItems.add(item1);
-        homeItems.add(item2);
-        homeItems.add(item3);
-        homeItems.add(item4);
-        homeItems.add(item5);
-        homeItems.add(item6);
+        homeItems.add(new ProfilePresenter(activity, 0));
+        homeItems.add(new ServicesPresenter(activity, 1));
+        homeItems.add(new GalleryPresenter(activity, 2));
+        homeItems.add(new FindUsPresenter(activity, 3));
+        homeItems.add(new MessagesPresenter(activity, 4));
+        homeItems.add(new DiagnosticsPresenter(activity, 5));
 
         //Todo: fix
         homeTileAdapter = new HomeTileAdapter(getActivity(), R.layout.home_tile_item, homeItems);

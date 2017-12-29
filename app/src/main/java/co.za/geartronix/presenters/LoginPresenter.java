@@ -68,14 +68,12 @@ public class LoginPresenter extends BaseAppActivityPresenter implements ILoginPr
     @Override
     public void onRegisterClicked(View view) {
         showLongToast("Register");
-
         resetIfTriggeredByView(view);
     }
 
     @Override
     public void onForgotPasswordClicked(View view) {
         showLongToast("Forgot password.");
-
         resetIfTriggeredByView(view);
     }
 
@@ -87,10 +85,10 @@ public class LoginPresenter extends BaseAppActivityPresenter implements ILoginPr
 
     @Override
     public void goToDashBoard() {
-       Bundle loginDetails = new Bundle();
-       loginDetails.putString("user", responseModel.getUser());
-       loginDetails.putInt("userId", responseModel.getUserId());
-       loginDetails.putString("session", responseModel.getSession());
+        Bundle loginDetails = new Bundle();
+        loginDetails.putString("user", responseModel.getUser());
+        loginDetails.putInt("userId", responseModel.getUserId());
+        loginDetails.putString("session", responseModel.getSession());
 
         goToHome(loginDetails);
         getActivity().finish();

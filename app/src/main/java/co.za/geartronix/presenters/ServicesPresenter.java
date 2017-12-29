@@ -18,8 +18,9 @@ public class ServicesPresenter extends BaseMenuPresenter implements IServicesPre
     }
 
     public ServicesPresenter(BaseActivity baseActivity, int index) {
-        super(baseActivity);
+        super(baseActivity, index);
         setIcon(R.mipmap.service_icon);
+        setDisplayName(activity.getString(R.string.services));
     }
 
 

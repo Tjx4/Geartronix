@@ -19,17 +19,15 @@ import co.za.geartronix.presenters.GalleryPresenter;
 import co.za.geartronix.presenters.MessagesPresenter;
 import co.za.geartronix.presenters.ProfilePresenter;
 import co.za.geartronix.presenters.ServicesPresenter;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class HomeTileAdapter extends ArrayAdapter {
 
-    private final Activity activity;
+    private final BaseActivity activity;
     private final int layout;
-    private final List<ArrayList> items;
+    private final List<BaseAppActivityPresenter> items;
 
-    public HomeTileAdapter(Activity activity, int layout, List<ArrayList> items) {
+    public HomeTileAdapter(BaseActivity activity, int layout, List<BaseAppActivityPresenter> items) {
         super(activity, layout, items);
         this.activity = activity;
         this.layout = layout;
@@ -46,11 +44,13 @@ public class HomeTileAdapter extends ArrayAdapter {
         LayoutInflater li = activity.getLayoutInflater();
         View parentView = li.inflate(layout, parent, false);
 
+        BaseAppActivityPresenter appActivity = items.get(position);
+
         ImageView itemIcon = parentView.findViewById(R.id.imgHomeTile);
-        itemIcon.setImageResource((int)items.get(position).get(0));
+        itemIcon.setImageResource(appActivity.getIcon());
 
         TextView itemText = parentView.findViewById(R.id.txtHomeTile);
-        itemText.setText(items.get(position).get(1).toString());
+        itemText.setText(appActivity.getDisplayName());
         parentView.setId(generateId(position));
 
         return parentView;
@@ -60,22 +60,22 @@ public class HomeTileAdapter extends ArrayAdapter {
         switch (position)
         {
             case Constants.PROFILEID:
-                currentAppActivity = new ProfilePresenter((BaseActivity)activity, position);
+                currentAppActivity = new ProfilePresenter(activity, position);
             break;
             case Constants.BOOKSERVICEID:
-                currentAppActivity = new ServicesPresenter((BaseActivity) activity, position);
+                currentAppActivity = new ServicesPresenter(activity, position);
             break;
             case Constants.GALLERYID:
-                currentAppActivity = new GalleryPresenter((BaseActivity)activity, position);
+                currentAppActivity = new GalleryPresenter(activity, position);
             break;
             case Constants.FINDUSID:
-                currentAppActivity = new FindUsPresenter((BaseActivity)activity, position);
+                currentAppActivity = new FindUsPresenter(activity, position);
             break;
             case Constants.MESSAGES:
-                currentAppActivity = new MessagesPresenter((BaseActivity)activity, position);
+                currentAppActivity = new MessagesPresenter(activity, position);
             break;
             case Constants.DIAGNOSTICS:
-                currentAppActivity = new DiagnosticsPresenter((BaseActivity)activity, position);
+                currentAppActivity = new DiagnosticsPresenter(activity, position);
             break;
         }
 

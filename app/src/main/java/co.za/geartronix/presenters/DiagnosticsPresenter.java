@@ -1,6 +1,8 @@
 package co.za.geartronix.presenters;
 
 import android.view.View;
+
+import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.views.IDiagnosticsView;
 
@@ -11,8 +13,9 @@ public class DiagnosticsPresenter extends co.za.geartronix.presenters.BaseAppAct
     }
 
     public DiagnosticsPresenter(BaseActivity baseActivity, int index) {
-        super(baseActivity);
-        activity = baseActivity;
+        super(baseActivity, index);
+        setIcon(R.mipmap.diagnostics_icon);
+        setDisplayName(activity.getString(R.string.diagnostics));
     }
 
     @Override

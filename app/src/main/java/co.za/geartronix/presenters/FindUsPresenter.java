@@ -13,8 +13,9 @@ public class FindUsPresenter extends BaseAppActivityPresenter {
     }
 
     public FindUsPresenter(BaseActivity baseActivity, int index) {
-        super(baseActivity);
+        super(baseActivity, index);
         setIcon(R.mipmap.find_us_icon);
+        setDisplayName(activity.getString(R.string.FindUs));
     }
 
     @Override

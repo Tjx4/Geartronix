@@ -26,6 +26,10 @@ public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
         super(baseActivity);
     }
 
+    public BaseMenuPresenter(BaseActivity baseActivity, int index) {
+        super(baseActivity, index);
+    }
+
     protected void setMenuDependencies(BaseActivity activity, String title, int pageLayout) {
 
         setMainLayout(pageLayout);
