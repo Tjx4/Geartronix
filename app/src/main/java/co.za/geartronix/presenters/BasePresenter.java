@@ -13,6 +13,8 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -110,6 +112,14 @@ public abstract class BasePresenter {
         activity.overridePendingTransition(R.anim.nothing, R.anim.slide_out);
     }
 
+    protected Animation getRotationAnimation(long start, long end) {
+        animate =  new RotateAnimation(start, end, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        animate.setInterpolator(new LinearInterpolator()); //add this
+        animate.setDuration(180);
+
+        return  animate;
+    }
+
     protected Animation getfadeInAnimation(long duration) {
         animate = new AlphaAnimation(1, 0);
         animate.setInterpolator(new DecelerateInterpolator()); //add this
@@ -151,7 +161,7 @@ public abstract class BasePresenter {
 
         final View currentActivity = view;
 
-        Animation animate = getfadeOutAnimation(30, 70) ;
+        Animation animate = getfadeOutAnimation(30, 70);
 
         animate.setAnimationListener(new TranslateAnimation.AnimationListener() {
 

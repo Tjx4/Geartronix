@@ -7,6 +7,8 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
@@ -104,24 +106,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
 
     @Override
     protected void handleAsyncButtonClickedEvent(View view) {
-
-        int viewId = view.getId();
-
-        switch (viewId)
-        {
-            case R.id.imgPic :
-                showEnlargedImage(view);
-            break;
-            case R.id.imgMinimize :
-                hideEnlargedImage();
-            break;
-            case R.id.imgBtnShare :
-               shareImage(view);
-            break;
-            case R.id.imgBtnSavePic :
-                handleSaveImage(view);
-            break;
-        }
+        blinkView(view);
     }
 
     @Override
@@ -177,19 +162,34 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     @Override
     public void shareImage(View view) {
        // activeImage
+        showShortToast("share image");
     }
 
-
     @Override
-    protected void duringAnimation(View view){
-        // Do rotation
+    protected void duringAnimation(View view) {
+
     }
 
-    byte permissionRequest;
-
     @Override
-    protected void postAnimation(View view){
-        saveCurrentImageToGallery();
+    protected void postAnimation(View view) {
+
+        int viewId = view.getId();
+
+        switch (viewId)
+        {
+            case R.id.imgPic :
+                showEnlargedImage(view);
+                break;
+            case R.id.imgMinimize :
+                hideEnlargedImage();
+                break;
+            case R.id.imgBtnShare :
+                shareImage(view);
+                break;
+            case R.id.imgBtnSavePic :
+                saveCurrentImageToGallery();
+                break;
+        }
     }
 
     private void saveCurrentImageToGallery() {
@@ -198,7 +198,8 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         iv.buildDrawingCache();
         Bitmap bmp = iv.getDrawingCache();
 
-        File storageLoc = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES); //context.getExternalFilesDir(null);
+        File storageLoc = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+        //context.getExternalFilesDir(null);
 
         File file = new File(storageLoc, imageName + ".jpg");
 
@@ -208,6 +209,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
             fos.close();
 
             scanFile(getActivity(), Uri.fromFile(file));
+            showShortToast(activity.getString(R.string.picture_saved_to_gallery));
 
         } catch (FileNotFoundException e) {
             requestPermission(permission);
@@ -215,11 +217,6 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         } catch (IOException e) {
             requestPermission(permission);
         }
-
-        //    if(!isPermissionGranted(permission) && permissionRequest < 2)
-        //        handleSaveImage(view);
-
-        //    permissionRequest++;
     }
 
     @Override
@@ -228,12 +225,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         return "image"+Math.random(); //new DateTimeProvider().getFormatedDateAndTime();
     }
 
-    @Override
-    public void handleSaveImage(View view) {
-        blinkView(view);
-    }
-
-    private static void scanFile(Context context, Uri imageUri){
+    private void scanFile(Context context, Uri imageUri){
         Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         scanIntent.setData(imageUri);
         context.sendBroadcast(scanIntent);
