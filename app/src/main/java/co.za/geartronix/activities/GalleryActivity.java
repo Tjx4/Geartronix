@@ -1,6 +1,7 @@
 package co.za.geartronix.activities;
 
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import co.za.geartronix.presenters.GalleryPresenter;
 import co.za.geartronix.views.IGalleryView;
@@ -30,11 +31,12 @@ public class GalleryActivity extends BaseAsyncActivity implements IGalleryView {
 
     @Override
     public void onBackPressed() {
-        if(getPresenter().enlarged){
+        if(getPresenter().enlarged) {
             getPresenter().hideEnlargedImage();
         }
-        else{
+        else {
             super.onBackPressed();
         }
     }
+
 }

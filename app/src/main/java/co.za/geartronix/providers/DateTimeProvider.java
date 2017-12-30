@@ -7,11 +7,11 @@ public class DateTimeProvider {
 
     private SimpleDateFormat formatedDate;
     private int dateTime, time, day, hour, minute;
-    private final String DAYFORMAT = "D";
+    private final String DAYFORMAT = "d";
     private final String HOURFORMAT = "H";
-    private final String MINUTEFORMAT = "M";
-    private final String TIMEFORMAT = "H:M:S";
-    private final String DATETIMEFORMAT = "D-M-Y H:M:S";
+    private final String MINUTEFORMAT = "m";
+    private final String TIMEFORMAT = "H:m:s";
+    private final String DATETIMEFORMAT = "d-m-y "+TIMEFORMAT;
 
     public DateTimeProvider () {
 
@@ -38,7 +38,9 @@ public class DateTimeProvider {
     }
 
     public void setTimeUnit(int timeUnit) {
-        timeUnit = Integer.parseInt(formatedDate.format(new Date()));
+//Todo: fix this
+        String dateFormated = formatedDate.format(new Date());
+      //  timeUnit = Integer.parseInt(dateFormated);
     }
 
     public String formatAndSetTime(String format, int timeUnit) {
@@ -50,6 +52,20 @@ public class DateTimeProvider {
 
     private void formatDate(String format) {
         formatedDate = new SimpleDateFormat(format);
+    }
+
+    public String getFormatedDateAndTime() {
+        String dateTime = getCurrentDateAndTime();
+        String[] fmtDt = dateTime.split(" ");
+        String combined = fmtDt[0]+fmtDt[1];
+        String[] fmtDt2 = combined.split("-");
+
+        String formatedDate = "";
+        for(String cd : fmtDt2) {
+            formatedDate += cd;
+        }
+
+        return formatedDate;
     }
 
 }

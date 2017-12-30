@@ -24,15 +24,24 @@
             android:stretchMode="columnWidth"
             android:verticalSpacing="0dp"/>
 
-        <ImageButton
-            android:id="@+id/imgLarge"
+        <FrameLayout
+            android:id="@+id/imgLargeContainer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
             android:background="@color/colorTransparentBlack"
-            android:scaleType="fitXY"
-            android:visibility="gone"
-            app:srcCompat="@android:drawable/ic_menu_share"/>
+            android:visibility="gone">
+
+            <co.za.geartronix.customViews.CustomImageVIew
+                android:id="@+id/imgLarge"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:scaleType="matrix"
+                android:visibility="visible"
+                app:srcCompat="@android:drawable/ic_menu_share"/>
+
+        </FrameLayout>
+
 
         <FrameLayout
             android:id="@+id/frmContrlMenu"

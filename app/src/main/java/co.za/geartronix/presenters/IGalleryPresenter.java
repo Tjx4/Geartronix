@@ -6,9 +6,10 @@ import co.za.geartronix.activities.GalleryActivity;
 public interface IGalleryPresenter extends IBaseAsyncPresenter {
     void setViews();
     GalleryActivity getActivity();
-    void openDetailedView(View view);
-    void closeDetailedView(View view);
+    void shareImage(View view);
+    void handleSaveImage(View view);
     void porpulateGrid();
     void showEnlargedImage(View view);
     void hideEnlargedImage();
+    String getImageName();
 }

@@ -1,7 +1,6 @@
 package co.za.geartronix.presenters;
 
 import android.view.View;
-
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.views.IDiagnosticsView;

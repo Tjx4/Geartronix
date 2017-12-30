@@ -1,8 +1,11 @@
 package co.za.geartronix.presenters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.support.v7.app.ActionBar;
+import android.net.Uri;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
@@ -13,16 +16,21 @@ import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.GalleryActivity;
 import co.za.geartronix.adapters.GalleryImageAdapter;
+import co.za.geartronix.customViews.CustomImageVIew;
 import co.za.geartronix.models.GalleryModel;
 import co.za.geartronix.providers.DataServiceProvider;
+import co.za.geartronix.providers.DateTimeProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
-import co.za.geartronix.views.IBaseView;
+import co.za.geartronix.providers.Permissions;
 import co.za.geartronix.views.IGalleryView;
-import co.za.geartronix.views.IHomeView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,6 +43,8 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     private ImageView activeImage;
     private FrameLayout controlMenu;
     public boolean enlarged;
+    private FrameLayout activeImageContainer;
+    private String imageName;
 
     public GalleryPresenter(IGalleryView iGalleryView) {
         super((BaseActivity)iGalleryView);
@@ -43,6 +53,10 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         setViews();
         responseModel = new GalleryModel();
         new DoAsyncCall().execute();
+    }
+
+    private void setImageName() {
+        imageName = getImageName();
     }
 
     public GalleryPresenter(BaseActivity baseActivity, int index) {
@@ -102,10 +116,10 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
                 hideEnlargedImage();
             break;
             case R.id.imgBtnShare :
-                showShortToast("Call share");
+               shareImage(view);
             break;
             case R.id.imgBtnSavePic :
-                showShortToast("Save picture");
+                handleSaveImage(view);
             break;
         }
     }
@@ -115,8 +129,8 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         ImageView selectedImage = (ImageView) view;
         BitmapDrawable bd = (BitmapDrawable)selectedImage.getDrawable();
         Bitmap image = bd.getBitmap();
-
         activeImage.setImageBitmap(image);
+
         showPanels();
     }
 
@@ -126,26 +140,27 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         //BitmapDrawable bd = (BitmapDrawable)selectedImage.getDrawable();
         //Bitmap image = bd.getBitmap();
         //activeImage.setImageBitmap(image);
-
         hidePanels();
     }
 
     private void showPanels() {
+        setImageName();
         enlarged = true;
         controlMenu.setVisibility(View.VISIBLE);
-        activeImage.setVisibility(View.VISIBLE);
+        activeImageContainer.setVisibility(View.VISIBLE);
     }
 
     private void hidePanels() {
         controlMenu.setVisibility(View.GONE);
-        activeImage.setVisibility(View.GONE);
+        activeImageContainer.setVisibility(View.GONE);
         enlarged = false;
     }
 
     @Override
     public void setViews() {
         setAsyncViews();
-        activeImage = (ImageView)getActivity().findViewById(R.id.imgLarge);
+        activeImage = (CustomImageVIew)getActivity().findViewById(R.id.imgLarge);
+        activeImageContainer = (FrameLayout)getActivity().findViewById(R.id.imgLargeContainer);
         controlMenu = (FrameLayout)getActivity().findViewById(R.id.frmContrlMenu);
     }
 
@@ -160,13 +175,68 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     }
 
     @Override
-    public void openDetailedView(View view) {
+    public void shareImage(View view) {
+       // activeImage
+    }
 
+
+    @Override
+    protected void duringAnimation(View view){
+        // Do rotation
+    }
+
+    byte permissionRequest;
+
+    @Override
+    protected void postAnimation(View view){
+        saveCurrentImageToGallery();
+    }
+
+    private void saveCurrentImageToGallery() {
+        String permission = Permissions.writeStorage.getPermission();
+        ImageView iv = activeImage;
+        iv.buildDrawingCache();
+        Bitmap bmp = iv.getDrawingCache();
+
+        File storageLoc = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES); //context.getExternalFilesDir(null);
+
+        File file = new File(storageLoc, imageName + ".jpg");
+
+        try{
+            FileOutputStream fos = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.close();
+
+            scanFile(getActivity(), Uri.fromFile(file));
+
+        } catch (FileNotFoundException e) {
+            requestPermission(permission);
+
+        } catch (IOException e) {
+            requestPermission(permission);
+        }
+
+        //    if(!isPermissionGranted(permission) && permissionRequest < 2)
+        //        handleSaveImage(view);
+
+        //    permissionRequest++;
     }
 
     @Override
-    public void closeDetailedView(View view) {
+    public String getImageName() {
+        // Todo: fix date time
+        return "image"+Math.random(); //new DateTimeProvider().getFormatedDateAndTime();
+    }
 
+    @Override
+    public void handleSaveImage(View view) {
+        blinkView(view);
+    }
+
+    private static void scanFile(Context context, Uri imageUri){
+        Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        scanIntent.setData(imageUri);
+        context.sendBroadcast(scanIntent);
     }
 
     @Override

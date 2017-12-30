@@ -21,6 +21,7 @@ import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.GalleryActivity;
 import co.za.geartronix.activities.HomeActivity;
 import co.za.geartronix.activities.ServicesActivity;
+import co.za.geartronix.providers.PermissionsProvider;
 
 public abstract class BasePresenter {
 
@@ -138,6 +139,40 @@ public abstract class BasePresenter {
         return animate;
     }
 
+    protected void duringAnimation(View view){
+
+    }
+
+    protected void postAnimation(View view){
+
+    }
+
+    protected void blinkView(View view) {
+
+        final View currentActivity = view;
+
+        Animation animate = getfadeOutAnimation(30, 70) ;
+
+        animate.setAnimationListener(new TranslateAnimation.AnimationListener() {
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+                duringAnimation(currentActivity);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                postAnimation(currentActivity);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+            }
+        });
+
+        currentActivity.startAnimation(animate);
+    }
+
 
     protected ActionBar basicActionBarConfiguration(String title) {
         ActionBar ab = this.activity.getSupportActionBar();
@@ -225,4 +260,12 @@ public abstract class BasePresenter {
 
     protected  void onPositiveDialogButtonClicked(DialogInterface dialogInterface, int i){}
     protected  void onNagativeButtonClicked(DialogInterface dialogInterface, int i){}
+
+    protected void requestPermission(String permission) {
+        new PermissionsProvider(activity).requestStoragePermission();
+    }
+
+    protected boolean isPermissionGranted(String permission) {
+       return new PermissionsProvider(activity).checkPermissionGranted(permission);
+    }
 }
