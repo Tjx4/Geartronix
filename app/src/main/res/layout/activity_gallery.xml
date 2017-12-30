@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <!-- Todo: Add decoy row for slide under effect -->
+<!-- Todo: Add decoy row for slide under effect -->
 
         <GridView
             android:id="@+id/grdvImageContainer"

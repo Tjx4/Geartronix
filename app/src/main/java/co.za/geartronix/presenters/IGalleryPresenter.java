@@ -7,7 +7,7 @@ public interface IGalleryPresenter extends IBaseAsyncPresenter {
     void setViews();
     GalleryActivity getActivity();
     void shareImage(View view);
-    void porpulateGrid();
+    void porpulateImageGrid();
     void showEnlargedImage(View view);
     void hideEnlargedImage();
     String getImageName();

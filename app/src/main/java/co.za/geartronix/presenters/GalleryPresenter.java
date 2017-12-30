@@ -7,13 +7,10 @@ import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.TranslateAnimation;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.GalleryActivity;
@@ -21,21 +18,17 @@ import co.za.geartronix.adapters.GalleryImageAdapter;
 import co.za.geartronix.customViews.CustomImageVIew;
 import co.za.geartronix.models.GalleryModel;
 import co.za.geartronix.providers.DataServiceProvider;
-import co.za.geartronix.providers.DateTimeProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
 import co.za.geartronix.providers.Permissions;
 import co.za.geartronix.views.IGalleryView;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
 
 public class GalleryPresenter extends BaseAppActivityPresenter implements IGalleryPresenter {
 
@@ -88,14 +81,8 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     protected void afterAsyncCall(Object result) {
         String res = result.toString();
         try {
-
-        responseModel.setModel(new JSONObject(res));
-
-        items = responseModel.getItems();
-        ArrayAdapter adp = new GalleryImageAdapter(activity, R.layout.gallery_item_view, items);
-        images = (GridView) activity.findViewById(R.id.grdvImageContainer);
-        images.setAdapter(adp);
-
+            responseModel.setModel(new JSONObject(res));
+            porpulateImageGrid();
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -106,7 +93,13 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
 
     @Override
     protected void handleAsyncButtonClickedEvent(View view) {
-        blinkView(view);
+
+        int viewId = view.getId();
+
+        if(viewId == R.id.imgPic)
+            showEnlargedImage(view);
+        else
+            blinkView(view);
     }
 
     @Override
@@ -115,16 +108,11 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         BitmapDrawable bd = (BitmapDrawable)selectedImage.getDrawable();
         Bitmap image = bd.getBitmap();
         activeImage.setImageBitmap(image);
-
         showPanels();
     }
 
     @Override
     public void hideEnlargedImage() {
-        //ImageView selectedImage = (ImageView) view;
-        //BitmapDrawable bd = (BitmapDrawable)selectedImage.getDrawable();
-        //Bitmap image = bd.getBitmap();
-        //activeImage.setImageBitmap(image);
         hidePanels();
     }
 
@@ -177,9 +165,6 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
 
         switch (viewId)
         {
-            case R.id.imgPic :
-                showEnlargedImage(view);
-                break;
             case R.id.imgMinimize :
                 hideEnlargedImage();
                 break;
@@ -198,8 +183,8 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         iv.buildDrawingCache();
         Bitmap bmp = iv.getDrawingCache();
 
-        File storageLoc = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
         //context.getExternalFilesDir(null);
+        File storageLoc = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
         File file = new File(storageLoc, imageName + ".jpg");
 
@@ -209,7 +194,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
             fos.close();
 
             scanFile(getActivity(), Uri.fromFile(file));
-            showShortToast(activity.getString(R.string.picture_saved_to_gallery));
+            showShortToast(getActivity().getString(R.string.picture_saved_to_gallery));
 
         } catch (FileNotFoundException e) {
             requestPermission(permission);
@@ -232,8 +217,11 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     }
 
     @Override
-    public void porpulateGrid() {
-
+    public void porpulateImageGrid() {
+        items = responseModel.getItems();
+        ArrayAdapter adp = new GalleryImageAdapter(activity, R.layout.gallery_item_view, items);
+        images = (GridView) activity.findViewById(R.id.grdvImageContainer);
+        images.setAdapter(adp);
     }
 
     @Override
