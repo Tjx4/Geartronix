@@ -42,7 +42,10 @@ public class GalleryImageAdapter extends ArrayAdapter{
         ProgressBar imageloading =  parentView.findViewById(R.id.progressBarSub);
         ImageButton image = parentView.findViewById(R.id.imgPic);
 
-        new HttpConnectionProvider().setRemoteBitmap(imageloading, image, items.get(position).get(1).toString());
+        String path = items.get(position).get(1).toString();
+        image.setTag(path);
+
+        new HttpConnectionProvider().setRemoteBitmap(imageloading, image, path);
 
         TextView description = parentView.findViewById(R.id.txtDescription);
         description.setText(items.get(position).get(2).toString());

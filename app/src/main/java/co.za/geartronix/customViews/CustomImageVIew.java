@@ -38,6 +38,7 @@ public class CustomImageVIew extends android.support.v7.widget.AppCompatImageVie
     private int mBitmapWidth = -1;
     private int mBitmapHeight = -1;
     private boolean mDraggable = false;
+    public String imagePath;
 
 
     public CustomImageVIew(Context context) {

@@ -1,11 +1,14 @@
 package co.za.geartronix.presenters;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
@@ -27,6 +30,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,11 +39,12 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     private GridView images;
     private List<ArrayList> items;
     private GalleryModel responseModel;
-    private ImageView activeImage;
+    private CustomImageVIew activeImage;
     private FrameLayout controlMenu;
     public boolean enlarged;
     private FrameLayout activeImageContainer;
     private String imageName;
+    private Uri imageFilePath;
 
     public GalleryPresenter(IGalleryView iGalleryView) {
         super((BaseActivity)iGalleryView);
@@ -108,6 +113,8 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         BitmapDrawable bd = (BitmapDrawable)selectedImage.getDrawable();
         Bitmap image = bd.getBitmap();
         activeImage.setImageBitmap(image);
+        //activeImage.setTag(selectedImage.getTag().toString());
+        imageFilePath = Uri.parse(selectedImage.getTag().toString());
         showPanels();
     }
 
@@ -133,6 +140,15 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     public void setViews() {
         setAsyncViews();
         activeImage = (CustomImageVIew)getActivity().findViewById(R.id.imgLarge);
+        activeImage.setOnTouchListener(new CustomImageVIew.OnTouchListener() {
+//Todo: quick hack to enable pinch
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                CustomImageVIew mee = (CustomImageVIew)v;
+                mee.setScaleType(ImageView.ScaleType.MATRIX);
+                return false;
+            }
+        });
         activeImageContainer = (FrameLayout)getActivity().findViewById(R.id.imgLargeContainer);
         controlMenu = (FrameLayout)getActivity().findViewById(R.id.frmContrlMenu);
     }
@@ -148,9 +164,14 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     }
 
     @Override
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @SuppressWarnings( "deprecation" )
     public void shareImage(View view) {
-       // activeImage
-        showShortToast("share image");
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, imageFilePath);
+        shareIntent.setType("image/jpg");
+        getActivity().startActivity(Intent.createChooser(shareIntent, "Send to"));
     }
 
     @Override
