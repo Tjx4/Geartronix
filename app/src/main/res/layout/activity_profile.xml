@@ -32,12 +32,13 @@
                     app:srcCompat="@mipmap/user_icon"/>
 
                 <ImageButton
-                    android:id="@+id/uploadImageButton"
+                    android:id="@+id/imgBtnuploadImage"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_gravity="center"
                     android:background="@drawable/white_upload_circle"
-                    app:srcCompat="@android:drawable/ic_menu_upload"/>
+                    app:srcCompat="@android:drawable/ic_menu_upload"
+                    android:onClick="onViewClickedEvent"/>
             </FrameLayout>
 
             <LinearLayout

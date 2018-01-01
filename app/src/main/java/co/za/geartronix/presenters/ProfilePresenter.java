@@ -2,10 +2,8 @@ package co.za.geartronix.presenters;
 
 import android.view.MenuItem;
 import android.view.View;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.ProfileActivity;
@@ -70,9 +68,23 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     }
 
+
+    @Override
+    protected void duringAnimation(View view) {
+
+    }
+
+    @Override
+    protected void postAnimation(View view) {
+        showShortToast("Upload pic");
+    }
+
     @Override
     public void handleViewClickedEvent(View view) {
+        clickedViewId = view.getId();
 
+        if(clickedViewId == R.id.imgBtnuploadImage)
+            blinkView(view, 30, 70);
     }
 
     @Override
@@ -121,6 +133,8 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     }
 
     public void menuOptionSelected(MenuItem item) {
+        //clickedViewId = item.getItemId();
+
         showShortToast(activity.getString(R.string.edit));
     }
 }

@@ -30,7 +30,13 @@ public class ProfileActivity  extends BaseAsyncActivity implements IProfileView 
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        getPresenter().menuOptionSelected(item);
+        int itemId = item.getItemId();
+
+        if( itemId == android.R.id.home)
+            onBackPressed();
+        else
+            getPresenter().menuOptionSelected(item);
+
         return true;
     }
 

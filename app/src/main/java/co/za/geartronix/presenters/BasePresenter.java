@@ -32,6 +32,7 @@ public abstract class BasePresenter {
     protected String pageTitle;
     public BaseActivity activity;
     public int deviceOrientation;
+    protected int clickedViewId;
     private Animation animate;
     protected ActionBar currentActionBar;
     public boolean isBack;
