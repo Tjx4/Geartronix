@@ -10,11 +10,6 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-        // add if you get compile error for dagger
-        configurations.all {
-            resolutionStrategy.force 'com.google.code.findbugs:jsr305:1.3.9'
-        }
     }
     buildTypes {
         release {
@@ -33,22 +28,11 @@ dependencies {
 
     apply plugin: 'com.google.gms.google-services'
 
-    //Dagger 2  og
-    //compile 'com.android.support:appcompat-v7:26.+'
-    //compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    //compile 'com.google.dagger:dagger:2.11'
-    //compile 'com.google.dagger:dagger-android:2.11'
-    //annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
-    //annotationProcessor 'com.google.dagger:dagger-compiler:2.11'
 
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support:design:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.android.support:support-v4:26.+'
-
-    //Image pinch
-
     testCompile 'junit:junit:4.12'
     provided 'javax.annotation:jsr250-api:1.0'
-
 }

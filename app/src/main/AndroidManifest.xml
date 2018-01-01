@@ -63,6 +63,10 @@
 
         <activity android:name=".activities.ProfileActivity">
         </activity>
+        <activity android:name=".activities.FindUsActivity">
+        </activity>
+        <activity android:name=".activities.MessagesActivity">
+        </activity>
     </application>
 
 </manifest>
