@@ -28,7 +28,6 @@ import java.util.Set;
 public class HttpConnectionProvider {
 
     private Bundle values;
-
     private String stringUrl;
     private String requestMethod;
     private boolean doInput;

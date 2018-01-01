@@ -1,6 +1,6 @@
 package co.za.geartronix.presenters;
-import android.view.View;
 
+import android.view.View;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.views.IProfileView;
@@ -49,6 +49,21 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void addCar() {
+
+    }
+
+    @Override
+    public void uploadPicture(View view) {
+
+    }
+
+    @Override
+    public void viewMessages(View view) {
+
+    }
+
+    @Override
+    public void viewPoints(View view) {
 
     }
 }
