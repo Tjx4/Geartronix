@@ -1,13 +1,18 @@
 package co.za.geartronix.presenters;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
+import android.support.v4.content.FileProvider;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -45,6 +50,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     private FrameLayout activeImageContainer;
     private String imageName;
     private Uri imageFilePath;
+    private long imageAnimationDuration;
 
     public GalleryPresenter(IGalleryView iGalleryView) {
         super((BaseActivity)iGalleryView);
@@ -127,19 +133,36 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         setImageName();
         enlarged = true;
         controlMenu.setVisibility(View.VISIBLE);
-        activeImageContainer.setVisibility(View.VISIBLE);
+
+        activeImage.setVisibility(View.VISIBLE);
+        activeImage.animate().alpha(1.0f).setDuration(imageAnimationDuration);
+
     }
 
     private void hidePanels() {
         controlMenu.setVisibility(View.GONE);
-        activeImageContainer.setVisibility(View.GONE);
         enlarged = false;
+
+        activeImage.animate()
+                .alpha(0.0f)
+                .setDuration(imageAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        if(enlarged)
+                            return;
+
+                        activeImage.setVisibility(View.GONE);
+                    }
+                });
     }
 
     @Override
     public void setViews() {
         setAsyncViews();
+        imageAnimationDuration = 400;
         activeImage = (CustomImageVIew)getActivity().findViewById(R.id.imgLarge);
+        activeImage.animate().alpha(0.0f);
         activeImage.setOnTouchListener(new CustomImageVIew.OnTouchListener() {
 //Todo: quick hack to enable pinch
             @Override
@@ -149,7 +172,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
                 return false;
             }
         });
-        activeImageContainer = (FrameLayout)getActivity().findViewById(R.id.imgLargeContainer);
+        //activeImageContainer = (FrameLayout)getActivity().findViewById(R.id.imgLargeContainer);
         controlMenu = (FrameLayout)getActivity().findViewById(R.id.frmContrlMenu);
     }
 
@@ -164,39 +187,25 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     }
 
     @Override
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    @SuppressWarnings( "deprecation" )
     public void shareImage(View view) {
+
+        Uri fileUri = Uri.parse("android.resource://com.cpt.sample/raw/test_pic.png");
+
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+        shareIntent.setType("image/png");
+        getActivity().startActivity(Intent.createChooser(shareIntent, getActivity().getString(R.string.send_to)));
+
+        /*
         Intent shareIntent = new Intent();
         shareIntent.setAction(Intent.ACTION_SEND);
         shareIntent.putExtra(Intent.EXTRA_STREAM, imageFilePath);
-        shareIntent.setType("image/jpg");
-        getActivity().startActivity(Intent.createChooser(shareIntent, "Send to"));
+        shareIntent.setType("image/png");
+        getActivity().startActivity(Intent.createChooser(shareIntent, getActivity().getString(R.string.send_to)));
+        */
     }
 
-    @Override
-    protected void duringAnimation(View view) {
-
-    }
-
-    @Override
-    protected void postAnimation(View view) {
-
-        int viewId = view.getId();
-
-        switch (viewId)
-        {
-            case R.id.imgMinimize :
-                hideEnlargedImage();
-                break;
-            case R.id.imgBtnShare :
-                shareImage(view);
-                break;
-            case R.id.imgBtnSavePic :
-                saveCurrentImageToGallery();
-                break;
-        }
-    }
 
     private void saveCurrentImageToGallery() {
         String permission = Permissions.writeStorage.getPermission();
@@ -236,6 +245,31 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         scanIntent.setData(imageUri);
         context.sendBroadcast(scanIntent);
     }
+
+    @Override
+    protected void duringAnimation(View view) {
+
+    }
+
+    @Override
+    protected void postAnimation(View view) {
+
+        int viewId = view.getId();
+
+        switch (viewId)
+        {
+            case R.id.imgMinimize :
+                hideEnlargedImage();
+                break;
+            case R.id.imgBtnShare :
+                shareImage(view);
+                break;
+            case R.id.imgBtnSavePic :
+                saveCurrentImageToGallery();
+                break;
+        }
+    }
+
 
     @Override
     public void porpulateImageGrid() {
