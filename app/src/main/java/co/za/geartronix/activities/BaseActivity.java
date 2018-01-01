@@ -15,11 +15,16 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        presenter.outOfFocus = false;
+    }
+
+    @Override
     public void onBackPressed() {
         super.onBackPressed();
         presenter.slideOutActivity();
-        presenter.isBack = true;
-
+        presenter.outOfFocus = true;
     }
 
 }

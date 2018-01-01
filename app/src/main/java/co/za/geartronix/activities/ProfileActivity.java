@@ -5,7 +5,6 @@ import android.view.View;
 import co.za.geartronix.presenters.ProfilePresenter;
 import co.za.geartronix.views.IProfileView;
 
-
 public class ProfileActivity  extends BaseAsyncActivity implements IProfileView {
 
     @Override
@@ -31,6 +30,11 @@ public class ProfileActivity  extends BaseAsyncActivity implements IProfileView 
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        if(getPresenter().isEditMode) {
+            getPresenter().setViewMode();
+        }
+        else {
+            super.onBackPressed();
+        }
     }
 }

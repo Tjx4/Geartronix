@@ -61,14 +61,14 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         new DoAsyncCall().execute();
     }
 
-    private void setImageName() {
-        imageName = getImageName();
-    }
-
     public GalleryPresenter(BaseActivity baseActivity, int index) {
         super(baseActivity, index);
         setIcon(R.mipmap.gallery_icon);
         setDisplayName(activity.getString(R.string.gallery));
+    }
+
+    private void setImageName() {
+        imageName = getImageName();
     }
 
     @Override
@@ -90,8 +90,11 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
 
     @Override
     protected void afterAsyncCall(Object result) {
-        String res = result.toString();
+        if(outOfFocus)
+            return;
+
         try {
+            String res = result.toString();
             responseModel.setModel(new JSONObject(res));
             porpulateImageGrid();
 
@@ -129,17 +132,18 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         hidePanels();
     }
 
-    private void showPanels() {
+    @Override
+    public void showPanels() {
         setImageName();
         enlarged = true;
         controlMenu.setVisibility(View.VISIBLE);
 
         activeImage.setVisibility(View.VISIBLE);
         activeImage.animate().alpha(1.0f).setDuration(imageAnimationDuration);
-
     }
 
-    private void hidePanels() {
+    @Override
+    public void hidePanels() {
         controlMenu.setVisibility(View.GONE);
         enlarged = false;
 
@@ -197,7 +201,8 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         */
     }
 
-    private void saveCurrentImageToGallery() {
+    @Override
+    public void saveCurrentImageToGallery() {
         String permission = Permissions.writeStorage.getPermission();
         ImageView iv = activeImage;
         iv.buildDrawingCache();

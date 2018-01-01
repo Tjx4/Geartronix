@@ -9,7 +9,7 @@ import co.za.geartronix.R;
 import co.za.geartronix.presenters.HomePresenter;
 import co.za.geartronix.views.IHomeView;
 
-public class HomeActivity extends BaseAsyncActivity implements IHomeView, NavigationView.OnNavigationItemSelectedListener  {
+public class HomeActivity extends BaseAsyncActivity implements IHomeView, NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,11 +20,6 @@ public class HomeActivity extends BaseAsyncActivity implements IHomeView, Naviga
     @Override
     public HomePresenter getPresenter() {
         return (HomePresenter)presenter;
-    }
-
-    @Override
-    public void onTileClicked(View view) {
-        getPresenter().handleTileClicked(view);
     }
 
     @Override
@@ -60,17 +55,9 @@ public class HomeActivity extends BaseAsyncActivity implements IHomeView, Naviga
         super.onDestroy();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-// Todo: find a way to check if is back
-            getPresenter().resetTiles();
-    }
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-
         return getPresenter().handleNavigationItemSelected(item);
     }
 }

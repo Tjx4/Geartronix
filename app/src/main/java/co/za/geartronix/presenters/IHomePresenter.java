@@ -4,7 +4,7 @@ import android.view.View;
 import co.za.geartronix.activities.HomeActivity;
 
 public interface IHomePresenter extends IBaseAsyncPresenter {
-    void setViews();
     HomeActivity getActivity();
-    void handleTileClicked(View view);
+    void setActiveColor(View view);
+    void revertViewBackgroundColor(View view);
 }

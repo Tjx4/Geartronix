@@ -1,7 +1,6 @@
 package co.za.geartronix.activities;
 
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
 import co.za.geartronix.presenters.GalleryPresenter;
 import co.za.geartronix.views.IGalleryView;

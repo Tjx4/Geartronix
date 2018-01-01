@@ -1,14 +1,28 @@
 package co.za.geartronix.presenters;
 
 import android.view.View;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
+import co.za.geartronix.activities.ProfileActivity;
+import co.za.geartronix.models.ProfileModel;
 import co.za.geartronix.views.IProfileView;
 
 public class ProfilePresenter extends BaseAppActivityPresenter implements IProfilePresenter{
 
+    private ProfileModel responseModel;
+    public boolean isEditMode;
+
     public ProfilePresenter(IProfileView iProfileView) {
         super((BaseActivity)iProfileView);
+        setDependanciesChildActivities(R.layout.activity_profile);
+        currentActionBar.setTitle(" "+activity.getString(R.string.profile));
+        setViews();
+        responseModel = new ProfileModel();
+        new DoAsyncCall().execute();
     }
 
     public ProfilePresenter(BaseActivity baseActivity, int index) {
@@ -34,7 +48,20 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     protected void afterAsyncCall(Object result) {
+        if(outOfFocus)
+            return;
 
+        try {
+            String res = result.toString();
+
+            responseModel.setModel(new JSONObject(res));
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        hideLoadingScreen();
     }
 
     @Override
@@ -48,7 +75,17 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     }
 
     @Override
-    public void addCar() {
+    public void setViews() {
+
+    }
+
+    @Override
+    public ProfileActivity getActivity() {
+        return (ProfileActivity) activity;
+    }
+
+    @Override
+    public void addCar(View view) {
 
     }
 
@@ -64,6 +101,21 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void viewPoints(View view) {
+    }
 
+    @Override
+    public void setEditMode() {
+        isEditMode = true;
+        //
+    }
+
+    @Override
+    public void setViewMode() {
+        isEditMode = false;
+    }
+
+    @Override
+    public void goToCurrentAppActivity() {
+        goToProfile();
     }
 }

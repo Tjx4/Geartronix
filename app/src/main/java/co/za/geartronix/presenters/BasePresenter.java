@@ -22,6 +22,7 @@ import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.GalleryActivity;
 import co.za.geartronix.activities.HomeActivity;
+import co.za.geartronix.activities.ProfileActivity;
 import co.za.geartronix.activities.ServicesActivity;
 import co.za.geartronix.providers.PermissionsProvider;
 
@@ -37,6 +38,7 @@ public abstract class BasePresenter {
     public String username;
     public String userId;
     protected final String PACKAGENAME = "co.za.geartronix";
+    public boolean outOfFocus;
 
     protected void setDependancies(int contentView) {
         setBasicDependancies(contentView);
@@ -215,6 +217,9 @@ public abstract class BasePresenter {
         goToActivity(activity, i);
     }
 
+    protected void goToProfile() {
+        goToActivity(ProfileActivity.class);
+    }
     protected void goToGallery() {
         goToActivity(GalleryActivity.class);
     }

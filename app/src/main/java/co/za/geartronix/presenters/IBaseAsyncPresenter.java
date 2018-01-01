@@ -4,4 +4,5 @@ import android.view.View;
 
 public interface IBaseAsyncPresenter extends IBasePresenter{
     void handleViewClickedEvent(View view);
+    void setViews();
 }

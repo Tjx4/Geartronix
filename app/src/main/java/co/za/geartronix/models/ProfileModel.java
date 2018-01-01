@@ -1,5 +1,11 @@
 package co.za.geartronix.models;
 
-public class ProfileModel extends BaseModel {
+import org.json.JSONException;
+import org.json.JSONObject;
 
+public class ProfileModel extends BaseModel {
+    @Override
+    public void setModel(JSONObject response) throws JSONException {
+        super.setModel(response);
+    }
 }

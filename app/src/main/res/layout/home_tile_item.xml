@@ -11,7 +11,7 @@
               android:paddingRight="8dp"
               android:paddingStart="8dp"
               android:paddingTop="7dp"
-              android:onClick="onTileClicked">
+              android:onClick="onViewClickedEvent">
 
     <ImageView
         android:id="@+id/imgHomeTile"

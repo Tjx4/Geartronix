@@ -34,7 +34,6 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     private GridView homeTileContainer;
     private TextView homeHeaderText;
     private List<BaseAppActivityPresenter> homeItems;
-    private LinearLayout currentTile;
     private View lastView;
     private HomeTileAdapter homeTileAdapter;
 
@@ -49,7 +48,7 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
         try {
 
             String user = activity.getIntent().getExtras().getBundle("payload").getString("user");
-            showShortToast("Welcome "+user);
+            showShortToast(activity.getString(R.string.welcome)+" "+user);
 
         }
         catch (Exception e){
@@ -92,11 +91,11 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     public void setViews() {
         parentLayout = (RelativeLayout) getMainLayout();
 
-        homeHeaderText = (TextView) parentLayout.findViewById(R.id.txtHomeHeader);
-        selectedActivityImg = (ImageView)parentLayout.findViewById(R.id.imgSelectedActivity);
+        homeHeaderText = parentLayout.findViewById(R.id.txtHomeHeader);
+        selectedActivityImg = parentLayout.findViewById(R.id.imgSelectedActivity);
 
         // Set tiles
-        homeTileContainer = (GridView) parentLayout.findViewById(R.id.grdHomeTiles);
+        homeTileContainer = parentLayout.findViewById(R.id.grdHomeTiles);
         homeTileContainer.setAdapter(getAdapter());
     }
 
@@ -110,168 +109,15 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
         homeItems.add(new MessagesPresenter(activity, 4));
         homeItems.add(new DiagnosticsPresenter(activity, 5));
 
-        //Todo: fix
+//Todo: fix
         homeTileAdapter = new HomeTileAdapter(getActivity(), R.layout.home_tile_item, homeItems);
 
         return homeTileAdapter;
     }
 
-    @Override
-    public void handleTileClicked(View view) {
-        //setActiveInactiveColor(view);
-        //animateHomeViews(view);
-       // animateAndGotoActivity(view);
-        blinkTile(view);
-    }
-
     private void goToSelectedActivity(View view) {
       BaseAppActivityPresenter currentAppActivity = homeTileAdapter.generateAppActivity(view.getId());
       currentAppActivity.goToCurrentAppActivity();
-    }
-
-    private void hideHomeTile(View view) {
-        final View currentActivity = view;
-
-        Animation animate = getfadeOutAnimation(60, 400);
-        animate.setAnimationListener(new TranslateAnimation.AnimationListener() {
-
-            @Override
-            public void onAnimationStart(Animation animation) {
-                homeTileContainer.setVisibility(View.INVISIBLE);
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                goToSelectedActivity(currentActivity);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-        homeTileContainer.startAnimation(animate);
-    }
-
-    private void showSelectedActivity() {
-        selectedActivityImg.setVisibility(View.VISIBLE);
-    }
-
-    public void resetHomeTitle() {
-        homeHeaderText.setText(getActivity().getString(R.string.choose_an_activity));
-    }
-
-    private void animateAndGotoActivity(View view) {
-        /*
-        currentTile = (LinearLayout)view;
-
-        setActiveInactiveColor(currentTile);
-        goToSelectedActivity(currentTile);
-
-        final View currentActivity = view;
-
-        Animation animate = getfadeOutAnimation(60, 400);
-        animate.setAnimationListener(new TranslateAnimation.AnimationListener() {
-
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-                homeTileContainer.setVisibility(View.INVISIBLE);
-
-                ImageView currentTileImage = (ImageView)currentTile.getChildAt(0);
-                selectedActivityImg.setImageBitmap(getImageViewPic(currentTileImage));
-
-                TextView currentTileLabel = (TextView)currentTile.getChildAt(1);
-                String activityName = currentTileLabel.getText().toString();
-                homeHeaderText.setText(activityName);
-                //
-                homeHeaderText.setVisibility(View.VISIBLE);
-
-                //This is where you animate the selected activity
-                showSelectedActivity();
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-// Todo: find better way to delay
-                Thread lTimer = new Thread() {
-
-                    public void run() {
-
-                        Looper.prepare();
-
-                        try {
-                            Thread.sleep(200);
-                            goToSelectedActivity(currentActivity);
-
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                };
-
-                lTimer.start();
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-        homeTileContainer.startAnimation(animate);
-        */
-    }
-
-    private void animateHomeViews(View view) {
-/*
-        //view.getHeight()
-        Animation animate = getSlideDownAnimation(500,  600);
-        animate.setAnimationListener(new Animation.AnimationListener() {
-
-            @Override
-            public void onAnimationStart(Animation animation) {
-                currentTile.setVisibility(View.INVISIBLE);
-
-                ImageView currentTileImage = (ImageView)currentTile.getChildAt(0);
-                selectedActivityImg.setImageBitmap(getImageViewPic(currentTileImage));
-
-                TextView currentTileLabel = (TextView)currentTile.getChildAt(1);
-                String activityName = currentTileLabel.getText().toString();
-                homeHeaderText.setText(activityName);
-
-                showSelectedActivity();
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                hideHomeTile(currentTile);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-
-            }
-        });
-        homeTileContainer.startAnimation(animate);
-*/
-    }
-
-    public void resetTiles() {
-
-        int visible = View.VISIBLE;
-        int invisible = View.INVISIBLE;
-
-        selectedActivityImg.setVisibility(invisible);
-        homeHeaderText.setVisibility(View.GONE);
-        resetHomeTitle();
-
-        //if(homeTileContainer.getVisibility() != visible)
-            homeTileContainer.setVisibility(visible);
-
-        //if(currentTile != null)
-        //    currentTile.setVisibility(visible);
     }
 
     private void setActiveInactiveColor(View view) {
@@ -287,89 +133,34 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
         lastView = view;
     }
 
-    private void setActiveColor(View view) {
+    @Override
+    public void setActiveColor(View view) {
         int active = Color.parseColor("#0088cc");
         view.setBackgroundColor(active);
     }
 
-    private void revertViewBackgroundColor(View lastView) {
+    @Override
+    public void revertViewBackgroundColor(View lastView) {
         int inactive = getActivity().getResources().getColor(R.color.tileTransBlack);
         lastView.setBackgroundColor(inactive);
     }
 
-    private void blinkTile(View view) {
 
-        final View currentActivity = view;
-
-        Animation animate = getfadeOutAnimation(30, 70) ;
-
-        animate.setAnimationListener(new TranslateAnimation.AnimationListener() {
-
-            @Override
-            public void onAnimationStart(Animation animation) {
-                setActiveInactiveColor(currentActivity);
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-                revertViewBackgroundColor(currentActivity);
-                goToSelectedActivity(currentActivity);
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-
-        currentActivity.startAnimation(animate);
+    @Override
+    protected void duringAnimation(View view) {
+        setActiveInactiveColor(view);
     }
 
-// Todo: work on this method
-    private void slideInAndOutView(View view, boolean isTwice) {
-
-        /*
-        final Boolean secondTime = isTwice;
-        final View currentActivity = view;
-        int duration = 200;
-
-        Animation animate;
-
-        if (isTwice) {
-            animate = getfadeInAnimation(duration);
-        }
-        else {
-            animate = getfadeOutAnimation(30, duration) ;
-        }
-
-        animate.setAnimationListener(new TranslateAnimation.AnimationListener() {
-
-            @Override
-            public void onAnimationStart(Animation animation) {
-
-            }
-
-            @Override
-            public void onAnimationEnd(Animation animation) {
-
-                if(secondTime)
-                    goToSelectedActivity(currentActivity);
-                else
-                    slideInAndOutView(currentActivity, true);
-
-            }
-
-            @Override
-            public void onAnimationRepeat(Animation animation) {
-            }
-        });
-
-        currentActivity.startAnimation(animate);
-        */
+    @Override
+    protected void postAnimation(View view) {
+        revertViewBackgroundColor(view);
+        goToSelectedActivity(view);
     }
 
     @Override
     public void handleViewClickedEvent(View view) {
-
+        // int viewId = view.getId();
+        blinkView(view, 30, 70);
     }
 
 }
