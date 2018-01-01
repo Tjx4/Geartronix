@@ -197,7 +197,6 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         */
     }
 
-
     private void saveCurrentImageToGallery() {
         String permission = Permissions.writeStorage.getPermission();
         ImageView iv = activeImage;
@@ -207,7 +206,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         //context.getExternalFilesDir(null);
         File storageLoc = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
 
-        File file = new File(storageLoc, imageName + ".jpg");
+        File file = new File(storageLoc, imageName + ".png");
 
         try{
             FileOutputStream fos = new FileOutputStream(file);

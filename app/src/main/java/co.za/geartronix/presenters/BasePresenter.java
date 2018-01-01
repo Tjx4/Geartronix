@@ -35,6 +35,7 @@ public abstract class BasePresenter {
     protected ActionBar currentActionBar;
     public boolean isBack;
     public String username;
+    public String userId;
     protected final String PACKAGENAME = "co.za.geartronix";
 
     protected void setDependancies(int contentView) {

@@ -5,7 +5,7 @@ import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.views.IProfileView;
 
-public class ProfilePresenter extends BaseAppActivityPresenter {
+public class ProfilePresenter extends BaseAppActivityPresenter implements IProfilePresenter{
 
     public ProfilePresenter(IProfileView iProfileView) {
         super((BaseActivity)iProfileView);
@@ -39,6 +39,16 @@ public class ProfilePresenter extends BaseAppActivityPresenter {
 
     @Override
     protected void handleAsyncButtonClickedEvent(View button) {
+
+    }
+
+    @Override
+    public void handleViewClickedEvent(View view) {
+
+    }
+
+    @Override
+    public void addCar() {
 
     }
 }
