@@ -163,15 +163,6 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         imageAnimationDuration = 400;
         activeImage = (CustomImageVIew)getActivity().findViewById(R.id.imgLarge);
         activeImage.animate().alpha(0.0f);
-        activeImage.setOnTouchListener(new CustomImageVIew.OnTouchListener() {
-//Todo: quick hack to enable pinch
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                CustomImageVIew mee = (CustomImageVIew)v;
-                mee.setScaleType(ImageView.ScaleType.MATRIX);
-                return false;
-            }
-        });
         //activeImageContainer = (FrameLayout)getActivity().findViewById(R.id.imgLargeContainer);
         controlMenu = (FrameLayout)getActivity().findViewById(R.id.frmContrlMenu);
     }
