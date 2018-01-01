@@ -104,7 +104,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         if(viewId == R.id.imgPic)
             showEnlargedImage(view);
         else
-            blinkView(view);
+            blinkView(view, 60, 140);
     }
 
     @Override

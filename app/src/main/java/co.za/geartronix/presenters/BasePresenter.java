@@ -157,11 +157,11 @@ public abstract class BasePresenter {
 
     }
 
-    protected void blinkView(View view) {
+    protected void blinkView(View view, long from, long to) {
 
         final View currentActivity = view;
 
-        Animation animate = getfadeOutAnimation(30, 70);
+        Animation animate = getfadeOutAnimation(from, to);
 
         animate.setAnimationListener(new TranslateAnimation.AnimationListener() {
 

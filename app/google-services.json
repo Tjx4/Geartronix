@@ -1,27 +1,27 @@
 {
   "project_info": {
-    "project_number": "280122068126",
-    "firebase_url": "https://geartronix-feeb5.firebaseio.com",
-    "project_id": "geartronix-feeb5",
-    "storage_bucket": "geartronix-feeb5.appspot.com"
+    "project_number": "853446600884",
+    "firebase_url": "https://geartronix-5526e.firebaseio.com",
+    "project_id": "geartronix-5526e",
+    "storage_bucket": "geartronix-5526e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:280122068126:android:370455d5b7e6fd71",
+        "mobilesdk_app_id": "1:853446600884:android:9cbeae6dad9be303",
         "android_client_info": {
           "package_name": "co.za.geartronix"
         }
       },
       "oauth_client": [
         {
-          "client_id": "280122068126-2h6d4557sb0c51epnvsupa8hi04l9kqa.apps.googleusercontent.com",
+          "client_id": "853446600884-sn2jarmq1fabl6jbkrdunurghtrcvb42.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCNd0xMhSddcn-BRD5zWjNjRcYf3xJHg3k"
+          "current_key": "AIzaSyBo0okjHnEbf1Yp_mkakZVAb82PP4lb1nU"
         }
       ],
       "services": {

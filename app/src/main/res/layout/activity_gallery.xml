@@ -29,7 +29,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/colorTransparentBlack"
-            android:visibility="gone">
+            android:visibility="gone"
+            android:clickable="true">
 
             <co.za.geartronix.customViews.CustomImageVIew
                 android:id="@+id/imgLarge"
