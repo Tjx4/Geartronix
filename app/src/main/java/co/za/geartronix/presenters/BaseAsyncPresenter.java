@@ -39,10 +39,12 @@ public abstract class BaseAsyncPresenter extends BasePresenter {
     }
 
     protected void showLoadingScreen() {
-        loadingScreenFrm.setVisibility(View.VISIBLE);
+        if(loadingScreenFrm != null)
+            loadingScreenFrm.setVisibility(View.VISIBLE);
     }
     protected void hideLoadingScreen() {
-        loadingScreenFrm.setVisibility(View.GONE);
+        if(loadingScreenFrm != null)
+            loadingScreenFrm.setVisibility(View.GONE);
     }
 
     private boolean isCurrentlyWorking(View button) {

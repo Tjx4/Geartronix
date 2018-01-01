@@ -1,7 +1,11 @@
 package co.za.geartronix.activities;
 
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+
+import co.za.geartronix.R;
 import co.za.geartronix.presenters.ProfilePresenter;
 import co.za.geartronix.views.IProfileView;
 
@@ -16,6 +20,18 @@ public class ProfileActivity  extends BaseAsyncActivity implements IProfileView 
     @Override
     public void setPresenter() {
         presenter = new ProfilePresenter(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.profile_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        getPresenter().menuOptionSelected(item);
+        return true;
     }
 
     @Override

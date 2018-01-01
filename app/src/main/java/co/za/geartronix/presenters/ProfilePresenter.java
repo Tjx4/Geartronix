@@ -1,5 +1,6 @@
 package co.za.geartronix.presenters;
 
+import android.view.MenuItem;
 import android.view.View;
 
 import org.json.JSONException;
@@ -43,7 +44,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     protected Object doAsyncOperation(Object... args) throws Exception {
-        return null;
+        return "";
     }
 
     @Override
@@ -117,5 +118,9 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     @Override
     public void goToCurrentAppActivity() {
         goToProfile();
+    }
+
+    public void menuOptionSelected(MenuItem item) {
+        showShortToast(activity.getString(R.string.edit));
     }
 }

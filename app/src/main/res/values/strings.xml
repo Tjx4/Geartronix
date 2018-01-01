@@ -39,4 +39,5 @@
     <string name="picture_saved_to_gallery">Picture saved to gallery</string>
     <string name="send_to">Send to</string>
     <string name="welcome">Welcome</string>
+    <string name="edit">Edit</string>
 </resources>
