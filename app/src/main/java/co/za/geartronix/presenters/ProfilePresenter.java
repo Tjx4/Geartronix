@@ -158,8 +158,12 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
          @Override
          public void onAnimationEnd(Animator animation) {
-             String progress = currentProgresBar.getProgress()+"";
-             txtInfo1.setText(progress);
+             Double progress = (double)currentProgresBar.getProgress();
+
+             String lbl1Text = progress+"";
+             String lbl2Text = String.valueOf(progress / 2) ;
+             txtInfo1.setText(lbl1Text);
+             txtInfo2.setText(lbl2Text);
          }
 
          @Override
