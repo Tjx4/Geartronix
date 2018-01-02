@@ -2,19 +2,13 @@ package co.za.geartronix.presenters;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Environment;
-import android.support.v4.content.FileProvider;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
@@ -36,13 +30,12 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
 public class GalleryPresenter extends BaseAppActivityPresenter implements IGalleryPresenter {
 
-    private GridView images;
+    private GridView imagesGridview;
     private List<ArrayList> items;
     private GalleryModel responseModel;
     private CustomImageVIew activeImage;
@@ -165,6 +158,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     @Override
     public void fullScreeView() {
         showShortToast("Full screen mode");
+        //imagesGridview
     }
 
     @Override
@@ -282,8 +276,8 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     public void porpulateImageGrid() {
         items = responseModel.getItems();
         ArrayAdapter adp = new GalleryImageAdapter(activity, R.layout.gallery_item_view, items);
-        images = (GridView) activity.findViewById(R.id.grdvImageContainer);
-        images.setAdapter(adp);
+        imagesGridview = (GridView) activity.findViewById(R.id.grdvImageContainer);
+        imagesGridview.setAdapter(adp);
     }
 
     @Override

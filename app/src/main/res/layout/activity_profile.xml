@@ -251,12 +251,22 @@
                     <FrameLayout  style="@style/profileBarContainer"
                         android:layout_marginRight="30dp">
 
-                        <ImageView
-                            android:id="@+id/ima4"
+
+                        <ProgressBar
+                            style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            app:srcCompat="@drawable/progbar"/>
+                            android:max="100"
+                            android:progress="100"
+                            android:progressDrawable="@drawable/circular_progressbar_track" />
+                        <ProgressBar
+                            android:id="@+id/progressBar1"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/circular_progressbar_progress" />
 
                         <LinearLayout style="@style/profileBarSubContainer">
 
@@ -274,12 +284,21 @@
 
                     <FrameLayout  style="@style/profileBarContainer">
 
-                        <ImageView
-                            android:id="@+id/ima4b"
+                        <ProgressBar
+                            style="?android:attr/progressBarStyleHorizontal"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="fitXY"
-                            app:srcCompat="@drawable/progbar"/>
+                            android:max="100"
+                            android:progress="100"
+                            android:progressDrawable="@drawable/circular_progressbar_track" />
+                        <ProgressBar
+                            android:id="@+id/progressBar2"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressDrawable="@drawable/circular_progressbar_progress" />
 
                         <LinearLayout style="@style/profileBarSubContainer">
 

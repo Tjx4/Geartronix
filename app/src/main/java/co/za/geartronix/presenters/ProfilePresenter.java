@@ -1,9 +1,13 @@
 package co.za.geartronix.presenters;
 
+import android.animation.ObjectAnimator;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import co.za.geartronix.R;
@@ -17,6 +21,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     private ProfileModel responseModel;
     public boolean isEditMode;
     public ImageButton uploadImageBtn;
+    public ProgressBar progressBar1, progressBar2;
 
     public ProfilePresenter(IProfileView iProfileView) {
         super((BaseActivity)iProfileView);
@@ -116,7 +121,27 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     @Override
     public void setViews() {
         uploadImageBtn = (ImageButton) getActivity().findViewById(R.id.imgBtnuploadImage);
+        progressBar1 = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
+        progressBar2 = (ProgressBar) getActivity().findViewById(R.id.progressBar2);
+        setProgressbar1Progress(80);
+        setProgressbar2Progress(40);
     }
+
+
+ public void setProgressbar1Progress(int progress) {
+    setProgressbarProgress(progressBar1,  progress);
+ }
+
+ public void setProgressbar2Progress(int progress) {
+    setProgressbarProgress(progressBar2,  progress);
+ }
+
+ public void setProgressbarProgress(ProgressBar progressBar, int progress) {
+     ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress", 0, progress); // see this max value coming back here, we animale towards that value
+     animation.setDuration (2000); //in milliseconds
+     animation.setInterpolator (new DecelerateInterpolator());
+     animation.start ();
+ }
 
     @Override
     public ProfileActivity getActivity() {
