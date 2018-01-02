@@ -105,6 +105,7 @@ public abstract class BasePresenter {
         currentActionBar.setDisplayHomeAsUpEnabled(true);
     }
 
+
     public void slideInActivity() {
         activity.overridePendingTransition(R.anim.slide_in, R.anim.nothing);
     }
@@ -231,6 +232,10 @@ public abstract class BasePresenter {
 
     protected void goToServices(Bundle...loginDetails) {
         goToActivityWithPayload(ServicesActivity.class, loginDetails);
+    }
+
+    protected void goToSettings(Bundle...loginDetails) {
+        showShortToast("Settings");
     }
 
     protected void showLongToast(String message){
