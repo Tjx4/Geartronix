@@ -1,12 +1,16 @@
 package co.za.geartronix.presenters;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -137,9 +141,36 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
  }
 
  public void setProgressbarProgress(ProgressBar progressBar, int progress) {
-     ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress", 0, progress); // see this max value coming back here, we animale towards that value
+
+     final ProgressBar currentProgresBar = progressBar;
+     FrameLayout parentView =  (FrameLayout)currentProgresBar.getParent();
+     LinearLayout sibling = (LinearLayout)parentView.getChildAt(2);
+     final TextView txtInfo1 = (TextView) sibling.getChildAt(0);
+     final TextView txtInfo2 = (TextView) sibling.getChildAt(1);
+
+     ObjectAnimator animation = ObjectAnimator.ofInt (currentProgresBar, "progress", 0, progress); // see this max value coming back here, we animale towards that value
      animation.setDuration (2000); //in milliseconds
      animation.setInterpolator (new DecelerateInterpolator());
+     animation.addListener(new Animator.AnimatorListener() {
+         @Override
+         public void onAnimationStart(Animator animation) {
+         }
+
+         @Override
+         public void onAnimationEnd(Animator animation) {
+             String progress = currentProgresBar.getProgress()+"";
+             txtInfo1.setText(progress);
+         }
+
+         @Override
+         public void onAnimationCancel(Animator animation) {
+         }
+
+         @Override
+         public void onAnimationRepeat(Animator animation) {
+
+         }
+     });
      animation.start ();
  }
 
