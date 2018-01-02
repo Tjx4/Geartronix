@@ -68,8 +68,8 @@ public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
             case R.id.action_make_booking:
                 goToServices();
                 break;
-            case Constants.FINDUSID:
-                showShortToast("Find us");
+            case R.id.action_home:
+                goToHome();
                 break;
         }
 

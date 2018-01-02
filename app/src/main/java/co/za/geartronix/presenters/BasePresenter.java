@@ -1,5 +1,6 @@
 package co.za.geartronix.presenters;
 
+import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -226,11 +227,21 @@ public abstract class BasePresenter {
         goToActivity(GalleryActivity.class);
     }
 
+    protected boolean isCurrentActivity(Class activity) {
+        return activity.getClass() == activity;
+    }
+
     protected void goToHome(Bundle...loginDetails) {
+        if(isCurrentActivity(HomeActivity.class))
+            return;
+
         goToActivityWithPayload(HomeActivity.class, loginDetails);
     }
 
     protected void goToServices(Bundle...loginDetails) {
+        if(isCurrentActivity(Service.class))
+        return;
+
         goToActivityWithPayload(ServicesActivity.class, loginDetails);
     }
 
