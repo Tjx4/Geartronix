@@ -59,11 +59,11 @@ public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
 
         switch (item.getItemId()){
 
-            case Constants.PROFILEID:
-                showShortToast("Profile");
+            case R.id.action_profile:
+                goToProfile();
                 break;
-            case Constants.BOOKSERVICEID:
-                goToServices();
+            case R.id.action_gallery:
+                goToGallery();
                 break;
             case R.id.action_make_booking:
                 goToServices();

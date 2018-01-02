@@ -4,9 +4,9 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/action_view_services"
-            android:icon="@drawable/progress_icon"
-            android:title="View our Services"/>
+            android:id="@+id/action_profile"
+            android:icon="@mipmap/profile_icon"
+            android:title="View your profile"/>
 
         <item
             android:id="@+id/action_make_booking"
@@ -14,9 +14,9 @@
             android:title="Book a service"/>
 
         <item
-            android:id="@+id/action_check_progress"
-            android:icon="@drawable/progress_icon"
-            android:title="Check service progress"/>
+            android:id="@+id/action_gallery"
+            android:icon="@mipmap/gallery_icon"
+            android:title="View our gallery"/>
 
     </group>
 
