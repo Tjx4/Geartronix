@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="profileLabel1" parent="geartronixLabel">
+        <item name="android:textSize">@dimen/medium_plus_font_size</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:paddingLeft">@dimen/profLabelPadding</item>
+        <item name="android:paddingStart">@dimen/profLabelPadding</item>
+        <item name="android:paddingRight">@dimen/profLabelPadding</item>
+        <item name="android:paddingEnd">@dimen/profLabelPadding</item>
+        <item name="android:textColor">@color/textWhite</item>
+        <item name="android:layout_margin">0dp</item>
+    </style>
+</resources>

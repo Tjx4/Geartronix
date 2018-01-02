@@ -29,6 +29,44 @@
     <style name="largeLabel" parent="geartronixLabel">
         <item name="android:textSize">@dimen/large_font_size</item>
     </style>
+
+    <style name="profileDividerLine">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/testGreen</item>
+    </style>
+    <style name="profileLabel2" parent="geartronixLabel">
+        <item name="android:layout_alignParentLeft">true</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">26dp</item>
+        <item name="android:layout_marginTop">26dp</item>
+        <item name="android:textColor">@color/textWhite</item>
+        <item name="android:textSize">16dp</item>
+    </style>
+    <style name="profileLabel1" parent="geartronixLabel">
+        <item name="android:textSize">@dimen/medium_plus_font_size</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:paddingLeft">@dimen/profLabelPadding</item>
+        <item name="android:paddingRight">@dimen/profLabelPadding</item>
+        <item name="android:textColor">@color/textWhite</item>
+        <item name="android:layout_margin">0dp</item>
+    </style>
+
+    <style name="profileLabel1Count" parent="profileLabel1">
+        <item name="android:textColor">#0088cc</item>
+        <item name="android:textSize">@dimen/xlarge_font_size</item>
+    </style>
+
+    <style name="profUnderLiner" parent="mediumLabel">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">4dp</item>
+        <item name="android:layout_marginTop">9dp</item>
+        <item name="android:background">#777777</item>
+    </style>
+
     <style name="forgotPasswordLabel" parent="mediumLabel">
         <item name="android:textColor">#cccccc</item>
         <item name="android:layout_marginTop">20dp</item>
