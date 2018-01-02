@@ -13,4 +13,5 @@ public interface IGalleryPresenter extends IBaseAsyncPresenter {
     void saveCurrentImageToGallery();
     void showPanels();
     void hidePanels();
+    void fullScreeView();;
 }

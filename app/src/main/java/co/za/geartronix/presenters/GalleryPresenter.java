@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.support.v4.content.FileProvider;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -162,6 +163,11 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     }
 
     @Override
+    public void fullScreeView() {
+        showShortToast("Full screen mode");
+    }
+
+    @Override
     public void setViews() {
         setAsyncViews();
         imageAnimationDuration = 400;
@@ -265,6 +271,12 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         }
     }
 
+    public void menuOptionSelected(MenuItem item) {
+        clickedViewId = item.getItemId();
+
+        if(clickedViewId == R.id.action_fullscreen)
+            fullScreeView();
+    }
 
     @Override
     public void porpulateImageGrid() {

@@ -75,17 +75,17 @@
                     android:background="@android:color/transparent"
                     android:onClick="onViewClickedEvent"
                     android:scaleType="fitXY"
-                    app:srcCompat="@android:drawable/ic_menu_gallery"/>
+                    app:srcCompat="@android:drawable/ic_menu_save"/>
 
                 <ImageButton
                     android:id="@+id/imgMinimize"
                     android:layout_width="@dimen/gallery_controll_icon_size"
                     android:layout_height="@dimen/gallery_controll_icon_size"
                     android:layout_marginLeft="@dimen/gallery_control_icon_spacing"
-                    android:background="@android:color/transparent"
+                    android:background="@drawable/minimize_icon"
                     android:onClick="onViewClickedEvent"
                     android:scaleType="fitXY"
-                    app:srcCompat="@android:drawable/ic_menu_crop"/>
+                    />
 
             </LinearLayout>
 

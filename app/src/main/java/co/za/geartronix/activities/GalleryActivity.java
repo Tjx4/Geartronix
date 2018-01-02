@@ -34,7 +34,7 @@ public class GalleryActivity extends BaseAsyncActivity implements IGalleryView {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.profile_menu, menu);
+        getMenuInflater().inflate(R.menu.gallery_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -44,6 +44,8 @@ public class GalleryActivity extends BaseAsyncActivity implements IGalleryView {
 
         if( itemId == android.R.id.home)
             onBackPressed();
+        else
+            getPresenter().menuOptionSelected(item);
 
         return true;
     }
