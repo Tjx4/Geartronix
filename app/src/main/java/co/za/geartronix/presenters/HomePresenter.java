@@ -3,6 +3,7 @@ package co.za.geartronix.presenters;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Looper;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
@@ -124,31 +125,34 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
 
         setActiveColor(view);
 
-        if(view == lastView)
+        if (view == lastView)
             return;
 
-        if(lastView != null)
+        if (lastView != null)
             revertViewBackgroundColor(lastView);
 
         lastView = view;
     }
 
+    int ogColor;
+
     @Override
     public void setActiveColor(View view) {
-        int active = Color.parseColor("#0088cc");
+        ogColor = ((ColorDrawable) view.getBackground()).getColor();
+        int active = getActivity().getResources().getColor(R.color.transBlack); //Color.parseColor("#0088cc");
         view.setBackgroundColor(active);
     }
 
     @Override
     public void revertViewBackgroundColor(View lastView) {
-        int inactive = getActivity().getResources().getColor(R.color.tileTransBlack);
+        int inactive = ogColor;
         lastView.setBackgroundColor(inactive);
     }
 
 
     @Override
     protected void duringAnimation(View view) {
-        setActiveInactiveColor(view);
+        setActiveColor(view);
     }
 
     @Override

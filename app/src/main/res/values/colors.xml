@@ -9,13 +9,15 @@
     <color name="appBackground">#222222</color>
     <color name="colorProgressBackgroud">#444444</color>
     <color name="colorProgressBar">#555555</color>
+    <color name="colorgreyBg">#f41b2730</color>
     <color name="tileTransBlack">#d6000000</color>
 
     <color name="transBlack">#d80d0707</color>
 
     <color name="login_bottom_background">#333333</color>
     <color name="blue_one">#0088cc</color>
-    <color name="testGreen">#11aa11</color>
+    <color name="blue_two">#0088cc</color>
+    <color name="testGreen">#8cc1c5</color>
     <color name="test_dark">#003366</color>
     <color name="colorRed">#aa3311</color>
 </resources>
