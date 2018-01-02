@@ -248,20 +248,56 @@
                     android:gravity="center_horizontal"
                     android:orientation="horizontal">
 
-                    <ImageView
-                        android:id="@+id/ima4"
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:layout_marginRight="30dp"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/progbar"/>
+                    <FrameLayout  style="@style/profileBarContainer"
+                        android:layout_marginRight="30dp">
 
-                    <ImageView
-                        android:id="@+id/ima"
-                        android:layout_width="110dp"
-                        android:layout_height="110dp"
-                        android:scaleType="fitXY"
-                        app:srcCompat="@drawable/progbar"/>
+                        <ImageView
+                            android:id="@+id/ima4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            app:srcCompat="@drawable/progbar"/>
+
+                        <LinearLayout style="@style/profileBarSubContainer">
+
+                            <TextView style="@style/profileBarInfo1"
+                                android:id="@+id/txtBarInfo1"
+                                android:text="0,000"/>
+
+                            <TextView style="@style/profileBarInfo2"
+                                android:id="@+id/txtBarInfo2"
+                                android:text="0,00"/>
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                    <FrameLayout  style="@style/profileBarContainer">
+
+                        <ImageView
+                            android:id="@+id/ima4b"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="fitXY"
+                            app:srcCompat="@drawable/progbar"/>
+
+                        <LinearLayout style="@style/profileBarSubContainer">
+
+                            <TextView style="@style/profileBarInfo1"
+                                      android:id="@+id/txtBarInfo1b"
+                                      android:text="0,000"/>
+
+                            <TextView style="@style/profileBarInfo2"
+                                      android:id="@+id/txtBarInfo2b"
+                                      android:text="0,00"/>
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+
+
+
 
                 </LinearLayout>
 
