@@ -228,7 +228,7 @@ public abstract class BasePresenter {
     }
 
     protected boolean isCurrentActivity(Class activity) {
-        return activity.getClass() == activity;
+        return this.activity.getClass() == activity;
     }
 
     protected void goToHome(Bundle...loginDetails) {
@@ -239,7 +239,7 @@ public abstract class BasePresenter {
     }
 
     protected void goToServices(Bundle...loginDetails) {
-        if(isCurrentActivity(Service.class))
+        if(isCurrentActivity(ServicesActivity.class))
         return;
 
         goToActivityWithPayload(ServicesActivity.class, loginDetails);

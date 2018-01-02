@@ -53,8 +53,6 @@ public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
 
     public boolean handleNavigationItemSelected(MenuItem item) {
 
-        showShortToast("handleNavigationItemSelected");
-
         // Handle navigation view item clicks here
 
         switch (item.getItemId()){
