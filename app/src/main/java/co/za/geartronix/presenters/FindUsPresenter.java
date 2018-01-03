@@ -1,15 +1,17 @@
 package co.za.geartronix.presenters;
 
 import android.view.View;
-
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
+import co.za.geartronix.activities.FindUsActivity;
 import co.za.geartronix.views.IFindUsView;
 
-public class FindUsPresenter extends BaseAppActivityPresenter {
+public class FindUsPresenter extends BaseAppActivityPresenter implements IFindUsPresenter {
 
     public FindUsPresenter(IFindUsView iFindUsView) {
         super((BaseActivity)iFindUsView);
+
+        // Go to Google maps
     }
 
     public FindUsPresenter(BaseActivity baseActivity, int index) {
@@ -41,5 +43,20 @@ public class FindUsPresenter extends BaseAppActivityPresenter {
     @Override
     protected void handleAsyncButtonClickedEvent(View button) {
 
+    }
+
+    @Override
+    public void handleViewClickedEvent(View view) {
+
+    }
+
+    @Override
+    public void setViews() {
+
+    }
+
+    @Override
+    public FindUsActivity getActivity() {
+        return (FindUsActivity)activity;
     }
 }

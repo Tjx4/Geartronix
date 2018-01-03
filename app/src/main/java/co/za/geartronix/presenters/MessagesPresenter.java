@@ -4,9 +4,10 @@ import android.view.View;
 
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
+import co.za.geartronix.activities.MessagesActivity;
 import co.za.geartronix.views.IMessagesView;
 
-public class MessagesPresenter extends BaseAppActivityPresenter {
+public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPresenter{
 
     public MessagesPresenter(IMessagesView iMessagesView) {
         super((BaseActivity)iMessagesView);
@@ -42,5 +43,20 @@ public class MessagesPresenter extends BaseAppActivityPresenter {
     @Override
     protected void handleAsyncButtonClickedEvent(View button) {
 
+    }
+
+    @Override
+    public void handleViewClickedEvent(View view) {
+
+    }
+
+    @Override
+    public void setViews() {
+
+    }
+
+    @Override
+    public MessagesActivity getActivity() {
+        return null;
     }
 }

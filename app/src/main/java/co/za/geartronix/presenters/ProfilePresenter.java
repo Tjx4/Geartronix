@@ -98,12 +98,6 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     }
 
-
-    @Override
-    protected void duringAnimation(View view) {
-
-    }
-
     @Override
     protected void postAnimation(View view) {
         clickedViewId = view.getId();
@@ -240,41 +234,49 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     @Override
     public void addCar(View view) {
         showShortToast("Add new car");
+        // Start activity for result = Add a car
     }
 
     @Override
     public void bookAService(View view) {
             showShortToast("Book a service");
+        // Go to services activity / bookings fragment
     }
 
     @Override
     public void askQuestion(View view) {
             showShortToast("Ask question");
+        // show Ask a question dialog
     }
 
     @Override
     public void uploadPicture(View view) {
         showShortToast("uploadPicture");
+        // show dialog fragment with option to use camera or upload from device
     }
 
     @Override
     public void viewMessages(View view) {
         showShortToast("viewMessages");
+        // Go to messages activity and view your messages
     }
 
     @Override
     public void viewPoints(View view) {
         showShortToast("viewPoints");
+        // Just show a dialog that tells the user how much points they have and what they need to do to get more
     }
 
     @Override
     public void showMoreOptions(View view) {
         showShortToast("showMoreOptions");
+        // show dialog with list with categories (Car:Add new car, View cars) (Message: view messages, write message)
     }
 
     @Override
     public void viewCars(View view) {
         showShortToast("view cars");
+        // view car list
     }
 
     @Override
@@ -321,7 +323,6 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         profpicImg.setImageBitmap(image);
     }
 
-
     @Override
     public ActionBar profileEditActionBar() {
         ActionBar me = this.activity.getSupportActionBar();
@@ -336,7 +337,6 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         showShortToast("Exited Edit mode");
         isEditMode = false;
     }
-
 
     @Override
     public void goToCurrentAppActivity() {

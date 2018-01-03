@@ -73,13 +73,17 @@
 
         <ImageView
             android:id="@+id/imgUserPic"
-            android:layout_width="70dp"
+            android:layout_width="wrap_content"
             android:layout_height="70dp"
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
-            android:background="@android:color/black"
+            android:background="#333333"
+            android:paddingBottom="10dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingTop="10dp"
             android:scaleType="fitXY"
-            app:srcCompat="@mipmap/user_icon"/>
+            app:srcCompat="@drawable/logo"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -95,7 +99,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Username"
+                android:text="Welcome"
                 android:textColor="@color/textWhite"
                 android:textSize="16dp"
                 android:textStyle="bold"/>
@@ -105,7 +109,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:text="Welcome please choose an activity..."
+                android:text="Geartronix app version 1.0.0"
                 android:textColor="@color/textWhite"/>
 
         </LinearLayout>
