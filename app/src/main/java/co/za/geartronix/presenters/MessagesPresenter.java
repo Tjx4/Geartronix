@@ -3,9 +3,7 @@ package co.za.geartronix.presenters;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +20,7 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
     private MessageModel responseModel;
     private ListView listView;
     private View btnSend;
-    private EditText editText;
+    private EditText messageTxt;
     boolean isMine = true;
     private List<ChatMessage> chatMessages;
     private ArrayAdapter<ChatMessage> adapter;
@@ -51,8 +49,8 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
     public void setViews() {
         parentLayout = getMainLayout();
         listView = parentLayout.findViewById(R.id.list_msg);
-        btnSend = parentLayout.findViewById(R.id.btn_chat_send);
-        editText = parentLayout.findViewById(R.id.msg_type);
+        btnSend = parentLayout.findViewById(R.id.btnSendMessage);
+        messageTxt = parentLayout.findViewById(R.id.txtMessage);
     }
 
     protected void initMessages() {
@@ -83,12 +81,41 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
 
     @Override
     public void handleViewClickedEvent(View view) {
-
+        blinkView(view, 30, 70);
     }
 
     @Override
     public MessagesActivity getActivity() {
         return (MessagesActivity)activity;
+    }
+
+    @Override
+    protected void postAnimation(View view) {
+        int viewId = view.getId();
+
+        if(viewId == R.id.btnSendMessage)
+            addNewMessage();
+    }
+
+    @Override
+    public void addNewMessage() {
+
+        String message = messageTxt.getText().toString().trim();
+
+        if (!message.isEmpty()) {
+            //add message to list
+            ChatMessage chatMessage = new ChatMessage(messageTxt.getText().toString(), isMine);
+
+            chatMessages.add(chatMessage);
+            adapter.notifyDataSetChanged();
+            messageTxt.setText("");
+
+            if (isMine) {
+                isMine = false;
+            } else {
+                isMine = true;
+            }
+        }
     }
 
     @Override

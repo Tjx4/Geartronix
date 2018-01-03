@@ -28,7 +28,7 @@
         android:orientation="horizontal">
 
         <EditText
-            android:id="@+id/msg_type"
+            android:id="@+id/txtMessage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.7"
@@ -37,12 +37,13 @@
             android:paddingLeft="10dp"/>
 
         <Button
-            android:id="@+id/btn_chat_send"
+            android:id="@+id/btnSendMessage"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.3"
             android:background="@color/background_floating_material_dark"
             android:text="Send"
-            android:textColor="@color/background_material_light" />
+            android:textColor="@color/background_material_light"
+            android:onClick="onViewClickedEvent"/>
     </LinearLayout>
 </LinearLayout>
