@@ -8,6 +8,11 @@ import java.util.List;
 
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
+import co.za.geartronix.models.MemberModel;
+import co.za.geartronix.models.MessageModel;
+import co.za.geartronix.models.NamesModel;
+import co.za.geartronix.models.ProgressBarModel;
+import co.za.geartronix.models.UserModel;
 
 public class MockProvider {
 
@@ -17,20 +22,20 @@ public class MockProvider {
         this.activity = activity;
     }
 
-    public UserProvider getMockUser()
+    public UserModel getMockUser()
     {
-        UserProvider mockUser = new UserProvider();
-        mockUser.setId(10);
+        UserModel mockUser = new UserModel();
+        mockUser.setId(1);
 
-        NamesProvider names = new NamesProvider();
+        NamesModel names = new NamesModel();
         names.setFirstName("Tshepo");
         names.setSecondName("Lucky");
         names.setSurName("Baloyi");
         mockUser.setNames(names);
 
-        mockUser.setPoints(1);
+        mockUser.setPoints(10);
 
-        MemberProvider memberType = new MemberProvider();
+        MemberModel memberType = new MemberModel();
         memberType.setMemberType(1);
         mockUser.memberType(memberType);
 
@@ -46,8 +51,8 @@ public class MockProvider {
         contactDetailes.setEmails(emails);
         mockUser.setContactDetailsProvider(contactDetailes);
 
-        List<MessageProvider> messages = new ArrayList<>();
-        MessageProvider message = new MessageProvider();
+        List<MessageModel> messages = new ArrayList<>();
+        MessageModel message = new MessageModel();
         message.setMessage("Welcome to geartronix this is a test message");
         message.setDate(null);
         message.setSender(0);
@@ -55,7 +60,7 @@ public class MockProvider {
         message.setRead(false);
         Bitmap imageAttachement = BitmapFactory.decodeResource( activity.getResources(), R.drawable.workshop2 );
         message.setImageAttachment(imageAttachement);
-        MessageProvider message2 = new MessageProvider();
+        MessageModel message2 = new MessageModel();
         message2.setMessage("Hello again this is the second test message");
         message2.setDate(null);
         message2.setSender(0);
@@ -77,12 +82,12 @@ public class MockProvider {
         cars.add(car);
         mockUser.setCars(cars);
 
-        ProgressBarProvider progressBar1 = new ProgressBarProvider();
+        ProgressBarModel progressBar1 = new ProgressBarModel();
         progressBar1.setBarValueA(80);
         progressBar1.setBarValueB(progressBar1.getBarValueA() / 2);
         mockUser.setProgressBar1(progressBar1);
 
-        ProgressBarProvider progressBar2 = new ProgressBarProvider();
+        ProgressBarModel progressBar2 = new ProgressBarModel();
         progressBar2.setBarValueA(50);
         progressBar2.setBarValueB(progressBar2.getBarValueA() / 2);
         mockUser.setProgressBar2(progressBar2);
