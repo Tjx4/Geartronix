@@ -94,11 +94,6 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     @Override
     public void setViews() {
         setAsyncViews();
-
-        activeImage = (CustomImageVIew)getActivity().findViewById(R.id.imgLarge);
-        activeImage.animate().alpha(0.0f);
-        //activeImageContainer = (FrameLayout)getActivity().findViewById(R.id.imgLargeContainer);
-        controlMenu = (FrameLayout)getActivity().findViewById(R.id.frmContrlMenu);
         setLargeImageViews();
     }
 

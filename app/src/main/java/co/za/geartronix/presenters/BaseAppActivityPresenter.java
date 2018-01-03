@@ -31,7 +31,7 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
     protected int inactivecolor;
     protected String activityName, displayName;
     protected BaseAppActivityPresenter currentAppActivity;
-    protected FrameLayout controlMenu;
+    protected FrameLayout controlMenu, largeContainerFrm;
     public boolean imageEnlarged;
     protected CustomImageVIew activeImage;
     protected long imageAnimationDuration;
@@ -138,17 +138,15 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
         setImageName();
 
         imageEnlarged = true;
-        controlMenu.setVisibility(View.VISIBLE);
 
-        activeImage.setVisibility(View.VISIBLE);
-        activeImage.animate().alpha(1.0f).setDuration(imageAnimationDuration);
+        largeContainerFrm.setVisibility(View.VISIBLE);
+        largeContainerFrm.animate().alpha(1.0f).setDuration(imageAnimationDuration);
     }
 
     protected void hidePanels() {
-        controlMenu.setVisibility(View.GONE);
         imageEnlarged = false;
 
-        activeImage.animate()
+        largeContainerFrm.animate()
                 .alpha(0.0f)
                 .setDuration(imageAnimationDuration)
                 .setListener(new AnimatorListenerAdapter() {
@@ -157,16 +155,16 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
                         if(imageEnlarged)
                             return;
 
-                        activeImage.setVisibility(View.GONE);
+                        largeContainerFrm.setVisibility(View.GONE);
                     }
                 });
     }
 
     protected void setLargeImageViews() {
-        activeImage = (CustomImageVIew)activity.findViewById(R.id.imgLarge);
-        activeImage.animate().alpha(0.0f);
-        //activeImageContainer = (FrameLayout)getActivity().findViewById(R.id.imgLargeContainer);
-        controlMenu = (FrameLayout)activity.findViewById(R.id.frmContrlMenu);
+        largeContainerFrm = (FrameLayout)activity.findViewById(R.id.imgLargeContainer);
+        largeContainerFrm.animate().alpha(0.0f);
+        activeImage = largeContainerFrm.findViewById(R.id.imgLarge);
+        controlMenu = largeContainerFrm.findViewById(R.id.frmContrlMenu);
     }
 
 
