@@ -30,15 +30,12 @@ import co.za.geartronix.providers.PermissionsProvider;
 public abstract class BasePresenter {
 
     protected String BASE_LOG = "base_log";
-    protected String pageTitle;
+    protected String username, pageTitle;
     public BaseActivity activity;
-    public int deviceOrientation;
-    protected int clickedViewId;
+    protected int userId, clickedViewId, deviceOrientation;
     private Animation animate;
-    protected ActionBar currentActionBar;
+    protected ActionBar currentActionBar, ogActionBar;
     public boolean isBack;
-    public String username;
-    public String userId;
     protected final String PACKAGENAME = "co.za.geartronix";
     public boolean outOfFocus;
 

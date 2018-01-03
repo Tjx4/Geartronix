@@ -5,11 +5,41 @@ import java.util.List;
 
 public class UserProvider {
     private Bitmap profilePic;
+    private MemberProvider memberType;
     private NamesProvider names;
     private int points, id;
+    private String city;
     private ContactDetailsProvider contactDetailsProvider;
     private List<CarProvider> cars;
     private List<MessageProvider> messages;
+    private ProgressBarProvider progressBar1;
+
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public ProgressBarProvider getProgressBar1() {
+        return progressBar1;
+    }
+
+    public void setProgressBar1(ProgressBarProvider progressBar1) {
+        this.progressBar1 = progressBar1;
+    }
+
+    public ProgressBarProvider getProgressBar2() {
+        return progressBar2;
+    }
+
+    public void setProgressBar2(ProgressBarProvider progressBar2) {
+        this.progressBar2 = progressBar2;
+    }
+
+    private ProgressBarProvider progressBar2;
 
     public Bitmap getProfilePic() {
         return profilePic;
@@ -65,5 +95,13 @@ public class UserProvider {
 
     public void setMessages(List<MessageProvider> messages) {
         this.messages = messages;
+    }
+
+    public MemberProvider getMemberType() {
+        return memberType;
+    }
+
+    public void memberType(MemberProvider userType) {
+        this.memberType = userType;
     }
 }

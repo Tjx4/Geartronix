@@ -1,19 +1,10 @@
 package co.za.geartronix.presenters;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
-import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
 import android.widget.GridView;
-import android.widget.ImageView;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.GalleryActivity;
@@ -22,14 +13,9 @@ import co.za.geartronix.customViews.CustomImageVIew;
 import co.za.geartronix.models.GalleryModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
-import co.za.geartronix.providers.Permissions;
 import co.za.geartronix.views.IGalleryView;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,13 +24,6 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     private GridView imagesGridview;
     private List<ArrayList> items;
     private GalleryModel responseModel;
-    private CustomImageVIew activeImage;
-    private FrameLayout controlMenu;
-    public boolean enlarged;
-    private FrameLayout activeImageContainer;
-    private String imageName;
-    private Uri imageFilePath;
-    private long imageAnimationDuration;
 
     public GalleryPresenter(IGalleryView iGalleryView) {
         super((BaseActivity)iGalleryView);
@@ -59,10 +38,6 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         super(baseActivity, index);
         setIcon(R.mipmap.gallery_icon);
         setDisplayName(activity.getString(R.string.gallery));
-    }
-
-    private void setImageName() {
-        imageName = getImageName();
     }
 
     @Override
@@ -111,51 +86,6 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     }
 
     @Override
-    public void showEnlargedImage(View view) {
-        ImageView selectedImage = (ImageView) view;
-        BitmapDrawable bd = (BitmapDrawable)selectedImage.getDrawable();
-        Bitmap image = bd.getBitmap();
-        activeImage.setImageBitmap(image);
-        //activeImage.setTag(selectedImage.getTag().toString());
-        imageFilePath = Uri.parse(selectedImage.getTag().toString());
-        showPanels();
-    }
-
-    @Override
-    public void hideEnlargedImage() {
-        hidePanels();
-    }
-
-    @Override
-    public void showPanels() {
-        setImageName();
-        enlarged = true;
-        controlMenu.setVisibility(View.VISIBLE);
-
-        activeImage.setVisibility(View.VISIBLE);
-        activeImage.animate().alpha(1.0f).setDuration(imageAnimationDuration);
-    }
-
-    @Override
-    public void hidePanels() {
-        controlMenu.setVisibility(View.GONE);
-        enlarged = false;
-
-        activeImage.animate()
-                .alpha(0.0f)
-                .setDuration(imageAnimationDuration)
-                .setListener(new AnimatorListenerAdapter() {
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        if(enlarged)
-                            return;
-
-                        activeImage.setVisibility(View.GONE);
-                    }
-                });
-    }
-
-    @Override
     public void fullScreeView() {
         showShortToast("Full screen mode");
         //imagesGridview
@@ -164,11 +94,12 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     @Override
     public void setViews() {
         setAsyncViews();
-        imageAnimationDuration = 400;
+
         activeImage = (CustomImageVIew)getActivity().findViewById(R.id.imgLarge);
         activeImage.animate().alpha(0.0f);
         //activeImageContainer = (FrameLayout)getActivity().findViewById(R.id.imgLargeContainer);
         controlMenu = (FrameLayout)getActivity().findViewById(R.id.frmContrlMenu);
+        setLargeImageViews();
     }
 
     @Override
@@ -181,65 +112,6 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         handleAsyncButtonClickedEvent(view);
     }
 
-    @Override
-    public void shareImage(View view) {
-
-        Uri fileUri = Uri.parse("android.resource://com.cpt.sample/raw/test_pic.png");
-
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
-        shareIntent.setType("image/png");
-        getActivity().startActivity(Intent.createChooser(shareIntent, getActivity().getString(R.string.send_to)));
-
-        /*
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, imageFilePath);
-        shareIntent.setType("image/png");
-        getActivity().startActivity(Intent.createChooser(shareIntent, getActivity().getString(R.string.send_to)));
-        */
-    }
-
-    @Override
-    public void saveCurrentImageToGallery() {
-        String permission = Permissions.writeStorage.getPermission();
-        ImageView iv = activeImage;
-        iv.buildDrawingCache();
-        Bitmap bmp = iv.getDrawingCache();
-
-        //context.getExternalFilesDir(null);
-        File storageLoc = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
-
-        File file = new File(storageLoc, imageName + ".png");
-
-        try{
-            FileOutputStream fos = new FileOutputStream(file);
-            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-            fos.close();
-
-            scanFile(getActivity(), Uri.fromFile(file));
-            showShortToast(getActivity().getString(R.string.picture_saved_to_gallery));
-
-        } catch (FileNotFoundException e) {
-            requestPermission(permission);
-
-        } catch (IOException e) {
-            requestPermission(permission);
-        }
-    }
-
-    @Override
-    public String getImageName() {
-        // Todo: fix date time
-        return "image"+Math.random(); //new DateTimeProvider().getFormatedDateAndTime();
-    }
-
-    private void scanFile(Context context, Uri imageUri){
-        Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
-        scanIntent.setData(imageUri);
-        context.sendBroadcast(scanIntent);
-    }
 
     @Override
     protected void duringAnimation(View view) {
@@ -248,21 +120,8 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
 
     @Override
     protected void postAnimation(View view) {
-
-        int viewId = view.getId();
-
-        switch (viewId)
-        {
-            case R.id.imgMinimize :
-                hideEnlargedImage();
-                break;
-            case R.id.imgBtnShare :
-                shareImage(view);
-                break;
-            case R.id.imgBtnSavePic :
-                saveCurrentImageToGallery();
-                break;
-        }
+        //int viewId = view.getId();
+        handleEnlargedImageMethods(view);
     }
 
     public void menuOptionSelected(MenuItem item) {

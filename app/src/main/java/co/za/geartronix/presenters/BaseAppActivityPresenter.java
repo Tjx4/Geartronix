@@ -1,9 +1,27 @@
 package co.za.geartronix.presenters;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
+import android.os.Environment;
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
+import co.za.geartronix.customViews.CustomImageVIew;
+import co.za.geartronix.providers.Permissions;
 
 public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
 
@@ -13,6 +31,13 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
     protected int inactivecolor;
     protected String activityName, displayName;
     protected BaseAppActivityPresenter currentAppActivity;
+    protected FrameLayout controlMenu;
+    public boolean imageEnlarged;
+    protected CustomImageVIew activeImage;
+    protected long imageAnimationDuration;
+    protected String imageName;
+    protected Uri imageFilePath;
+
 
     public BaseAppActivityPresenter(BaseActivity baseActivity, int index) {
         setProperties(baseActivity, index);
@@ -20,6 +45,7 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
 
     public BaseAppActivityPresenter(BaseActivity baseActivity) {
         activity = baseActivity;
+        imageAnimationDuration = 400;
     }
 
     public void setProperties(BaseActivity baseActivity, int index) {
@@ -86,5 +112,141 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
     public void setCurrentAppActivity(BaseAppActivityPresenter currentAppActivity) {
         this.currentAppActivity = currentAppActivity;
     }
+
+
+
+    private String getImageName() {
+// Todo: fix date time
+        return "image"+Math.random(); //new DateTimeProvider().getFormatedDateAndTime();
+    }
+
+    private void setImageName() {
+        imageName = getImageName();
+    }
+
+    protected void showPanels(View view) {
+        ImageView selectedImage = (ImageView) view;
+        BitmapDrawable bd = (BitmapDrawable)selectedImage.getDrawable();
+        Bitmap image = bd.getBitmap();
+        activeImage.setImageBitmap(image);
+
+// Todo: fix
+        Object imageTag = selectedImage.getTag();
+        if(imageTag != null)
+            imageFilePath = Uri.parse(imageTag.toString());
+
+        setImageName();
+
+        imageEnlarged = true;
+        controlMenu.setVisibility(View.VISIBLE);
+
+        activeImage.setVisibility(View.VISIBLE);
+        activeImage.animate().alpha(1.0f).setDuration(imageAnimationDuration);
+    }
+
+    protected void hidePanels() {
+        controlMenu.setVisibility(View.GONE);
+        imageEnlarged = false;
+
+        activeImage.animate()
+                .alpha(0.0f)
+                .setDuration(imageAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        if(imageEnlarged)
+                            return;
+
+                        activeImage.setVisibility(View.GONE);
+                    }
+                });
+    }
+
+    protected void setLargeImageViews() {
+        activeImage = (CustomImageVIew)activity.findViewById(R.id.imgLarge);
+        activeImage.animate().alpha(0.0f);
+        //activeImageContainer = (FrameLayout)getActivity().findViewById(R.id.imgLargeContainer);
+        controlMenu = (FrameLayout)activity.findViewById(R.id.frmContrlMenu);
+    }
+
+
+    protected void showEnlargedImage(View view) {
+        showPanels(view);
+    }
+
+    public void hideEnlargedImage() {
+        hidePanels();
+    }
+
+
+    protected void handleEnlargedImageMethods(View view) {
+        int viewId = view.getId();
+
+        switch (viewId)
+        {
+            case R.id.imgMinimize :
+                hideEnlargedImage();
+                break;
+            case R.id.imgBtnShare :
+                shareImage(view);
+                break;
+            case R.id.imgBtnSavePic :
+                saveCurrentImageToGallery();
+                break;
+        }
+    }
+
+    protected void shareImage(View view) {
+
+        Uri fileUri = Uri.parse("android.resource://com.cpt.sample/raw/test_pic.png");
+
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+        shareIntent.setType("image/png");
+        activity.startActivity(Intent.createChooser(shareIntent, activity.getString(R.string.send_to)));
+
+        /*
+        Intent shareIntent = new Intent();
+        shareIntent.setAction(Intent.ACTION_SEND);
+        shareIntent.putExtra(Intent.EXTRA_STREAM, imageFilePath);
+        shareIntent.setType("image/png");
+        getActivity().startActivity(Intent.createChooser(shareIntent, getActivity().getString(R.string.send_to)));
+        */
+    }
+
+    protected void saveCurrentImageToGallery() {
+        String permission = Permissions.writeStorage.getPermission();
+        ImageView iv = activeImage;
+        iv.buildDrawingCache();
+        Bitmap bmp = iv.getDrawingCache();
+
+        //context.getExternalFilesDir(null);
+        File storageLoc = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES);
+
+        File file = new File(storageLoc, imageName + ".png");
+
+        try{
+            FileOutputStream fos = new FileOutputStream(file);
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+            fos.close();
+
+            scanFile(activity, Uri.fromFile(file));
+            showShortToast(activity.getString(R.string.picture_saved_to_gallery));
+
+        } catch (FileNotFoundException e) {
+            requestPermission(permission);
+
+        } catch (IOException e) {
+            requestPermission(permission);
+        }
+    }
+
+    private void scanFile(Context context, Uri imageUri){
+        Intent scanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+        scanIntent.setData(imageUri);
+        context.sendBroadcast(scanIntent);
+    }
+
 
 }

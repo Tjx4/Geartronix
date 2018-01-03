@@ -1,6 +1,6 @@
 package co.za.geartronix.providers;
 
-class NamesProvider {
+public class NamesProvider {
     private String firstName;
     private String secondName;
     private String surName;

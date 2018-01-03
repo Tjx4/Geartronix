@@ -24,7 +24,8 @@
             android:stretchMode="columnWidth"
             android:verticalSpacing="0dp"/>
 
-            <co.za.geartronix.customViews.CustomImageVIew
+<!-- Todo: Create custom view -->
+         <co.za.geartronix.customViews.CustomImageVIew
                 android:id="@+id/imgLarge"
                 android:background="@color/colorTransparentBlack"
                 android:layout_width="match_parent"
@@ -35,7 +36,6 @@
                 android:animateLayoutChanges="true"
                 android:clickable="true"
                 app:srcCompat="@android:drawable/ic_menu_share"/>
-
 
         <FrameLayout
             android:id="@+id/frmContrlMenu"

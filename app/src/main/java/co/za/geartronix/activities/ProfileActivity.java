@@ -56,7 +56,11 @@ public class ProfileActivity  extends BaseAsyncActivity implements IProfileView 
             getPresenter().setViewMode();
         }
         else {
-            super.onBackPressed();
+
+            if(getPresenter().imageEnlarged)
+                getPresenter().hideEnlargedImage();
+            else
+                super.onBackPressed();
         }
     }
 }

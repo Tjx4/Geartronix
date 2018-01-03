@@ -52,7 +52,7 @@ public class GalleryActivity extends BaseAsyncActivity implements IGalleryView {
 
     @Override
     public void onBackPressed() {
-        if(getPresenter().enlarged) {
+        if(getPresenter().imageEnlarged) {
             getPresenter().hideEnlargedImage();
         }
         else {

@@ -2,30 +2,49 @@ package co.za.geartronix.presenters;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.graphics.Bitmap;
 import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.ProfileActivity;
+import co.za.geartronix.customViews.CustomImageVIew;
 import co.za.geartronix.models.ProfileModel;
+import co.za.geartronix.providers.CarProvider;
+import co.za.geartronix.providers.MemberProvider;
+import co.za.geartronix.providers.MessageProvider;
+import co.za.geartronix.providers.MockProvider;
+import co.za.geartronix.providers.ProgressBarProvider;
+import co.za.geartronix.providers.UserProvider;
 import co.za.geartronix.views.IProfileView;
 
 public class ProfilePresenter extends BaseAppActivityPresenter implements IProfilePresenter{
 
     private ProfileModel responseModel;
+    private UserProvider user;
     public boolean isEditMode;
-    public ImageButton uploadImageBtn;
-    public ProgressBar progressBar1, progressBar2;
+    private ImageButton uploadImageBtn;
+    private ProgressBar progressBar1, progressBar2;
+    private int points;
+    private Bitmap profpic;
+    private String city;
+    private MemberProvider memberType;
+    private List<MessageProvider> messages;
+    private List<CarProvider> cars;
+    private ProgressBarProvider progressbar1Values, progressbar2Values;
+    private TextView usernameTxt, memberTypetxt, cityTxt,pointsCountTxt, messageCountTxt, carsCountTxt;
+    private ImageView profpicImg;
 
     public ProfilePresenter(IProfileView iProfileView) {
         super((BaseActivity)iProfileView);
@@ -106,6 +125,10 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
             viewMessages(view);
         else if(clickedViewId == R.id.lnrViewPoints)
             viewPoints(view);
+        else if(clickedViewId == R.id.imgProfpic)
+            showPanels(view);
+
+        handleEnlargedImageMethods(view);
     }
 
     public void menuOptionSelected(MenuItem item) {
@@ -119,6 +142,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void handleViewClickedEvent(View view) {
+        if(isEditMode == false)
             blinkView(view, 30, 70);
     }
 
@@ -127,56 +151,86 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         uploadImageBtn = (ImageButton) getActivity().findViewById(R.id.imgBtnuploadImage);
         progressBar1 = (ProgressBar) getActivity().findViewById(R.id.progressBar1);
         progressBar2 = (ProgressBar) getActivity().findViewById(R.id.progressBar2);
-        setProgressbar1Progress(80);
-        setProgressbar2Progress(40);
+        pointsCountTxt = (TextView) getActivity().findViewById(R.id.txtPointsCount);
+        messageCountTxt = (TextView) getActivity().findViewById(R.id.txtMessageCount);
+        carsCountTxt = (TextView) getActivity().findViewById(R.id.txtCarsCount);
+        usernameTxt = (TextView) getActivity().findViewById(R.id.txtUserName);
+        memberTypetxt = (TextView) getActivity().findViewById(R.id.txtMemberType);
+        cityTxt = (TextView) getActivity().findViewById(R.id.txtCity);
+        profpicImg = (ImageView) getActivity().findViewById(R.id.imgProfpic);
+
+        setLargeImageViews();
+
+        setProfileDetails();
     }
 
+    @Override
+    public void setProfileDetails() {
+        user = new MockProvider(getActivity()).getMockUser();
+        username = user.getNames().getFirstName();
+        memberType = user.getMemberType();
+        profpic = user.getProfilePic();
+        city = user.getCity();
+        userId = user.getId();
+        cars = user.getCars();
+        points = user.getPoints();
+        messages = user.getMessages();
+        progressbar1Values = user.getProgressBar1();
+        progressbar2Values  = user.getProgressBar2();
 
- public void setProgressbar1Progress(int progress) {
-    setProgressbarProgress(progressBar1,  progress);
- }
+        setUsername(username);
+        setProfPic(profpic);
+        setMemberType(memberType.getSimpleName());
+        setCity(city);
+        setMessageCount(messages.size());
+        setPointsCount(points);
+        setCarsCount(cars.size());
+        setProgressbar1Progress(progressbar1Values);
+        setProgressbar2Progress(progressbar2Values);
+    }
 
- public void setProgressbar2Progress(int progress) {
-    setProgressbarProgress(progressBar2,  progress);
- }
+     public void setProgressbar1Progress(ProgressBarProvider progressBarValues) {
+        setProgressbarProgress(progressBar1, progressBarValues);
+     }
 
- public void setProgressbarProgress(ProgressBar progressBar, int progress) {
+     public void setProgressbar2Progress(ProgressBarProvider progressBarValues) {
+        setProgressbarProgress(progressBar2, progressBarValues);
+     }
 
-     final ProgressBar currentProgresBar = progressBar;
-     FrameLayout parentView =  (FrameLayout)currentProgresBar.getParent();
-     LinearLayout sibling = (LinearLayout)parentView.getChildAt(2);
-     final TextView txtInfo1 = (TextView) sibling.getChildAt(0);
-     final TextView txtInfo2 = (TextView) sibling.getChildAt(1);
+     public void setProgressbarProgress(ProgressBar progressBar, ProgressBarProvider progressBarValues) {
 
-     ObjectAnimator animation = ObjectAnimator.ofInt (currentProgresBar, "progress", 0, progress); // see this max value coming back here, we animale towards that value
-     animation.setDuration (2000); //in milliseconds
-     animation.setInterpolator (new DecelerateInterpolator());
-     animation.addListener(new Animator.AnimatorListener() {
-         @Override
-         public void onAnimationStart(Animator animation) {
-         }
+         final ProgressBarProvider values = progressBarValues;
 
-         @Override
-         public void onAnimationEnd(Animator animation) {
-             Double progress = (double)currentProgresBar.getProgress();
+         FrameLayout parentView =  (FrameLayout)progressBar.getParent();
+         LinearLayout sibling = (LinearLayout)parentView.getChildAt(2);
+         final TextView txtInfo1 = (TextView) sibling.getChildAt(0);
+         final TextView txtInfo2 = (TextView) sibling.getChildAt(1);
 
-             String lbl1Text = progress+"";
-             String lbl2Text = String.valueOf(progress / 2) ;
-             txtInfo1.setText(lbl1Text);
-             txtInfo2.setText(lbl2Text);
-         }
+         ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress", 0, progressBarValues.getBarValueA());
+         animation.setDuration (2000);
+         animation.setInterpolator (new DecelerateInterpolator());
+         animation.addListener(new Animator.AnimatorListener() {
+             @Override
+             public void onAnimationStart(Animator animation) {
+             }
 
-         @Override
-         public void onAnimationCancel(Animator animation) {
-         }
+             @Override
+             public void onAnimationEnd(Animator animation) {
+                 txtInfo1.setText(values.getBarValueA()+"");
+                 txtInfo2.setText(values.getBarValueB()+"");
+             }
 
-         @Override
-         public void onAnimationRepeat(Animator animation) {
+             @Override
+             public void onAnimationCancel(Animator animation) {
+             }
 
-         }
-     });
-     animation.start ();
- }
+             @Override
+             public void onAnimationRepeat(Animator animation) {
+
+             }
+         });
+         animation.start ();
+     }
 
     @Override
     public ProfileActivity getActivity() {
@@ -227,12 +281,49 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     public void setEditMode() {
         isEditMode = true;
         uploadImageBtn.setVisibility(View.VISIBLE);
+        ogActionBar = currentActionBar;
         currentActionBar = profileEditActionBar();
-        showShortToast(activity.getString(R.string.edit));
+        showShortToast(getActivity().getString(R.string.edit_your_profile));
+    }
+
+    @Override
+    public void setMessageCount(int count) {
+        messageCountTxt.setText(count+"");
+    }
+
+    @Override
+    public void setCarsCount(int count) {
+        carsCountTxt.setText(count+"");
+    }
+
+    @Override
+    public void setPointsCount(int count) {
+        pointsCountTxt.setText(count+"");
+    }
+
+    @Override
+    public void setUsername(String username) {
+        usernameTxt.setText(username);
+    }
+
+    @Override
+    public void setMemberType(String memberType) {
+        memberTypetxt.setText(memberType);
+    }
+
+    @Override
+    public void setCity(String city) {
+        cityTxt.setText(city);
+    }
+
+    @Override
+    public void setProfPic(Bitmap image) {
+        profpicImg.setImageBitmap(image);
     }
 
 
-    private ActionBar profileEditActionBar() {
+    @Override
+    public ActionBar profileEditActionBar() {
         ActionBar me = this.activity.getSupportActionBar();
         me.setTitle("Save");
         return  me;
@@ -240,8 +331,12 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void setViewMode() {
+        uploadImageBtn.setVisibility(View.GONE);
+        currentActionBar = ogActionBar;
+        showShortToast("Exited Edit mode");
         isEditMode = false;
     }
+
 
     @Override
     public void goToCurrentAppActivity() {
