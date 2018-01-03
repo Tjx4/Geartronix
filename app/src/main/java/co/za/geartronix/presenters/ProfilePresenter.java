@@ -19,7 +19,6 @@ import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.ProfileActivity;
-import co.za.geartronix.customViews.CustomImageVIew;
 import co.za.geartronix.models.ProfileModel;
 import co.za.geartronix.providers.CarProvider;
 import co.za.geartronix.providers.MemberProvider;
@@ -206,7 +205,8 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
          final TextView txtInfo1 = (TextView) sibling.getChildAt(0);
          final TextView txtInfo2 = (TextView) sibling.getChildAt(1);
 
-         ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress", 0, progressBarValues.getBarValueA());
+         int progress = (int)progressBarValues.getBarValueA();
+         ObjectAnimator animation = ObjectAnimator.ofInt (progressBar, "progress", 0, progress);
          animation.setDuration (2000);
          animation.setInterpolator (new DecelerateInterpolator());
          animation.addListener(new Animator.AnimatorListener() {
