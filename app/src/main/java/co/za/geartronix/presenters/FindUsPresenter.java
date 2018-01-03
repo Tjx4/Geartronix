@@ -10,7 +10,9 @@ public class FindUsPresenter extends BaseAppActivityPresenter implements IFindUs
 
     public FindUsPresenter(IFindUsView iFindUsView) {
         super((BaseActivity)iFindUsView);
-
+        setDependanciesChildActivities(R.layout.activity_find_us);
+        currentActionBar.setTitle(" "+activity.getString(R.string.FindUs));
+        setViews();
         // Go to Google maps
     }
 
@@ -58,5 +60,10 @@ public class FindUsPresenter extends BaseAppActivityPresenter implements IFindUs
     @Override
     public FindUsActivity getActivity() {
         return (FindUsActivity)activity;
+    }
+
+    @Override
+    public void goToCurrentAppActivity() {
+        goToFindUs();
     }
 }

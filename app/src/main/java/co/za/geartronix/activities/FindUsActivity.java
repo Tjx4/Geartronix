@@ -10,7 +10,6 @@ public class FindUsActivity  extends BaseAsyncActivity implements IFindUsView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        super.onCreate(savedInstanceState);
         setPresenter();
     }
 

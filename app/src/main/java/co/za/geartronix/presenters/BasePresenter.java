@@ -21,8 +21,10 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
+import co.za.geartronix.activities.FindUsActivity;
 import co.za.geartronix.activities.GalleryActivity;
 import co.za.geartronix.activities.HomeActivity;
+import co.za.geartronix.activities.MessagesActivity;
 import co.za.geartronix.activities.ProfileActivity;
 import co.za.geartronix.activities.ServicesActivity;
 import co.za.geartronix.providers.PermissionsProvider;
@@ -215,6 +217,17 @@ public abstract class BasePresenter {
             i.putExtra("payload", payload[0]);
 
         goToActivity(activity, i);
+    }
+
+    protected void goToFindUs() {
+        goToActivity(FindUsActivity.class);
+    }
+
+    protected void goToMessages(Bundle...extras) {
+        if(isCurrentActivity(MessagesActivity.class))
+            return;
+
+        goToActivityWithPayload(MessagesActivity.class, extras);
     }
 
     protected void goToProfile() {

@@ -20,7 +20,7 @@ import co.za.geartronix.constants.Constants;
 public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
 
     protected ViewStub currentPageLayout;
-    protected RelativeLayout parentLayout;
+    protected View parentLayout;
 
     public BaseMenuPresenter(BaseActivity baseActivity) {
         super(baseActivity);

@@ -90,8 +90,7 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
 
     @Override
     public void setViews() {
-        parentLayout = (RelativeLayout) getMainLayout();
-
+        parentLayout = getMainLayout();
         homeHeaderText = parentLayout.findViewById(R.id.txtHomeHeader);
         selectedActivityImg = parentLayout.findViewById(R.id.imgSelectedActivity);
 

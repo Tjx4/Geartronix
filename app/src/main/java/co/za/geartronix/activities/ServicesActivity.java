@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import co.za.geartronix.R;
-import co.za.geartronix.presenters.HomePresenter;
 import co.za.geartronix.presenters.ServicesPresenter;
 import co.za.geartronix.views.IServicesView;
 
