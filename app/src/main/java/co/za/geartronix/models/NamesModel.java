@@ -1,6 +1,6 @@
-package co.za.geartronix.providers;
+package co.za.geartronix.models;
 
-public class NamesProvider {
+public class NamesModel {
     private String firstName;
     private String secondName;
     private String surName;

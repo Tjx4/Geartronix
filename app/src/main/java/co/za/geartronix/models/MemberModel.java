@@ -1,6 +1,6 @@
-package co.za.geartronix.providers;
+package co.za.geartronix.models;
 
-public class MemberProvider {
+public class MemberModel {
 
     private int memberType;
 

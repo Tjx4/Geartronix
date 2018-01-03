@@ -1,9 +1,9 @@
-package co.za.geartronix.providers;
+package co.za.geartronix.models;
 
 import android.graphics.Bitmap;
 import java.util.Date;
 
-public class MessageProvider {
+public class MessageModel {
     private String message, header;
     private Date date;
     private Bitmap imageAttachment;

@@ -1,18 +1,21 @@
-package co.za.geartronix.providers;
+package co.za.geartronix.models;
 
 import android.graphics.Bitmap;
 import java.util.List;
 
-public class UserProvider {
+import co.za.geartronix.providers.CarProvider;
+import co.za.geartronix.providers.ContactDetailsProvider;
+
+public class UserModel {
     private Bitmap profilePic;
-    private MemberProvider memberType;
-    private NamesProvider names;
+    private MemberModel memberType;
+    private NamesModel names;
     private int points, id;
     private String city;
     private ContactDetailsProvider contactDetailsProvider;
     private List<CarProvider> cars;
-    private List<MessageProvider> messages;
-    private ProgressBarProvider progressBar1;
+    private List<MessageModel> messages;
+    private ProgressBarModel progressBar1;
 
 
     public String getCity() {
@@ -23,23 +26,23 @@ public class UserProvider {
         this.city = city;
     }
 
-    public ProgressBarProvider getProgressBar1() {
+    public ProgressBarModel getProgressBar1() {
         return progressBar1;
     }
 
-    public void setProgressBar1(ProgressBarProvider progressBar1) {
+    public void setProgressBar1(ProgressBarModel progressBar1) {
         this.progressBar1 = progressBar1;
     }
 
-    public ProgressBarProvider getProgressBar2() {
+    public ProgressBarModel getProgressBar2() {
         return progressBar2;
     }
 
-    public void setProgressBar2(ProgressBarProvider progressBar2) {
+    public void setProgressBar2(ProgressBarModel progressBar2) {
         this.progressBar2 = progressBar2;
     }
 
-    private ProgressBarProvider progressBar2;
+    private ProgressBarModel progressBar2;
 
     public Bitmap getProfilePic() {
         return profilePic;
@@ -49,11 +52,11 @@ public class UserProvider {
         this.profilePic = profilePic;
     }
 
-    public NamesProvider getNames() {
+    public NamesModel getNames() {
         return names;
     }
 
-    public void setNames(NamesProvider names) {
+    public void setNames(NamesModel names) {
         this.names = names;
     }
 
@@ -89,19 +92,19 @@ public class UserProvider {
         this.cars = cars;
     }
 
-    public List<MessageProvider> getMessages() {
+    public List<MessageModel> getMessages() {
         return messages;
     }
 
-    public void setMessages(List<MessageProvider> messages) {
+    public void setMessages(List<MessageModel> messages) {
         this.messages = messages;
     }
 
-    public MemberProvider getMemberType() {
+    public MemberModel getMemberType() {
         return memberType;
     }
 
-    public void memberType(MemberProvider userType) {
+    public void memberType(MemberModel userType) {
         this.memberType = userType;
     }
 }

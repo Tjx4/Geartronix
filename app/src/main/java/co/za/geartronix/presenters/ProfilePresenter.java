@@ -21,27 +21,27 @@ import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.ProfileActivity;
 import co.za.geartronix.models.ProfileModel;
 import co.za.geartronix.providers.CarProvider;
-import co.za.geartronix.providers.MemberProvider;
-import co.za.geartronix.providers.MessageProvider;
+import co.za.geartronix.models.MemberModel;
+import co.za.geartronix.models.MessageModel;
 import co.za.geartronix.providers.MockProvider;
-import co.za.geartronix.providers.ProgressBarProvider;
-import co.za.geartronix.providers.UserProvider;
+import co.za.geartronix.models.ProgressBarModel;
+import co.za.geartronix.models.UserModel;
 import co.za.geartronix.views.IProfileView;
 
 public class ProfilePresenter extends BaseAppActivityPresenter implements IProfilePresenter{
 
     private ProfileModel responseModel;
-    private UserProvider user;
+    private UserModel user;
     public boolean isEditMode;
     private ImageButton uploadImageBtn;
     private ProgressBar progressBar1, progressBar2;
     private int points;
     private Bitmap profpic;
     private String city;
-    private MemberProvider memberType;
-    private List<MessageProvider> messages;
+    private MemberModel memberType;
+    private List<MessageModel> messages;
     private List<CarProvider> cars;
-    private ProgressBarProvider progressbar1Values, progressbar2Values;
+    private ProgressBarModel progressbar1Values, progressbar2Values;
     private TextView usernameTxt, memberTypetxt, cityTxt,pointsCountTxt, messageCountTxt, carsCountTxt;
     private ImageView profpicImg;
 
@@ -188,17 +188,17 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         setProgressbar2Progress(progressbar2Values);
     }
 
-     public void setProgressbar1Progress(ProgressBarProvider progressBarValues) {
+     public void setProgressbar1Progress(ProgressBarModel progressBarValues) {
         setProgressbarProgress(progressBar1, progressBarValues);
      }
 
-     public void setProgressbar2Progress(ProgressBarProvider progressBarValues) {
+     public void setProgressbar2Progress(ProgressBarModel progressBarValues) {
         setProgressbarProgress(progressBar2, progressBarValues);
      }
 
-     public void setProgressbarProgress(ProgressBar progressBar, ProgressBarProvider progressBarValues) {
+     public void setProgressbarProgress(ProgressBar progressBar, ProgressBarModel progressBarValues) {
 
-         final ProgressBarProvider values = progressBarValues;
+         final ProgressBarModel values = progressBarValues;
 
          FrameLayout parentView =  (FrameLayout)progressBar.getParent();
          LinearLayout sibling = (LinearLayout)parentView.getChildAt(2);

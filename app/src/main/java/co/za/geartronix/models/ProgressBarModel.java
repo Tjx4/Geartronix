@@ -1,6 +1,6 @@
-package co.za.geartronix.providers;
+package co.za.geartronix.models;
 
-public class ProgressBarProvider {
+public class ProgressBarModel {
     private double barValueA;
     private double barValueB;
 
