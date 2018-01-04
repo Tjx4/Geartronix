@@ -35,7 +35,7 @@ public class MessagesActivity extends BaseAsyncActivity implements IMessagesView
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.messages_menu, menu);
-        getPresenter().setMenuInstance(menu);
+        getPresenter().configureActionBarItems(menu);
         return super.onCreateOptionsMenu(menu);
     }
 

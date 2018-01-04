@@ -21,6 +21,7 @@ public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
 
     protected ViewStub currentPageLayout;
     protected View parentLayout;
+    protected Toolbar toolbar;
 
     public BaseMenuPresenter(BaseActivity baseActivity) {
         super(baseActivity);
@@ -33,7 +34,7 @@ public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
     protected void setMenuDependencies(BaseActivity activity, String title, int pageLayout) {
 
         setMainLayout(pageLayout);
-        Toolbar toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
+        toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
         toolbar.setTitle(title);
         activity.setSupportActionBar(toolbar);
 
@@ -55,7 +56,7 @@ public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
 
         // Handle navigation view item clicks here
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
 
             case R.id.action_profile:
                 goToProfile();
@@ -68,6 +69,9 @@ public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
                 break;
             case R.id.action_home:
                 goToHome();
+                break;
+            case R.id.action_discutions:
+                goToDiscussions();
                 break;
         }
 

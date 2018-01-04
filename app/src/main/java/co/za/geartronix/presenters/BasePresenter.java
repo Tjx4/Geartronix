@@ -21,6 +21,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
+import co.za.geartronix.activities.DiagnosticsActivity;
 import co.za.geartronix.activities.FindUsActivity;
 import co.za.geartronix.activities.GalleryActivity;
 import co.za.geartronix.activities.HomeActivity;
@@ -235,6 +236,16 @@ public abstract class BasePresenter {
     }
     protected void goToGallery() {
         goToActivity(GalleryActivity.class);
+    }
+    protected void goToDiscussions() {
+        showShortToast("goToDiscussions");
+    }
+
+    protected void goToDiagnostics(Bundle...extras) {
+        if(isCurrentActivity(DiagnosticsActivity.class))
+            return;
+
+        goToActivityWithPayload(DiagnosticsActivity.class, extras);
     }
 
     protected boolean isCurrentActivity(Class activity) {

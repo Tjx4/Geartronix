@@ -46,14 +46,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.HomeActivity"/>
         </activity>
-
         <activity android:name=".activities.ProfileActivity">
         </activity>
         <activity android:name=".activities.FindUsActivity">
         </activity>
-        <activity android:name=".activities.MessagesActivity"
-                  android:parentActivityName=".activities.HomeActivity"
-                  android:theme="@style/AppTheme.NoActionBar">
+        <activity
+            android:name=".activities.MessagesActivity"
+            android:parentActivityName=".activities.HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".activities.HomeActivity"/>
@@ -73,6 +73,8 @@
                 android:resource="@xml/file_provider_paths"/>
         </provider>
 
+        <activity android:name=".activities.DiagnosticsActivity">
+        </activity>
     </application>
 
 </manifest>

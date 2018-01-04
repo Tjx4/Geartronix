@@ -6,7 +6,8 @@
         android:id="@+id/action_typing"
         android:icon="@drawable/typing_icon"
         android:orderInCategory="100"
-        android:title=""
+        android:title="user status"
+        android:visible="false"
         app:showAsAction="never"/>
 
     <item
@@ -17,10 +18,17 @@
         app:showAsAction="always"/>
 
     <item
-        android:id="@+id/action_more_options"
-        android:icon="@drawable/profpic"
+        android:id="@+id/action_block"
+        android:icon="@android:drawable/ic_lock_idle_lock"
         android:orderInCategory="100"
-        android:title="@string/edit"
+        android:title="@string/block"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/action_converastions"
+        android:icon="@android:drawable/sym_action_chat"
+        android:orderInCategory="100"
+        android:title="Change recipient"
         app:showAsAction="never"/>
 
 </menu>

@@ -9,7 +9,11 @@ public abstract class BaseAsyncActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
     }
 
-
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 /*
     protected int[] getWidthAndHeight() {
         int Measuredwidth = 0;

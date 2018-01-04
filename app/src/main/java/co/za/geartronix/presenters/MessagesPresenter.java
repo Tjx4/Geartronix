@@ -1,6 +1,7 @@
 package co.za.geartronix.presenters;
 
-import android.app.Notification;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,9 +17,7 @@ import co.za.geartronix.adapters.MessageAdapter;
 import co.za.geartronix.models.MessageModel;
 import co.za.geartronix.providers.ChatMessage;
 import co.za.geartronix.views.IMessagesView;
-
 import static android.view.MenuItem.SHOW_AS_ACTION_ALWAYS;
-import static android.view.MenuItem.SHOW_AS_ACTION_WITH_TEXT;
 
 public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPresenter {
 
@@ -26,7 +25,8 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
     private ListView listView;
     private View btnSend;
     private EditText messageTxt;
-    boolean isMine = true;
+    private boolean isMine = true;
+    private int recipient;
     private List<ChatMessage> chatMessages;
     private ArrayAdapter<ChatMessage> adapter;
     private MenuItem recipientPic, recipientTyping;
@@ -66,15 +66,19 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
         listView.setAdapter(adapter);
     }
 
-    public void setMenuInstance(Menu menu) {
+    public void configureActionBarItems(Menu menu) {
         menuView = menu;
         recipientTyping = menuView.getItem(0);
 
         recipientPic = menuView.getItem(1);
         recipientPic.setIcon(R.drawable.profpic2);
+
+        toolbar.setTitle(" Username");
+
     }
 
     private void setTyping() {
+        recipientTyping.setVisible(true);
         recipientTyping.setTitle(getActivity().getResources().getString(R.string.typing));
         recipientTyping.setShowAsAction(SHOW_AS_ACTION_ALWAYS);
     }
@@ -97,6 +101,26 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
     @Override
     protected void handleAsyncButtonClickedEvent(View button) {
 
+    }
+
+    @Override
+    public boolean handleNavigationItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_converastions:
+                goToConversation();
+                break;
+            case R.id.action_inbox:
+                goToInbox();
+                break;
+            case R.id.action_outbox:
+                goToOutbox();
+                break;
+            case R.id.action_block:
+                blockUser(2);
+                break;
+        }
+
+        return super.handleNavigationItemSelected(item);
     }
 
     @Override
@@ -139,6 +163,31 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
                 isMine = true;
             }
         }
+    }
+
+    @Override
+    public void goToConversation() {
+        showShortToast("goToConversation");
+    }
+
+    @Override
+    public void goToOutbox() {
+        showShortToast("goToOutbox");
+    }
+
+    @Override
+    public void goToInbox() {
+        showShortToast("goToInbox");
+    }
+
+    @Override
+    public void blockUser(int userid) {
+        showShortToast("blockUser");
+    }
+
+    @Override
+    public void showTypingToRecipient() {
+        showShortToast("show Typing to recipient");
     }
 
     @Override

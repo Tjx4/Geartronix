@@ -23,6 +23,11 @@
             android:icon="@drawable/inbox_discutions"
             android:title="@string/join_discussions"/>
 
+        <item
+            android:id="@+id/action_home"
+            android:icon="@mipmap/home_icon"
+            android:title="Back to home screen"/>
+
     </group>
 
 </menu>
