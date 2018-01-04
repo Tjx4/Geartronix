@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
-    >
+              android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,23 +40,53 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="6dp"
             android:layout_marginTop="0dp"
-            android:layout_toLeftOf="@+id/btnSendMessage"
-            android:layout_toStartOf="@+id/btnSendMessage"
+            android:layout_toLeftOf="@+id/frmSendMessageContainer"
+            android:layout_toStartOf="@+id/frmSendMessageContainer"
             android:hint="@string/write_a_message"
-            android:paddingLeft="14dp"/>
+            android:paddingLeft="40dp"/>
 
-        <Button
-            android:id="@+id/btnSendMessage"
-            style="@style/mediumButton"
-            android:layout_width="70dp"
+
+        <ImageButton
+            android:id="@+id/imgImogy"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/imogy_icon"
+            android:onClick="onViewClickedEvent"/>
+
+        <FrameLayout style="@style/mediumButton"
+            android:id="@+id/frmSendMessageContainer"
+            android:layout_width="55dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_marginEnd="0dp"
             android:layout_marginRight="9dp"
-            android:layout_marginTop="0dp"
-            android:onClick="onViewClickedEvent"
-            android:text="Send"/>
+            android:layout_marginTop="0dp">
+
+            <ImageButton
+                android:id="@+id/btnSendMessage"
+                android:onClick="onViewClickedEvent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                app:srcCompat="@android:drawable/ic_menu_send"/>
+
+        </FrameLayout>
+
+
+        <ImageButton
+            android:id="@+id/imgAttach"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignRight="@+id/txtMessage"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/attache_icon"
+            android:onClick="onViewClickedEvent"/>
+
 
     </RelativeLayout>
 </LinearLayout>

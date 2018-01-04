@@ -1,5 +1,6 @@
 package co.za.geartronix.presenters;
 
+import android.view.MenuItem;
 import android.view.View;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
@@ -66,4 +67,9 @@ public class FindUsPresenter extends BaseAppActivityPresenter implements IFindUs
     public void goToCurrentAppActivity() {
         goToFindUs();
     }
+
+    public void menuOptionSelected(MenuItem item) {
+        showShortToast("menuOptionSelected");
+    }
+
 }
