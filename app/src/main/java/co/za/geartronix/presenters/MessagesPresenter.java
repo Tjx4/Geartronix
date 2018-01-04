@@ -34,7 +34,7 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
 
     public MessagesPresenter(IMessagesView iMessagesView) {
         super((BaseActivity)iMessagesView);
-        setDependanciesNoActionBar(R.layout.activity_home);
+        setDependanciesNoActionBar(R.layout.activity_messages);
         pageTitle = getActivity().getString(R.string.messages);
         setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_messages );
         setViews();

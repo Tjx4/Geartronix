@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/action_inbox"
+            android:icon="@drawable/inbox_icon"
+            android:title="@string/inbox"/>
+
+        <item
+            android:id="@+id/action_outbox"
+            android:icon="@drawable/outbox_icon"
+            android:title="@string/outbox"/>
+
+        <item
+            android:id="@+id/action_converastions"
+            android:icon="@android:drawable/sym_action_chat"
+            android:title="Conversations"/>
+
+        <item
+            android:id="@+id/action_discutions"
+            android:icon="@drawable/inbox_discutions"
+            android:title="@string/join_discussions"/>
+
+    </group>
+
+</menu>
