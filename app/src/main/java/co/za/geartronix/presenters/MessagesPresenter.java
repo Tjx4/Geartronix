@@ -1,10 +1,12 @@
 package co.za.geartronix.presenters;
 
+import android.app.Notification;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.List;
 import co.za.geartronix.R;
@@ -15,6 +17,9 @@ import co.za.geartronix.models.MessageModel;
 import co.za.geartronix.providers.ChatMessage;
 import co.za.geartronix.views.IMessagesView;
 
+import static android.view.MenuItem.SHOW_AS_ACTION_ALWAYS;
+import static android.view.MenuItem.SHOW_AS_ACTION_WITH_TEXT;
+
 public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPresenter {
 
     private MessageModel responseModel;
@@ -24,6 +29,8 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
     boolean isMine = true;
     private List<ChatMessage> chatMessages;
     private ArrayAdapter<ChatMessage> adapter;
+    private MenuItem recipientPic, recipientTyping;
+    private Menu menuView;
 
     public MessagesPresenter(IMessagesView iMessagesView) {
         super((BaseActivity)iMessagesView);
@@ -57,6 +64,19 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
         chatMessages = new ArrayList<>();
         adapter = new MessageAdapter(getActivity(), R.layout.item_chat_left, chatMessages);
         listView.setAdapter(adapter);
+    }
+
+    public void setMenuInstance(Menu menu) {
+        menuView = menu;
+        recipientTyping = menuView.getItem(0);
+
+        recipientPic = menuView.getItem(1);
+        recipientPic.setIcon(R.drawable.profpic2);
+    }
+
+    private void setTyping() {
+        recipientTyping.setTitle(getActivity().getResources().getString(R.string.typing));
+        recipientTyping.setShowAsAction(SHOW_AS_ACTION_ALWAYS);
     }
 
     @Override
@@ -95,6 +115,9 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
 
         if(viewId == R.id.btnSendMessage)
             addNewMessage();
+
+        setTyping();
+
     }
 
     @Override

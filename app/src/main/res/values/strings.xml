@@ -44,4 +44,7 @@
     <string name="cars">Cars</string>
     <string name="ask_geartronix_a_question">Ask Geartronix a question</string>
     <string name="edit_your_profile">Edit your profile</string>
+    <string name="enter_email_or_cell">Enter your email or cell</string>
+    <string name="write_a_message">Write a message...</string>
+    <string name="typing">Typing...</string>
 </resources>

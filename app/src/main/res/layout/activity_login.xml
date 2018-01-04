@@ -41,6 +41,7 @@
 
                 <EditText
                     android:id="@+id/txtUsername"
+                    android:hint="@string/enter_email_or_cell"
                     style="@style/mediumTextBox"/>
 
                 <TextView
@@ -50,6 +51,7 @@
                 <EditText
                     android:id="@+id/txtPassword"
                     android:inputType="textWebPassword"
+                    android:hint="@string/password"
                     style="@style/mediumTextBox"/>
 
                 <Button
