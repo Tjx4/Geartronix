@@ -34,7 +34,7 @@
         android:layout_toRightOf="@id/imgArrowContainer"
         android:orientation="vertical"
         android:paddingRight="15dp"
-        android:paddingBottom="15dp">
+        >
 
         <TextView
             android:id="@+id/txtService"
@@ -44,8 +44,11 @@
         <TextView
             android:id="@+id/txtDescription"
             style="@style/mediumLabel"
+            android:layout_height="0dp"
+            android:layout_marginBottom="15dp"
+            android:text="Service description service description service description  service description  service description service description..."
             android:textColor="#cccccc"
-            android:text="Service description service description service description  service description  service description service description..."/>
+            />
 
     </LinearLayout>
 

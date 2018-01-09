@@ -3,11 +3,14 @@ package co.za.geartronix.presenters;
 import android.graphics.Color;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
@@ -16,6 +19,7 @@ import co.za.geartronix.adapters.ServicesAdapter;
 import co.za.geartronix.models.ServiceModel;
 import co.za.geartronix.models.ServicesListModel;
 import co.za.geartronix.providers.MockProvider;
+import co.za.geartronix.providers.ResizeAnimation;
 import co.za.geartronix.views.IServicesListView;
 
 public class ServicesListPresenter extends BaseAppActivityPresenter implements IServicesListPresenter {
@@ -44,19 +48,52 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
     protected void postAnimation(View view) {
         //RotateAnimation animation = new RotateAnimation(90, 20);
         //view.startAnimation(animation);
-        view.animate().rotationBy(360).setDuration(600).setInterpolator(new LinearInterpolator()).start();
+        //view.animate().rotationBy(360).setDuration(600).setInterpolator(new LinearInterpolator()).start();
+
+        if(lastViewArrow != null && lastViewArrow != view) {
+            ViewGroup.LayoutParams lp = lastViewArrow.getLayoutParams();
+            lp.width = 48;
+            lastViewArrow.setLayoutParams(lp);
+        }
+
+        ViewGroup.LayoutParams lp = view.getLayoutParams();
+        lp.width = 60;
+        view.setLayoutParams(lp);
+
+        lastViewArrow = view;
+
+
     }
+
+    private View lastTxtView, lastViewArrow;
 
     @Override
     public void handleViewClickedEvent(View view) {
 
-        FrameLayout arrowImgParent = (FrameLayout)((LinearLayout)view).getChildAt(0);
-        View arrowImg = arrowImgParent.getChildAt(0);
+        LinearLayout parentLayout = (LinearLayout)view;
+        FrameLayout arrowImgParent = (FrameLayout)parentLayout.getChildAt(0);
+        ImageView arrowImg = (ImageView)arrowImgParent.getChildAt(0);
         blinkView(arrowImg, 30, 70);
 
         resetLastAndSetNew(view, Color.TRANSPARENT, getActivity().getResources().getColor(R.color.activeService));
 
+        LinearLayout discriptionTxtContainer = (LinearLayout)parentLayout.getChildAt(1);
+        TextView discriptionTxt = (TextView)discriptionTxtContainer.getChildAt(1);
+
+        if(lastTxtView != null && lastTxtView != discriptionTxt)
+            slideDraws(lastTxtView, 0, 0);
+
+        slideDraws(discriptionTxt, FrameLayout.LayoutParams.WRAP_CONTENT, 0);
+
+        lastTxtView = discriptionTxt;
+
         showShortToast("service..."+view.getId());
+    }
+
+    protected void slideDraws(View view, int target, int start) {
+        ResizeAnimation resizeAnimation = new ResizeAnimation(view, target, start);
+        resizeAnimation.setDuration(0);
+        view.startAnimation(resizeAnimation);
     }
 
     @Override
