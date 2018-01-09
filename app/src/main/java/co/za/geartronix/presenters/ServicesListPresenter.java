@@ -43,6 +43,7 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
         setDisplayName(activity.getString(R.string.services));
     }
 
+    private int ogsize;
 
     @Override
     protected void postAnimation(View view) {
@@ -50,19 +51,24 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
         //view.startAnimation(animation);
         //view.animate().rotationBy(360).setDuration(600).setInterpolator(new LinearInterpolator()).start();
 
+       /*
+
+    if(ogsize == 0)
+            ogsize = view.getWidth();
+
         if(lastViewArrow != null && lastViewArrow != view) {
             ViewGroup.LayoutParams lp = lastViewArrow.getLayoutParams();
-            lp.width = 48;
+            lp.width = ogsize;
             lastViewArrow.setLayoutParams(lp);
         }
 
         ViewGroup.LayoutParams lp = view.getLayoutParams();
-        lp.width = 60;
+        lp.width = ogsize + 10;
         view.setLayoutParams(lp);
 
         lastViewArrow = view;
 
-
+        */
     }
 
     private View lastTxtView, lastViewArrow;
@@ -73,7 +79,23 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
         LinearLayout parentLayout = (LinearLayout)view;
         FrameLayout arrowImgParent = (FrameLayout)parentLayout.getChildAt(0);
         ImageView arrowImg = (ImageView)arrowImgParent.getChildAt(0);
-        blinkView(arrowImg, 30, 70);
+
+        //blinkView(arrowImg, 30, 70);
+
+        if(ogsize == 0)
+            ogsize = arrowImg.getWidth();
+
+        if(lastViewArrow != null && lastViewArrow != arrowImg) {
+            ViewGroup.LayoutParams lpOg = lastViewArrow.getLayoutParams();
+            lpOg.width = ogsize;
+            lastViewArrow.setLayoutParams(lpOg);
+        }
+
+        ViewGroup.LayoutParams lp = arrowImg.getLayoutParams();
+        lp.width = ogsize + 18;
+        arrowImg.setLayoutParams(lp);
+
+        lastViewArrow = arrowImg;
 
         resetLastAndSetNew(view, Color.TRANSPARENT, getActivity().getResources().getColor(R.color.activeService));
 

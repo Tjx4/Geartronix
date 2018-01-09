@@ -39,10 +39,16 @@ public class MockProvider {
         service3.setService("Repair the transmission controls");
         service3.setServiceDescription("Typical faults of the individual sensors, such as speed sensors or the speed sensors, as well as the solenoid valves of the most widely used control units from Audi, VW, can be fixed at a fair price without having to exchange the entire control system. After an accurate diagnosis, we are able to determine whether your control unit can be repaired at a reasonable price. After repair, there is no need to re-program or encode the transmission control unit, which in turn significantly reduces the repair costs as well as the time required.");
 
+        ServiceModel service4 = new ServiceModel();
+        service4.setId(4);
+        service4.setService("Remote diagnosis");
+        service4.setServiceDescription("Our modern diagnostic platform significantly simplifies all diagnostic procedures for the given autotype. With the help of our interface, it is possible to read out all necessary transmission parameters in the installed state of the control unit via the OBD socket of the vehicle, as well as in the removed state via the transmission plug, and to determine the type of damage. Simply send us the data online. After the evaluation, we are able to identify the most common problems. You will receive a summary of the steps necessary to correct the damage.");
+
         List<ServiceModel> serviceList = new ArrayList<>();
         serviceList.add(service1);
         serviceList.add(service2);
         serviceList.add(service3);
+        serviceList.add(service4);
 
         return serviceList;
     }
