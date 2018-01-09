@@ -92,7 +92,7 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
         }
 
         ViewGroup.LayoutParams lp = arrowImg.getLayoutParams();
-        lp.width = ogsize + 18;
+        lp.width = ogsize + 24;
         arrowImg.setLayoutParams(lp);
 
         lastViewArrow = arrowImg;
