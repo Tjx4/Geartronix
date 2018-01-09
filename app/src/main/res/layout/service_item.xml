@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:layout_width="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
                 android:onClick="onViewClickedEvent"
                 android:orientation="horizontal">
 
@@ -12,18 +12,19 @@
         android:id="@+id/imgArrowContainer"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
         android:layout_marginRight="15dp"
-        android:background="#222222">
+        android:background="@color/serviceArrowBackground"
+        android:gravity="center"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp">
 
         <ImageView
             android:id="@+id/imgArrow"
-            android:layout_width="60dp"
+            android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:scaleType="center"
-            app:srcCompat="@android:drawable/ic_media_next"/>
+            app:srcCompat="@drawable/service_arrow"/>
 
     </FrameLayout>
 
@@ -48,4 +49,4 @@
 
     </LinearLayout>
 
-</RelativeLayout>
+</LinearLayout>

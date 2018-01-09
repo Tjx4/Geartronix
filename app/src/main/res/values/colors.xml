@@ -23,4 +23,5 @@
     <color name="test_dark">#003366</color>
     <color name="colorRed">#aa3311</color>
     <color name="activeService">#333333</color>
+    <color name="serviceArrowBackground">#ee444444</color>
 </resources>
