@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:orientation="horizontal"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:layout_marginBottom="5dp">
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:onClick="onViewClickedEvent"
+                android:orientation="horizontal">
 
 
-    <FrameLayout android:id="@+id/imgArrowContainer"
+    <FrameLayout
+        android:id="@+id/imgArrowContainer"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="#222222"
-        android:layout_marginRight="16dp"
-        android:layout_alignParentLeft="true">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="15dp"
+        android:background="#222222">
 
         <ImageView
             android:id="@+id/imgArrow"
-            android:layout_gravity="center"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:scaleType="center"
             app:srcCompat="@android:drawable/ic_media_next"/>
 
     </FrameLayout>
+
     <LinearLayout
-        android:layout_toRightOf="@id/imgArrowContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_toRightOf="@id/imgArrowContainer"
+        android:orientation="vertical"
+        android:paddingRight="15dp"
+        android:paddingBottom="15dp">
 
         <TextView
             android:id="@+id/txtService"
@@ -37,6 +43,7 @@
         <TextView
             android:id="@+id/txtDescription"
             style="@style/mediumLabel"
+            android:textColor="#cccccc"
             android:text="Service description service description service description  service description  service description service description..."/>
 
     </LinearLayout>

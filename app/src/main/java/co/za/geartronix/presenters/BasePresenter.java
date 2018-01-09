@@ -42,6 +42,7 @@ public abstract class BasePresenter {
     public boolean isBack;
     protected final String PACKAGENAME = "co.za.geartronix";
     public boolean outOfFocus;
+    private View lastView;
 
     protected void setDependancies(int contentView) {
         setBasicDependancies(contentView);
@@ -323,5 +324,16 @@ public abstract class BasePresenter {
 
     protected boolean isPermissionGranted(String permission) {
        return new PermissionsProvider(activity).checkPermissionGranted(permission);
+    }
+
+
+    protected void resetLastAndSetNew(View view, int defColor, int newColor) {
+        if(lastView != null && lastView != view)
+            lastView.setBackgroundColor(defColor);
+
+        int activeServiceColor = newColor;
+        view.setBackgroundColor(activeServiceColor);
+
+        lastView = view;
     }
 }

@@ -1,9 +1,15 @@
 package co.za.geartronix.presenters;
 
+import android.graphics.Color;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.RotateAnimation;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+
 import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
@@ -35,8 +41,23 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
         setDisplayName(activity.getString(R.string.services));
     }
 
+
+    @Override
+    protected void postAnimation(View view) {
+        RotateAnimation animation = new RotateAnimation(90, 20);
+        view.startAnimation(animation);
+    }
+
     @Override
     public void handleViewClickedEvent(View view) {
+
+        FrameLayout arrowImgParent = (FrameLayout)((RelativeLayout)view).getChildAt(0);
+        View arrowImg = arrowImgParent.getChildAt(0);
+        blinkView(arrowImg, 30, 70);
+
+        resetLastAndSetNew(view, Color.TRANSPARENT, getActivity().getResources().getColor(R.color.activeService));
+
+        showShortToast(view.getId()+"... service");
 
     }
 
