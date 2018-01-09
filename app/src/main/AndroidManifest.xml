@@ -75,6 +75,8 @@
 
         <activity android:name=".activities.DiagnosticsActivity">
         </activity>
+        <activity android:name=".activities.ServicesListActivity">
+        </activity>
     </application>
 
 </manifest>

@@ -239,8 +239,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void bookAService(View view) {
-            showShortToast("Book a service");
-        // Go to services activity / bookings fragment
+        goToServices();
     }
 
     @Override

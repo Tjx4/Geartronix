@@ -6,7 +6,7 @@ import java.util.List;
 import co.za.geartronix.providers.CarProvider;
 import co.za.geartronix.providers.ContactDetailsProvider;
 
-public class UserModel {
+public class UserModel extends BaseModel {
     private Bitmap profilePic;
     private MemberModel memberType;
     private NamesModel names;

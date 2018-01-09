@@ -28,6 +28,7 @@ import co.za.geartronix.activities.HomeActivity;
 import co.za.geartronix.activities.MessagesActivity;
 import co.za.geartronix.activities.ProfileActivity;
 import co.za.geartronix.activities.ServicesActivity;
+import co.za.geartronix.activities.ServicesListActivity;
 import co.za.geartronix.providers.PermissionsProvider;
 
 public abstract class BasePresenter {
@@ -260,10 +261,10 @@ public abstract class BasePresenter {
     }
 
     protected void goToServices(Bundle...loginDetails) {
-        if(isCurrentActivity(ServicesActivity.class))
+        if(isCurrentActivity(ServicesListActivity.class))
         return;
 
-        goToActivityWithPayload(ServicesActivity.class, loginDetails);
+        goToActivityWithPayload(ServicesListActivity.class, loginDetails);
     }
 
     protected void goToSettings(Bundle...loginDetails) {

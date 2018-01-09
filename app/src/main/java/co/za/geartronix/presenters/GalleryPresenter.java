@@ -3,13 +3,11 @@ package co.za.geartronix.presenters;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.GalleryActivity;
 import co.za.geartronix.adapters.GalleryImageAdapter;
-import co.za.geartronix.customViews.CustomImageVIew;
 import co.za.geartronix.models.GalleryModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
@@ -65,7 +63,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         try {
             String res = result.toString();
             responseModel.setModel(new JSONObject(res));
-            porpulateImageGrid();
+            porpulateServiceList();
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -127,7 +125,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     }
 
     @Override
-    public void porpulateImageGrid() {
+    public void porpulateServiceList() {
         items = responseModel.getItems();
         ArrayAdapter adp = new GalleryImageAdapter(activity, R.layout.gallery_item_view, items);
         imagesGridview = (GridView) activity.findViewById(R.id.grdvImageContainer);

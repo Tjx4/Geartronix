@@ -48,7 +48,7 @@ public class DiagnosticsPresenter extends BaseAppActivityPresenter implements IG
     }
 
     @Override
-    public void porpulateImageGrid() {
+    public void porpulateServiceList() {
 
     }
 

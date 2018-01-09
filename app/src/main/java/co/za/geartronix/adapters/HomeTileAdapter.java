@@ -28,6 +28,8 @@ public class HomeTileAdapter extends ArrayAdapter {
     private final BaseActivity activity;
     private final int layout;
     private final List<BaseAppActivityPresenter> items;
+    private int viewId;
+    private BaseAppActivityPresenter currentAppActivity;
 
     public HomeTileAdapter(BaseActivity activity, int layout, List<BaseAppActivityPresenter> items) {
         super(activity, layout, items);
@@ -35,9 +37,6 @@ public class HomeTileAdapter extends ArrayAdapter {
         this.layout = layout;
         this.items = items;
     }
-
-    private int viewId;
-    private BaseAppActivityPresenter currentAppActivity;
 
     @NonNull
     @Override
