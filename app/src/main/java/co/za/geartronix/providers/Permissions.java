@@ -1,6 +1,9 @@
 package co.za.geartronix.providers;
 
 import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 
 public enum Permissions {
 
@@ -22,4 +25,5 @@ public enum Permissions {
     public String getPermission() {
         return permission;
     }
+
 }

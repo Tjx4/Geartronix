@@ -56,9 +56,10 @@
             android:background="@drawable/imogy_icon"
             android:onClick="onViewClickedEvent"/>
 
-        <FrameLayout style="@style/mediumButton"
+        <FrameLayout
             android:id="@+id/frmSendMessageContainer"
-            android:layout_width="55dp"
+            style="@style/mediumButton"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
@@ -68,10 +69,10 @@
 
             <ImageButton
                 android:id="@+id/btnSendMessage"
-                android:onClick="onViewClickedEvent"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/transparent"
+                android:onClick="onViewClickedEvent"
                 app:srcCompat="@android:drawable/ic_menu_send"/>
 
         </FrameLayout>
@@ -80,7 +81,7 @@
         <ImageButton
             android:id="@+id/imgAttach"
             android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_height="32dp"
             android:layout_alignRight="@+id/txtMessage"
             android:layout_centerVertical="true"
             android:layout_marginRight="5dp"

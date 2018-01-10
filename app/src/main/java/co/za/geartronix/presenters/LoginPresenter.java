@@ -13,6 +13,7 @@ import co.za.geartronix.activities.LoginActivity;
 import co.za.geartronix.models.LoginModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
+import co.za.geartronix.providers.PermissionsProvider;
 import co.za.geartronix.views.ILoginView;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -32,6 +33,7 @@ public class LoginPresenter extends BaseAppActivityPresenter implements ILoginPr
         setPageTitle(activity.getString(R.string.sign_in));
         setViews();
         responseModel = new LoginModel();
+        new PermissionsProvider(getActivity()).requestInternetPermission();
     }
 
     @Override

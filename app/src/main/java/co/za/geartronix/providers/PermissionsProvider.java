@@ -1,8 +1,11 @@
 package co.za.geartronix.providers;
 
+import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
+
 import co.za.geartronix.activities.BaseActivity;
 
 public class PermissionsProvider {
@@ -32,9 +35,31 @@ public class PermissionsProvider {
         if(isbellowMashMellow() )
             return;
 
-        ActivityCompat.requestPermissions(activity,  new String[]{Permissions.internet.getPermission()}, 1);
-    }
+        //ActivityCompat.requestPermissions(activity,  new String[]{Permissions.internet.getPermission()}, 1);
 
+        if (ContextCompat.checkSelfPermission(activity,
+                Manifest.permission.INTERNET)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.INTERNET)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.INTERNET}, 1);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+    }
     public boolean isbellowMashMellow() {
         return Build.VERSION.SDK_INT < 23;
     }
