@@ -194,18 +194,20 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
 
     }
 
+    @Override
     public void menuOptionSelected(MenuItem item) {
+        super.menuOptionSelected(item);
+
         clickedViewId = item.getItemId();
 
         if(clickedViewId == R.id.action_request_service) {
-            if(selectedService == null){
-                showShortToast("Please select a servce");
-            }
-            else{
-                showShortToast(selectedService.getService());
-            }
+            showShortToast("You are requesting"+selectedService.getService());
         }
+    }
 
+    @Override
+    protected void showInstructions() {
+        showShortToast("Show instructions on how to use services activity");
     }
 
     public void configureActionBarItems(Menu menu) {

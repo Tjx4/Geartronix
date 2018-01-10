@@ -194,4 +194,14 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
     public void goToCurrentAppActivity() {
         goToMessages();
     }
+
+    @Override
+    public void menuOptionSelected(MenuItem item) {
+        super.menuOptionSelected(item);
+    }
+
+    @Override
+    protected void showInstructions() {
+        showShortToast("Show instructions on how to use messages activity");
+    }
 }

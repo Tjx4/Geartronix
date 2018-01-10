@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
@@ -346,6 +347,23 @@ public abstract class BasePresenter {
 
         lastView = view;
         viewOpenState = !viewOpenState;
+    }
+
+    public void menuOptionSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.action_settings:
+                goToSettings();
+                break;
+            case R.id.action_help:
+                showInstructions();
+                break;
+        }
+    }
+
+    protected void showInstructions() {
+        showShortToast("Show page instructions");
     }
 
 }

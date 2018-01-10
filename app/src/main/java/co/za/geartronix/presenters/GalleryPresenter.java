@@ -118,6 +118,8 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     }
 
     public void menuOptionSelected(MenuItem item) {
+        super.menuOptionSelected(item);
+
         clickedViewId = item.getItemId();
 
         if(clickedViewId == R.id.action_fullscreen)

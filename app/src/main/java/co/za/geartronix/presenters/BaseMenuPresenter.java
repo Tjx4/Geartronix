@@ -53,8 +53,7 @@ public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
     }
 
     public boolean handleNavigationItemSelected(MenuItem item) {
-
-        // Handle navigation view item clicks here
+        menuOptionSelected(item);
 
         switch (item.getItemId()) {
 
@@ -97,20 +96,8 @@ public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
         currentPageLayout.setLayoutResource(pageLayout);
     }
 
-
     protected View getMainLayout() {
         return currentPageLayout.inflate();
-    }
-
-
-    public void menuOptionSelected(MenuItem item) {
-
-        switch (item.getItemId()){
-
-            case R.id.action_settings:
-                showShortToast(activity.getString(R.string.settings));
-                break;
-        }
     }
 
 }

@@ -83,7 +83,9 @@ public class DiagnosticsPresenter extends BaseAppActivityPresenter implements IG
     }
 
     public void menuOptionSelected(MenuItem item) {
-        showShortToast("menuOptionSelected");
+        super.menuOptionSelected(item);
+
+        //showShortToast("menuOptionSelected");
     }
 
     @Override

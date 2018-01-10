@@ -148,7 +148,6 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
         lastView.setBackgroundColor(inactive);
     }
 
-
     @Override
     protected void duringAnimation(View view) {
         setActiveColor(view);
@@ -164,6 +163,11 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     public void handleViewClickedEvent(View view) {
         // int viewId = view.getId();
         blinkView(view, 30, 70);
+    }
+
+    @Override
+    protected void showInstructions() {
+        showShortToast("Show instructions on how to use Home activity");
     }
 
 }

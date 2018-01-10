@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import co.za.geartronix.R;
@@ -204,5 +205,10 @@ Log.i(BASE_LOG, "Thread started ... ...");
     @Override
     public void handleViewClickedEvent(View view) {
         blinkView(view,30,70);
+    }
+
+    @Override
+    public void menuOptionSelected(MenuItem item) {
+        super.menuOptionSelected(item);
     }
 }

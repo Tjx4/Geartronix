@@ -16,4 +16,11 @@
         android:title="@string/edit"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/action_help"
+        android:icon="@drawable/help_icon"
+        android:visible="false"
+        android:title="@string/help"
+        app:showAsAction="never"/>
+
 </menu>

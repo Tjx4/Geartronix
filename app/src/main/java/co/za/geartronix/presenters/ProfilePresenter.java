@@ -125,6 +125,8 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     }
 
     public void menuOptionSelected(MenuItem item) {
+        super.menuOptionSelected(item);
+
         clickedViewId = item.getItemId();
 
         if(clickedViewId == R.id.action_settings)

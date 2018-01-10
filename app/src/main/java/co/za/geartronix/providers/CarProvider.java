@@ -10,6 +10,16 @@ public class CarProvider {
     private String color;
     private Bitmap picture;
 
+    public String getMilage() {
+        return milage;
+    }
+
+    public void setMilage(String milage) {
+        this.milage = milage;
+    }
+
+    private String milage;
+
     public String getMake() {
         return make;
     }

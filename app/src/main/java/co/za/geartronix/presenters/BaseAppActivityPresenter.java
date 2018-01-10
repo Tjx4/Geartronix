@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Environment;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -243,6 +244,5 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
         scanIntent.setData(imageUri);
         context.sendBroadcast(scanIntent);
     }
-
 
 }
