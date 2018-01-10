@@ -126,7 +126,7 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
 
         setSelectedService(view.getId());
 
-        showShortToast(selectedService.getService());
+//showShortToast(selectedService.getService());
 
         openState = !openState;
     }
@@ -192,6 +192,15 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
 
     public void menuOptionSelected(MenuItem item) {
         clickedViewId = item.getItemId();
-        showShortToast("menu option");
+
+        if(clickedViewId == R.id.action_request_service) {
+            if(selectedService == null){
+                showShortToast("Please select a servce");
+            }
+            else{
+                showShortToast(selectedService.getService());
+            }
+        }
+
     }
 }

@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/imgArrowContainer"
         android:orientation="vertical"
-        android:paddingBottom="2dp"
+        android:paddingBottom="12dp"
         android:paddingLeft="10dp"
         android:paddingRight="15dp"
         android:paddingTop="14dp">
@@ -42,16 +42,19 @@
         <TextView
             android:id="@+id/txtService"
             style="@style/largeLabel"
-            android:layout_marginTop="0dp"
+            android:layout_margin="0dp"
             android:text="Service"/>
 
         <TextView
             android:id="@+id/txtDescription"
             style="@style/mediumLabel"
             android:layout_height="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="4dp"
             android:text="Service description service description service description  service description  service description service description..."
-            android:textColor="#cccccc"
-            />
+            android:textColor="#cccccc"/>
 
     </LinearLayout>
 
