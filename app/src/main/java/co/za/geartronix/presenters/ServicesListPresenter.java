@@ -1,6 +1,7 @@
 package co.za.geartronix.presenters;
 
 import android.graphics.Color;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
     private ServiceModel selectedService;
     private ListView servicesLst;
     private int ogWidth, ogHeight;
+    private MenuItem requestMenuItem;
 
     public ServicesListPresenter(IServicesListView iGalleryView) {
         super((BaseActivity)iGalleryView);
@@ -99,12 +101,14 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
             lpOg.width = ogWidth;
             lpOg.height = ogHeight;
             arrowImg.setLayoutParams(lpOg);
+            requestMenuItem.setVisible(false);
         }
         else {
             ViewGroup.LayoutParams lp = arrowImg.getLayoutParams();
             lp.width = ogWidth + 20;
             lp.height = ogHeight + 20;
             arrowImg.setLayoutParams(lp);
+            requestMenuItem.setVisible(true);
         }
 
         lastViewArrow = arrowImg;
@@ -202,5 +206,9 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
             }
         }
 
+    }
+
+    public void configureActionBarItems(Menu menu) {
+        requestMenuItem = menu.getItem(0);
     }
 }
