@@ -77,6 +77,12 @@
         </activity>
         <activity android:name=".activities.ServicesListActivity">
         </activity>
+        <activity android:name=".activities.RegistrationActivity">
+        </activity>
+        <activity android:name=".activities.SettingsActivty">
+        </activity>
+        <activity android:name=".activities.ForgotPasswordActivity">
+        </activity>
     </application>
 
 </manifest>
