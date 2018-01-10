@@ -5,5 +5,6 @@ import co.za.geartronix.activities.ServicesListActivity;
 public interface IServicesListPresenter  extends IBaseAsyncPresenter {
     ServicesListActivity getActivity();
     void showServices();
+    void setSelectedService(int id);
     void requestService();
 }

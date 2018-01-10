@@ -24,4 +24,5 @@
     <color name="colorRed">#aa3311</color>
     <color name="activeService">#333333</color>
     <color name="serviceArrowBackground">#f0333333</color>
+    <color name="serviceDescriptionBackground">#96444444</color>
 </resources>

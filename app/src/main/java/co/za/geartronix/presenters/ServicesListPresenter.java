@@ -25,7 +25,9 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
 
     private ServicesListModel responseModel;
     private List<ServiceModel> services;
+    private ServiceModel selectedService;
     private ListView servicesLst;
+    private int ogWidth, ogHeight;
 
     public ServicesListPresenter(IServicesListView iGalleryView) {
         super((BaseActivity)iGalleryView);
@@ -42,8 +44,6 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
         setDisplayName(activity.getString(R.string.services));
     }
 
-    private int ogsize;
-
     @Override
     protected void postAnimation(View view) {
         //RotateAnimation animation = new RotateAnimation(90, 20);
@@ -52,17 +52,17 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
 
        /*
 
-    if(ogsize == 0)
-            ogsize = view.getWidth();
+        if(ogWidth == 0)
+            ogWidth = view.getWidth();
 
         if(lastViewArrow != null && lastViewArrow != view) {
             ViewGroup.LayoutParams lp = lastViewArrow.getLayoutParams();
-            lp.width = ogsize;
+            lp.width = ogWidth;
             lastViewArrow.setLayoutParams(lp);
         }
 
         ViewGroup.LayoutParams lp = view.getLayoutParams();
-        lp.width = ogsize + 10;
+        lp.width = ogWidth + 10;
         view.setLayoutParams(lp);
 
         lastViewArrow = view;
@@ -82,23 +82,28 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
 
         //blinkView(arrowImg, 30, 70);
 
-        if(ogsize == 0)
-            ogsize = arrowImg.getWidth();
+        if(ogWidth == 0) {
+            ogWidth = arrowImg.getWidth();
+            ogHeight = arrowImg.getHeight();
+        }
 
         if(lastViewArrow != null && lastViewArrow != arrowImg) {
             ViewGroup.LayoutParams lpOg = lastViewArrow.getLayoutParams();
-            lpOg.width = ogsize;
+            lpOg.width = ogWidth;
+            lpOg.height = ogHeight;
             lastViewArrow.setLayoutParams(lpOg);
         }
 
         if(lastViewArrow == arrowImg && openState){
             ViewGroup.LayoutParams lpOg = arrowImg.getLayoutParams();
-            lpOg.width = ogsize;
+            lpOg.width = ogWidth;
+            lpOg.height = ogHeight;
             arrowImg.setLayoutParams(lpOg);
         }
         else {
             ViewGroup.LayoutParams lp = arrowImg.getLayoutParams();
-            lp.width = ogsize + 24;
+            lp.width = ogWidth + 20;
+            lp.height = ogHeight + 20;
             arrowImg.setLayoutParams(lp);
         }
 
@@ -119,7 +124,9 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
 
         lastTxtView = discriptionTxt;
 
-        showShortToast("service..."+view.getId());
+        setSelectedService(view.getId());
+
+        showShortToast(selectedService.getService());
 
         openState = !openState;
     }
@@ -146,6 +153,11 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
         services = new MockProvider(getActivity()).getMockServiceList();
         ArrayAdapter servicesAdapter = new ServicesAdapter(getActivity(), R.layout.service_item, services);
         servicesLst.setAdapter(servicesAdapter);
+    }
+
+    @Override
+    public void setSelectedService(int id) {
+        selectedService = services.get(id);
     }
 
     @Override
