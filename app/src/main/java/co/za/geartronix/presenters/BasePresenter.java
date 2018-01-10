@@ -23,11 +23,14 @@ import android.widget.Toast;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.DiagnosticsActivity;
+import co.za.geartronix.activities.ForgotPasswordActivity;
 import co.za.geartronix.activities.GalleryActivity;
 import co.za.geartronix.activities.HomeActivity;
 import co.za.geartronix.activities.MessagesActivity;
 import co.za.geartronix.activities.ProfileActivity;
+import co.za.geartronix.activities.RegistrationActivity;
 import co.za.geartronix.activities.ServicesListActivity;
+import co.za.geartronix.activities.SettingsActivty;
 import co.za.geartronix.providers.PermissionsProvider;
 
 public abstract class BasePresenter {
@@ -276,8 +279,25 @@ public abstract class BasePresenter {
         goToActivityWithPayload(ServicesListActivity.class, loginDetails);
     }
 
-    protected void goToSettings(Bundle...loginDetails) {
-        showShortToast("Settings");
+    protected void goToSettings(Bundle...extras) {
+        if(isCurrentActivity(SettingsActivty.class))
+            return;
+
+        goToActivityWithPayload(SettingsActivty.class, extras);
+    }
+
+    protected void goToForgotPassword(Bundle...extras) {
+        if(isCurrentActivity(ForgotPasswordActivity.class))
+            return;
+
+        goToActivityWithPayload(ForgotPasswordActivity.class, extras);
+    }
+
+    protected void goToRegistration(Bundle...extras) {
+        if(isCurrentActivity(RegistrationActivity.class))
+            return;
+
+        goToActivityWithPayload(RegistrationActivity.class, extras);
     }
 
     protected void showLongToast(String message){

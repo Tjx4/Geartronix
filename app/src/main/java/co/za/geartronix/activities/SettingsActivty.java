@@ -1,15 +1,57 @@
 package co.za.geartronix.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import co.za.geartronix.R;
+import co.za.geartronix.presenters.SettingsPresenter;
+import co.za.geartronix.views.ISettingsView;
 
-public class SettingsActivty extends AppCompatActivity {
+public class SettingsActivty extends BaseAsyncActivity implements ISettingsView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings_activty);
+        setPresenter();
     }
+
+    @Override
+    public void setPresenter() {
+        presenter = new SettingsPresenter(this);
+    }
+
+    @Override
+    public void onViewClickedEvent(View view) {
+        getPresenter().handleViewClickedEvent(view);
+    }
+
+    @Override
+    public SettingsPresenter getPresenter() {
+        return (SettingsPresenter)presenter;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.settings_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+
+        if( itemId == android.R.id.home)
+            onBackPressed();
+        else
+            getPresenter().menuOptionSelected(item);
+
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+      super.onBackPressed();
+    }
+
 }
