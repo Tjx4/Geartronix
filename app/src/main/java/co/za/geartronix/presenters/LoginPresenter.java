@@ -197,7 +197,12 @@ Log.i(BASE_LOG, "Thread started ... ...");
     }
 
     @Override
-    public void handleViewClickedEvent(View view) {
+    protected void postAnimation(View view) {
         handleAsyncButtonClickedEvent(view);
+    }
+
+    @Override
+    public void handleViewClickedEvent(View view) {
+        blinkView(view,30,70);
     }
 }

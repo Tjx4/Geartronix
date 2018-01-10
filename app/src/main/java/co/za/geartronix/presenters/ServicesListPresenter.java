@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
@@ -72,6 +71,7 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
     }
 
     private View lastTxtView, lastViewArrow;
+    private boolean openState;
 
     @Override
     public void handleViewClickedEvent(View view) {
@@ -91,9 +91,16 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
             lastViewArrow.setLayoutParams(lpOg);
         }
 
-        ViewGroup.LayoutParams lp = arrowImg.getLayoutParams();
-        lp.width = ogsize + 24;
-        arrowImg.setLayoutParams(lp);
+        if(lastViewArrow == arrowImg && openState){
+            ViewGroup.LayoutParams lpOg = arrowImg.getLayoutParams();
+            lpOg.width = ogsize;
+            arrowImg.setLayoutParams(lpOg);
+        }
+        else {
+            ViewGroup.LayoutParams lp = arrowImg.getLayoutParams();
+            lp.width = ogsize + 24;
+            arrowImg.setLayoutParams(lp);
+        }
 
         lastViewArrow = arrowImg;
 
@@ -105,11 +112,16 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
         if(lastTxtView != null && lastTxtView != discriptionTxt)
             slideDraws(lastTxtView, 0, 0);
 
-        slideDraws(discriptionTxt, FrameLayout.LayoutParams.WRAP_CONTENT, 0);
+        if(lastTxtView == discriptionTxt && openState)
+            slideDraws(discriptionTxt, 0, 0);
+        else
+            slideDraws(discriptionTxt, FrameLayout.LayoutParams.WRAP_CONTENT, 0);
 
         lastTxtView = discriptionTxt;
 
         showShortToast("service..."+view.getId());
+
+        openState = !openState;
     }
 
     protected void slideDraws(View view, int target, int start) {

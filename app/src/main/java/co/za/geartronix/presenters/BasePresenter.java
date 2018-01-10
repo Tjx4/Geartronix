@@ -1,11 +1,11 @@
 package co.za.geartronix.presenters;
 
-import android.app.Service;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -22,12 +22,10 @@ import android.widget.Toast;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.DiagnosticsActivity;
-import co.za.geartronix.activities.FindUsActivity;
 import co.za.geartronix.activities.GalleryActivity;
 import co.za.geartronix.activities.HomeActivity;
 import co.za.geartronix.activities.MessagesActivity;
 import co.za.geartronix.activities.ProfileActivity;
-import co.za.geartronix.activities.ServicesActivity;
 import co.za.geartronix.activities.ServicesListActivity;
 import co.za.geartronix.providers.PermissionsProvider;
 
@@ -41,7 +39,7 @@ public abstract class BasePresenter {
     protected ActionBar currentActionBar, ogActionBar;
     public boolean isBack;
     protected final String PACKAGENAME = "co.za.geartronix";
-    public boolean outOfFocus;
+    public boolean outOfFocus, viewOpenState;
     private View lastView;
 
     protected void setDependancies(int contentView) {
@@ -223,7 +221,16 @@ public abstract class BasePresenter {
     }
 
     protected void goToFindUs() {
-        goToActivity(FindUsActivity.class);
+        //goToActivity(FindUsActivity.class);
+
+        String lat = "-26.0800519";
+        String lng = "27.92233299999998";
+        String label = "Geartronix DSG Centre";
+
+        String strUri = "http://maps.google.com/maps?q=loc:" + lat + "," + lng + " (" + label + ")";
+        Intent intent = new Intent(android.content.Intent.ACTION_VIEW, Uri.parse(strUri));
+        intent.setClassName("com.google.android.apps.maps", "com.google.android.maps.MapsActivity");
+        activity.startActivity(intent);
     }
 
     protected void goToMessages(Bundle...extras) {
@@ -326,15 +333,19 @@ public abstract class BasePresenter {
        return new PermissionsProvider(activity).checkPermissionGranted(permission);
     }
 
-
     protected void resetLastAndSetNew(View view, int defColor, int newColor) {
         if(lastView != null && lastView != view)
             lastView.setBackgroundColor(defColor);
 
-        int activeServiceColor = newColor;
-        view.setBackgroundColor(activeServiceColor);
+        if(lastView == view && viewOpenState)
+            view.setBackgroundColor(defColor);
+        else{
+            int activeServiceColor = newColor;
+            view.setBackgroundColor(activeServiceColor);
+        }
 
         lastView = view;
+        viewOpenState = !viewOpenState;
     }
 
 }
