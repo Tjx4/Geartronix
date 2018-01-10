@@ -30,17 +30,17 @@
         <menu>
             <item
                 android:id="@+id/nav_share"
-                android:icon="@android:drawable/ic_menu_share"
-                android:title="Contact us"/>
+                android:icon="@drawable/contact_icon"
+                android:title="@string/contact_us"/>
 
             <item
                 android:id="@+id/nav_send"
-                android:icon="@android:drawable/ic_popup_sync"
-                android:title="Find us"/>
+                android:icon="@mipmap/find_us_icon"
+                android:title="@string/find_us"/>
 
             <item
                 android:id="@+id/action_send_message"
-                android:icon="@drawable/common_full_open_on_phone"
+                android:icon="@mipmap/message_icon"
                 android:title="Send message"/>
         </menu>
     </item>

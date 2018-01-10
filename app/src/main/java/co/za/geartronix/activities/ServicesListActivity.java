@@ -33,7 +33,7 @@ public class ServicesListActivity  extends BaseAsyncActivity implements IService
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.gallery_menu, menu);
+        getMenuInflater().inflate(R.menu.services_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
