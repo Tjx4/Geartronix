@@ -16,7 +16,7 @@ public class DialogFragmentProvider extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        getDialog().setTitle(getArguments().getString(Constants.TITLE));
+        getDialog().setTitle(""); //getArguments().getString(Constants.TITLE));
         int layout = getArguments().getInt(Constants.LAYOUT);
         View v = inflater.inflate(layout, container, false);
 

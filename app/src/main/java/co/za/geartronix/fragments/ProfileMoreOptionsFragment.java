@@ -17,10 +17,11 @@ public class ProfileMoreOptionsFragment extends DialogFragmentProvider {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View parentView = super.onCreateView( inflater,  container, savedInstanceState);
 
-        View viewCarsLbl = parentView.findViewById(R.id.itemViewCars);
-        View viewMessagesLbl = parentView.findViewById(R.id.itemViewMessages);
+        View viewCars = parentView.findViewById(R.id.itemViewCars);
+        View viewMessages = parentView.findViewById(R.id.itemViewMessages);
+        View editProfile = parentView.findViewById(R.id.itemEdtitProfile);
 
-        setViewClickEvents(new View[]{viewCarsLbl, viewMessagesLbl});
+        setViewClickEvents(new View[]{viewCars, viewMessages, editProfile});
         return parentView;
     }
 
