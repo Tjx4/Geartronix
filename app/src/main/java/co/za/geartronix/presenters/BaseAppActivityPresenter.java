@@ -245,4 +245,25 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
         context.sendBroadcast(scanIntent);
     }
 
+
+    public void fadeInOverlay(View view) {
+        view.animate().alpha(1.0f).setDuration(imageAnimationDuration);
+    }
+
+    protected void fadeOutOverlay(View view) {
+        view.animate().alpha(0.0f).setDuration(imageAnimationDuration);
+        /*
+        final View ofverlay = view;
+
+        ofverlay.animate()
+                .alpha(0.0f)
+                .setDuration(imageAnimationDuration)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        ofverlay.setVisibility(View.GONE);
+                    }
+                });
+        */
+    }
 }

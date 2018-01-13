@@ -1,6 +1,7 @@
 package co.za.geartronix.presenters;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
@@ -166,6 +167,9 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
             setViewMode();
         }
         else{
+            if(imageEnlarged)
+                hideEnlargedImage();
+
             setEditMode();
         }
     }
@@ -204,6 +208,9 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         overLayfrm2 = (FrameLayout) getActivity().findViewById(R.id.frmOverlay2);
         moreBtn = (ImageButton) getActivity().findViewById(R.id.btnMore);
         saveBtn = (ImageButton) getActivity().findViewById(R.id.btnSave);
+
+        overLayfrm.animate().alpha(0.0f).setDuration(imageAnimationDuration);
+        overLayfrm2.animate().alpha(0.0f).setDuration(imageAnimationDuration);
 
         setLargeImageViews();
 
@@ -354,22 +361,26 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void setEditMode() {
-        setViewsVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt, overLayfrm, overLayfrm2, saveBtn});
+        setViewsVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt, saveBtn, overLayfrm, overLayfrm2});
+        fadeInOverlay(overLayfrm);
+        fadeInOverlay(overLayfrm2);
         setViewsInVisible(new View[]{usernameTxt, cityTxt, memberTypetxt, moreBtn});
         editUsernameTxt.setText(username);
         editCityTxt.setText(city);
         ogActionBar = currentActionBar;
         currentActionBar = profileEditActionBar();
         setMenuItemIcon(modeMenuItem, R.drawable.viewmode_icon);
-        showShortToast(getActivity().getString(R.string.edit_your_profile));
         isEditMode = true;
-    }
+        //  showShortToast(getActivity().getString(R.string.edit_your_profile));
 
+    }
 
     @Override
     public void setViewMode() {
         setViewsVisible(new View[]{usernameTxt, cityTxt, memberTypetxt, moreBtn});
-        setViewsInVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt, overLayfrm, overLayfrm2, saveBtn});
+        fadeOutOverlay(overLayfrm);
+        fadeOutOverlay(overLayfrm2);
+        setViewsInVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt, saveBtn});
         currentActionBar = ogActionBar;
         setMenuItemIcon(modeMenuItem, R.drawable.edit_icon);
         isEditMode = false;

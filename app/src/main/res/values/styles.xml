@@ -132,8 +132,8 @@
     </style>
 
     <style name="profileEditorTextBox" parent="mediumTextBox">
-        <item name="android:layout_height">25dp</item>
-        <item name="android:textSize">14dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:textSize">16dp</item>
         <item name="android:visibility">gone</item>
     </style>
 

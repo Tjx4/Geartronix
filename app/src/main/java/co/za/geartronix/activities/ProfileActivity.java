@@ -53,15 +53,18 @@ public class ProfileActivity  extends BaseAsyncActivity implements IProfileView 
 
     @Override
     public void onBackPressed() {
-        if(getPresenter().isEditMode) {
-            getPresenter().handleBackButtonPressed();
-        }
-        else {
 
-            if(getPresenter().imageEnlarged)
-                getPresenter().hideEnlargedImage();
-            else
-                super.onBackPressed();
+        if(getPresenter().imageEnlarged) {
+            getPresenter().hideEnlargedImage();
         }
+        else{
+            if(getPresenter().isEditMode) {
+                getPresenter().handleBackButtonPressed();
+            }
+            else {
+                super.onBackPressed();
+            }
+        }
+
     }
 }

@@ -16,7 +16,7 @@
     <dimen name="buttonCournerRadius">10dp</dimen>
 
 
-    <dimen name="medium_font_size">14sp</dimen>
+    <dimen name="medium_font_size">15sp</dimen>
     <dimen name="medium_plus_font_size">17sp</dimen>
     <dimen name="large_font_size">20sp</dimen>
     <dimen name="xlarge_font_size">37sp</dimen>
