@@ -35,6 +35,7 @@ public class DialogFragmentProvider extends DialogFragment {
     }
 
     protected void onFragmentViewClickedEvent(View view) {
+        getDialog().dismiss();
     }
 
 }

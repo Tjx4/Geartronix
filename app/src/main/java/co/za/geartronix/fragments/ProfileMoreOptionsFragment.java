@@ -34,6 +34,7 @@ public class ProfileMoreOptionsFragment extends DialogFragmentProvider {
     @Override
     protected void onFragmentViewClickedEvent(View view) {
         activity.getPresenter().handleViewClickedEvent(view);
+        super.onFragmentViewClickedEvent(view);
     }
 
 }

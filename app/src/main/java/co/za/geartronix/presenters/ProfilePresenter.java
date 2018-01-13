@@ -49,7 +49,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     private TextView usernameTxt, memberTypetxt, cityTxt,pointsCountTxt, messageCountTxt, carsCountTxt, editUsernameTxt, editCityTxt;
     private ImageView profpicImg;
     private ImageView moreBtn, saveBtn;
-    private MenuItem modeMenuItem;
+    private MenuItem settingsMenuItem, modeMenuItem, saveMenuItem;
     private FrameLayout overLayfrm, overLayfrm2;
 
     public ProfilePresenter(IProfileView iProfileView) {
@@ -129,13 +129,15 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
             showPanels(view);
         else if(clickedViewId == R.id.itemViewCars)
             viewCars(view);
+        else if(clickedViewId == R.id.itemEdtitProfile)
+            setEditMode();
         else if(clickedViewId == R.id.itemViewMessages)
             viewMessages(view);
         else if(clickedViewId == R.id.btnSave){
             if(isProfileChanged())
                 saveChanges();
             else
-                showShortToast("Please make changes to your profile before saving");
+                showShortToast(getActivity().getString(R.string.profile_update_message));
             //showErrorMessage("Please enter a username or city before attempting to update your profile", "Update error!");
 
         }
@@ -150,8 +152,14 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
         if(clickedViewId == R.id.action_settings)
             goToSettings();
-        else  if(clickedViewId == R.id.action_edit)
+        else if(clickedViewId == R.id.action_edit)
             toggleModes();
+        else if(clickedViewId == R.id.action_save) {
+            if(isProfileChanged())
+                saveChanges();
+
+             showShortToast(getActivity().getString(R.string.profile_update_message));
+        }
     }
 
     @Override
@@ -191,7 +199,9 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     @Override
     public void configureActionBarItems(Menu menu) {
         super.configureActionBarItems(menu);
+        settingsMenuItem = menuView.getItem(0);
         modeMenuItem = menuView.getItem(1);
+        saveMenuItem = menuView.getItem(3);
     }
 
     @Override
@@ -365,18 +375,19 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void setEditMode() {
-        setViewsVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt, saveBtn, overLayfrm, overLayfrm2});
+        setViewsVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt, overLayfrm, overLayfrm2});
         fadeInOverlay(overLayfrm);
         fadeInOverlay(overLayfrm2);
         setViewsInVisible(new View[]{usernameTxt, cityTxt, memberTypetxt, moreBtn});
         editUsernameTxt.setText(username);
         editCityTxt.setText(city);
         ogActionBar = currentActionBar;
-        currentActionBar = profileEditActionBar();
-        setMenuItemIcon(modeMenuItem, R.drawable.viewmode_icon);
+        currentActionBar.setTitle("Edit"); //= profileEditActionBar();
+        saveMenuItem.setVisible(true);
+        settingsMenuItem.setVisible(false);
+        setMenuItemIcon(modeMenuItem, R.drawable.cancell_icon);
         isEditMode = true;
         //showShortToast(getActivity().getString(R.string.edit_your_profile));
-
     }
 
     @Override
@@ -384,8 +395,10 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         setViewsVisible(new View[]{usernameTxt, cityTxt, memberTypetxt, moreBtn});
         fadeOutOverlay(overLayfrm);
         fadeOutOverlay(overLayfrm2);
-        setViewsInVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt, saveBtn});
-        currentActionBar = ogActionBar;
+        setViewsInVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt});
+        currentActionBar.setTitle(R.string.profile);
+        saveMenuItem.setVisible(false);
+        settingsMenuItem.setVisible(true);
         setMenuItemIcon(modeMenuItem, R.drawable.edit_icon);
         isEditMode = false;
         //showShortToast(getActivity().getString(R.string.profile_editmode_exited));
