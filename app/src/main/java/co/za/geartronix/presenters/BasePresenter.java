@@ -7,6 +7,8 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.view.Menu;
@@ -32,6 +34,9 @@ import co.za.geartronix.activities.ProfileActivity;
 import co.za.geartronix.activities.RegistrationActivity;
 import co.za.geartronix.activities.ServicesListActivity;
 import co.za.geartronix.activities.SettingsActivty;
+import co.za.geartronix.constants.Constants;
+import co.za.geartronix.fragments.ProfileMoreOptionsFragment;
+import co.za.geartronix.providers.DialogFragmentProvider;
 import co.za.geartronix.providers.PermissionsProvider;
 
 public abstract class BasePresenter {
@@ -355,6 +360,19 @@ public abstract class BasePresenter {
         a.getButton(a.BUTTON_POSITIVE).setTextColor(activity.getResources().getColor(R.color.textWhite));
         a.getButton(a.BUTTON_NEUTRAL).setTextColor(activity.getResources().getColor(R.color.textWhite));
     }
+
+
+    protected void showFragmentDialog() {
+        FragmentTransaction ft = activity.getSupportFragmentManager().beginTransaction();
+        // Create and show the dialog.
+        ProfileMoreOptionsFragment newFragment = new ProfileMoreOptionsFragment();
+        Bundle payload = new Bundle();
+        payload.putString(Constants.TITLE, "More options");
+        payload.putInt(Constants.LAYOUT, R.layout.profile_more_options_layout);
+        newFragment.setArguments(payload);
+        newFragment.show(ft, "dialog");
+    }
+
 
     protected void showSuccessMessage(String message, String title) {
         AlertDialog.Builder ab = setupBasicMessage(message, title, false, false);

@@ -54,8 +54,8 @@
     <string name="contact_us">Contact us</string>
     <string name="find_us">Find us</string>
     <string name="help">Help</string>
-    <string name="create_username">Create username...</string>
-    <string name="enter_city">Enter your city</string>
+    <string name="create_username">Username...</string>
+    <string name="enter_city">City</string>
     <string name="confirm">Confirm</string>
     <string name="profile_change_confirmation_message">Would you like to save changes you made to your profile</string>
     <string name="cancel">Cancel</string>

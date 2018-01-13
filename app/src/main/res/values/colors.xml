@@ -6,6 +6,7 @@
     <color name="colorPrimaryDark">#111111</color>
     <color name="colorAccent">#333333</color>
     <color name="textWhite">#eeeeee</color>
+    <color name="textBlack">#666666</color>
     <color name="appBackground">#222222</color>
     <color name="colorProgressBackgroud">#444444</color>
     <color name="colorProgressBar">#555555</color>

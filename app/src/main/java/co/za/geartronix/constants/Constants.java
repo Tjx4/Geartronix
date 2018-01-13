@@ -7,6 +7,8 @@ public class Constants {
     public static final String CURRENTENVIRONMENT = HostProvider.demoHost.getUrl();
 
 
+    public static final String TITLE = "title";
+    public static final String LAYOUT = "layout";
     public static final int PROFILEID = 000;
     public static final int BOOKSERVICEID = 001;
     public static final int GALLERYID = 004;

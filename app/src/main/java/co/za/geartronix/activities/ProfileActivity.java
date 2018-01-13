@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import co.za.geartronix.R;
 import co.za.geartronix.presenters.ProfilePresenter;
 import co.za.geartronix.views.IProfileView;
@@ -67,4 +66,5 @@ public class ProfileActivity  extends BaseAsyncActivity implements IProfileView 
         }
 
     }
+
 }

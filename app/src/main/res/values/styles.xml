@@ -37,6 +37,26 @@
         <item name="android:textSize">@dimen/medium_font_size</item>
     </style>
 
+    <style name="mediumLabelPlus" parent="geartronixLabel">
+        <item name="android:textSize">@dimen/medium_plus_font_size</item>
+    </style>
+
+    <style name="moreDialogLbalel" parent="mediumLabelPlus">
+        <item name="android:textColor">@color/textBlack</item>
+    </style>
+
+    <style name="moreDialogIcon">
+        <item name="android:layout_width">30dp</item>
+        <item name="android:layout_height">30dp</item>
+        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:scaleType">fitXY</item>
+        <item name="android:layout_alignParentLeft">true</item>
+    </style>
+    <style name="moreDialogContainer">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
     <style name="profileBarInfo1" parent="geartronixLabel">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

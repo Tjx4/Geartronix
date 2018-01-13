@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/cardview_light_background"
+              android:orientation="vertical"
+              android:paddingBottom="30dp"
+              android:paddingLeft="25dp"
+              android:paddingRight="25dp">
+
+    <RelativeLayout
+        android:id="@+id/itemViewCars"
+        style="@style/moreDialogContainer">
+
+        <ImageView android:id="@+id/imgIcon"
+            style="@style/moreDialogIcon"
+            app:srcCompat="@drawable/car_icon_dark"/>
+
+        <TextView
+            style="@style/moreDialogLbalel"
+            android:text="View cars"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imgIcon"
+            android:layout_toEndOf="@+id/imgIcon"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/itemViewMessages"
+        style="@style/moreDialogContainer">
+
+        <ImageView android:id="@+id/imgIcon2"
+            style="@style/moreDialogIcon"
+            app:srcCompat="@drawable/message_icon_dark"/>
+
+        <TextView
+            style="@style/moreDialogLbalel"
+            android:text="View messages"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/imgIcon2"
+            android:layout_toEndOf="@+id/imgIcon2"/>
+
+    </RelativeLayout>
+
+</LinearLayout>

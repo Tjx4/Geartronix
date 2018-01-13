@@ -1,10 +1,10 @@
 package co.za.geartronix.presenters;
 
 import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -127,6 +127,10 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
             viewPoints(view);
         else if(clickedViewId == R.id.imgProfpic)
             showPanels(view);
+        else if(clickedViewId == R.id.itemViewCars)
+            viewCars(view);
+        else if(clickedViewId == R.id.itemViewMessages)
+            viewMessages(view);
         else if(clickedViewId == R.id.btnSave){
             if(isProfileChanged())
                 saveChanges();
@@ -349,8 +353,8 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void showMoreOptions(View view) {
-        showShortToast("showMoreOptions");
         // show dialog with list with categories (Car:Add new car, View cars) (Message: view messages, write message)
+        showFragmentDialog();
     }
 
     @Override
@@ -371,7 +375,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         currentActionBar = profileEditActionBar();
         setMenuItemIcon(modeMenuItem, R.drawable.viewmode_icon);
         isEditMode = true;
-        //  showShortToast(getActivity().getString(R.string.edit_your_profile));
+        //showShortToast(getActivity().getString(R.string.edit_your_profile));
 
     }
 
