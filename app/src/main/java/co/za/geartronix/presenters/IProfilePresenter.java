@@ -2,6 +2,7 @@ package co.za.geartronix.presenters;
 
 import android.graphics.Bitmap;
 import android.support.v7.app.ActionBar;
+import android.view.MenuItem;
 import android.view.View;
 import co.za.geartronix.activities.ProfileActivity;
 
@@ -15,11 +16,13 @@ interface IProfilePresenter  extends IBaseAsyncPresenter {
     void viewPoints(View view);
     void showMoreOptions(View view);
     void viewCars(View view);
+    void setViewMode();
     void setEditMode();
+    void toggleModes();
     void setMessageCount(int count);
     void setCarsCount(int count);
     void setPointsCount(int count);
-    void setViewMode();
+    MenuItem getModeMenuItem();
     void setUsername(String username);
     void setMemberType(String userType);
     void setCity(String city);

@@ -112,6 +112,10 @@
                                 android:textColor="@color/testGreen"
                                 android:textSize="20sp"/>
 
+                            <EditText style="@style/profileEditorTextBox"
+                                android:id="@+id/txtEditUsername"
+                                android:hint="@string/create_username"/>
+
                             <TextView
                                 android:id="@+id/txtMemberType"
                                 android:layout_width="wrap_content"
@@ -131,6 +135,10 @@
                                 android:text="City"
                                 android:textColor="@color/textWhite"
                                 android:textSize="15sp"/>
+
+                            <EditText style="@style/profileEditorTextBox"
+                                      android:id="@+id/txtEditCity"
+                                      android:hint="@string/enter_city"/>
 
                         </LinearLayout>
 

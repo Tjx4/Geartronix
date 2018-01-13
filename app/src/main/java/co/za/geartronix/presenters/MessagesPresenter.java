@@ -1,7 +1,5 @@
 package co.za.geartronix.presenters;
 
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -30,7 +28,6 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
     private List<ChatMessage> chatMessages;
     private ArrayAdapter<ChatMessage> adapter;
     private MenuItem recipientPic, recipientTyping;
-    private Menu menuView;
 
     public MessagesPresenter(IMessagesView iMessagesView) {
         super((BaseActivity)iMessagesView);
@@ -66,18 +63,18 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
         listView.setAdapter(adapter);
     }
 
+    @Override
     public void configureActionBarItems(Menu menu) {
-        menuView = menu;
+        super.configureActionBarItems(menu);
         recipientTyping = menuView.getItem(0);
-
         recipientPic = menuView.getItem(1);
         recipientPic.setIcon(R.drawable.profpic2);
 
         toolbar.setTitle(" Username");
-
     }
 
-    private void setTyping() {
+    @Override
+    public void setTyping() {
         recipientTyping.setVisible(true);
         recipientTyping.setTitle(getActivity().getResources().getString(R.string.typing));
         recipientTyping.setShowAsAction(SHOW_AS_ACTION_ALWAYS);

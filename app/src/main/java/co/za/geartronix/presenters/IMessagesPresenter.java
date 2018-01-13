@@ -10,4 +10,5 @@ public interface IMessagesPresenter  extends IBaseAsyncPresenter {
     void goToInbox();
     void blockUser(int userid);
     void showTypingToRecipient();
+    void setTyping();
 }

@@ -125,6 +125,12 @@
         <item name="android:layout_height">@dimen/medium_textbox_height</item>
     </style>
 
+    <style name="profileEditorTextBox" parent="mediumTextBox">
+        <item name="android:layout_height">25dp</item>
+        <item name="android:textSize">14dp</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
     <style name="geartronixButton">
         <item name="android:layout_marginTop">20dp</item>
 

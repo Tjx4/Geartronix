@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
@@ -45,6 +46,7 @@ public abstract class BasePresenter {
     protected final String PACKAGENAME = "co.za.geartronix";
     public boolean outOfFocus, viewOpenState;
     private View lastView;
+    protected Menu menuView;
 
     protected void setDependancies(int contentView) {
         setBasicDependancies(contentView);
@@ -386,4 +388,23 @@ public abstract class BasePresenter {
         showShortToast("Show page instructions");
     }
 
+    protected void setMenuItemIcon(MenuItem menuItem, int menuItemIcon) {
+        menuItem.setIcon(menuItemIcon);
+    }
+
+    public void configureActionBarItems(Menu menu) {
+        menuView = menu;
+    }
+
+    protected void setViewsVisible(View[] views) {
+        for(View view : views){
+            view.setVisibility(View.VISIBLE);
+        }
+    }
+
+    protected void setViewsInVisible(View[] views) {
+        for(View view : views){
+            view.setVisibility(View.GONE);
+        }
+    }
 }

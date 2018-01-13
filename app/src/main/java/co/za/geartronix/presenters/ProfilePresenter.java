@@ -4,9 +4,11 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.graphics.Bitmap;
 import android.support.v7.app.ActionBar;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -42,8 +44,9 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     private List<MessageModel> messages;
     private List<CarProvider> cars;
     private ProgressBarModel progressbar1Values, progressbar2Values;
-    private TextView usernameTxt, memberTypetxt, cityTxt,pointsCountTxt, messageCountTxt, carsCountTxt;
+    private TextView usernameTxt, memberTypetxt, cityTxt,pointsCountTxt, messageCountTxt, carsCountTxt, editUsernameTxt, editCityTxt;
     private ImageView profpicImg;
+    private MenuItem modeMenuItem;
 
     public ProfilePresenter(IProfileView iProfileView) {
         super((BaseActivity)iProfileView);
@@ -132,13 +135,27 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         if(clickedViewId == R.id.action_settings)
             goToSettings();
         else  if(clickedViewId == R.id.action_edit)
+            toggleModes();
+    }
+
+    @Override
+    public void toggleModes() {
+        if(isEditMode)
+            setViewMode();
+        else
             setEditMode();
     }
 
     @Override
     public void handleViewClickedEvent(View view) {
-        if(isEditMode == false)
+        if(!isEditMode)
             blinkView(view, 30, 70);
+    }
+
+    @Override
+    public void configureActionBarItems(Menu menu) {
+        super.configureActionBarItems(menu);
+        modeMenuItem = menuView.getItem(1);
     }
 
     @Override
@@ -153,6 +170,8 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         memberTypetxt = (TextView) getActivity().findViewById(R.id.txtMemberType);
         cityTxt = (TextView) getActivity().findViewById(R.id.txtCity);
         profpicImg = (ImageView) getActivity().findViewById(R.id.imgProfpic);
+        editUsernameTxt = (EditText) getActivity().findViewById(R.id.txtEditUsername);
+        editCityTxt = (EditText) getActivity().findViewById(R.id.txtEditCity);
 
         setLargeImageViews();
 
@@ -282,11 +301,31 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void setEditMode() {
-        isEditMode = true;
-        uploadImageBtn.setVisibility(View.VISIBLE);
+        setViewsVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt});
+        setViewsInVisible(new View[]{usernameTxt, cityTxt, memberTypetxt});
+        editUsernameTxt.setText(username);
+        editCityTxt.setText(city);
         ogActionBar = currentActionBar;
         currentActionBar = profileEditActionBar();
+        setMenuItemIcon(modeMenuItem, R.drawable.viewmode_icon);
         showShortToast(getActivity().getString(R.string.edit_your_profile));
+        isEditMode = true;
+    }
+
+
+    @Override
+    public void setViewMode() {
+        setViewsVisible(new View[]{usernameTxt, cityTxt, memberTypetxt});
+        setViewsInVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt});
+        currentActionBar = ogActionBar;
+        setMenuItemIcon(modeMenuItem, R.drawable.edit_icon);
+        showShortToast("Exited Edit mode");
+        isEditMode = false;
+    }
+
+    @Override
+    public MenuItem getModeMenuItem() {
+        return modeMenuItem;
     }
 
     @Override
@@ -329,14 +368,6 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         ActionBar me = this.activity.getSupportActionBar();
         me.setTitle("Save");
         return  me;
-    }
-
-    @Override
-    public void setViewMode() {
-        uploadImageBtn.setVisibility(View.GONE);
-        currentActionBar = ogActionBar;
-        showShortToast("Exited Edit mode");
-        isEditMode = false;
     }
 
     @Override

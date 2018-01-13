@@ -25,6 +25,7 @@ public class ProfileActivity  extends BaseAsyncActivity implements IProfileView 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.profile_menu, menu);
+        getPresenter().configureActionBarItems(menu);
         return super.onCreateOptionsMenu(menu);
     }
 

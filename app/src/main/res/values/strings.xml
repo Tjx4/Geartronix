@@ -54,4 +54,6 @@
     <string name="contact_us">Contact us</string>
     <string name="find_us">Find us</string>
     <string name="help">Help</string>
+    <string name="create_username">Create username...</string>
+    <string name="enter_city">Enter your city</string>
 </resources>

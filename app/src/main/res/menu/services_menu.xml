@@ -9,6 +9,12 @@
         app:showAsAction="always"/>
 
     <item
+        android:id="@+id/action_general_checkup"
+        android:icon="@drawable/general_service_icon"
+        android:title="Check up /diagnostics"
+        app:showAsAction="never|always"/>
+
+    <item
         android:id="@+id/action_help"
         android:icon="@drawable/help_icon"
         android:title="@string/help"
