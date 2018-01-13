@@ -314,7 +314,7 @@ public abstract class BasePresenter {
         return  pic;
     }
 
-    protected AlertDialog.Builder setupBasicMessage(String message, String title){
+    protected AlertDialog.Builder setupBasicMessage(String message, String title, boolean showNagativeButton, boolean showNutralButton){
 
         AlertDialog.Builder ab = new AlertDialog.Builder(activity, R.style.AlertDialogCustom);
         ab.setMessage(message)
@@ -326,22 +326,51 @@ public abstract class BasePresenter {
                     }
                 });
 
+        if(showNagativeButton) {
+            ab.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    onNagativeButtonClicked(dialogInterface, i);
+                }
+            });
+        }
+
+        /*
+        if(showNutralButton) {
+            ab.setNeutralButton(R.string.cancel, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
+        }
+        */
+
         return ab;
     }
     private void showMessage(AlertDialog.Builder ab) {
         AlertDialog a = ab.create();
         a.show();
+        a.getButton(a.BUTTON_NEGATIVE).setTextColor(activity.getResources().getColor(R.color.textWhite));
+        a.getButton(a.BUTTON_POSITIVE).setTextColor(activity.getResources().getColor(R.color.textWhite));
+        a.getButton(a.BUTTON_NEUTRAL).setTextColor(activity.getResources().getColor(R.color.textWhite));
     }
 
     protected void showSuccessMessage(String message, String title) {
-        AlertDialog.Builder ab = setupBasicMessage(message, title);
+        AlertDialog.Builder ab = setupBasicMessage(message, title, false, false);
         ab.setIcon(R.drawable.success_icon);
         showMessage(ab);
     }
 
     protected void showErrorMessage(String message, String title) {
-        AlertDialog.Builder ab = setupBasicMessage(message, title);
+        AlertDialog.Builder ab = setupBasicMessage(message, title, false, false);
         ab.setIcon(R.drawable.error_icon);
+        showMessage(ab);
+    }
+
+    protected void showConfirmMessage(String message, String title, boolean showNagativeButton, boolean showNutralButton) {
+        AlertDialog.Builder ab = setupBasicMessage(message, title, showNagativeButton, showNutralButton);
+        ab.setIcon(R.drawable.confirm_icon);
         showMessage(ab);
     }
 

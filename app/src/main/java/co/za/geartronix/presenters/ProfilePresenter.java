@@ -2,6 +2,7 @@ package co.za.geartronix.presenters;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
@@ -148,7 +149,10 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void handleViewClickedEvent(View view) {
-        if(!isEditMode)
+        boolean isUploadPropic = view.getId() == R.id.imgBtnuploadImage;
+        boolean viewMode = !isEditMode;
+
+        if(viewMode || isUploadPropic)
             blinkView(view, 30, 70);
     }
 
@@ -253,9 +257,28 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     }
 
     @Override
+    public boolean isProfileChanged() {
+        String newUsername = editUsernameTxt.getText().toString().trim();
+        String newCity = editCityTxt.getText().toString().trim();
+
+        if(newUsername.isEmpty() && newCity.isEmpty())
+            return false;
+
+        boolean usernameChanged = !newUsername.equals(username);
+        boolean cityChanged = !newCity.equals(city);
+
+        return usernameChanged || cityChanged;
+    }
+
+    @Override
     public void addCar(View view) {
         showShortToast("Add new car");
         // Start activity for result = Add a car
+    }
+
+    @Override
+    public void updateProfile() {
+        showShortToast("Profile updated...");
     }
 
     @Override
@@ -315,12 +338,15 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void setViewMode() {
+        if(isProfileChanged())
+            confirmChanges();
+
         setViewsVisible(new View[]{usernameTxt, cityTxt, memberTypetxt});
         setViewsInVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt});
         currentActionBar = ogActionBar;
         setMenuItemIcon(modeMenuItem, R.drawable.edit_icon);
-        showShortToast("Exited Edit mode");
         isEditMode = false;
+        //showShortToast(getActivity().getString(R.string.profile_editmode_exited));
     }
 
     @Override
@@ -336,6 +362,21 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     @Override
     public void setCarsCount(int count) {
         carsCountTxt.setText(count+"");
+    }
+
+    @Override
+    protected void onPositiveDialogButtonClicked(DialogInterface dialogInterface, int i) {
+        updateProfile();
+    }
+
+    @Override
+    protected void onNagativeButtonClicked(DialogInterface dialogInterface, int i) {
+        showShortToast("Changes not applied.");
+    }
+
+    @Override
+    public void confirmChanges() {
+        showConfirmMessage(getActivity().getString(R.string.profile_change_confirmation_message), getActivity().getString(R.string.confirm), true, false);
     }
 
     @Override
