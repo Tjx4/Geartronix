@@ -324,7 +324,7 @@ public abstract class BasePresenter {
         AlertDialog.Builder ab = new AlertDialog.Builder(activity, R.style.AlertDialogCustom);
         ab.setMessage(message)
                 .setTitle(title)
-                .setPositiveButton(activity.getString(R.string.ok), new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         onPositiveDialogButtonClicked(dialogInterface,  i);
@@ -332,7 +332,7 @@ public abstract class BasePresenter {
                 });
 
         if(showNagativeButton) {
-            ab.setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
+            ab.setNegativeButton(R.string.No, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     onNagativeButtonClicked(dialogInterface, i);

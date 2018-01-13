@@ -51,7 +51,7 @@
                             /> -->
 
                             <android.support.v7.widget.CardView
-                                android:id="@+id/view2"
+                                android:id="@+id/viewUserProf"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:layout_centerHorizontal="true"

@@ -51,6 +51,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     private ImageView moreBtn, saveBtn;
     private MenuItem settingsMenuItem, modeMenuItem, saveMenuItem;
     private FrameLayout overLayfrm, overLayfrm2;
+    private View profContainerFrm;
 
     public ProfilePresenter(IProfileView iProfileView) {
         super((BaseActivity)iProfileView);
@@ -222,12 +223,12 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         overLayfrm2 = (FrameLayout) getActivity().findViewById(R.id.frmOverlay2);
         moreBtn = (ImageButton) getActivity().findViewById(R.id.btnMore);
         saveBtn = (ImageButton) getActivity().findViewById(R.id.btnSave);
+        profContainerFrm = getActivity().findViewById(R.id.frmProfPicContainer);
 
         overLayfrm.animate().alpha(0.0f).setDuration(imageAnimationDuration);
         overLayfrm2.animate().alpha(0.0f).setDuration(imageAnimationDuration);
 
         setLargeImageViews();
-
         setProfileDetails();
     }
 
@@ -386,6 +387,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         saveMenuItem.setVisible(true);
         settingsMenuItem.setVisible(false);
         setMenuItemIcon(modeMenuItem, R.drawable.cancell_icon);
+        profContainerFrm.animate().setDuration(200).translationYBy(-30).start();
         isEditMode = true;
         //showShortToast(getActivity().getString(R.string.edit_your_profile));
     }
@@ -400,6 +402,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         saveMenuItem.setVisible(false);
         settingsMenuItem.setVisible(true);
         setMenuItemIcon(modeMenuItem, R.drawable.edit_icon);
+        profContainerFrm.animate().setDuration(200).translationYBy(30).start();
         isEditMode = false;
         //showShortToast(getActivity().getString(R.string.profile_editmode_exited));
     }
