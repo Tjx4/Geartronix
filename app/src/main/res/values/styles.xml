@@ -124,6 +124,12 @@
     <style name="mediumTextBox" parent="geartronixTextBox">
         <item name="android:layout_height">@dimen/medium_textbox_height</item>
     </style>
+    <style name="viewOverlay">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/overlayViewColor</item>
+        <item name="android:visibility">gone</item>
+    </style>
 
     <style name="profileEditorTextBox" parent="mediumTextBox">
         <item name="android:layout_height">25dp</item>

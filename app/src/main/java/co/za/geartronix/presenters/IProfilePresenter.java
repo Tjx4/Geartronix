@@ -24,6 +24,7 @@ interface IProfilePresenter  extends IBaseAsyncPresenter {
     void setMessageCount(int count);
     void setCarsCount(int count);
     void confirmChanges();
+    void saveChanges();
     void setPointsCount(int count);
     MenuItem getModeMenuItem();
     void setUsername(String username);

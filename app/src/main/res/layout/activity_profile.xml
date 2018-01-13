@@ -27,7 +27,8 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="4dp">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -67,9 +68,9 @@
                                     android:layout_height="match_parent"
                                     android:layout_alignParentTop="true"
                                     android:layout_centerHorizontal="true"
+                                    android:onClick="onViewClickedEvent"
                                     android:scaleType="fitXY"
-                                    app:srcCompat="@mipmap/user_icon"
-                                    android:onClick="onViewClickedEvent">
+                                    app:srcCompat="@mipmap/user_icon">
                                 </ImageView>
 
                                 <ImageButton
@@ -91,8 +92,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:layout_marginEnd="30dp"
-                            android:layout_marginRight="30dp"
+                            android:layout_marginRight="40dp"
                             android:layout_marginTop="10dp"
                             android:layout_toEndOf="@+id/frmProfPicContainer"
                             android:layout_toRightOf="@+id/frmProfPicContainer"
@@ -112,8 +112,9 @@
                                 android:textColor="@color/testGreen"
                                 android:textSize="20sp"/>
 
-                            <EditText style="@style/profileEditorTextBox"
+                            <EditText
                                 android:id="@+id/txtEditUsername"
+                                style="@style/profileEditorTextBox"
                                 android:hint="@string/create_username"/>
 
                             <TextView
@@ -136,322 +137,360 @@
                                 android:textColor="@color/textWhite"
                                 android:textSize="15sp"/>
 
-                            <EditText style="@style/profileEditorTextBox"
-                                      android:id="@+id/txtEditCity"
-                                      android:hint="@string/enter_city"/>
+                            <EditText
+                                android:id="@+id/txtEditCity"
+                                style="@style/profileEditorTextBox"
+                                android:hint="@string/enter_city"/>
 
                         </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/imgMore"
+                        <ImageButton
+                            android:id="@+id/btnMore"
                             android:layout_width="30dp"
                             android:layout_height="32dp"
                             android:layout_alignParentRight="true"
                             android:layout_marginRight="10dp"
                             android:layout_marginTop="13dp"
-                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
                             android:onClick="onViewClickedEvent"
                             android:scaleType="fitCenter"
                             app:srcCompat="@mipmap/more_icon"/>
+
+
+                        <ImageButton
+                            android:id="@+id/btnSave"
+                            android:layout_width="30dp"
+                            android:layout_height="32dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="13dp"
+                            android:background="@android:color/transparent"
+                            android:onClick="onViewClickedEvent"
+                            android:scaleType="fitCenter"
+                            android:visibility="gone"
+                            app:srcCompat="@android:drawable/ic_menu_save"/>
+
+
                     </RelativeLayout>
 
                 </FrameLayout>
 
                 <FrameLayout
-                    android:layout_width="320dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:orientation="horizontal">
+                    android:layout_width="match_parent"
+                    android:layout_height="85dp"
+                    >
 
                     <LinearLayout
-                        android:id="@+id/lnrViewPoints"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="start"
-                        android:onClick="onViewClickedEvent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/txtPointsCount"
-                            style="@style/profileLabel1Count"
-                            android:text="0"/>
-
-                        <TextView
-                            android:id="@+id/textView1a"
-                            style="@style/profileLabel1"
-                            android:text="@string/points"/>
-
-                        <FrameLayout style="@style/profUnderLiner"/>
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:id="@+id/lnrViewMessages"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
-                        android:layout_marginEnd="60dp"
-                        android:layout_marginLeft="60dp"
-                        android:layout_marginRight="60dp"
-                        android:layout_marginStart="60dp"
-                        android:onClick="onViewClickedEvent"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/txtMessageCount"
-                            style="@style/profileLabel1Count"
-                            android:text="0"/>
+                        <LinearLayout
+                            android:id="@+id/lnrViewPoints"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="start"
+                            android:onClick="onViewClickedEvent"
+                            android:orientation="vertical">
 
-                        <TextView
-                            android:id="@+id/textView2a"
-                            style="@style/profileLabel1"
-                            android:text="@string/messages"/>
+                            <TextView
+                                android:id="@+id/txtPointsCount"
+                                style="@style/profileLabel1Count"
+                                android:text="0"/>
 
-                        <FrameLayout style="@style/profUnderLiner"/>
+                            <TextView
+                                android:id="@+id/textView1a"
+                                style="@style/profileLabel1"
+                                android:text="@string/points"/>
+
+                            <FrameLayout style="@style/profUnderLiner"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lnrViewMessages"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginEnd="60dp"
+                            android:layout_marginLeft="60dp"
+                            android:layout_marginRight="60dp"
+                            android:layout_marginStart="60dp"
+                            android:onClick="onViewClickedEvent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txtMessageCount"
+                                style="@style/profileLabel1Count"
+                                android:text="0"/>
+
+                            <TextView
+                                android:id="@+id/textView2a"
+                                style="@style/profileLabel1"
+                                android:text="@string/messages"/>
+
+                            <FrameLayout style="@style/profUnderLiner"/>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/lnrViewCars"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="end"
+                            android:onClick="onViewClickedEvent"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/txtCarsCount"
+                                style="@style/profileLabel1Count"
+                                android:text="0"/>
+
+                            <TextView
+                                android:id="@+id/textView3a"
+                                style="@style/profileLabel1"
+                                android:text="@string/cars"/>
+
+                            <FrameLayout style="@style/profUnderLiner"/>
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:id="@+id/lnrViewCars"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="end"
-                        android:onClick="onViewClickedEvent"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:id="@+id/txtCarsCount"
-                            style="@style/profileLabel1Count"
-                            android:text="0"/>
-
-                        <TextView
-                            android:id="@+id/textView3a"
-                            style="@style/profileLabel1"
-                            android:text="@string/cars"/>
-
-                        <FrameLayout style="@style/profUnderLiner"/>
-
-                    </LinearLayout>
+                    <FrameLayout
+                        android:id="@+id/frmOverlay1"
+                        style="@style/viewOverlay"
+                        android:layout_gravity="center"/>
 
                 </FrameLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/frmUserInfoContainer"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/colorgreyBg"
-                android:gravity="top"
-                android:orientation="vertical"
-                android:paddingBottom="50dp"
-                android:paddingEnd="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingStart="10dp"
-                android:paddingTop="0dp">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
+                    android:id="@+id/frmUserInfoContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="40dp"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
-
-                    <FrameLayout
-                        style="@style/profileBarContainer"
-                        android:layout_marginRight="30dp">
-
-
-                        <ProgressBar
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:max="100"
-                            android:progress="100"
-                            android:progressDrawable="@drawable/circular_progressbar_track"/>
-
-                        <ProgressBar
-                            android:id="@+id/progressBar1"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:max="100"
-                            android:progress="0"
-                            android:progressDrawable="@drawable/circular_progressbar_progress"/>
-
-                        <LinearLayout style="@style/profileBarSubContainer">
-
-                            <TextView
-                                android:id="@+id/txtBarInfo1"
-                                style="@style/profileBarInfo1"
-                                android:text="0,000"/>
-
-                            <TextView
-                                android:id="@+id/txtBarInfo2"
-                                style="@style/profileBarInfo2"
-                                android:text="0,00"/>
-
-                        </LinearLayout>
-
-                    </FrameLayout>
-
-                    <FrameLayout style="@style/profileBarContainer">
-
-                        <ProgressBar
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:max="100"
-                            android:progress="100"
-                            android:progressDrawable="@drawable/circular_progressbar_track"/>
-
-                        <ProgressBar
-                            android:id="@+id/progressBar2"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:max="100"
-                            android:progress="0"
-                            android:progressDrawable="@drawable/circular_progressbar_progress"/>
-
-                        <LinearLayout style="@style/profileBarSubContainer">
-
-                            <TextView
-                                android:id="@+id/txtBarInfo1b"
-                                style="@style/profileBarInfo1"
-                                android:text="0,000"/>
-
-                            <TextView
-                                android:id="@+id/txtBarInfo2b"
-                                style="@style/profileBarInfo2"
-                                android:text="0,00"/>
-
-                        </LinearLayout>
-
-                    </FrameLayout>
-
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="0dp"
-                    android:background="@android:color/transparent"
-                    android:gravity="center_horizontal"
+                    android:background="@color/colorgreyBg"
+                    android:gravity="top"
                     android:orientation="vertical"
-                    android:paddingBottom="40dp"
+                    android:paddingBottom="50dp"
                     android:paddingEnd="10dp"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
                     android:paddingStart="10dp"
                     android:paddingTop="0dp">
 
-                    <RelativeLayout
-                        android:id="@+id/rltvAddnewCar"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:onClick="onViewClickedEvent"
-                        android:paddingEnd="15dp"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:paddingStart="15dp">
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="40dp"
+                        android:gravity="center_horizontal"
+                        android:orientation="horizontal">
 
-                        <TextView
-                            android:id="@+id/textView4"
-                            style="@style/profileLabel2"
-                            android:text="Add a new car to your profile "/>
-
-                        <ImageView
-                            android:id="@+id/imgAddicon"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerInParent="true"
-                            android:layout_gravity="center"
-                            android:background="@android:color/transparent"
-                            android:scaleType="fitXY"
-                            app:srcCompat="@android:drawable/ic_menu_add"/>
-
-                    </RelativeLayout>
-
-                    <FrameLayout style="@style/profileDividerLine"/>
+                        <FrameLayout
+                            style="@style/profileBarContainer"
+                            android:layout_marginRight="30dp">
 
 
-                    <RelativeLayout
-                        android:id="@+id/rltvbookAService"
+                            <ProgressBar
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:max="100"
+                                android:progress="100"
+                                android:progressDrawable="@drawable/circular_progressbar_track"/>
+
+                            <ProgressBar
+                                android:id="@+id/progressBar1"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:max="100"
+                                android:progress="0"
+                                android:progressDrawable="@drawable/circular_progressbar_progress"/>
+
+                            <LinearLayout style="@style/profileBarSubContainer">
+
+                                <TextView
+                                    android:id="@+id/txtBarInfo1"
+                                    style="@style/profileBarInfo1"
+                                    android:text="0,000"/>
+
+                                <TextView
+                                    android:id="@+id/txtBarInfo2"
+                                    style="@style/profileBarInfo2"
+                                    android:text="0,00"/>
+
+                            </LinearLayout>
+
+                        </FrameLayout>
+
+                        <FrameLayout style="@style/profileBarContainer">
+
+                            <ProgressBar
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:max="100"
+                                android:progress="100"
+                                android:progressDrawable="@drawable/circular_progressbar_track"/>
+
+                            <ProgressBar
+                                android:id="@+id/progressBar2"
+                                style="?android:attr/progressBarStyleHorizontal"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:max="100"
+                                android:progress="0"
+                                android:progressDrawable="@drawable/circular_progressbar_progress"/>
+
+                            <LinearLayout style="@style/profileBarSubContainer">
+
+                                <TextView
+                                    android:id="@+id/txtBarInfo1b"
+                                    style="@style/profileBarInfo1"
+                                    android:text="0,000"/>
+
+                                <TextView
+                                    android:id="@+id/txtBarInfo2b"
+                                    style="@style/profileBarInfo2"
+                                    android:text="0,00"/>
+
+                            </LinearLayout>
+
+                        </FrameLayout>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:onClick="onViewClickedEvent"
-                        android:paddingEnd="15dp"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:paddingStart="15dp">
+                        android:layout_height="wrap_content"
+                        android:layout_margin="0dp"
+                        android:background="@android:color/transparent"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical"
+                        android:paddingBottom="40dp"
+                        android:paddingEnd="10dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingStart="10dp"
+                        android:paddingTop="0dp">
 
-                        <TextView
-                            android:id="@+id/textV4"
-                            style="@style/profileLabel2"
-                            android:layout_toLeftOf="@+id/imgAddicon2"
-                            android:text="Book a service"/>
+                        <RelativeLayout
+                            android:id="@+id/rltvAddnewCar"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:onClick="onViewClickedEvent"
+                            android:paddingEnd="15dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingStart="15dp">
 
-                        <ImageView
-                            android:id="@+id/imgAddicon2"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center"
-                            android:background="@android:color/transparent"
-                            android:scaleType="fitXY"
-                            app:srcCompat="@android:drawable/ic_menu_recent_history"/>
+                            <TextView
+                                android:id="@+id/textView4"
+                                style="@style/profileLabel2"
+                                android:text="Add a new car to your profile "/>
 
-                    </RelativeLayout>
+                            <ImageView
+                                android:id="@+id/imgAddicon"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:scaleType="fitXY"
+                                app:srcCompat="@android:drawable/ic_menu_add"/>
 
-                    <FrameLayout
-                        style="@style/profileDividerLine"
-                        />
+                        </RelativeLayout>
+
+                        <FrameLayout style="@style/profileDividerLine"/>
 
 
-                    <RelativeLayout
-                        android:id="@+id/rltvAskAquestion"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:onClick="onViewClickedEvent"
-                        android:paddingEnd="15dp"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="15dp"
-                        android:paddingStart="15dp">
+                        <RelativeLayout
+                            android:id="@+id/rltvbookAService"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:onClick="onViewClickedEvent"
+                            android:paddingEnd="15dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingStart="15dp">
 
-                        <TextView
-                            android:id="@+id/textV5"
-                            style="@style/profileLabel2"
-                            android:layout_toLeftOf="@+id/imgAddicon3"
-                            android:text="@string/ask_geartronix_a_question"/>
+                            <TextView
+                                android:id="@+id/textV4"
+                                style="@style/profileLabel2"
+                                android:layout_toLeftOf="@+id/imgAddicon2"
+                                android:text="Book a service"/>
 
-                        <ImageView
-                            android:id="@+id/imgAddicon3"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_alignParentRight="true"
-                            android:layout_centerInParent="true"
-                            android:layout_gravity="center"
-                            android:background="@android:color/transparent"
-                            android:scaleType="fitXY"
-                            app:srcCompat="@android:drawable/ic_menu_info_details"/>
+                            <ImageView
+                                android:id="@+id/imgAddicon2"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_alignParentEnd="true"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:scaleType="fitXY"
+                                app:srcCompat="@android:drawable/ic_menu_recent_history"/>
 
-                    </RelativeLayout>
+                        </RelativeLayout>
 
-                    <FrameLayout
-                        style="@style/profileDividerLine"
-                        android:visibility="gone"/>
+                        <FrameLayout
+                            style="@style/profileDividerLine"
+                            />
+
+
+                        <RelativeLayout
+                            android:id="@+id/rltvAskAquestion"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:onClick="onViewClickedEvent"
+                            android:paddingEnd="15dp"
+                            android:paddingLeft="15dp"
+                            android:paddingRight="15dp"
+                            android:paddingStart="15dp">
+
+                            <TextView
+                                android:id="@+id/textV5"
+                                style="@style/profileLabel2"
+                                android:layout_toLeftOf="@+id/imgAddicon3"
+                                android:text="@string/ask_geartronix_a_question"/>
+
+                            <ImageView
+                                android:id="@+id/imgAddicon3"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_alignParentRight="true"
+                                android:layout_centerInParent="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:scaleType="fitXY"
+                                app:srcCompat="@android:drawable/ic_menu_info_details"/>
+
+                        </RelativeLayout>
+
+                        <FrameLayout
+                            style="@style/profileDividerLine"
+                            android:visibility="gone"/>
+
+                    </LinearLayout>
+
 
                 </LinearLayout>
 
+                <FrameLayout style="@style/viewOverlay"
+                    android:id="@+id/frmOverlay2" />
 
-            </LinearLayout>
+            </FrameLayout>
 
 
         </LinearLayout>

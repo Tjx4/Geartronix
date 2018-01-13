@@ -436,4 +436,8 @@ public abstract class BasePresenter {
             view.setVisibility(View.GONE);
         }
     }
+
+    public void handleBackButtonPressed(){
+        showShortToast("Base handleBackButtonPressed");
+    }
 }

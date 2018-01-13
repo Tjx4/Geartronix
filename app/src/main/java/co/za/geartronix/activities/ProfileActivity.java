@@ -54,7 +54,7 @@ public class ProfileActivity  extends BaseAsyncActivity implements IProfileView 
     @Override
     public void onBackPressed() {
         if(getPresenter().isEditMode) {
-            getPresenter().setViewMode();
+            getPresenter().handleBackButtonPressed();
         }
         else {
 

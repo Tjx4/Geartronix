@@ -40,14 +40,16 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     private ProgressBar progressBar1, progressBar2;
     private int points;
     private Bitmap profpic;
-    private String city;
+    private String city, newUsername, newCity;
     private MemberModel memberType;
     private List<MessageModel> messages;
     private List<CarProvider> cars;
     private ProgressBarModel progressbar1Values, progressbar2Values;
     private TextView usernameTxt, memberTypetxt, cityTxt,pointsCountTxt, messageCountTxt, carsCountTxt, editUsernameTxt, editCityTxt;
     private ImageView profpicImg;
+    private ImageView moreBtn, saveBtn;
     private MenuItem modeMenuItem;
+    private FrameLayout overLayfrm, overLayfrm2;
 
     public ProfilePresenter(IProfileView iProfileView) {
         super((BaseActivity)iProfileView);
@@ -114,7 +116,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
             askQuestion(view);
         else if(clickedViewId == R.id.imgBtnuploadImage)
             uploadPicture(view);
-        else if(clickedViewId == R.id.imgMore)
+        else if(clickedViewId == R.id.btnMore)
             showMoreOptions(view);
         else if(clickedViewId == R.id.lnrViewCars)
             viewCars(view);
@@ -124,6 +126,14 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
             viewPoints(view);
         else if(clickedViewId == R.id.imgProfpic)
             showPanels(view);
+        else if(clickedViewId == R.id.btnSave){
+            if(isProfileChanged())
+                saveChanges();
+            else
+                showShortToast("Please make changes to your profile before saving");
+            //showErrorMessage("Please enter a username or city before attempting to update your profile", "Update error!");
+
+        }
 
         handleEnlargedImageMethods(view);
     }
@@ -140,19 +150,33 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     }
 
     @Override
+    public void handleBackButtonPressed(){
+        if(isProfileChanged())
+            confirmChanges();
+
+        setViewMode();
+    }
+
+    @Override
     public void toggleModes() {
-        if(isEditMode)
+        if(isEditMode) {
+            if(isProfileChanged())
+                confirmChanges();
+
             setViewMode();
-        else
+        }
+        else{
             setEditMode();
+        }
     }
 
     @Override
     public void handleViewClickedEvent(View view) {
         boolean isUploadPropic = view.getId() == R.id.imgBtnuploadImage;
+        boolean isSaveUpdate = view.getId() == R.id.btnSave;
         boolean viewMode = !isEditMode;
 
-        if(viewMode || isUploadPropic)
+        if(viewMode || isUploadPropic || isSaveUpdate)
             blinkView(view, 30, 70);
     }
 
@@ -176,6 +200,10 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         profpicImg = (ImageView) getActivity().findViewById(R.id.imgProfpic);
         editUsernameTxt = (EditText) getActivity().findViewById(R.id.txtEditUsername);
         editCityTxt = (EditText) getActivity().findViewById(R.id.txtEditCity);
+        overLayfrm = (FrameLayout) getActivity().findViewById(R.id.frmOverlay1);
+        overLayfrm2 = (FrameLayout) getActivity().findViewById(R.id.frmOverlay2);
+        moreBtn = (ImageButton) getActivity().findViewById(R.id.btnMore);
+        saveBtn = (ImageButton) getActivity().findViewById(R.id.btnSave);
 
         setLargeImageViews();
 
@@ -258,8 +286,8 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public boolean isProfileChanged() {
-        String newUsername = editUsernameTxt.getText().toString().trim();
-        String newCity = editCityTxt.getText().toString().trim();
+        newUsername = editUsernameTxt.getText().toString().trim();
+        newCity = editCityTxt.getText().toString().trim();
 
         if(newUsername.isEmpty() && newCity.isEmpty())
             return false;
@@ -278,7 +306,9 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void updateProfile() {
-        showShortToast("Profile updated...");
+        setUsername(newUsername);
+        setCity(newCity);
+        showShortToast(getActivity().getString(R.string.profile_update_success_message));
     }
 
     @Override
@@ -324,8 +354,8 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void setEditMode() {
-        setViewsVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt});
-        setViewsInVisible(new View[]{usernameTxt, cityTxt, memberTypetxt});
+        setViewsVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt, overLayfrm, overLayfrm2, saveBtn});
+        setViewsInVisible(new View[]{usernameTxt, cityTxt, memberTypetxt, moreBtn});
         editUsernameTxt.setText(username);
         editCityTxt.setText(city);
         ogActionBar = currentActionBar;
@@ -338,11 +368,8 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void setViewMode() {
-        if(isProfileChanged())
-            confirmChanges();
-
-        setViewsVisible(new View[]{usernameTxt, cityTxt, memberTypetxt});
-        setViewsInVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt});
+        setViewsVisible(new View[]{usernameTxt, cityTxt, memberTypetxt, moreBtn});
+        setViewsInVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt, overLayfrm, overLayfrm2, saveBtn});
         currentActionBar = ogActionBar;
         setMenuItemIcon(modeMenuItem, R.drawable.edit_icon);
         isEditMode = false;
@@ -377,6 +404,12 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     @Override
     public void confirmChanges() {
         showConfirmMessage(getActivity().getString(R.string.profile_change_confirmation_message), getActivity().getString(R.string.confirm), true, false);
+    }
+
+    @Override
+    public void saveChanges() {
+        setViewMode();
+        updateProfile();
     }
 
     @Override

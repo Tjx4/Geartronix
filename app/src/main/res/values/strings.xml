@@ -60,4 +60,6 @@
     <string name="profile_change_confirmation_message">Would you like to save changes you made to your profile</string>
     <string name="cancel">Cancel</string>
     <string name="profile_editmode_exited">Exited Edit mode</string>
+    <string name="profile_update_success_message">Profile updated...</string>
+    <string name="profile_update_heading">Updated successful</string>
 </resources>

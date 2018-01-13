@@ -25,4 +25,5 @@
     <color name="activeService">#333333</color>
     <color name="serviceArrowBackground">#f0333333</color>
     <color name="serviceDescriptionBackground">#96444444</color>
+    <color name="overlayViewColor">#D80B0909</color>
 </resources>
