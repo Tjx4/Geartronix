@@ -2,8 +2,10 @@ package co.za.geartronix.presenters;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
@@ -52,6 +54,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     private MenuItem settingsMenuItem, modeMenuItem, saveMenuItem;
     private FrameLayout overLayfrm, overLayfrm2;
     private View profContainerFrm;
+    private DialogFragment dialogFragment;
 
     public ProfilePresenter(IProfileView iProfileView) {
         super((BaseActivity)iProfileView);
@@ -143,6 +146,9 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
         }
 
+        if(dialogFragment != null)
+            dialogFragment.dismiss();
+
         handleEnlargedImageMethods(view);
     }
 
@@ -195,6 +201,12 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
         if(viewMode || isUploadPropic || isSaveUpdate)
             blinkView(view, 30, 70);
+    }
+
+
+    public void handleFragmentClickedEvent(DialogFragment dialogFragment, View view) {
+        handleViewClickedEvent(view);
+        this.dialogFragment = dialogFragment;
     }
 
     @Override

@@ -371,6 +371,7 @@ public abstract class BasePresenter {
         payload.putInt(Constants.LAYOUT, R.layout.profile_more_options_layout);
         newFragment.setArguments(payload);
         newFragment.show(ft, "dialog");
+
     }
 
 

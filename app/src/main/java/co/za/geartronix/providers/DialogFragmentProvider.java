@@ -5,9 +5,14 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.android.gms.common.ErrorDialogFragment;
+
 import co.za.geartronix.constants.Constants;
 
 public class DialogFragmentProvider extends DialogFragment {
+
+   protected View clickedView;
 
    static DialogFragmentProvider newInstance() {
         return new DialogFragmentProvider();
@@ -37,5 +42,7 @@ public class DialogFragmentProvider extends DialogFragment {
     protected void onFragmentViewClickedEvent(View view) {
         getDialog().dismiss();
     }
+
+
 
 }
