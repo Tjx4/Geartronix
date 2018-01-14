@@ -12,8 +12,10 @@ import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.MessagesActivity;
 import co.za.geartronix.adapters.MessageAdapter;
+import co.za.geartronix.constants.Constants;
 import co.za.geartronix.models.MessageModel;
 import co.za.geartronix.providers.ChatMessage;
+import co.za.geartronix.providers.MessagesCategoryProvider;
 import co.za.geartronix.views.IMessagesView;
 import static android.view.MenuItem.SHOW_AS_ACTION_ALWAYS;
 
@@ -25,6 +27,7 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
     private EditText messageTxt;
     private boolean isMine = true;
     private int recipient;
+    private int category;
     private List<ChatMessage> chatMessages;
     private ArrayAdapter<ChatMessage> adapter;
     private MenuItem recipientPic, recipientTyping;
@@ -58,6 +61,9 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
     }
 
     protected void initMessages() {
+
+        category = getActivity().getIntent().getExtras().getInt(Constants.TYPEID);
+
         chatMessages = new ArrayList<>();
         adapter = new MessageAdapter(getActivity(), R.layout.item_chat_left, chatMessages);
         listView.setAdapter(adapter);

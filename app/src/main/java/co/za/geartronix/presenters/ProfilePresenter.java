@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,6 +17,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -25,6 +27,7 @@ import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.ProfileActivity;
+import co.za.geartronix.constants.Constants;
 import co.za.geartronix.models.NamesModel;
 import co.za.geartronix.models.ProfileModel;
 import co.za.geartronix.models.CarModel;
@@ -49,15 +52,19 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     private MemberModel memberType;
     private List<MessageModel> messages;
     private List<CarModel> cars;
+    private ListView carsLst;
     private ProgressBarModel progressbar1Values, progressbar2Values;
     private TextView usernameTxt, memberTypetxt, cityTxt,pointsCountTxt, messageCountTxt, carsCountTxt, editUsernameTxt, editCityTxt;
     private ImageView profpicImg;
     private ImageView moreBtn, saveBtn;
     private MenuItem settingsMenuItem, modeMenuItem, saveMenuItem;
     private FrameLayout overLayfrm, overLayfrm2;
+    private RelativeLayout carViewContainerRltv;
+    private Fragment carViewContainerFrag;
     private RelativeLayout userInfoRltv;
     private View profContainerFrm;
     private DialogFragment dialogFragment;
+    private ImageButton closeCarViewBtn;
 
     public ProfilePresenter(IProfileView iProfileView) {
         super((BaseActivity)iProfileView);
@@ -142,6 +149,8 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
             viewMessages(view);
         else if(clickedViewId == R.id.btnSave)
             checkAndSave();
+        else if(clickedViewId == R.id.btnCloseCarView)
+            closeCarView();
 
         if(dialogFragment != null)
             dialogFragment.dismiss();
@@ -246,8 +255,11 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         editCityTxt = (EditText) getActivity().findViewById(R.id.txtEditCity);
         overLayfrm = (FrameLayout) getActivity().findViewById(R.id.frmOverlay1);
         overLayfrm2 = (FrameLayout) getActivity().findViewById(R.id.frmOverlay2);
+        carsLst = (ListView) getActivity().findViewById(R.id.lstCars);
         moreBtn = (ImageButton) getActivity().findViewById(R.id.btnMore);
         saveBtn = (ImageButton) getActivity().findViewById(R.id.btnSave);
+        carViewContainerRltv = (RelativeLayout) getActivity().findViewById(R.id.rltvCarViewContainer);
+        //closeCarViewBtn = (ImageButton) getActivity().findViewById(R.id.btnCloseCarView);
         userInfoRltv = (RelativeLayout) getActivity().findViewById(R.id.rltvUserInfo);
         profContainerFrm = getActivity().findViewById(R.id.frmProfPicContainer);
 
@@ -396,7 +408,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     @Override
     public void viewMessages(View view) {
         Bundle extras = new Bundle();
-        extras.putInt("typeId", MessagesCategoryProvider.inbox.getId());
+        extras.putInt(Constants.TYPEID, MessagesCategoryProvider.inbox.getId());
         goToInbox(extras);
     }
 
@@ -414,12 +426,21 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void viewCars(View view) {
-        showShortToast("view cars");
+
+
+        carViewContainerRltv.setVisibility(View.VISIBLE);
+        // view car list
+    }
+
+    @Override
+    public void closeCarView() {
+        carViewContainerRltv.setVisibility(View.GONE);
         // view car list
     }
 
     @Override
     public void setEditMode() {
+        closeCarView();
         setViewsVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt, overLayfrm, overLayfrm2});
         fadeInOverlay(overLayfrm);
         fadeInOverlay(overLayfrm2);

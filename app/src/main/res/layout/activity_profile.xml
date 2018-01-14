@@ -504,4 +504,43 @@
              android:layout_width="match_parent"
              android:layout_height="match_parent" />
 
+    <RelativeLayout
+        android:id="@+id/rltvCarViewContainer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <fragment
+            android:id="@+id/fragCareViewContainer"
+            android:name="co.za.geartronix.fragments.CarViewFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"/>
+
+
+        <RelativeLayout
+            android:id="@+id/rltvClosePanel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true">
+
+            <ImageButton
+                android:id="@+id/btnCloseCarView"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_margin="8dp"
+                android:background="@android:color/transparent"
+                android:onClick="onViewClickedEvent"
+                app:srcCompat="@drawable/close_icon_dark"/>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
 </FrameLayout>

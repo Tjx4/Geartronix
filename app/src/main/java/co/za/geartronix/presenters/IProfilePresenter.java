@@ -12,6 +12,7 @@ interface IProfilePresenter  extends IBaseAsyncPresenter {
     boolean isProfileChanged();
     void checkAndSave();
     void addCar(View view);
+    void closeCarView();
     void updateProfile();
     void bookAService(View view);
     void askQuestion(View view);
