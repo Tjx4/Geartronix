@@ -50,7 +50,7 @@ public abstract class BasePresenter {
     protected String BASE_LOG = "base_log";
     protected String username, pageTitle;
     public BaseActivity activity;
-    protected int userId, clickedViewId, deviceOrientation;
+    protected int userId, clickedViewId, deviceOrientation, verticalSlideHeit, horizontalSlideWidth;
     private Animation animate;
     protected ActionBar currentActionBar, ogActionBar;
     public boolean isBack;
@@ -505,11 +505,10 @@ public abstract class BasePresenter {
 
 
     protected void slideUpView(View view) {
-
         final View currentView = view;
 
         currentView.animate()
-                .translationYBy(-getScreenHeight())
+                .translationYBy(-setVerticalSlideLength(verticalSlideHeit))
                 .setDuration(600)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
@@ -523,7 +522,7 @@ public abstract class BasePresenter {
         view.setVisibility(View.VISIBLE);
 
         view.animate()
-                .translationYBy(getScreenHeight())
+                .translationYBy(setVerticalSlideLength(verticalSlideHeit))
                 .setDuration(600)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
@@ -532,13 +531,11 @@ public abstract class BasePresenter {
                 });
     }
 
-
     protected void slideOutView(View view) {
-
         final View currentView = view;
 
         currentView.animate()
-                .translationXBy(-getScreenWidth())
+                .translationXBy(-setHorizontalSlideLength(horizontalSlideWidth))
                 .setDuration(500)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
@@ -552,7 +549,7 @@ public abstract class BasePresenter {
         view.setVisibility(View.VISIBLE);
 
         view.animate()
-                .translationXBy(getScreenWidth())
+                .translationXBy(setHorizontalSlideLength(horizontalSlideWidth))
                 .setDuration(500)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
@@ -561,4 +558,11 @@ public abstract class BasePresenter {
                 });
     }
 
+    private int setVerticalSlideLength(int length) {
+        return (length == 0)? getScreenHeight() : length;
+    }
+
+    private int setHorizontalSlideLength(int length) {
+        return (length == 0)? getScreenWidth() : length;
+    }
 }

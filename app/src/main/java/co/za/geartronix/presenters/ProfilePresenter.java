@@ -192,16 +192,19 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         hideKeyboard();
 
         clickedViewId = item.getItemId();
+        boolean isSettings = clickedViewId == R.id.action_settings;
+        boolean isEdit = clickedViewId == R.id.action_edit;
+        boolean isSave = clickedViewId == R.id.action_save;
 
-        if(clickedViewId == R.id.action_settings)
+        if(isSettings)
             goToSettings();
-        else if(clickedViewId == R.id.action_edit)
+        else if(isEdit)
             toggleModes();
-        else if(clickedViewId == R.id.action_save)
+        else if(isSave)
             checkAndSave();
 
         if(isCarVieOptend)
-            closeCarView(true);
+            closeCarView(isSettings);
     }
 
 
@@ -450,7 +453,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
         if(justHide)
             carViewContainerRltv.setVisibility(View.GONE);
-        else
+
             slideOutView(carViewContainerRltv);
 
         isCarVieOptend = false;
