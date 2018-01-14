@@ -104,12 +104,23 @@ public class MockProvider {
         List<CarModel> cars = new ArrayList<>();
         CarModel car = new CarModel();
         car.setMake("VW");
-        car.setColor("white");
+        car.setNumber(1);
+        car.setColor("White");
         car.setModel("Polo GTI");
         car.setModelYear(null);
         Bitmap carPic = BitmapFactory.decodeResource( activity.getResources(), R.drawable.dummy_car );
         car.setPicture(carPic);
+        CarModel car2 = new CarModel();
+        car2.setMake("Audi");
+        car2.setNumber(2);
+        car2.setColor("Blue");
+        car2.setModel("RS5");
+        car2.setModelYear(null);
+        Bitmap carPic2 = BitmapFactory.decodeResource( activity.getResources(), R.drawable.dummy_car2 );
+        car2.setPicture(carPic2);
+
         cars.add(car);
+        cars.add(car2);
         mockUser.setCars(cars);
 
         ProgressBarModel progressBar1 = new ProgressBarModel();

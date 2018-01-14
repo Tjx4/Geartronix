@@ -416,8 +416,6 @@ public abstract class BasePresenter {
     }
 
     protected void resetLastAndSetNew(View view, int defColor, int newColor) {
-        if(lastView != null && lastView != view)
-            lastView.setBackgroundColor(defColor);
 
         if(lastView == view && viewOpenState)
             view.setBackgroundColor(defColor);
@@ -425,6 +423,9 @@ public abstract class BasePresenter {
             int activeServiceColor = newColor;
             view.setBackgroundColor(activeServiceColor);
         }
+
+        if(lastView != null && lastView != view)
+            lastView.setBackgroundColor(defColor);
 
         lastView = view;
         viewOpenState = !viewOpenState;

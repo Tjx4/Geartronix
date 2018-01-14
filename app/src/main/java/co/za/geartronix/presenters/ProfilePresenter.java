@@ -218,12 +218,16 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void handleViewClickedEvent(View view) {
-        boolean isUploadPropic = view.getId() == R.id.imgBtnuploadImage;
-        boolean isSaveUpdate = view.getId() == R.id.btnSave;
+        int viewId = view.getId();
+        boolean isUploadPropic = viewId == R.id.imgBtnuploadImage;
+        boolean isSaveUpdate = viewId == R.id.btnSave;
         boolean viewMode = !isEditMode;
 
-        if(viewMode || isUploadPropic || isSaveUpdate)
+        if(viewId == R.id.lnrServiceContainer)
+            toggleSubContent(view);
+        else if(viewMode || isUploadPropic || isSaveUpdate)
             blinkView(view, 30, 70);
+
     }
 
 

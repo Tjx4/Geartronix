@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:id="@+id/lnrServiceContainer"
               android:layout_width="match_parent"
               android:layout_height="wrap_content"
               android:background="#eeeeee"
@@ -36,12 +37,39 @@
         android:paddingRight="15dp"
         android:paddingTop="14dp">
 
-        <TextView
-            android:id="@+id/txtCarName"
-            style="@style/largeLabel"
-            android:layout_margin="0dp"
-            android:text="Car"
-            android:textColor="#444444"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/txtCarName"
+                style="@style/largeLabel"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toRightOf="@+id/txtCarNumber"
+                android:layout_weight="1"
+                android:text="Car"
+                android:textColor="#444444"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp"
+                android:layout_toLeftOf="@+id/txtCarNumber"
+                android:layout_toStartOf="@+id/txtCarNumber"/>
+
+            <TextView  style="@style/largeLabel"
+                android:id="@+id/txtCarNumber"
+                android:layout_width="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:text="0"
+                android:textColor="#444444"/>
+
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

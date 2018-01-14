@@ -1,33 +1,28 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
              xmlns:tools="http://schemas.android.com/tools"
              android:layout_width="match_parent"
              android:layout_height="match_parent"
              android:background="@color/cardview_light_background"
              tools:context="co.za.geartronix.fragments.CarViewFragment">
 
-    <ScrollView
+    <TextView
+        android:id="@+id/txtHeading"
+        style="@style/largeLabel"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_alignParentTop="true"
+        android:padding="10dp"
+        android:text="Your cars"
+        android:textAlignment="center"
+        android:textColor="@color/textBlack"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+    <ListView
+        android:id="@+id/lstCars"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/txtHeading"
+        android:layout_alignParentBottom="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="5dp"
+        android:layout_below="@+id/txtHeading"/>
 
-            <TextView
-                android:id="@+id/textView"
-                style="@style/largeLabel"
-                android:layout_width="match_parent"
-                android:padding="10dp"
-                android:text="Your cars"
-                android:textAlignment="center"
-                android:textColor="@color/textBlack"/>
-
-            <ListView
-                android:id="@+id/lstCars"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </LinearLayout>
-    </ScrollView>
-
-</FrameLayout>
+</RelativeLayout>

@@ -10,6 +10,16 @@ public class CarModel {
     private String color;
     private Bitmap picture;
 
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    private int number;
+
     public String getMilage() {
         return milage;
     }

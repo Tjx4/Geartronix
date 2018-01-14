@@ -1,16 +1,10 @@
 package co.za.geartronix.presenters;
 
-import android.graphics.Color;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
-import android.widget.TextView;
 import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
@@ -19,7 +13,6 @@ import co.za.geartronix.adapters.ServicesAdapter;
 import co.za.geartronix.models.ServiceModel;
 import co.za.geartronix.models.ServicesListModel;
 import co.za.geartronix.providers.MockProvider;
-import co.za.geartronix.providers.ResizeAnimation;
 import co.za.geartronix.views.IServicesListView;
 
 public class ServicesListPresenter extends BaseAppActivityPresenter implements IServicesListPresenter {
@@ -28,8 +21,6 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
     private List<ServiceModel> services;
     private ServiceModel selectedService;
     private ListView servicesLst;
-    private int ogWidth, ogHeight;
-    private MenuItem requestMenuItem;
 
     public ServicesListPresenter(IServicesListView iGalleryView) {
         super((BaseActivity)iGalleryView);
@@ -57,88 +48,38 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
         if(ogWidth == 0)
             ogWidth = view.getWidth();
 
-        if(lastViewArrow != null && lastViewArrow != view) {
-            ViewGroup.LayoutParams lp = lastViewArrow.getLayoutParams();
+        if(lastViewSideIcon != null && lastViewSideIcon != view) {
+            ViewGroup.LayoutParams lp = lastViewSideIcon.getLayoutParams();
             lp.width = ogWidth;
-            lastViewArrow.setLayoutParams(lp);
+            lastViewSideIcon.setLayoutParams(lp);
         }
 
         ViewGroup.LayoutParams lp = view.getLayoutParams();
         lp.width = ogWidth + 10;
         view.setLayoutParams(lp);
 
-        lastViewArrow = view;
+        lastViewSideIcon = view;
 
         */
     }
 
-    private View lastTxtView, lastViewArrow;
-    private boolean openState;
+
+    @Override
+    protected void openedStateMethod() {
+        requestMenuItem.setVisible(false);
+
+    }
+
+    @Override
+    protected void closedStateMethod() {
+        requestMenuItem.setVisible(true);
+    }
 
     @Override
     public void handleViewClickedEvent(View view) {
-
-        LinearLayout parentLayout = (LinearLayout)view;
-        FrameLayout arrowImgParent = (FrameLayout)parentLayout.getChildAt(0);
-        ImageView arrowImg = (ImageView)arrowImgParent.getChildAt(0);
-
-        //blinkView(arrowImg, 30, 70);
-
-        if(ogWidth == 0) {
-            ogWidth = arrowImg.getWidth();
-            ogHeight = arrowImg.getHeight();
-        }
-
-        if(lastViewArrow != null && lastViewArrow != arrowImg) {
-            ViewGroup.LayoutParams lpOg = lastViewArrow.getLayoutParams();
-            lpOg.width = ogWidth;
-            lpOg.height = ogHeight;
-            lastViewArrow.setLayoutParams(lpOg);
-        }
-
-        if(lastViewArrow == arrowImg && openState){
-            ViewGroup.LayoutParams lpOg = arrowImg.getLayoutParams();
-            lpOg.width = ogWidth;
-            lpOg.height = ogHeight;
-            arrowImg.setLayoutParams(lpOg);
-            requestMenuItem.setVisible(false);
-        }
-        else {
-            ViewGroup.LayoutParams lp = arrowImg.getLayoutParams();
-            lp.width = ogWidth + 20;
-            lp.height = ogHeight + 20;
-            arrowImg.setLayoutParams(lp);
-            requestMenuItem.setVisible(true);
-        }
-
-        lastViewArrow = arrowImg;
-
-        resetLastAndSetNew(view, Color.TRANSPARENT, getActivity().getResources().getColor(R.color.activeService));
-
-        LinearLayout discriptionTxtContainer = (LinearLayout)parentLayout.getChildAt(1);
-        TextView discriptionTxt = (TextView)discriptionTxtContainer.getChildAt(1);
-
-        if(lastTxtView != null && lastTxtView != discriptionTxt)
-            slideDraws(lastTxtView, 0, 0);
-
-        if(lastTxtView == discriptionTxt && openState)
-            slideDraws(discriptionTxt, 0, 0);
-        else
-            slideDraws(discriptionTxt, FrameLayout.LayoutParams.WRAP_CONTENT, 0);
-
-        lastTxtView = discriptionTxt;
-
+        //blinkView(sideIconImg, 30, 70);
+        toggleSubContent(view);
         setSelectedService(view.getId());
-
-//showShortToast(selectedService.getService());
-
-        openState = !openState;
-    }
-
-    protected void slideDraws(View view, int target, int start) {
-        ResizeAnimation resizeAnimation = new ResizeAnimation(view, target, start);
-        resizeAnimation.setDuration(0);
-        view.startAnimation(resizeAnimation);
     }
 
     @Override

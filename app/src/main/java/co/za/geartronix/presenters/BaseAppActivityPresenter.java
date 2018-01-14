@@ -7,12 +7,16 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Environment;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -21,12 +25,13 @@ import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.customViews.CustomImageVIew;
 import co.za.geartronix.providers.Permissions;
+import co.za.geartronix.providers.ResizeAnimation;
 
 public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
 
     protected int AppActivityIndex;
     protected int icon;
-    protected int activeColor;
+    protected int activeColor, defColor;
     protected int inactivecolor;
     protected String activityName, displayName;
     protected BaseAppActivityPresenter currentAppActivity;
@@ -36,7 +41,10 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
     protected long imageAnimationDuration;
     protected String imageName;
     protected Uri imageFilePath;
-
+    private int ogWidth, ogHeight;
+    private View lastSubView, lastViewSideIcon;
+    private boolean openState;
+    protected MenuItem requestMenuItem;
 
     public BaseAppActivityPresenter(BaseActivity baseActivity, int index) {
         setProperties(baseActivity, index);
@@ -266,4 +274,76 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
                 });
         */
     }
+
+    protected void openedStateMethod() {
+
+    }
+
+    protected void closedStateMethod() {
+    }
+
+    public void toggleSubContent(View view) {
+
+        LinearLayout parentLayout = (LinearLayout)view;
+        FrameLayout sideIconImgParent = (FrameLayout)parentLayout.getChildAt(0);
+        View sideIconImg = sideIconImgParent.getChildAt(0);
+
+        if(ogWidth == 0) {
+            ogWidth = sideIconImg.getWidth();
+            ogHeight = sideIconImg.getHeight();
+        }
+
+        if(lastViewSideIcon != null && lastViewSideIcon != sideIconImg) {
+            ViewGroup.LayoutParams lpOg = lastViewSideIcon.getLayoutParams();
+            lpOg.width = ogWidth;
+            lpOg.height = ogHeight;
+            lastViewSideIcon.setLayoutParams(lpOg);
+        }
+
+        if(lastViewSideIcon == sideIconImg && openState){
+            ViewGroup.LayoutParams lpOg = sideIconImg.getLayoutParams();
+            lpOg.width = ogWidth;
+            lpOg.height = ogHeight;
+            sideIconImg.setLayoutParams(lpOg);
+            openedStateMethod();
+        }
+        else {
+            ViewGroup.LayoutParams lp = sideIconImg.getLayoutParams();
+            lp.width = ogWidth + 20;
+            lp.height = ogHeight + 20;
+            sideIconImg.setLayoutParams(lp);
+            closedStateMethod();
+        }
+
+        lastViewSideIcon = sideIconImg;
+
+        LinearLayout rightContainer = (LinearLayout)parentLayout.getChildAt(1);
+        View subView = rightContainer.getChildAt(1);
+
+        int activeColor = ((ColorDrawable) sideIconImgParent.getBackground()).getColor();
+
+        if(defColor == 0)
+            defColor = ((ColorDrawable) parentLayout.getBackground()).getColor();
+
+        resetLastAndSetNew(view, defColor, activeColor);
+
+        if(lastSubView != null && lastSubView != subView)
+            slideDraws(lastSubView, 0, 0);
+
+        if(lastSubView == subView && openState)
+            slideDraws(subView, 0, 0);
+        else
+            slideDraws(subView, LinearLayout.LayoutParams.WRAP_CONTENT, 0);
+
+        lastSubView = subView;
+
+        openState = !openState;
+    }
+
+    protected void slideDraws(View view, int target, int start) {
+        ResizeAnimation resizeAnimation = new ResizeAnimation(view, target, start);
+        resizeAnimation.setDuration(0);
+        view.startAnimation(resizeAnimation);
+    }
+
 }
