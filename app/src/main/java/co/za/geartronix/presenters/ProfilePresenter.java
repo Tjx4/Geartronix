@@ -45,7 +45,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     private ProfileModel responseModel;
     private UserModel user;
-    public boolean isEditMode;
+    public boolean isEditMode, isCarVieOptend;
     private ImageButton uploadImageBtn;
     private ProgressBar progressBar1, progressBar2;
     private int points;
@@ -152,7 +152,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         else if(clickedViewId == R.id.btnSave)
             checkAndSave();
         else if(clickedViewId == R.id.btnCloseCarView)
-            closeCarView();
+            closeCarView(false);
 
         if(dialogFragment != null)
             dialogFragment.dismiss();
@@ -176,6 +176,17 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         }
     }
 
+
+    @Override
+    public void handleBackButtonPressed(){
+        hideKeyboard();
+        if(isProfileChanged())
+            confirmChanges();
+        else
+            setViewMode();
+
+    }
+
     public void menuOptionSelected(MenuItem item) {
         super.menuOptionSelected(item);
         hideKeyboard();
@@ -189,17 +200,10 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         else if(clickedViewId == R.id.action_save)
             checkAndSave();
 
+        if(isCarVieOptend)
+            closeCarView(true);
     }
 
-    @Override
-    public void handleBackButtonPressed(){
-        hideKeyboard();
-        if(isProfileChanged())
-            confirmChanges();
-        else
-            setViewMode();
-
-    }
 
     @Override
     public void toggleModes() {
@@ -271,7 +275,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
         overLayfrm.animate().alpha(0.0f).setDuration(imageAnimationDuration);
         overLayfrm2.animate().alpha(0.0f).setDuration(imageAnimationDuration);
-        closeCarView();
+        closeCarView(false);
 
         UserModel user = new MockProvider(getActivity()).getMockUser();
         setProfileDetails(user);
@@ -438,17 +442,22 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         }
 
         slideInView(carViewContainerRltv);
-
+        isCarVieOptend = true;
     }
 
     @Override
-    public void closeCarView() {
-        slideOutView(carViewContainerRltv);
+    public void closeCarView(boolean justHide) {
+
+        if(justHide)
+            carViewContainerRltv.setVisibility(View.GONE);
+        else
+            slideOutView(carViewContainerRltv);
+
+        isCarVieOptend = false;
     }
 
     @Override
     public void setEditMode() {
-        closeCarView();
         setViewsVisible(new View[]{uploadImageBtn, editUsernameTxt, editCityTxt, overLayfrm, overLayfrm2});
         fadeInOverlay(overLayfrm);
         fadeInOverlay(overLayfrm2);

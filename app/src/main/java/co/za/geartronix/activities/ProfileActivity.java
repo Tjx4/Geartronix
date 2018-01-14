@@ -56,7 +56,10 @@ public class ProfileActivity  extends BaseAsyncActivity implements IProfileView 
         if(getPresenter().imageEnlarged) {
             getPresenter().hideEnlargedImage();
         }
-        else{
+        else if(getPresenter().isCarVieOptend) {
+            getPresenter().closeCarView(false);
+        }
+        else {
             if(getPresenter().isEditMode) {
                 getPresenter().handleBackButtonPressed();
             }
