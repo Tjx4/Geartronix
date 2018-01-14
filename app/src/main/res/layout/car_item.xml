@@ -88,6 +88,17 @@
                 android:textColor="@color/textBlack"/>
 
             <TextView
+                android:id="@+id/txtMilageTxt"
+                style="@style/mediumLabel"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="4dp"
+                android:text="0,0 km"
+                android:textColor="@color/textBlack"/>
+
+            <TextView
                 android:id="@+id/txtColor"
                 style="@style/mediumLabel"
                 android:layout_width="match_parent"

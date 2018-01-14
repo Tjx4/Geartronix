@@ -39,9 +39,13 @@ public class CarsAdapter  extends ArrayAdapter {
         CarModel carModel = cars.get(position);
         String name = carModel.getMake() +", "+carModel.getModel();
         String number = ": "+carModel.getNumber();
+        String milage = carModel.getMilage();
         String modelYear = "2012"; //carModel.getModelYear().toString();
         String color = carModel.getColor();
         Bitmap picture = carModel.getPicture();
+
+        TextView milageTxt = parentView.findViewById(R.id.txtMilageTxt);
+        milageTxt.setText(milage);
 
         TextView nameTxt = parentView.findViewById(R.id.txtCarName);
         nameTxt.setText(name);

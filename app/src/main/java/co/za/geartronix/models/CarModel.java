@@ -5,7 +5,18 @@ import java.util.Date;
 
 public class CarModel {
 
-    private String make, model;
+    private String make;
+    private String model;
+
+    public String getMilege() {
+        return milege;
+    }
+
+    public void setMilege(String milege) {
+        this.milege = milege;
+    }
+
+    private String milege;
     private Date modelYear;
     private String color;
     private Bitmap picture;

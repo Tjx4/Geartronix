@@ -105,6 +105,7 @@ public class MockProvider {
         CarModel car = new CarModel();
         car.setMake("VW");
         car.setNumber(1);
+        car.setMilage("125,000 km");
         car.setColor("White");
         car.setModel("Polo GTI");
         car.setModelYear(null);
@@ -113,6 +114,7 @@ public class MockProvider {
         CarModel car2 = new CarModel();
         car2.setMake("Audi");
         car2.setNumber(2);
+        car2.setMilage("50,000 km");
         car2.setColor("Blue");
         car2.setModel("RS5");
         car2.setModelYear(null);
