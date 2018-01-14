@@ -1,5 +1,7 @@
 package co.za.geartronix.presenters;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.app.Activity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -489,7 +491,74 @@ public abstract class BasePresenter {
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    protected int getScreenHeight() {
+        return activity.getWindow().getWindowManager().getDefaultDisplay().getHeight();
+    }
+
+    protected int getScreenWidth() {
+        return activity.getWindow().getWindowManager().getDefaultDisplay().getWidth();
+    }
+
     public void handleBackButtonPressed(){
         showShortToast("Base handleBackButtonPressed");
     }
+
+
+    protected void slideUpView(View view) {
+
+        final View currentView = view;
+
+        currentView.animate()
+                .translationYBy(-getScreenHeight())
+                .setDuration(600)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        currentView.setVisibility(View.GONE);
+                    }
+                });
+    }
+
+    protected void slideDownView(View view) {
+        view.setVisibility(View.VISIBLE);
+
+        view.animate()
+                .translationYBy(getScreenHeight())
+                .setDuration(600)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                    }
+                });
+    }
+
+
+    protected void slideOutView(View view) {
+
+        final View currentView = view;
+
+        currentView.animate()
+                .translationXBy(-getScreenWidth())
+                .setDuration(500)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        currentView.setVisibility(View.GONE);
+                    }
+                });
+    }
+
+    protected void slideInView(View view) {
+        view.setVisibility(View.VISIBLE);
+
+        view.animate()
+                .translationXBy(getScreenWidth())
+                .setDuration(500)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                    }
+                });
+    }
+
 }

@@ -1,6 +1,7 @@
 package co.za.geartronix.presenters;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
@@ -270,8 +271,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
         overLayfrm.animate().alpha(0.0f).setDuration(imageAnimationDuration);
         overLayfrm2.animate().alpha(0.0f).setDuration(imageAnimationDuration);
-
-        setLargeImageViews();
+        closeCarView();
 
         UserModel user = new MockProvider(getActivity()).getMockUser();
         setProfileDetails(user);
@@ -437,12 +437,13 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
             carsLst.setAdapter(carsAdapter);
         }
 
-        carViewContainerRltv.setVisibility(View.VISIBLE);
+        slideInView(carViewContainerRltv);
+
     }
 
     @Override
     public void closeCarView() {
-        carViewContainerRltv.setVisibility(View.GONE);
+        slideOutView(carViewContainerRltv);
     }
 
     @Override
