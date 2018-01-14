@@ -9,6 +9,7 @@ import co.za.geartronix.activities.ProfileActivity;
 interface IProfilePresenter  extends IBaseAsyncPresenter {
     ProfileActivity getActivity();
     boolean isProfileChanged();
+    void checkAndSave();
     void addCar(View view);
     void updateProfile();
     void bookAService(View view);
@@ -16,6 +17,7 @@ interface IProfilePresenter  extends IBaseAsyncPresenter {
     void uploadPicture(View view);
     void viewMessages(View view);
     void viewPoints(View view);
+    boolean hasEmpty();
     void showMoreOptions(View view);
     void viewCars(View view);
     void setViewMode();

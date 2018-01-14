@@ -62,7 +62,7 @@
     <string name="profile_editmode_exited">Exited Edit mode</string>
     <string name="profile_update_success_message">Profile updated...</string>
     <string name="profile_update_heading">Updated successful</string>
-    <string name="profile_update_message">Please make changes to your profile before saving</string>
+    <string name="profile_update_error_message">Please make changes to your profile before saving</string>
     <string name="No">No</string>
     <string name="yes">Yes</string>
 </resources>

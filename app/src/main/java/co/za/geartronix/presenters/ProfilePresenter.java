@@ -9,7 +9,6 @@ import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -138,14 +137,8 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
             setEditMode();
         else if(clickedViewId == R.id.itemViewMessages)
             viewMessages(view);
-        else if(clickedViewId == R.id.btnSave){
-            if(isProfileChanged())
-                saveChanges();
-            else
-                showShortToast(getActivity().getString(R.string.profile_update_message));
-            //showErrorMessage("Please enter a username or city before attempting to update your profile", "Update error!");
-
-        }
+        else if(clickedViewId == R.id.btnSave)
+            checkAndSave();
 
         if(dialogFragment != null)
             dialogFragment.dismiss();
@@ -153,8 +146,25 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         handleEnlargedImageMethods(view);
     }
 
+    @Override
+    public void checkAndSave() {
+
+        if(isProfileChanged()) {
+            saveChanges();
+        }
+        else {
+            if(hasEmpty()) {
+                showShortToast("No empty field are permited");
+            }
+            else {
+                showShortToast(getActivity().getString(R.string.profile_update_error_message));
+            }
+        }
+    }
+
     public void menuOptionSelected(MenuItem item) {
         super.menuOptionSelected(item);
+        hideKeyboard();
 
         clickedViewId = item.getItemId();
 
@@ -162,20 +172,19 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
             goToSettings();
         else if(clickedViewId == R.id.action_edit)
             toggleModes();
-        else if(clickedViewId == R.id.action_save) {
-            if(isProfileChanged())
-                saveChanges();
+        else if(clickedViewId == R.id.action_save)
+            checkAndSave();
 
-             showShortToast(getActivity().getString(R.string.profile_update_message));
-        }
     }
 
     @Override
     public void handleBackButtonPressed(){
+        hideKeyboard();
         if(isProfileChanged())
             confirmChanges();
+        else
+            setViewMode();
 
-        setViewMode();
     }
 
     @Override
@@ -183,8 +192,8 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         if(isEditMode) {
             if(isProfileChanged())
                 confirmChanges();
-
-            setViewMode();
+            else
+                setViewMode();
         }
         else{
             if(imageEnlarged)
@@ -321,11 +330,16 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     }
 
     @Override
+    public boolean hasEmpty() {
+        return newUsername.isEmpty() || newCity.isEmpty();
+    }
+
+    @Override
     public boolean isProfileChanged() {
         newUsername = editUsernameTxt.getText().toString().trim();
         newCity = editCityTxt.getText().toString().trim();
 
-        if(newUsername.isEmpty() && newCity.isEmpty())
+        if(hasEmpty())
             return false;
 
         boolean usernameChanged = !newUsername.equals(username);
@@ -401,7 +415,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         saveMenuItem.setVisible(true);
         settingsMenuItem.setVisible(false);
         setMenuItemIcon(modeMenuItem, R.drawable.cancell_icon);
-        setViewHeight(userInfoRltv , 300);
+        setViewHeight(userInfoRltv , userInfoRltv.getHeight() + 25);
         profContainerFrm.animate().setDuration(200).translationYBy(-30).start();
         isEditMode = true;
         //showShortToast(getActivity().getString(R.string.edit_your_profile));
@@ -440,11 +454,13 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     protected void onPositiveDialogButtonClicked(DialogInterface dialogInterface, int i) {
+        setViewMode();
         updateProfile();
     }
 
     @Override
     protected void onNagativeButtonClicked(DialogInterface dialogInterface, int i) {
+        setViewMode();
         showShortToast("Changes not applied.");
     }
 
