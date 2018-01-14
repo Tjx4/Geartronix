@@ -3,7 +3,6 @@ package co.za.geartronix.models;
 import android.graphics.Bitmap;
 import java.util.List;
 
-import co.za.geartronix.providers.CarProvider;
 import co.za.geartronix.providers.ContactDetailsProvider;
 
 public class UserModel extends BaseModel {
@@ -13,7 +12,7 @@ public class UserModel extends BaseModel {
     private int points, id;
     private String city;
     private ContactDetailsProvider contactDetailsProvider;
-    private List<CarProvider> cars;
+    private List<CarModel> cars;
     private List<MessageModel> messages;
     private ProgressBarModel progressBar1;
 
@@ -84,11 +83,11 @@ public class UserModel extends BaseModel {
         this.contactDetailsProvider = contactDetailsProvider;
     }
 
-    public List<CarProvider> getCars() {
+    public List<CarModel> getCars() {
         return cars;
     }
 
-    public void setCars(List<CarProvider> cars) {
+    public void setCars(List<CarModel> cars) {
         this.cars = cars;
     }
 

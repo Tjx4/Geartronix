@@ -255,6 +255,13 @@ public abstract class BasePresenter {
         goToActivityWithPayload(MessagesActivity.class, extras);
     }
 
+    protected void goToInbox(Bundle...extras) {
+        goToMessages(extras);
+    }
+    protected void goToOutbox(Bundle...extras) {
+        goToMessages(extras);
+    }
+
     protected void goToProfile() {
         goToActivity(ProfileActivity.class);
     }

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
+import co.za.geartronix.models.CarModel;
 import co.za.geartronix.models.MemberModel;
 import co.za.geartronix.models.MessageModel;
 import co.za.geartronix.models.NamesModel;
@@ -100,8 +101,8 @@ public class MockProvider {
         messages.add(message2);
         mockUser.setMessages(messages);
 
-        List<CarProvider> cars = new ArrayList<>();
-        CarProvider car = new CarProvider();
+        List<CarModel> cars = new ArrayList<>();
+        CarModel car = new CarModel();
         car.setMake("VW");
         car.setColor("white");
         car.setModel("Polo GTI");

@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
@@ -24,10 +25,12 @@ import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.ProfileActivity;
+import co.za.geartronix.models.NamesModel;
 import co.za.geartronix.models.ProfileModel;
-import co.za.geartronix.providers.CarProvider;
+import co.za.geartronix.models.CarModel;
 import co.za.geartronix.models.MemberModel;
 import co.za.geartronix.models.MessageModel;
+import co.za.geartronix.providers.MessagesCategoryProvider;
 import co.za.geartronix.providers.MockProvider;
 import co.za.geartronix.models.ProgressBarModel;
 import co.za.geartronix.models.UserModel;
@@ -45,7 +48,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     private String city, newUsername, newCity;
     private MemberModel memberType;
     private List<MessageModel> messages;
-    private List<CarProvider> cars;
+    private List<CarModel> cars;
     private ProgressBarModel progressbar1Values, progressbar2Values;
     private TextView usernameTxt, memberTypetxt, cityTxt,pointsCountTxt, messageCountTxt, carsCountTxt, editUsernameTxt, editCityTxt;
     private ImageView profpicImg;
@@ -252,12 +255,13 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         overLayfrm2.animate().alpha(0.0f).setDuration(imageAnimationDuration);
 
         setLargeImageViews();
-        setProfileDetails();
+
+        UserModel user = new MockProvider(getActivity()).getMockUser();
+        setProfileDetails(user);
     }
 
     @Override
-    public void setProfileDetails() {
-        user = new MockProvider(getActivity()).getMockUser();
+    public void setProfileDetails(UserModel user) {
         username = user.getNames().getFirstName();
         memberType = user.getMemberType();
         profpic = user.getProfilePic();
@@ -278,6 +282,8 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         setCarsCount(cars.size());
         setProgressbar1Progress(progressbar1Values);
         setProgressbar2Progress(progressbar2Values);
+
+        this.user = user;
     }
 
      public void setProgressbar1Progress(ProgressBarModel progressBarValues) {
@@ -356,8 +362,17 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void updateProfile() {
-        setUsername(newUsername);
-        setCity(newCity);
+
+        UserModel user = new MockProvider(getActivity()).getMockUser();
+
+        NamesModel namesModel = new NamesModel();
+        namesModel.setFirstName(newUsername);
+        user.setNames(namesModel);
+
+        user.setCity(newCity);
+
+        setProfileDetails(user);
+
         showShortToast(getActivity().getString(R.string.profile_update_success_message));
     }
 
@@ -380,8 +395,9 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void viewMessages(View view) {
-        showShortToast("viewMessages");
-        // Go to messages activity and view your messages
+        Bundle extras = new Bundle();
+        extras.putInt("typeId", MessagesCategoryProvider.inbox.getId());
+        goToInbox(extras);
     }
 
     @Override

@@ -5,6 +5,7 @@ import android.support.v7.app.ActionBar;
 import android.view.MenuItem;
 import android.view.View;
 import co.za.geartronix.activities.ProfileActivity;
+import co.za.geartronix.models.UserModel;
 
 interface IProfilePresenter  extends IBaseAsyncPresenter {
     ProfileActivity getActivity();
@@ -34,5 +35,5 @@ interface IProfilePresenter  extends IBaseAsyncPresenter {
     void setCity(String city);
     void setProfPic(Bitmap image);
     ActionBar profileEditActionBar();
-    void setProfileDetails();
+    void setProfileDetails(UserModel user);
 }

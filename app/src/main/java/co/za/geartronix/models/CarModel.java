@@ -1,9 +1,9 @@
-package co.za.geartronix.providers;
+package co.za.geartronix.models;
 
 import android.graphics.Bitmap;
 import java.util.Date;
 
-public class CarProvider {
+public class CarModel {
 
     private String make, model;
     private Date modelYear;
