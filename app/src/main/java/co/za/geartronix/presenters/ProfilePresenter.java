@@ -2,15 +2,14 @@ package co.za.geartronix.presenters;
 
 import android.animation.Animator;
 import android.animation.ObjectAnimator;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.support.v4.app.DialogFragment;
-import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.DecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -18,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -53,6 +53,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     private ImageView moreBtn, saveBtn;
     private MenuItem settingsMenuItem, modeMenuItem, saveMenuItem;
     private FrameLayout overLayfrm, overLayfrm2;
+    private RelativeLayout userInfoRltv;
     private View profContainerFrm;
     private DialogFragment dialogFragment;
 
@@ -235,6 +236,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         overLayfrm2 = (FrameLayout) getActivity().findViewById(R.id.frmOverlay2);
         moreBtn = (ImageButton) getActivity().findViewById(R.id.btnMore);
         saveBtn = (ImageButton) getActivity().findViewById(R.id.btnSave);
+        userInfoRltv = (RelativeLayout) getActivity().findViewById(R.id.rltvUserInfo);
         profContainerFrm = getActivity().findViewById(R.id.frmProfPicContainer);
 
         overLayfrm.animate().alpha(0.0f).setDuration(imageAnimationDuration);
@@ -399,6 +401,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         saveMenuItem.setVisible(true);
         settingsMenuItem.setVisible(false);
         setMenuItemIcon(modeMenuItem, R.drawable.cancell_icon);
+        setViewHeight(userInfoRltv , 300);
         profContainerFrm.animate().setDuration(200).translationYBy(-30).start();
         isEditMode = true;
         //showShortToast(getActivity().getString(R.string.edit_your_profile));
@@ -414,6 +417,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         saveMenuItem.setVisible(false);
         settingsMenuItem.setVisible(true);
         setMenuItemIcon(modeMenuItem, R.drawable.edit_icon);
+        setViewHeight(userInfoRltv , RelativeLayout.LayoutParams.WRAP_CONTENT);
         profContainerFrm.animate().setDuration(200).translationYBy(30).start();
         isEditMode = false;
         //showShortToast(getActivity().getString(R.string.profile_editmode_exited));

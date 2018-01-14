@@ -26,15 +26,18 @@
                 android:paddingTop="40dp">
 
                 <FrameLayout
+                    android:id="@+id/frmUserInfo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="4dp">
 
                     <RelativeLayout
+                        android:id="@+id/rltvUserInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginLeft="20dp">
+                        android:layout_marginLeft="20dp"
+                        android:gravity="bottom">
 
                         <FrameLayout
                             android:id="@+id/frmProfPicContainer"

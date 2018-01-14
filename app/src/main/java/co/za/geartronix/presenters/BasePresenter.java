@@ -14,6 +14,7 @@ import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -22,6 +23,7 @@ import android.view.animation.LinearInterpolator;
 import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
@@ -454,6 +456,16 @@ public abstract class BasePresenter {
         for(View view : views){
             view.setVisibility(View.GONE);
         }
+    }
+    protected void setViewHeight(View view, int hieght) {
+        ViewGroup.LayoutParams lp = view.getLayoutParams();
+        lp.height = hieght;
+        view.setLayoutParams(lp);
+    }
+    protected void setViewWidth(View view, int width) {
+        ViewGroup.LayoutParams lp = view.getLayoutParams();
+        lp.width = width;
+        view.setLayoutParams(lp);
     }
 
     public void handleBackButtonPressed(){
