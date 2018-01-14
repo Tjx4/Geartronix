@@ -27,6 +27,7 @@ import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.ProfileActivity;
+import co.za.geartronix.adapters.CarsAdapter;
 import co.za.geartronix.constants.Constants;
 import co.za.geartronix.models.NamesModel;
 import co.za.geartronix.models.ProfileModel;
@@ -427,15 +428,17 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     @Override
     public void viewCars(View view) {
 
+        if(carsLst.getAdapter() == null){
+            CarsAdapter carsAdapter = new CarsAdapter(getActivity(), R.layout.car_item,cars);
+            carsLst.setAdapter(carsAdapter);
+        }
 
         carViewContainerRltv.setVisibility(View.VISIBLE);
-        // view car list
     }
 
     @Override
     public void closeCarView() {
         carViewContainerRltv.setVisibility(View.GONE);
-        // view car list
     }
 
     @Override

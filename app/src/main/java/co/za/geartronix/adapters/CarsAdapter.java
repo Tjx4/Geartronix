@@ -1,12 +1,18 @@
 package co.za.geartronix.adapters;
 
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
+import android.widget.TextView;
+
 import java.util.List;
+
+import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.models.CarModel;
 
@@ -31,6 +37,22 @@ public class CarsAdapter  extends ArrayAdapter {
         View parentView = li.inflate(layout, parent, false);
 
         CarModel carModel = cars.get(position);
+        String name = carModel.getMake() +", "+carModel.getModel();
+        String modelYear = "2012"; //carModel.getModelYear().toString();
+        String color = carModel.getColor();
+        Bitmap picture = carModel.getPicture();
+
+        TextView nameTxt = parentView.findViewById(R.id.txtCarName);
+        nameTxt.setText(name);
+
+        TextView modelYearTxt = parentView.findViewById(R.id.txtModelYear);
+        modelYearTxt.setText(modelYear);
+
+        TextView colorTxt = parentView.findViewById(R.id.txtColor);
+        colorTxt.setText(color);
+
+        ImageView pictureImg = parentView.findViewById(R.id.imgPicture);
+        pictureImg.setImageBitmap(picture);
 
         return parentView;
     }

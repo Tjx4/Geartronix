@@ -6,9 +6,6 @@
               android:layout_height="wrap_content"
               android:onClick="onViewClickedEvent"
               android:orientation="horizontal">
-                <!--
-                 android:background="@color/serviceDescriptionBackground"
-                -->
 
     <FrameLayout
         android:id="@+id/imgArrowContainer"

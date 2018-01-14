@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="#f1f1f1"
+              android:onClick="onViewClickedEvent"
+              android:orientation="horizontal">
+
+    <FrameLayout
+        android:id="@+id/imgArrowContainer"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#dddddd"
+        android:gravity="center"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <ImageView
+            android:id="@+id/imgArrow"
+            android:layout_width="28dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:scaleType="fitXY"
+            app:srcCompat="@drawable/car_icon_dark"/>
+
+    </FrameLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/imgArrowContainer"
+        android:orientation="vertical"
+        android:paddingBottom="12dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="15dp"
+        android:paddingTop="14dp">
+
+        <TextView
+            android:id="@+id/txtCarName"
+            style="@style/largeLabel"
+            android:layout_margin="0dp"
+            android:text="Car"
+            android:textColor="#444444"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txtModelYear"
+                style="@style/mediumLabel"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="4dp"
+                android:text="Model year"
+                android:textColor="@color/textBlack"/>
+
+            <TextView
+                android:id="@+id/txtColor"
+                style="@style/mediumLabel"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="4dp"
+                android:text="Color"
+                android:textColor="@color/textBlack"/>
+
+            <ImageView
+                android:id="@+id/imgPicture"
+                android:layout_width="match_parent"
+                android:layout_height="130dp"
+                android:layout_gravity="center"
+                android:scaleType="fitCenter"
+                app:srcCompat="@drawable/car_icon_dark"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

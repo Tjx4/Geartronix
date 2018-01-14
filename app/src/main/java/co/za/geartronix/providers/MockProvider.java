@@ -107,7 +107,7 @@ public class MockProvider {
         car.setColor("white");
         car.setModel("Polo GTI");
         car.setModelYear(null);
-        Bitmap carPic = BitmapFactory.decodeResource( activity.getResources(), R.drawable.workshop2 );
+        Bitmap carPic = BitmapFactory.decodeResource( activity.getResources(), R.drawable.dummy_car );
         car.setPicture(carPic);
         cars.add(car);
         mockUser.setCars(cars);
