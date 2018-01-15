@@ -1,5 +1,6 @@
 package co.za.geartronix.presenters;
 
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -62,7 +63,10 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
 
     protected void initMessages() {
 
-        category = getActivity().getIntent().getExtras().getInt(Constants.TYPEID);
+        Bundle extras = getActivity().getIntent().getExtras();
+
+        if(extras != null)
+            category = extras.getInt(Constants.TYPEID);
 
         chatMessages = new ArrayList<>();
         adapter = new MessageAdapter(getActivity(), R.layout.item_chat_left, chatMessages);

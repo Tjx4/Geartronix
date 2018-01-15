@@ -54,7 +54,8 @@ public class HomeTileAdapter extends ArrayAdapter {
         itemText.setText(appActivity.getDisplayName());
         parentView.setId(generateId(position));
 
-        int priorityColor = Color.parseColor("#FF01689B");
+        //Color.parseColor("#FF01689B")
+        int priorityColor = activity.getResources().getColor(R.color.priorityTiliColor);
         if(appActivity.getClass() == ServicesPresenter.class || appActivity.getClass() == DiagnosticsPresenter.class )
             parentView.setBackgroundColor(priorityColor);
 

@@ -282,6 +282,8 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
         UserModel user = new MockProvider(getActivity()).getMockUser();
         setProfileDetails(user);
+
+        setLargeImageViews();
     }
 
     @Override

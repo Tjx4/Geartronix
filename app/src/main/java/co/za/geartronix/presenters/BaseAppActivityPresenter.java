@@ -16,7 +16,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -45,6 +44,7 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
     private View lastSubView, lastViewSideIcon;
     private boolean openState;
     protected MenuItem requestMenuItem;
+    private boolean isFirstTime = true;
 
     public BaseAppActivityPresenter(BaseActivity baseActivity, int index) {
         setProperties(baseActivity, index);
@@ -322,8 +322,10 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
 
         int activeColor = ((ColorDrawable) sideIconImgParent.getBackground()).getColor();
 
-        if(defColor == 0)
+        if(isFirstTime) {
             defColor = ((ColorDrawable) parentLayout.getBackground()).getColor();
+            isFirstTime = false;
+        }
 
         resetLastAndSetNew(view, defColor, activeColor);
 
@@ -338,6 +340,7 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
         lastSubView = subView;
 
         openState = !openState;
+
     }
 
     protected void slideDraws(View view, int target, int start) {

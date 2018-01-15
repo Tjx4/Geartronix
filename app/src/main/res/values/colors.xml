@@ -11,11 +11,13 @@
     <color name="colorProgressBackgroud">#444444</color>
     <color name="colorProgressBar">#555555</color>
     <color name="colorgreyBg">#f41b2730</color>
+    <color name="colorgreyBg2">#c70d1318</color>
     <color name="colorgreyBgtrans">#7c1b2730</color>
     <color name="tileTransBlack">#d6000000</color>
 
     <color name="transBlack">#d80d0707</color>
-
+    <!-- 7F22536B-->
+    <color name="priorityTiliColor">#C601689B</color>
     <color name="login_bottom_background">#333333</color>
     <color name="blue_one">#0088cc</color>
     <color name="blue_two">#0088cc</color>
