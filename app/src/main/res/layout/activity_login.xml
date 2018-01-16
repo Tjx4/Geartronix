@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:focusableInTouchMode="true"
+                android:gravity="center"
                 android:orientation="vertical"
                 android:paddingBottom="20dp"
                 android:paddingLeft="20dp"
@@ -75,6 +76,14 @@
                     android:layout_marginTop="30dp"
                     android:onClick="onViewClickedEvent"
                     android:text="@string/sign_in"/>
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="150dp"
+                    android:visibility="gone"
+                    android:scaleType="fitXY"
+                    android:layout_marginTop="30dp"
+                    app:srcCompat="@mipmap/login_icon"/>
 
             </LinearLayout>
 

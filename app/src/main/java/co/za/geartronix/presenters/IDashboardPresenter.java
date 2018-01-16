@@ -8,4 +8,5 @@ public interface IDashboardPresenter extends IBaseAsyncPresenter {
     void setActiveColor(View view);
     void slideInTiles();
     void revertViewBackgroundColor(View view);
+    void greetUser();
 }

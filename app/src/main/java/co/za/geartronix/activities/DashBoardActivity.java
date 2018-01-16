@@ -46,7 +46,6 @@ public class DashBoardActivity extends BaseAsyncActivity implements IHomeView, N
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         getPresenter().handleBackButtonPressed();
     }
 

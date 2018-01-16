@@ -8,6 +8,7 @@ public class LoginModel extends BaseModel{
     public String session;
     public int userId;
     public String user;
+    //public UserModel user;
 
     @Override
     public void setModel(JSONObject response) throws JSONException {

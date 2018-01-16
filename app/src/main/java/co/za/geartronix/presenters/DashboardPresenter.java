@@ -35,17 +35,6 @@ public class DashboardPresenter extends BaseMenuPresenter implements IDashboardP
         setViews();
 
         responseModel = new AccountModel();
-
-        try {
-
-            String user = activity.getIntent().getExtras().getBundle("payload").getString("user");
-            showShortToast(activity.getString(R.string.welcome)+" "+user);
-
-        }
-        catch (Exception e){
-
-        }
-
     }
 
     @Override
@@ -128,12 +117,33 @@ public class DashboardPresenter extends BaseMenuPresenter implements IDashboardP
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        slideInView(homeTileContainer, 800);
-                        // Set margins to 0
+
+                        homeTileContainer.setVisibility(View.VISIBLE);
+
+                        homeTileContainer.animate()
+                                .translationXBy(setHorizontalSlideLength(horizontalSlideWidth))
+                                .setDuration(800)
+                                .setListener(new AnimatorListenerAdapter() {
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        greetUser();
+                                    }
+                                });
                     }
                 });
     }
 
+    @Override
+    public void greetUser() {
+
+        try {
+            String user = getActivity().getIntent().getExtras().getBundle("payload").getString("user");
+            showShortToast(activity.getString(R.string.welcome)+" "+user);
+        }
+        catch (Exception e) {
+
+        }
+    }
 
     public HomeTileAdapter getAdapter() {
 
@@ -197,7 +207,6 @@ public class DashboardPresenter extends BaseMenuPresenter implements IDashboardP
 
     @Override
     public void handleViewClickedEvent(View view) {
-        // int viewId = view.getId();
         blinkView(view, 30, 70);
     }
 
@@ -205,5 +214,4 @@ public class DashboardPresenter extends BaseMenuPresenter implements IDashboardP
     protected void showInstructions() {
         showShortToast("Show instructions on how to use Home activity");
     }
-
 }

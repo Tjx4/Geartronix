@@ -5,19 +5,14 @@
     <group android:checkableBehavior="single">
 
         <item
-            android:id="@+id/action_home"
-            android:icon="@mipmap/home_icon"
-            android:title="Home"/>
+            android:id="@+id/action_make_booking"
+            android:icon="@drawable/booking_icon"
+            android:title="Book a service"/>
 
         <item
             android:id="@+id/action_profile"
             android:icon="@mipmap/profile_icon"
             android:title="View your profile"/>
-
-        <item
-            android:id="@+id/action_make_booking"
-            android:icon="@drawable/booking_icon"
-            android:title="Book a service"/>
 
         <item
             android:id="@+id/action_signout"
