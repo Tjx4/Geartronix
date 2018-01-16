@@ -20,9 +20,10 @@
             android:title="Book a service"/>
 
         <item
-            android:id="@+id/action_gallery"
-            android:icon="@mipmap/gallery_icon"
-            android:title="View our gallery"/>
+            android:id="@+id/action_signout"
+            android:icon="@drawable/logout_icon"
+            android:title="@string/sign_out"
+            app:showAsAction="never"/>
 
     </group>
 

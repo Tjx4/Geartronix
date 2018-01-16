@@ -10,7 +10,6 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -27,23 +26,21 @@ import android.view.animation.RotateAnimation;
 import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.Toast;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.AskActivity;
 import co.za.geartronix.activities.BaseActivity;
+import co.za.geartronix.activities.DashBoardActivity;
 import co.za.geartronix.activities.DiagnosticsActivity;
 import co.za.geartronix.activities.ForgotPasswordActivity;
 import co.za.geartronix.activities.GalleryActivity;
-import co.za.geartronix.activities.HomeActivity;
-import co.za.geartronix.activities.MessagesActivity;
+import co.za.geartronix.activities.LoginActivity;
 import co.za.geartronix.activities.ProfileActivity;
 import co.za.geartronix.activities.RegistrationActivity;
 import co.za.geartronix.activities.ServicesListActivity;
 import co.za.geartronix.activities.SettingsActivty;
 import co.za.geartronix.constants.Constants;
 import co.za.geartronix.fragments.ProfileMoreOptionsFragment;
-import co.za.geartronix.providers.DialogFragmentProvider;
 import co.za.geartronix.providers.PermissionsProvider;
 
 public abstract class BasePresenter {
@@ -54,7 +51,7 @@ public abstract class BasePresenter {
     protected int userId, clickedViewId, deviceOrientation, verticalSlideHeit, horizontalSlideWidth;
     private Animation animate;
     protected ActionBar currentActionBar, ogActionBar;
-    public boolean isBack;
+    public boolean isBack, isSignOut;
     protected final String PACKAGENAME = "co.za.geartronix";
     public boolean outOfFocus, viewOpenState;
     private View lastView;
@@ -286,10 +283,10 @@ public abstract class BasePresenter {
     }
 
     protected void goToHome(Bundle...loginDetails) {
-        if(isCurrentActivity(HomeActivity.class))
+        if(isCurrentActivity(DashBoardActivity.class))
             return;
 
-        goToActivityWithPayload(HomeActivity.class, loginDetails);
+        goToActivityWithPayload(DashBoardActivity.class, loginDetails);
     }
 
     protected void goToServices(Bundle...loginDetails) {
@@ -297,6 +294,13 @@ public abstract class BasePresenter {
         return;
 
         goToActivityWithPayload(ServicesListActivity.class, loginDetails);
+    }
+
+    protected void goToLogin(Bundle...loginDetails) {
+        if(isCurrentActivity(LoginActivity.class))
+        return;
+
+        goToActivityWithPayload(LoginActivity.class, loginDetails);
     }
 
     protected void goToSettings(Bundle...extras) {
@@ -406,8 +410,14 @@ public abstract class BasePresenter {
         showMessage(ab);
     }
 
-    protected  void onPositiveDialogButtonClicked(DialogInterface dialogInterface, int i){}
-    protected  void onNagativeButtonClicked(DialogInterface dialogInterface, int i){}
+    protected void onPositiveDialogButtonClicked(DialogInterface dialogInterface, int i){
+
+        if(isSignOut)
+            signOut();
+    }
+    protected void onNagativeButtonClicked(DialogInterface dialogInterface, int i){
+        isSignOut = false;
+    }
 
     protected void requestPermission(String permission) {
         new PermissionsProvider(activity).requestStoragePermission();
@@ -443,7 +453,20 @@ public abstract class BasePresenter {
             case R.id.action_help:
                 showInstructions();
                 break;
+            case R.id.action_signout:
+                confirmSignOut();
+                break;
         }
+    }
+
+    protected void confirmSignOut() {
+        isSignOut = true;
+        showConfirmMessage("You are about to logout of your account, would you like to continue", "Confirm", true, false);
+    }
+
+    protected void signOut() {
+        goToLogin();
+        activity.finish();
     }
 
     protected void showInstructions() {

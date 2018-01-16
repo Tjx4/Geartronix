@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
-import co.za.geartronix.activities.HomeActivity;
+import co.za.geartronix.activities.DashBoardActivity;
 import co.za.geartronix.adapters.HomeTileAdapter;
 import co.za.geartronix.models.AccountModel;
 import co.za.geartronix.views.IHomeView;
@@ -49,8 +49,8 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     }
 
     @Override
-    public HomeActivity getActivity() {
-        return (HomeActivity)activity;
+    public DashBoardActivity getActivity() {
+        return (DashBoardActivity)activity;
     }
 
     @Override

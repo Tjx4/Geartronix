@@ -9,7 +9,7 @@ import co.za.geartronix.R;
 import co.za.geartronix.presenters.HomePresenter;
 import co.za.geartronix.views.IHomeView;
 
-public class HomeActivity extends BaseAsyncActivity implements IHomeView, NavigationView.OnNavigationItemSelectedListener {
+public class DashBoardActivity extends BaseAsyncActivity implements IHomeView, NavigationView.OnNavigationItemSelectedListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -15,6 +15,7 @@ import co.za.geartronix.models.LoginModel;
 import co.za.geartronix.models.UserModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
+import co.za.geartronix.providers.MockProvider;
 import co.za.geartronix.providers.PermissionsProvider;
 import co.za.geartronix.views.ILoginView;
 import org.json.JSONException;
@@ -118,7 +119,6 @@ public class LoginPresenter extends BaseAppActivityPresenter implements ILoginPr
         welcomeMessageTxt = (TextView) getActivity().findViewById(R.id.txtWelcomeMessage);
         usernameLbl = (TextView) getActivity().findViewById(R.id.lblUsername);
 
-        //usernameTxt.setText("rocboyt@gmail.com");
         passwordTxt.setText("123");
 
     }
@@ -126,7 +126,7 @@ public class LoginPresenter extends BaseAppActivityPresenter implements ILoginPr
     @Override
     public void getLinkedUserOREnterUsername() {
 
-        user = null; //new MockProvider(getActivity()).getMockUser();
+        user = new MockProvider(getActivity()).getMockUser();
 
         if(user == null)
             setEnterUsername();
@@ -136,6 +136,8 @@ public class LoginPresenter extends BaseAppActivityPresenter implements ILoginPr
 
     @Override
     public void setEnterUsername() {
+        usernameTxt.setText("rocboyt@gmail.com");
+
         welcomeMessageTxt.setVisibility(View.GONE);
         usernameTxt.setVisibility(View.VISIBLE);
         usernameLbl.setVisibility(View.VISIBLE);

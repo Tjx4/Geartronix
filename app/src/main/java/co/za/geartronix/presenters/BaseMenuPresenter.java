@@ -9,13 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
-import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
-import co.za.geartronix.activities.HomeActivity;
-import co.za.geartronix.constants.Constants;
 
 public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
 
@@ -48,7 +45,7 @@ public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
         navigationView.setNavigationItemSelectedListener((NavigationView.OnNavigationItemSelectedListener)activity);
 
         RelativeLayout mainFramelayout = (RelativeLayout) activity.findViewById(R.id.menuContentHomeID);
-        //dd.setContentDescription("co.za.geartronix.activities.HomeActivity");
+        //dd.setContentDescription("co.za.geartronix.activities.DashBoardActivity");
 
     }
 
@@ -59,9 +56,6 @@ public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
 
             case R.id.action_profile:
                 goToProfile();
-                break;
-            case R.id.action_gallery:
-                goToGallery();
                 break;
             case R.id.action_make_booking:
                 goToServices();

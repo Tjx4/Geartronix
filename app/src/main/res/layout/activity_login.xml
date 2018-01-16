@@ -27,7 +27,7 @@
                 android:paddingBottom="20dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:paddingTop="40dp"
+                android:paddingTop="60dp"
                 tools:context="co.za.geartronix.activities.LoginActivity">
 
                 <ImageView
@@ -39,16 +39,16 @@
                     app:srcCompat="@drawable/logo"/>
 
                 <TextView
-                    style="@style/mediumLabel"
                     android:id="@+id/txtWelcomeMessage"
-                    android:textStyle="bold"
-                    android:text="@string/sign_in_welcome_message"/>
+                    style="@style/mediumLabel"
+                    android:text="@string/sign_in_welcome_message"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:id="@+id/lblUsername"
                     style="@style/mediumLabel"
-                    android:textColor="#cccccc"
                     android:text="@string/enter_email_or_cell"
+                    android:textColor="#cccccc"
                     android:visibility="gone"/>
 
                 <EditText
@@ -59,8 +59,8 @@
 
                 <TextView
                     style="@style/mediumLabel"
-                    android:textColor="#cccccc"
-                    android:text="@string/password"/>
+                    android:text="@string/password"
+                    android:textColor="#cccccc"/>
 
                 <EditText
                     android:id="@+id/txtPassword"
