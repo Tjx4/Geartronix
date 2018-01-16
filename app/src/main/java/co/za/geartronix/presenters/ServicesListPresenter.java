@@ -39,14 +39,8 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
     }
 
     @Override
-    protected void postAnimation(View view) {
-
-    }
-
-    @Override
     protected void openedStateMethod() {
         requestMenuItem.setVisible(false);
-
     }
 
     @Override
@@ -134,13 +128,15 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
         super.menuOptionSelected(item);
         clickedViewId = item.getItemId();
 
-        String confirmationMessage = getActivity().getString(R.string.general_checkup_diagostic_message);
+        if(isNotBaseMenuActions() ) {
 
-        if(clickedViewId == R.id.action_request_service)
-            confirmationMessage = "The service you are requesting is \""+selectedService.getService()+"\", would you like to continue?";
+            String confirmationMessage = getActivity().getString(R.string.general_checkup_diagostic_message) +" "+ getActivity().getString(R.string.continue_message);
 
-        showConfirmMessage(confirmationMessage, getActivity().getResources().getString(R.string.confirm), true, false);
+            if(clickedViewId == R.id.action_request_service)
+                confirmationMessage = "The service you are requesting is \""+selectedService.getService()+"\" "+ getActivity().getString(R.string.continue_message);
 
+                showConfirmMessage(confirmationMessage, getActivity().getResources().getString(R.string.confirm), true, false);
+        }
     }
 
     @Override

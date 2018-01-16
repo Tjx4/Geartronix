@@ -588,4 +588,13 @@ public abstract class BasePresenter {
     protected int setHorizontalSlideLength(int length) {
         return (length == 0)? getScreenWidth() : length;
     }
+
+    protected boolean isNotBaseMenuActions() {
+        boolean isSettings = clickedViewId == R.id.action_settings;
+        boolean isHelp = clickedViewId == R.id.action_help;
+        boolean isSignOut = clickedViewId == R.id.action_signout;
+
+        return !isSettings && !isHelp && !isSignOut;
+    }
+
 }

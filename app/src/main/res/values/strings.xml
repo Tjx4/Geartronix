@@ -67,4 +67,5 @@
     <string name="sign_in_welcome_message">please enter your password to continue</string>
     <string name="Hi">Hi</string>
     <string name="general_checkup_diagostic_message">You are about to request a general check up and diagnostic</string>
+    <string name="continue_message">, would you like to continue?</string>
 </resources>
