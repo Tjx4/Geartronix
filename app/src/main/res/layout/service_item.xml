@@ -35,14 +35,104 @@
         android:orientation="vertical"
         android:paddingBottom="12dp"
         android:paddingLeft="10dp"
-        android:paddingRight="15dp"
+        android:paddingRight="10dp"
         android:paddingTop="14dp">
 
-        <TextView
-            android:id="@+id/txtService"
-            style="@style/largeLabel"
-            android:layout_margin="0dp"
-            android:text="Service"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/imgArrowContainer"
+            android:orientation="vertical"
+            android:paddingBottom="12dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="8dp"
+            android:paddingTop="14dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txtService"
+                    style="@style/largeLabel"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginTop="0dp"
+                    android:layout_toLeftOf="@+id/imageView4"
+                    android:layout_toRightOf="@+id/txtCarNumber"
+                    android:layout_toStartOf="@+id/imageView4"
+                    android:layout_weight="1"
+                    android:text="Service"/>
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="0dp"
+                    android:src="@drawable/general_service_icon"/>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txtModelYear"
+                    style="@style/mediumLabel"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="4dp"
+                    android:text="Model year"
+                    android:textColor="@color/textBlack"/>
+
+                <TextView
+                    android:id="@+id/txtMilageTxt"
+                    style="@style/mediumLabel"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="4dp"
+                    android:text="0,0 km"
+                    android:textColor="@color/textBlack"/>
+
+                <TextView
+                    android:id="@+id/txtColor"
+                    style="@style/mediumLabel"
+                    android:layout_width="match_parent"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginRight="0dp"
+                    android:layout_marginTop="4dp"
+                    android:text="Color"
+                    android:textColor="@color/textBlack"/>
+
+                <ImageView
+                    android:id="@+id/imgPicture"
+                    android:layout_width="match_parent"
+                    android:layout_height="130dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#999999"
+                    android:scaleType="fitCenter"
+                    app:srcCompat="@drawable/car_icon_dark"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/txtDescription"

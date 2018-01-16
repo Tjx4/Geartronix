@@ -6,7 +6,7 @@ import android.support.design.widget.NavigationView;
 import android.view.Menu;
 import android.view.MenuItem;
 import co.za.geartronix.R;
-import co.za.geartronix.presenters.HomePresenter;
+import co.za.geartronix.presenters.DashboardPresenter;
 import co.za.geartronix.views.IHomeView;
 
 public class DashBoardActivity extends BaseAsyncActivity implements IHomeView, NavigationView.OnNavigationItemSelectedListener {
@@ -18,13 +18,13 @@ public class DashBoardActivity extends BaseAsyncActivity implements IHomeView, N
     }
 
     @Override
-    public HomePresenter getPresenter() {
-        return (HomePresenter)presenter;
+    public DashboardPresenter getPresenter() {
+        return (DashboardPresenter)presenter;
     }
 
     @Override
     public void setPresenter() {
-        presenter = new HomePresenter(this);
+        presenter = new DashboardPresenter(this);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package co.za.geartronix.presenters;
 
+import android.content.DialogInterface;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,30 +40,8 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
 
     @Override
     protected void postAnimation(View view) {
-        //RotateAnimation animation = new RotateAnimation(90, 20);
-        //view.startAnimation(animation);
-        //view.animate().rotationBy(360).setDuration(600).setInterpolator(new LinearInterpolator()).start();
 
-       /*
-
-        if(ogWidth == 0)
-            ogWidth = view.getWidth();
-
-        if(lastViewSideIcon != null && lastViewSideIcon != view) {
-            ViewGroup.LayoutParams lp = lastViewSideIcon.getLayoutParams();
-            lp.width = ogWidth;
-            lastViewSideIcon.setLayoutParams(lp);
-        }
-
-        ViewGroup.LayoutParams lp = view.getLayoutParams();
-        lp.width = ogWidth + 10;
-        view.setLayoutParams(lp);
-
-        lastViewSideIcon = view;
-
-        */
     }
-
 
     @Override
     protected void openedStateMethod() {
@@ -77,7 +56,6 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
 
     @Override
     public void handleViewClickedEvent(View view) {
-        //blinkView(sideIconImg, 30, 70);
         toggleSubContent(view);
         setSelectedService(view.getId());
     }
@@ -107,7 +85,13 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
 
     @Override
     public void requestService() {
+        showShortToast("You are requesting"+selectedService.getService());
+    }
 
+    @Override
+    public void generalCheckUpRequest() {
+        // Send email to geartronix with user specifics
+        showShortToast("generalCheckUpRequest");
     }
 
     @Override
@@ -136,14 +120,27 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
     }
 
     @Override
+    protected void onPositiveDialogButtonClicked(DialogInterface dialogInterface, int i) {
+
+        if(clickedViewId == R.id.action_request_service)
+            requestService();
+        else
+        if(clickedViewId == R.id.action_general_checkup)
+            generalCheckUpRequest();
+    }
+
+    @Override
     public void menuOptionSelected(MenuItem item) {
         super.menuOptionSelected(item);
-
         clickedViewId = item.getItemId();
 
-        if(clickedViewId == R.id.action_request_service) {
-            showShortToast("You are requesting"+selectedService.getService());
-        }
+        String confirmationMessage = getActivity().getString(R.string.general_checkup_diagostic_message);
+
+        if(clickedViewId == R.id.action_request_service)
+            confirmationMessage = "The service you are requesting is \""+selectedService.getService()+"\", would you like to continue?";
+
+        showConfirmMessage(confirmationMessage, getActivity().getResources().getString(R.string.confirm), true, false);
+
     }
 
     @Override

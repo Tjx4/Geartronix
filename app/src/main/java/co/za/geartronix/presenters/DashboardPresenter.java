@@ -17,7 +17,7 @@ import co.za.geartronix.views.IHomeView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
+public class DashboardPresenter extends BaseMenuPresenter implements IDashboardPresenter {
 
     private AccountModel responseModel;
     private DrawerLayout mDrawerLayout;
@@ -28,7 +28,7 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     private View lastView;
     private HomeTileAdapter homeTileAdapter;
 
-    public HomePresenter(IHomeView iHomeView) {
+    public DashboardPresenter(IHomeView iHomeView) {
         super((BaseActivity)iHomeView);
         setDependanciesNoActionBar(R.layout.activity_home);
         setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_home);
