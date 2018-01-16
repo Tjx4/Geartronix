@@ -1,6 +1,7 @@
 package co.za.geartronix.activities;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.view.Menu;
@@ -47,6 +48,15 @@ public class DashBoardActivity extends BaseAsyncActivity implements IHomeView, N
     @Override
     public void onBackPressed() {
         getPresenter().handleBackButtonPressed();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            moveTaskToBack(true);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 
     @Override

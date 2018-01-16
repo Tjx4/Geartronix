@@ -30,8 +30,8 @@ public class DashboardPresenter extends BaseMenuPresenter implements IDashboardP
 
     public DashboardPresenter(IHomeView iHomeView) {
         super((BaseActivity)iHomeView);
-        setDependanciesNoActionBar(R.layout.activity_home);
-        setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_home);
+        setDependanciesNoActionBar(R.layout.activity_dashboard);
+        setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_dashboard);
         setViews();
 
         responseModel = new AccountModel();

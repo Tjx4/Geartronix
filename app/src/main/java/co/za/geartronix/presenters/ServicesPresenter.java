@@ -11,7 +11,7 @@ public class ServicesPresenter extends BaseMenuPresenter implements IServicesPre
 
     public ServicesPresenter(IServicesView iServicesView) {
         super((BaseActivity)iServicesView);
-        setDependanciesNoActionBar(R.layout.activity_home);
+        setDependanciesNoActionBar(R.layout.activity_dashboard);
         pageTitle = getActivity().getString(R.string.services);
         setMenuDependencies(getActivity(), getPageTitle(), R.layout.activity_service );
         setViews();

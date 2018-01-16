@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
@@ -21,7 +22,7 @@ import co.za.geartronix.views.ILoginView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginPresenter extends BaseAppActivityPresenter implements ILoginPresenter {
+public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter {
 
     private String username, password, welcomeMessage;
     private UserModel user;
@@ -32,12 +33,17 @@ public class LoginPresenter extends BaseAppActivityPresenter implements ILoginPr
 
     public LoginPresenter(ILoginView iLoginView) {
         super((BaseActivity)iLoginView);
-        setDependancies(R.layout.activity_login);
-        setPageTitle(activity.getString(R.string.sign_in));
+        setDependanciesNoActionBar(R.layout.activity_login);
+        setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_login);
         setViews();
         responseModel = new LoginModel();
         new PermissionsProvider(getActivity()).requestInternetPermission();
         getLinkedUserOREnterUsername();
+    }
+
+    @Override
+    public String getPageTitle() {
+        return getActivity().getString(R.string.sign_in);
     }
 
     @Override
@@ -113,11 +119,12 @@ public class LoginPresenter extends BaseAppActivityPresenter implements ILoginPr
     @Override
     public void setViews() {
         setAsyncViews();
-        //loginBtn = (Button)findViewById(R.id.btnLogin);
-        usernameTxt = (EditText)getActivity().findViewById(R.id.txtUsername);
-        passwordTxt = (EditText)getActivity().findViewById(R.id.txtPassword);
-        welcomeMessageTxt = (TextView) getActivity().findViewById(R.id.txtWelcomeMessage);
-        usernameLbl = (TextView) getActivity().findViewById(R.id.lblUsername);
+        parentLayout = getMainLayout();
+        loadingScreenFrm = parentLayout.findViewById(R.id.frmLoadingScreen);
+        usernameTxt = parentLayout.findViewById(R.id.txtUsername);
+        passwordTxt = parentLayout.findViewById(R.id.txtPassword);
+        welcomeMessageTxt = parentLayout.findViewById(R.id.txtWelcomeMessage);
+        usernameLbl = parentLayout.findViewById(R.id.lblUsername);
 
         passwordTxt.setText("123");
 
@@ -235,6 +242,12 @@ Log.i(BASE_LOG, "Thread started ... ...");
                 showLongToast("Unknown button");
                 break;
         }
+    }
+
+    public boolean handleNavigationItemSelected(MenuItem item) {
+        super.handleNavigationItemSelected(item);
+
+        return true;
     }
 
     @Override

@@ -456,12 +456,17 @@ public abstract class BasePresenter {
             case R.id.action_signout:
                 confirmSignOut();
                 break;
+            case R.id.action_exit:
+                activity.finish();
+                break;
         }
     }
 
     protected void confirmSignOut() {
         isSignOut = true;
-        showConfirmMessage("You are about to logout of your account, would you like to continue", "Confirm", true, false);
+
+        String confirmMessage = "You are about to logout of your account "+ R.string.continue_message;
+        showConfirmMessage(confirmMessage, "Confirm", true, false);
     }
 
     protected void signOut() {

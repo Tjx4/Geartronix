@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/action_register"
+            android:icon="@drawable/booking_icon"
+            android:title="Register new user"/>
+
+        <item
+            android:id="@+id/action_switch_users"
+            android:icon="@mipmap/profile_icon"
+            android:title="Login with a different user"/>
+
+        <item
+            android:id="@+id/action_exit"
+            android:icon="@drawable/close_icon"
+            android:title="Exit app"
+            app:showAsAction="never"/>
+
+    </group>
+
+</menu>
+
+
