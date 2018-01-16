@@ -52,6 +52,59 @@ public class MockProvider {
         return serviceList;
     }
 
+    public List<MessageModel> getMockMessages()
+    {
+        List<MessageModel> messages = new ArrayList<>();
+        MessageModel message = new MessageModel();
+        message.setMessage("Welcome to geartronix this is a test message");
+        message.setDate(null);
+        message.setSender(0);
+        message.setHeader("Message header");
+        message.setRead(false);
+        Bitmap imageAttachement = BitmapFactory.decodeResource( activity.getResources(), R.drawable.workshop2 );
+        message.setImageAttachment(imageAttachement);
+        messages.add(message);
+
+        MessageModel message2 = new MessageModel();
+        message2.setMessage("Hello again this is the second test message");
+        message2.setDate(null);
+        message2.setSender(0);
+        message2.setHeader("Message 2 header");
+        message2.setRead(true);
+        message2.setImageAttachment(null);
+        messages.add(message2);
+
+        return messages;
+    }
+
+    public List<CarModel> getMockCars()
+    {
+        List<CarModel> cars = new ArrayList<>();
+        CarModel car = new CarModel();
+        car.setMake("VW");
+        car.setNumber(1);
+        car.setMilage("125,000 km");
+        car.setColor("White");
+        car.setModel("Polo GTI");
+        car.setModelYear(null);
+        Bitmap carPic = BitmapFactory.decodeResource( activity.getResources(), R.drawable.dummy_car );
+        car.setPicture(carPic);
+        cars.add(car);
+
+        CarModel car2 = new CarModel();
+        car2.setMake("Audi");
+        car2.setNumber(2);
+        car2.setMilage("50,000 km");
+        car2.setColor("Blue");
+        car2.setModel("RS5");
+        car2.setModelYear(null);
+        Bitmap carPic2 = BitmapFactory.decodeResource( activity.getResources(), R.drawable.dummy_car2 );
+        car2.setPicture(carPic2);
+        cars.add(car2);
+
+        return  cars;
+    }
+
     public UserModel getMockUser()
     {
         UserModel mockUser = new UserModel();
@@ -81,48 +134,10 @@ public class MockProvider {
         contactDetailes.setEmails(emails);
         mockUser.setContactDetailsProvider(contactDetailes);
 
-        List<MessageModel> messages = new ArrayList<>();
-        MessageModel message = new MessageModel();
-        message.setMessage("Welcome to geartronix this is a test message");
-        message.setDate(null);
-        message.setSender(0);
-        message.setHeader("Message header");
-        message.setRead(false);
-        Bitmap imageAttachement = BitmapFactory.decodeResource( activity.getResources(), R.drawable.workshop2 );
-        message.setImageAttachment(imageAttachement);
-        MessageModel message2 = new MessageModel();
-        message2.setMessage("Hello again this is the second test message");
-        message2.setDate(null);
-        message2.setSender(0);
-        message2.setHeader("Message 2 header");
-        message2.setRead(false);
-        message2.setImageAttachment(null);
-        messages.add(message);
-        messages.add(message2);
+        List<MessageModel> messages = getMockMessages();
         mockUser.setMessages(messages);
 
-        List<CarModel> cars = new ArrayList<>();
-        CarModel car = new CarModel();
-        car.setMake("VW");
-        car.setNumber(1);
-        car.setMilage("125,000 km");
-        car.setColor("White");
-        car.setModel("Polo GTI");
-        car.setModelYear(null);
-        Bitmap carPic = BitmapFactory.decodeResource( activity.getResources(), R.drawable.dummy_car );
-        car.setPicture(carPic);
-        CarModel car2 = new CarModel();
-        car2.setMake("Audi");
-        car2.setNumber(2);
-        car2.setMilage("50,000 km");
-        car2.setColor("Blue");
-        car2.setModel("RS5");
-        car2.setModelYear(null);
-        Bitmap carPic2 = BitmapFactory.decodeResource( activity.getResources(), R.drawable.dummy_car2 );
-        car2.setPicture(carPic2);
-
-        cars.add(car);
-        cars.add(car2);
+        List<CarModel> cars = getMockCars();
         mockUser.setCars(cars);
 
         ProgressBarModel progressBar1 = new ProgressBarModel();

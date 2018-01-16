@@ -21,12 +21,14 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:layout_marginTop="5dp"
+            android:textStyle="bold"
             android:text="You"
-            android:textColor="#FF265B1E"/>
+            android:textColor="#dddddd"/>
 
         <ImageView
             android:id="@+id/imgAttachment"
             style="@style/messageImageAttachement"
+            android:visibility="gone"
             app:srcCompat="@android:drawable/ic_menu_report_image"/>
 
         <TextView
@@ -35,7 +37,7 @@
             android:layout_height="wrap_content"
             android:maxWidth="100dp"
             android:padding="5dp"
-            android:textColor="#333333"/>
+            android:textColor="#cccccc"/>
 
     </LinearLayout>
 

@@ -7,10 +7,12 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.LoginActivity;
 import co.za.geartronix.models.LoginModel;
+import co.za.geartronix.models.UserModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
 import co.za.geartronix.providers.PermissionsProvider;
@@ -20,11 +22,11 @@ import org.json.JSONObject;
 
 public class LoginPresenter extends BaseAppActivityPresenter implements ILoginPresenter {
 
-    private String username;
+    private String username, password, welcomeMessage;
+    private UserModel user;
     private byte attempts;
-    private String password;
-    private EditText usernameTxt;
-    private EditText passwordTxt;
+    private EditText usernameTxt, passwordTxt;
+    private TextView welcomeMessageTxt, usernameLbl;
     private LoginModel responseModel;
 
     public LoginPresenter(ILoginView iLoginView) {
@@ -34,6 +36,7 @@ public class LoginPresenter extends BaseAppActivityPresenter implements ILoginPr
         setViews();
         responseModel = new LoginModel();
         new PermissionsProvider(getActivity()).requestInternetPermission();
+        getLinkedUserOREnterUsername();
     }
 
     @Override
@@ -59,9 +62,8 @@ public class LoginPresenter extends BaseAppActivityPresenter implements ILoginPr
       attempts++;
     }
 
-
     @Override
-    public void onLoginButtonClicked(View button) {
+    public void signIn(View button) {
         if(attemptsExceeded(button))
             return;
 
@@ -69,25 +71,30 @@ public class LoginPresenter extends BaseAppActivityPresenter implements ILoginPr
     }
 
     @Override
-    public void onRegisterClicked(View view) {
-        showLongToast("Register");
+    public void switchUsers(View view) {
+        showLongToast("switch user");
         resetIfTriggeredByView(view);
     }
 
     @Override
-    public void onForgotPasswordClicked(View view) {
+    public void forgotPassword(View view) {
         showLongToast("Forgot password.");
         resetIfTriggeredByView(view);
     }
 
     @Override
     public void setLoginDetails() {
-        setUsername(usernameTxt.getText().toString());
-        setPassword(passwordTxt.getText().toString());
+
+        if(user == null)
+            setUsername(usernameTxt.getText().toString());
+        else
+            setUsername(user.getContactDetailsProvider().getEmails()[0]);
+
+            setPassword(passwordTxt.getText().toString());
     }
 
     @Override
-    public void goToDashBoard() {
+    public void enterApp() {
         Bundle loginDetails = new Bundle();
         loginDetails.putString("user", responseModel.getUser());
         loginDetails.putInt("userId", responseModel.getUserId());
@@ -108,9 +115,38 @@ public class LoginPresenter extends BaseAppActivityPresenter implements ILoginPr
         //loginBtn = (Button)findViewById(R.id.btnLogin);
         usernameTxt = (EditText)getActivity().findViewById(R.id.txtUsername);
         passwordTxt = (EditText)getActivity().findViewById(R.id.txtPassword);
+        welcomeMessageTxt = (TextView) getActivity().findViewById(R.id.txtWelcomeMessage);
+        usernameLbl = (TextView) getActivity().findViewById(R.id.lblUsername);
 
-        usernameTxt.setText("rocboyt@gmail.com");
+        //usernameTxt.setText("rocboyt@gmail.com");
         passwordTxt.setText("123");
+
+    }
+
+    @Override
+    public void getLinkedUserOREnterUsername() {
+
+        user = null; //new MockProvider(getActivity()).getMockUser();
+
+        if(user == null)
+            setEnterUsername();
+        else
+            setLinkedUserDetails();
+    }
+
+    @Override
+    public void setEnterUsername() {
+        welcomeMessageTxt.setVisibility(View.GONE);
+        usernameTxt.setVisibility(View.VISIBLE);
+        usernameLbl.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void setLinkedUserDetails() {
+        welcomeMessage = getActivity().getString(R.string.Hi)+ " "+user.getNames().getFirstName()+ " "+getActivity().getResources().getString(R.string.sign_in_welcome_message);
+
+        welcomeMessageTxt.setText(welcomeMessage);
+
     }
 
     public String getUsername() {
@@ -159,7 +195,7 @@ Log.i(BASE_LOG, "Thread started ... ...");
             setResponseModel(result.toString());
 
             if(responseModel.isSuccessful){
-                goToDashBoard();
+                enterApp();
             }
             else {
                 showErrorMessage(responseModel.message, activity.getString(R.string.login_error));
@@ -177,20 +213,20 @@ Log.i(BASE_LOG, "Thread started ... ...");
         responseModel.setModel(new JSONObject(response));
     }
 
-    //Todo: Revise
+//Todo: Revise
     @Override
     public void handleAsyncButtonClickedEvent(View button) {
 
         switch (button.getId()) {
 
             case R.id.btnLogin:
-                onLoginButtonClicked(button);
+                signIn(button);
                 break;
             case R.id.btnRegister:
-                onRegisterClicked(button);
+                switchUsers(button);
                 break;
             case R.id.txtForgotPassword:
-                onForgotPasswordClicked(button);
+                forgotPassword(button);
                 break;
 
             default:

@@ -42,7 +42,7 @@
             <item
                 android:id="@+id/action_send_message"
                 android:icon="@mipmap/message_icon"
-                android:title="Send message"/>
+                android:title="Ask a question"/>
 
             <item
                 android:id="@+id/action_help"

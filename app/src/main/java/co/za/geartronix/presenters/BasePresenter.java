@@ -30,6 +30,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 import co.za.geartronix.R;
+import co.za.geartronix.activities.AskActivity;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.DiagnosticsActivity;
 import co.za.geartronix.activities.ForgotPasswordActivity;
@@ -207,7 +208,6 @@ public abstract class BasePresenter {
         currentActivity.startAnimation(animate);
     }
 
-
     protected ActionBar basicActionBarConfiguration(String title) {
         ActionBar ab = this.activity.getSupportActionBar();
         ab.setTitle(title);
@@ -251,10 +251,10 @@ public abstract class BasePresenter {
     }
 
     protected void goToMessages(Bundle...extras) {
-        if(isCurrentActivity(MessagesActivity.class))
+        if(isCurrentActivity(AskActivity.class))
             return;
 
-        goToActivityWithPayload(MessagesActivity.class, extras);
+        goToActivityWithPayload(AskActivity.class, extras);
     }
 
     protected void goToInbox(Bundle...extras) {
@@ -545,12 +545,12 @@ public abstract class BasePresenter {
                 });
     }
 
-    protected void slideInView(View view) {
+    protected void slideInView(View view, int duration) {
         view.setVisibility(View.VISIBLE);
 
         view.animate()
                 .translationXBy(setHorizontalSlideLength(horizontalSlideWidth))
-                .setDuration(500)
+                .setDuration(duration)
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
@@ -558,11 +558,11 @@ public abstract class BasePresenter {
                 });
     }
 
-    private int setVerticalSlideLength(int length) {
+    protected int setVerticalSlideLength(int length) {
         return (length == 0)? getScreenHeight() : length;
     }
 
-    private int setHorizontalSlideLength(int length) {
+    protected int setHorizontalSlideLength(int length) {
         return (length == 0)? getScreenWidth() : length;
     }
 }

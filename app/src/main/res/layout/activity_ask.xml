@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="co.za.geartronix.activities.AskActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"
+        android:layout_weight="0.9"
+        android:background="@drawable/geartronix_textbox_background"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="70dp">
+
+        <ListView
+            android:id="@+id/list_msg"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="@dimen/activity_horizontal_margin"
+            android:divider="@null"
+            android:listSelector="@android:color/transparent"
+            android:transcriptMode="alwaysScroll"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginBottom="5dp"
+        android:focusableInTouchMode="true"
+        android:paddingBottom="0dp"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp">
+
+        <EditText
+            android:id="@+id/txtMessage"
+            style="@style/mediumTextBox"
+            android:layout_height="match_parent"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="6dp"
+            android:layout_marginTop="0dp"
+            android:layout_toLeftOf="@+id/frmSendMessageContainer"
+            android:layout_toStartOf="@+id/frmSendMessageContainer"
+            android:hint="@string/write_a_message"
+            android:paddingLeft="10dp"
+            android:paddingRight="35dp"/>
+
+
+        <ImageButton
+            android:id="@+id/imgImogy"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dp"
+            android:background="@drawable/imogy_icon"
+            android:onClick="onViewClickedEvent"
+            android:visibility="gone"/>
+
+        <FrameLayout
+            android:id="@+id/frmSendMessageContainer"
+            style="@style/mediumButton"
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="9dp"
+            android:layout_marginTop="0dp">
+
+            <ImageButton
+                android:id="@+id/btnSendMessage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@android:color/transparent"
+                android:onClick="onViewClickedEvent"
+                app:srcCompat="@android:drawable/ic_menu_send"/>
+
+        </FrameLayout>
+
+
+        <ImageButton
+            android:id="@+id/imgAttach"
+            android:layout_width="35dp"
+            android:layout_height="32dp"
+            android:layout_alignRight="@+id/txtMessage"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/attache_icon"
+            android:onClick="onViewClickedEvent"/>
+
+
+    </RelativeLayout>
+</LinearLayout>

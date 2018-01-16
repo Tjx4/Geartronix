@@ -5,11 +5,10 @@
     <string name="password">Password</string>
     <string name="sign_in">Sign in</string>
     <string name="ok">Ok</string>
-    <string name="forgot_password">Cant login? please click here</string>
+    <string name="forgot_password">Forgot password</string>
     <string name="register">Register</string>
     <string name="create_a_new_account">Login with a different account...</string>
     <string name="welcome_message"> Welcome to Geartronix</string>
-    <string name="signin_welcome_message">Welcome please sign in to your account to continue</string>
     <string name="gallery">Gallery</string>
     <string name="messages">Messages</string>
     <string name="FindUs">Find us</string>
@@ -65,4 +64,6 @@
     <string name="profile_update_error_message">Please make changes to your profile before saving</string>
     <string name="No">No</string>
     <string name="yes">Yes</string>
+    <string name="sign_in_welcome_message">please enter your password to continue</string>
+    <string name="Hi">Hi</string>
 </resources>

@@ -446,7 +446,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
             carsLst.setAdapter(carsAdapter);
         }
 
-        slideInView(carViewContainerRltv);
+        slideInView(carViewContainerRltv, 500);
         isCarVieOptend = true;
     }
 

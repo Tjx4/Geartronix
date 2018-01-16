@@ -1,22 +1,12 @@
 package co.za.geartronix.presenters;
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.graphics.drawable.ColorDrawable;
-import android.os.Looper;
 import android.support.v4.widget.DrawerLayout;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
-import android.view.animation.TranslateAnimation;
-import android.widget.FrameLayout;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
@@ -31,7 +21,7 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
 
     private AccountModel responseModel;
     private DrawerLayout mDrawerLayout;
-    private ImageView selectedActivityImg;
+    private ImageView welcomeImg;
     private GridView homeTileContainer;
     private TextView homeHeaderText;
     private List<BaseAppActivityPresenter> homeItems;
@@ -92,12 +82,58 @@ public class HomePresenter extends BaseMenuPresenter implements IHomePresenter {
     public void setViews() {
         parentLayout = getMainLayout();
         homeHeaderText = parentLayout.findViewById(R.id.txtHomeHeader);
-        selectedActivityImg = parentLayout.findViewById(R.id.imgSelectedActivity);
+        welcomeImg = parentLayout.findViewById(R.id.imgWelcome);
+
 
         // Set tiles
         homeTileContainer = parentLayout.findViewById(R.id.grdHomeTiles);
         homeTileContainer.setAdapter(getAdapter());
+
+        homeTileContainer.setVisibility(View.GONE);
+
+        slideInTiles();
+
     }
+
+    public void showWelcome() {
+
+        welcomeImg.setVisibility(View.VISIBLE);
+
+        welcomeImg.animate()
+                .alpha(1.0f)
+                .setDuration(500)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+
+                        welcomeImg.animate()
+                                .alpha(0.0f)
+                                .setDuration(900)
+                                .setListener(new AnimatorListenerAdapter() {
+                                    @Override
+                                    public void onAnimationEnd(Animator animation) {
+                                        slideInTiles();
+                                    }
+                                });
+                    }
+                });
+    }
+
+    @Override
+    public void slideInTiles() {
+
+        homeTileContainer.animate()
+                .translationXBy(-setHorizontalSlideLength(horizontalSlideWidth))
+                .setDuration(500)
+                .setListener(new AnimatorListenerAdapter() {
+                    @Override
+                    public void onAnimationEnd(Animator animation) {
+                        slideInView(homeTileContainer, 800);
+                        // Set margins to 0
+                    }
+                });
+    }
+
 
     public HomeTileAdapter getAdapter() {
 

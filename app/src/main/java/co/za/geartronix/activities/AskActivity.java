@@ -4,12 +4,11 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import co.za.geartronix.R;
-import co.za.geartronix.presenters.GalleryPresenter;
-import co.za.geartronix.views.IGalleryView;
+import co.za.geartronix.presenters.AskPresenter;
+import co.za.geartronix.views.IAskView;
 
-public class GalleryActivity extends BaseAsyncActivity implements IGalleryView {
+public class AskActivity extends BaseAsyncActivity implements IAskView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,7 +18,7 @@ public class GalleryActivity extends BaseAsyncActivity implements IGalleryView {
 
     @Override
     public void setPresenter() {
-        presenter = new GalleryPresenter(this);
+        presenter = new AskPresenter(this);
     }
 
     @Override
@@ -28,13 +27,13 @@ public class GalleryActivity extends BaseAsyncActivity implements IGalleryView {
     }
 
     @Override
-    public GalleryPresenter getPresenter() {
-        return (GalleryPresenter)presenter;
+    public AskPresenter getPresenter() {
+        return (AskPresenter)presenter;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.gallery_menu, menu);
+        getMenuInflater().inflate(R.menu.ask_question_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
