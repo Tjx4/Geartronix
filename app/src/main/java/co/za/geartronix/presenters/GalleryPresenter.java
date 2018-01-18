@@ -1,7 +1,5 @@
 package co.za.geartronix.presenters;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;

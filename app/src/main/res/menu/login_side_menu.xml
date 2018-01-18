@@ -6,13 +6,13 @@
 
         <item
             android:id="@+id/action_register"
-            android:icon="@drawable/booking_icon"
+            android:icon="@drawable/register_icon"
             android:title="Register new user"/>
 
         <item
             android:id="@+id/action_switch_users"
-            android:icon="@mipmap/profile_icon"
-            android:title="Login with a different user"/>
+            android:icon="@drawable/switch_users_icon"
+            android:title="Switch users"/>
 
         <item
             android:id="@+id/action_exit"

@@ -27,6 +27,13 @@ import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+
 import co.za.geartronix.R;
 import co.za.geartronix.activities.AskActivity;
 import co.za.geartronix.activities.BaseActivity;
@@ -600,6 +607,21 @@ public abstract class BasePresenter {
         boolean isSignOut = clickedViewId == R.id.action_signout;
 
         return !isSettings && !isHelp && !isSignOut;
+    }
+
+    protected byte[] object2Bytes( Object o ) throws IOException {
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream( baos );
+        oos.writeObject( o );
+        return baos.toByteArray();
+    }
+
+    protected Object bytes2Object( byte raw[] )
+            throws IOException, ClassNotFoundException {
+        ByteArrayInputStream bais = new ByteArrayInputStream( raw );
+        ObjectInputStream ois = new ObjectInputStream( bais );
+        Object o = ois.readObject();
+        return o;
     }
 
 }

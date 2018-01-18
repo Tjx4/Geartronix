@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.TextView;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
@@ -16,11 +15,11 @@ import co.za.geartronix.models.LoginModel;
 import co.za.geartronix.models.UserModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
-import co.za.geartronix.providers.MockProvider;
 import co.za.geartronix.providers.PermissionsProvider;
 import co.za.geartronix.views.ILoginView;
 import org.json.JSONException;
 import org.json.JSONObject;
+import java.io.IOException;
 
 public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter {
 
@@ -133,7 +132,15 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
     @Override
     public void getLinkedUserOREnterUsername() {
 
-        user = new MockProvider(getActivity()).getMockUser();
+        Bundle extras = getActivity().getIntent().getExtras();
+
+        if(extras != null && !extras.isEmpty())  {
+            try {
+                user = (UserModel) bytes2Object(extras.getByteArray("User"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         if(user == null)
             setEnterUsername();
@@ -153,9 +160,7 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
     @Override
     public void setLinkedUserDetails() {
         welcomeMessage = getActivity().getString(R.string.Hi)+ " "+user.getNames().getFirstName()+ " "+getActivity().getResources().getString(R.string.sign_in_welcome_message);
-
         welcomeMessageTxt.setText(welcomeMessage);
-
     }
 
     public String getUsername() {

@@ -9,16 +9,19 @@ import co.za.geartronix.views.IRegistrationView;
 
 public class RegistrationPresenter extends BaseMenuPresenter implements IRegistrationPresenter {
 
+    private String title = "Create account" ;
+
     public RegistrationPresenter(IRegistrationView iRegistrationView) {
         super((BaseActivity)iRegistrationView);
         setDependanciesNoActionBar(R.layout.activity_registration);
-        setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_registration);
         setViews();
+        setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_registration);
+
     }
 
     @Override
     public String getPageTitle() {
-        return getActivity().getString(R.string.register);
+        return title;
     }
 
     @Override
@@ -53,7 +56,8 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
 
     @Override
     public void setViews() {
-
+        if(getActivity().getIntent().getExtras() != null)
+            title = getActivity().getResources().getString(R.string.register);
     }
 
     @Override

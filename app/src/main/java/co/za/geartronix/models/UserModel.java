@@ -1,11 +1,13 @@
 package co.za.geartronix.models;
 
 import android.graphics.Bitmap;
+
+import java.io.Serializable;
 import java.util.List;
 
 import co.za.geartronix.providers.ContactDetailsProvider;
 
-public class UserModel extends BaseModel {
+public class UserModel extends BaseModel implements Serializable{
     private Bitmap profilePic;
     private MemberModel memberType;
     private NamesModel names;
@@ -14,8 +16,19 @@ public class UserModel extends BaseModel {
     private ContactDetailsProvider contactDetailsProvider;
     private List<CarModel> cars;
     private List<MessageModel> messages;
-    private ProgressBarModel progressBar1;
 
+    private ProgressBarModel progressBar1;
+    private ProgressBarModel progressBar2;
+
+    public ProgressBarModel getProgressBar1() {
+        return progressBar1;
+    }
+    public void setProgressBar1(ProgressBarModel progressBar1) {
+        this.progressBar1 = progressBar1;
+    }
+    public ProgressBarModel getProgressBar2() {
+        return progressBar2;
+    }
 
     public String getCity() {
         return city;
@@ -25,23 +38,9 @@ public class UserModel extends BaseModel {
         this.city = city;
     }
 
-    public ProgressBarModel getProgressBar1() {
-        return progressBar1;
-    }
-
-    public void setProgressBar1(ProgressBarModel progressBar1) {
-        this.progressBar1 = progressBar1;
-    }
-
-    public ProgressBarModel getProgressBar2() {
-        return progressBar2;
-    }
-
     public void setProgressBar2(ProgressBarModel progressBar2) {
         this.progressBar2 = progressBar2;
     }
-
-    private ProgressBarModel progressBar2;
 
     public Bitmap getProfilePic() {
         return profilePic;
