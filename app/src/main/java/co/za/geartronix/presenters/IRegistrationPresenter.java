@@ -1,5 +1,8 @@
 package co.za.geartronix.presenters;
 
 
-public interface IRegistrationPresenter {
+import co.za.geartronix.activities.RegistrationActivity;
+
+public interface IRegistrationPresenter  extends IBaseAsyncPresenter {
+    RegistrationActivity getActivity();
 }
