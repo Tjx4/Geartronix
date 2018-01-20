@@ -19,7 +19,6 @@ import co.za.geartronix.providers.PermissionsProvider;
 import co.za.geartronix.views.ILoginView;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.IOException;
 
 public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter {
 
@@ -126,7 +125,6 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
         usernameLbl = parentLayout.findViewById(R.id.lblUsername);
 
         passwordTxt.setText("123");
-
     }
 
     @Override
@@ -232,7 +230,6 @@ Log.i(BASE_LOG, "Thread started ... ...");
     public void handleAsyncButtonClickedEvent(View button) {
 
         switch (button.getId()) {
-
             case R.id.btnLogin:
                 signIn(button);
                 break;
@@ -241,10 +238,6 @@ Log.i(BASE_LOG, "Thread started ... ...");
                 break;
             case R.id.txtForgotPassword:
                 forgotPassword(button);
-                break;
-
-            default:
-                showLongToast("Unknown button");
                 break;
         }
     }

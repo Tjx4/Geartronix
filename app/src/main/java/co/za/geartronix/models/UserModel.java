@@ -1,10 +1,8 @@
 package co.za.geartronix.models;
 
 import android.graphics.Bitmap;
-
 import java.io.Serializable;
 import java.util.List;
-
 import co.za.geartronix.providers.ContactDetailsProvider;
 
 public class UserModel extends BaseModel implements Serializable{
@@ -16,7 +14,6 @@ public class UserModel extends BaseModel implements Serializable{
     private ContactDetailsProvider contactDetailsProvider;
     private List<CarModel> cars;
     private List<MessageModel> messages;
-
     private ProgressBarModel progressBar1;
     private ProgressBarModel progressBar2;
 

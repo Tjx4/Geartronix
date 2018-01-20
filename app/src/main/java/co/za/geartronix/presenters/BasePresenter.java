@@ -33,6 +33,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import co.za.geartronix.R;
 import co.za.geartronix.activities.AskActivity;
@@ -472,7 +474,7 @@ public abstract class BasePresenter {
     protected void confirmSignOut() {
         isSignOut = true;
 
-        String confirmMessage = "You are about to logout of your account "+ R.string.continue_message;
+        String confirmMessage = "You are about to logout of your account "+ activity.getResources().getString(R.string.continue_message);
         showConfirmMessage(confirmMessage, "Confirm", true, false);
     }
 
@@ -622,6 +624,30 @@ public abstract class BasePresenter {
         ObjectInputStream ois = new ObjectInputStream( bais );
         Object o = ois.readObject();
         return o;
+    }
+
+    protected boolean isValidCell(String cell){
+       // int cellLength = cell.trim().length();
+        //return cellLength > 8 && cellLength < 12;
+
+        CharSequence inputStr = cell.trim();
+        Pattern pattern = Pattern.compile(new String ("^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$"));
+        Matcher matcher = pattern.matcher(inputStr);
+        return matcher.matches();
+    }
+
+    protected boolean isValidName(String name){
+        CharSequence inputStr = name.trim();
+        Pattern pattern = Pattern.compile(new String ("^[a-zA-Z\\\\s]+"));
+        Matcher matcher = pattern.matcher(inputStr);
+        return matcher.matches();
+    }
+
+    private boolean isValidEmail(String email){
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
+        java.util.regex.Matcher m = p.matcher(email);
+        return m.matches();
     }
 
 }
