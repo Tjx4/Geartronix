@@ -23,6 +23,7 @@ import java.io.IOException;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.customViews.CustomImageVIew;
+import co.za.geartronix.providers.CacheProvider;
 import co.za.geartronix.providers.Permissions;
 import co.za.geartronix.providers.ResizeAnimation;
 
@@ -45,6 +46,7 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
     private boolean openState;
     protected MenuItem requestMenuItem;
     private boolean isFirstTime = true;
+    protected CacheProvider cacheProvider;
 
     public BaseAppActivityPresenter(BaseActivity baseActivity, int index) {
         setProperties(baseActivity, index);
@@ -53,6 +55,7 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
     public BaseAppActivityPresenter(BaseActivity baseActivity) {
         activity = baseActivity;
         imageAnimationDuration = 400;
+        cacheProvider = new CacheProvider(activity);
     }
 
     public void setProperties(BaseActivity baseActivity, int index) {

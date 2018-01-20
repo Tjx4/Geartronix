@@ -409,8 +409,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void askQuestion(View view) {
-            showShortToast("Ask question");
-        // show Ask a question dialog
+         goToMessages();
     }
 
     @Override

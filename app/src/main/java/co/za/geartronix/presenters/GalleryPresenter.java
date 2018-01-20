@@ -14,21 +14,19 @@ import co.za.geartronix.providers.HttpConnectionProvider;
 import co.za.geartronix.views.IGalleryView;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.util.ArrayList;
-import java.util.List;
+
+import java.io.IOException;
 
 public class GalleryPresenter extends BaseAppActivityPresenter implements IGalleryPresenter {
 
     private GridView imagesGridview;
-    private List<ArrayList> items;
-    private GalleryModel responseModel;
+    private GalleryModel galleryModel;
 
     public GalleryPresenter(IGalleryView iGalleryView) {
         super((BaseActivity)iGalleryView);
         setDependanciesChildActivities(R.layout.activity_gallery);
         currentActionBar.setTitle(" "+activity.getString(R.string.gallery));
         setViews();
-        responseModel = new GalleryModel();
         new DoAsyncCall().execute();
     }
 
@@ -39,8 +37,40 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     }
 
     @Override
+    protected void checkAndUpdate() {
+        isCheckingUpdates = true;
+        new DoAsyncCall().execute();
+    }
+
+    @Override
+    protected boolean isCached() {
+        return galleryModel != null && !galleryModel.getImages().isEmpty();
+    }
+
+    @Override
+    protected boolean hasUpdate(GalleryModel remoteGalleryModel) {
+        return remoteGalleryModel == galleryModel;
+    }
+
+    @Override
+    protected String getRemoteJson() throws IOException {
+        String service = DataServiceProvider.gallery.getPath();
+        String url = environment + service;
+        return  new HttpConnectionProvider().makeCallForData(url, "GET", true, true, httpConTimeout);
+    }
+
+    @Override
     protected void beforeAsyncCall() {
-        showLoadingScreen();
+        if(isCheckingUpdates)
+            return;
+
+        super.beforeAsyncCall();
+
+        try {
+            galleryModel = cacheProvider.getGalleryImages();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -50,9 +80,27 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
 
     @Override
     protected Object doAsyncOperation(Object... args) throws Exception {
-        String service = DataServiceProvider.gallery.getPath();
-        String url = environment + service + "index.php";
-        return new HttpConnectionProvider().makeCallForData(url, "GET", true, true, httpConTimeout);
+
+        String response = "";
+
+        if(isCheckingUpdates) {
+            response = getRemoteJson();
+            GalleryModel remoteGalleryModel = new GalleryModel();
+            remoteGalleryModel.setModel(new JSONObject(response));
+
+            if (hasUpdate(remoteGalleryModel))
+                cacheProvider.updateGallery(remoteGalleryModel);
+        }
+        else {
+            if(!isCached()) {
+                response = getRemoteJson();
+                galleryModel = new GalleryModel();
+                galleryModel.setModel(new JSONObject(response));
+                cacheProvider.updateGallery(galleryModel);
+            }
+        }
+
+        return response;
     }
 
     @Override
@@ -60,16 +108,16 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         if(outOfFocus)
             return;
 
-        try {
-            String res = result.toString();
-            responseModel.setModel(new JSONObject(res));
-            porpulateServiceList();
-
-        } catch (JSONException e) {
-            e.printStackTrace();
+        if(isCheckingUpdates) {
+            isCheckingUpdates = false;
+            return;
         }
 
-        hideLoadingScreen();
+        if(isCached())
+            checkAndUpdate();
+
+        porpulateServiceList();
+        super.afterAsyncCall(result);
     }
 
     @Override
@@ -86,7 +134,6 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     @Override
     public void fullScreeView() {
         showShortToast("Full screen mode");
-        //imagesGridview
     }
 
     @Override
@@ -103,12 +150,6 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     @Override
     public void handleViewClickedEvent(View view) {
         handleAsyncButtonClickedEvent(view);
-    }
-
-
-    @Override
-    protected void duringAnimation(View view) {
-
     }
 
     @Override
@@ -128,9 +169,8 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
 
     @Override
     public void porpulateServiceList() {
-        items = responseModel.getItems();
-        ArrayAdapter adp = new GalleryImageAdapter(activity, R.layout.gallery_item_view, items);
         imagesGridview = (GridView) activity.findViewById(R.id.grdvImageContainer);
+        ArrayAdapter adp = new GalleryImageAdapter(activity, R.layout.gallery_item_view, galleryModel.getImages());
         imagesGridview.setAdapter(adp);
     }
 

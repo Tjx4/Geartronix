@@ -203,7 +203,7 @@ Log.i(BASE_LOG, "Thread started ... ...");
         payload.putString("username", username);
         payload.putString("password", password);
         String service = DataServiceProvider.login.getPath();
-        String url = environment + service + "index.php";
+        String url = environment + service;
 
         return new HttpConnectionProvider(payload).makeCallForData(url, "GET", true, true, httpConTimeout);
     }

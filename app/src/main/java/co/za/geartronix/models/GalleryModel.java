@@ -3,75 +3,39 @@ package co.za.geartronix.models;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.util.ArrayList;
 import java.util.List;
 
-public class GalleryModel  extends BaseModel {
+public class GalleryModel extends BaseModel {
 
-    private List<ArrayList> items;
-    private List item;
-    private String imagePath;
-    private int imageId;
-    private String imageDescription;
+    private List<ImageModel> images;
 
     @Override
     public void setModel(JSONObject response) throws JSONException {
         super.setModel(response);
-        JSONArray itemsArray = response.getJSONArray("items");
+        JSONArray itemsArray = response.getJSONArray("images");
 
-        items = new ArrayList<>();
+        images = new ArrayList<>();
         for(int i = 0; i < itemsArray.length(); i++){
 
             JSONObject itemsAr = (JSONObject)itemsArray.get(i);
 
-            ArrayList al = new ArrayList();
-            al.add(itemsAr.getInt("id"));
-            al.add(itemsAr.getString("path"));
-            al.add(itemsAr.getString("description"));
+            ImageModel currImage = new ImageModel();
+            currImage.setId(itemsAr.getInt("id"));
+            currImage.setPath(itemsAr.getString("path"));
+            currImage.setDescription(itemsAr.getString("description"));
 
-            items.add(al);
+           images.add(currImage);
         }
 
     }
 
-    public List<ArrayList> getItems() {
-        return items;
+    public List<ImageModel> getImages() {
+        return images;
     }
 
-    public void setItems(List<ArrayList> items) {
-        this.items = items;
+    public void setImages(List<ImageModel> images) {
+        this.images = images;
     }
 
-    public List getItem() {
-        return item;
-    }
-
-    public void setItem(List item) {
-        this.item = item;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
-
-    public int getImageId() {
-        return imageId;
-    }
-
-    public void setImageId(int imageId) {
-        this.imageId = imageId;
-    }
-
-    public String getImageDescription() {
-        return imageDescription;
-    }
-
-    public void setImageDescription(String imageDescription) {
-        this.imageDescription = imageDescription;
-    }
 }

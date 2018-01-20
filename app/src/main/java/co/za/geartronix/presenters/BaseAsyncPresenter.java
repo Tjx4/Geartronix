@@ -7,23 +7,47 @@ import android.view.View;
 import android.widget.FrameLayout;
 import co.za.geartronix.R;
 import co.za.geartronix.constants.Constants;
+import co.za.geartronix.models.GalleryModel;
 import co.za.geartronix.providers.HttpConnectionProvider;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseAsyncPresenter extends BasePresenter {
+    protected boolean isCheckingUpdates;
     protected int httpConTimeout = 6000;
     protected String environment = Constants.CURRENTENVIRONMENT;
     protected List<View> activeButtons  = new ArrayList<>();
     public FrameLayout loadingScreenFrm;
 
     // Abstract methods
-    protected abstract void beforeAsyncCall();
     protected abstract void duringAsyncCall(Integer...values);
     protected abstract Object doAsyncOperation(Object...args) throws Exception;
-    protected abstract void afterAsyncCall(Object result);
     protected abstract void handleAsyncButtonClickedEvent(View button);
+
+    protected void checkAndUpdate() {
+
+    }
+
+    protected String getRemoteJson() throws IOException{
+        return null;
+    }
+
+    protected boolean hasUpdate(GalleryModel remoteGalleryModel) {
+        return false;
+    }
+
+    protected boolean isCached() {
+        return false;
+    }
+
+    protected void beforeAsyncCall(){
+        showLoadingScreen();
+    }
+
+    protected void afterAsyncCall(Object result){
+        hideLoadingScreen();
+    }
 
     protected void setAsyncViews() {
         loadingScreenFrm = (FrameLayout) activity.findViewById(R.id.frmLoadingScreen);

@@ -12,22 +12,22 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import co.za.geartronix.R;
+import co.za.geartronix.models.ImageModel;
 import co.za.geartronix.providers.HttpConnectionProvider;
-import java.util.ArrayList;
 import java.util.List;
 
 public class GalleryImageAdapter extends ArrayAdapter{
 
     private final Activity activity;
     private final int layout;
-    private final List<ArrayList> items;
+    private final List<ImageModel> items;
 
-    public GalleryImageAdapter(Context context, int layout, List items) {
-        super(context, layout, items);
+    public GalleryImageAdapter(Context context, int layout, List<ImageModel> images) {
+        super(context, layout, images);
 
         activity = (Activity)context;
         this.layout = layout;
-        this.items = items;
+        this.items = images;
     }
 
     private View parentView;
@@ -42,13 +42,13 @@ public class GalleryImageAdapter extends ArrayAdapter{
         ProgressBar imageloading =  parentView.findViewById(R.id.progressBarSub);
         ImageButton image = parentView.findViewById(R.id.imgPic);
 
-        String path = items.get(position).get(1).toString();
+        String path = items.get(position).getPath();
         image.setTag(path);
 
         new HttpConnectionProvider().setRemoteBitmap(imageloading, image, path);
 
         TextView description = parentView.findViewById(R.id.txtDescription);
-        description.setText(items.get(position).get(2).toString());
+        description.setText(items.get(position).getDescription());
 
         return parentView;
     }

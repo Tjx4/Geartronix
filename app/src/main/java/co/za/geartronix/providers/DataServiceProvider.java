@@ -14,6 +14,6 @@ public enum DataServiceProvider {
     }
 
     public String getPath() {
-        return path;
+        return path + "index.php";
     }
 }
