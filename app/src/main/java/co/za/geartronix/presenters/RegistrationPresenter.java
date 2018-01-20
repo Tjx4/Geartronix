@@ -3,12 +3,19 @@ package co.za.geartronix.presenters;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+
+import org.json.JSONObject;
+
+import java.io.IOException;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.RegistrationActivity;
+import co.za.geartronix.models.MemberModel;
 import co.za.geartronix.models.NamesModel;
 import co.za.geartronix.models.UserModel;
 import co.za.geartronix.providers.ContactDetailsProvider;
+import co.za.geartronix.providers.DataServiceProvider;
+import co.za.geartronix.providers.HttpConnectionProvider;
 import co.za.geartronix.views.IRegistrationView;
 
 public class RegistrationPresenter extends BaseMenuPresenter implements IRegistrationPresenter {
@@ -31,8 +38,24 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
     }
 
     @Override
+    protected String getRemoteJson() throws IOException {
+
+        String service = DataServiceProvider.registration.getPath();
+        String url = environment + service;
+
+        Bundle payload = new Bundle();
+        payload.putString("name", firstName);
+        payload.putString("password", password);
+        payload.putString("city", city);
+        payload.putString("email", email);
+        payload.putString("cellNumber", cellNumber);
+
+        return new HttpConnectionProvider(payload).makeCallForData(url, "GET", true, true, httpConTimeout);
+    }
+
+    @Override
     protected void beforeAsyncCall() {
-        showLoadingScreen();
+        super.beforeAsyncCall();
     }
 
     @Override
@@ -42,9 +65,45 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
 
     @Override
     protected Object doAsyncOperation(Object... args) throws Exception {
+        user = new UserModel();
+        NamesModel names = new NamesModel();
+        names.setFirstName(firstName);
+        user.setNames(names);
+        user.setCity(city);
+        ContactDetailsProvider contactDetails = new ContactDetailsProvider();
+        int cell1 = Integer.parseInt(cellNumber);
+        contactDetails.setContactNumbers(new int[]{cell1});
+        contactDetails.setEmails(new String[]{email});
+        user.setContactDetailsProvider(contactDetails);
+        MemberModel memberModel = new MemberModel();
+        memberModel.setMemberType(0);
+        user.setMemberType(memberModel);
+        try {
+            addUserToDataBase(user);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
 
+        String response = getRemoteJson();
+        user = new UserModel();
+        user.setModel(new JSONObject(response));
+        return response;
+    }
 
-        return null;
+    @Override
+    protected void afterAsyncCall(Object result) {
+        if(outOfFocus)
+            return;
+
+        if(user.isSuccessful) {
+            goToLogin();
+        }
+        else {
+            showErrorMessage(user.getResponseMessage(), getActivity().getString(R.string.error));
+        }
+
+        super.afterAsyncCall(result);
     }
 
     @Override
@@ -58,20 +117,7 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
     }
 
     @Override
-    protected void afterAsyncCall(Object result) {
-        user = new UserModel();
-        NamesModel names = new NamesModel();
-        names.setFirstName(firstName);
-        user.setNames(names);
-        user.setCity(city);
-        ContactDetailsProvider contactDetails = new ContactDetailsProvider();
-        int cell1 = Integer.parseInt(cellNumber);
-        contactDetails.setContactNumbers(new int[]{cell1});
-        contactDetails.setEmails(new String[]{email});
-        user.setContactDetailsProvider(contactDetails);
-
-        Bundle extras = new Bundle();
-        goToLogin(extras);
+    public void registerUser() {
 
     }
 
@@ -118,6 +164,13 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
         cityTxt = parentLayout.findViewById(R.id.txtCity);
         cellTxt = parentLayout.findViewById(R.id.txtCell);
         emailTxt = parentLayout.findViewById(R.id.txtEmail);
+
+        nametxt.setText("Rob");
+        cellTxt.setText("0842630120");
+        emailTxt.setText("rob@gmail.com");
+        cityTxt.setText("Pretoria");
+        passwordTxt.setText("Tl@0793079399");
+        passwordConfirmationTxt.setText("Tl@0793079399");
     }
 
     @Override

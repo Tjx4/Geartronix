@@ -5,7 +5,7 @@ import org.json.JSONObject;
 
 public class ProfileModel extends BaseModel {
     @Override
-    public void setModel(JSONObject response) throws JSONException {
-        super.setModel(response);
+    public void setModel(JSONObject responseJson) throws JSONException {
+        super.setModel(responseJson);
     }
 }

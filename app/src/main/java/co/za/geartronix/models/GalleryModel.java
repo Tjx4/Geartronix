@@ -11,9 +11,9 @@ public class GalleryModel extends BaseModel {
     private List<ImageModel> images;
 
     @Override
-    public void setModel(JSONObject response) throws JSONException {
-        super.setModel(response);
-        JSONArray itemsArray = response.getJSONArray("images");
+    public void setModel(JSONObject responseJson) throws JSONException {
+        super.setModel(responseJson);
+        JSONArray itemsArray = responseJson.getJSONArray("images");
 
         images = new ArrayList<>();
         for(int i = 0; i < itemsArray.length(); i++){

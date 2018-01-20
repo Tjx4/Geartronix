@@ -11,13 +11,13 @@ public class LoginModel extends BaseModel{
     //public UserModel user;
 
     @Override
-    public void setModel(JSONObject response) throws JSONException {
-       super.setModel(response);
-        setUserId(response.getInt("userId"));
-        setUser(response.getString("user"));
-        setMessage(response.getString("message"));
-        setSuccessful(response.getBoolean("isSuccessful"));
-        setSession(response.getString("session"));
+    public void setModel(JSONObject responseJson) throws JSONException {
+       super.setModel(responseJson);
+        setUserId(responseJson.getInt("userId"));
+        setUser(responseJson.getString("user"));
+        setResponseMessage(responseJson.getString("responseMessage"));
+        setSuccessful(responseJson.getBoolean("isSuccessful"));
+        setSession(responseJson.getString("session"));
     }
 
     public int getUserId() {  return userId;}

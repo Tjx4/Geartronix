@@ -1,6 +1,8 @@
 package co.za.geartronix.models;
 
 import android.graphics.Bitmap;
+import org.json.JSONException;
+import org.json.JSONObject;
 import java.io.Serializable;
 import java.util.List;
 import co.za.geartronix.providers.ContactDetailsProvider;
@@ -20,6 +22,11 @@ public class UserModel extends BaseModel implements Serializable{
     private List<MessageModel> messages;
     private ProgressBarModel progressBar1;
     private ProgressBarModel progressBar2;
+
+    @Override
+    public void setModel(JSONObject responseJson) throws JSONException {
+        super.setModel(responseJson);
+    }
 
     public ProgressBarModel getProgressBar1() {
         return progressBar1;

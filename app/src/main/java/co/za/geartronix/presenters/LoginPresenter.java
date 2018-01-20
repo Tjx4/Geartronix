@@ -3,24 +3,28 @@ package co.za.geartronix.presenters;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.LoginActivity;
+import co.za.geartronix.adapters.UserSelectionAdapter;
 import co.za.geartronix.constants.Constants;
 import co.za.geartronix.models.LoginModel;
 import co.za.geartronix.models.UserModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
-import co.za.geartronix.providers.MockProvider;
 import co.za.geartronix.providers.PermissionsProvider;
+import co.za.geartronix.providers.SQLiteProvider;
 import co.za.geartronix.views.ILoginView;
-import org.json.JSONException;
 import org.json.JSONObject;
+import java.io.IOException;
+import java.util.List;
 
 public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter {
 
@@ -28,8 +32,11 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
     private UserModel user;
     private byte attempts;
     private EditText usernameTxt, passwordTxt;
-    private TextView welcomeMessageTxt, usernameLbl, registerBtn;
+    private TextView welcomeMessageTxt, usernameLbl, switchUsersLbl;
     private LoginModel responseModel;
+    private int userId;
+    private ListView userSelectionLst;
+    private FrameLayout userSelectContainerFrm;
 
     public LoginPresenter(ILoginView iLoginView) {
         super((BaseActivity)iLoginView);
@@ -79,7 +86,29 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
 
     @Override
     public void switchUsers(View view) {
-        setEnterUsername();
+        //setEnterUsername();
+        showUserSelectionView();
+    }
+
+
+    @Override
+    public void showUserSelectionView() {
+        List<UserModel> users = new SQLiteProvider(getActivity()).getAllUsers();
+        UserSelectionAdapter adp = new UserSelectionAdapter(getActivity(), R.layout.user_item,users);
+        userSelectionLst.setAdapter(adp);
+        userSelectContainerFrm.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void handleOnUserSelected(View view) {
+        RelativeLayout parent = (RelativeLayout)view;
+        int userId = parent.getChildAt(0).getId();
+        user = new SQLiteProvider(getActivity()).getUser(userId);
+
+        FrameLayout container = (FrameLayout)parent.getParent().getParent().getParent();
+        container.setVisibility(View.GONE);
+
+        setLinkedUserDetails();
     }
 
     @Override
@@ -121,32 +150,21 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
         setAsyncViews();
         parentLayout = getMainLayout();
         loadingScreenFrm = parentLayout.findViewById(R.id.frmLoadingScreen);
-        registerBtn = parentLayout.findViewById(R.id.lblRegister);
         usernameTxt = parentLayout.findViewById(R.id.txtUsername);
         passwordTxt = parentLayout.findViewById(R.id.txtPassword);
         welcomeMessageTxt = parentLayout.findViewById(R.id.txtWelcomeMessage);
         usernameLbl = parentLayout.findViewById(R.id.lblUsername);
+        userSelectContainerFrm = parentLayout.findViewById(R.id.frmUserSelectContainer);
+        switchUsersLbl = parentLayout.findViewById(R.id.lblSwitchUser);
+        userSelectionLst = parentLayout.findViewById(R.id.lstUserSelection);
 
         passwordTxt.setText("123");
     }
 
     @Override
     public void getLinkedUserOREnterUsername() {
-
-        Bundle extras = getActivity().getIntent().getExtras();
-
-        if(extras != null)
-            extras.getBundle("payload");
-
-        if(extras != null && !extras.isEmpty())  {
-            try {
-                user = (UserModel) bytes2Object(extras.getByteArray("User"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-user = new MockProvider(getActivity()).getMockUser();
+        userId = 1;
+        user = new SQLiteProvider(getActivity()).getUser(userId);
 
         if(user == null)
             setEnterUsername();
@@ -161,7 +179,7 @@ user = new MockProvider(getActivity()).getMockUser();
         welcomeMessageTxt.setVisibility(View.GONE);
         usernameTxt.setVisibility(View.VISIBLE);
         usernameLbl.setVisibility(View.VISIBLE);
-        registerBtn.setVisibility(View.GONE);
+        switchUsersLbl.setVisibility(View.GONE);
     }
 
     @Override
@@ -185,6 +203,17 @@ user = new MockProvider(getActivity()).getMockUser();
 
 
     @Override
+    protected String getRemoteJson() throws IOException {
+        Bundle payload = new Bundle();
+        payload.putString("username", username);
+        payload.putString("password", password);
+        String service = DataServiceProvider.login.getPath();
+        String url = environment + service;
+
+        return new HttpConnectionProvider(payload).makeCallForData(url, "GET", true, true, httpConTimeout);
+    }
+
+    @Override
     protected void beforeAsyncCall() {
         showLoadingScreen();
     }
@@ -196,64 +225,52 @@ user = new MockProvider(getActivity()).getMockUser();
 
     @Override
     protected Object doAsyncOperation(Object... args) throws Exception {
-Log.i(BASE_LOG, "Thread started ... ...");
-
         setLoginDetails();
-        Bundle payload = new Bundle();
-        payload.putString("username", username);
-        payload.putString("password", password);
-        String service = DataServiceProvider.login.getPath();
-        String url = environment + service;
 
-        return new HttpConnectionProvider(payload).makeCallForData(url, "GET", true, true, httpConTimeout);
+        String response = getRemoteJson();
+        responseModel = new LoginModel();
+        responseModel.setModel(new JSONObject(response));
+
+        return response;
     }
 
     @Override
     protected void afterAsyncCall(Object result) {
-        hideLoadingScreen();
+        if(outOfFocus)
+            return;
 
-        try {
-            setResponseModel(result.toString());
-
-            if(responseModel.isSuccessful){
-                enterApp();
-            }
-            else {
-                showErrorMessage(responseModel.message, activity.getString(R.string.login_error));
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-            showErrorMessage(activity.getString(R.string.technical_error), activity.getString(R.string.login_error));
+        if(responseModel.isSuccessful){
+            enterApp();
+        }
+        else {
+            showErrorMessage(responseModel.responseMessage, getActivity().getString(R.string.error));
         }
 
-    }
-
-    @Override
-    public void setResponseModel(String response) throws JSONException {
-        responseModel.setModel(new JSONObject(response));
+        super.afterAsyncCall(result);
     }
 
 //Todo: Revise
     @Override
-    public void handleAsyncButtonClickedEvent(View button) {
+    public void handleAsyncButtonClickedEvent(View view) {
 
-        switch (button.getId()) {
+        switch (view.getId()) {
             case R.id.btnLogin:
-                signIn(button);
+                signIn(view);
                 break;
-            case R.id.lblRegister:
-                switchUsers(button);
+            case R.id.lblSwitchUser:
+                switchUsers(view);
                 break;
             case R.id.txtForgotPassword:
-                forgotPassword(button);
+                forgotPassword(view);
+                break;
+            case R.id.rltvUserSelect:
+                handleOnUserSelected(view);
                 break;
         }
     }
 
     public boolean handleNavigationItemSelected(MenuItem item) {
         super.handleNavigationItemSelected(item);
-
         return true;
     }
 

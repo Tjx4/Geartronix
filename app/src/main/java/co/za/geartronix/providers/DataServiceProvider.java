@@ -5,7 +5,8 @@ public enum DataServiceProvider {
     userVerify("rest/services/v1/apps/login/userVerify/"),
     onlineImagePath("rest/services/img.png"),
     gallery("rest/services/v1/apps/gallery/images/"),
-    login("rest/services/v1/apps/login/loginUser/");
+    login("rest/services/v1/apps/login/loginUser/"),
+    registration("rest/services/v1/apps/registration/registerUser/");
 
     private String path;
 

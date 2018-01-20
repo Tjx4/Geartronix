@@ -56,7 +56,7 @@ public class MockProvider {
     {
         List<MessageModel> messages = new ArrayList<>();
         MessageModel message = new MessageModel();
-        message.setMessage("Welcome to geartronix this is a test message");
+        message.setMessage("Welcome to geartronix this is a test responseMessage");
         message.setDate(null);
         message.setSender(0);
         message.setHeader("Message header");
@@ -66,7 +66,7 @@ public class MockProvider {
         messages.add(message);
 
         MessageModel message2 = new MessageModel();
-        message2.setMessage("Hello again this is the second test message");
+        message2.setMessage("Hello again this is the second test responseMessage");
         message2.setDate(null);
         message2.setSender(0);
         message2.setHeader("Message 2 header");

@@ -6,22 +6,23 @@ import org.json.JSONObject;
 public abstract class BaseModel {
 
     public boolean isSuccessful;
-    public String message;
+    public String responseMessage;
     public String responseCode;
+    private String responseJson;
 
-    public String setResponse() {
-        return response;
+    public String getResponseJson() {
+        return responseJson;
     }
 
-    public void setResponse(JSONObject response) {
-        this.response = response.toString();
+    public void setResponseJson(JSONObject responseJson) {
+        this.responseJson = responseJson.toString();
     }
 
-    protected void setModel(JSONObject response) throws JSONException {
-        setResponse(response);
+    public void setModel(JSONObject responseJson) throws JSONException {
+        setResponseJson(responseJson);
+        isSuccessful = responseJson.getBoolean(("isSuccessful"));
+        responseMessage = responseJson.getString(("resposeMessage"));
     }
-
-    private String response;
 
     public boolean isSuccessful() {
         return isSuccessful;
@@ -31,12 +32,12 @@ public abstract class BaseModel {
         isSuccessful = successful;
     }
 
-    public String getMessage() {
-        return message;
+    public String getResponseMessage() {
+        return responseMessage;
     }
 
-    public void setMessage(String message) {
-        this.message = message;
+    public void setResponseMessage(String responseMessage) {
+        this.responseMessage = responseMessage;
     }
 
     public String getResponseCode() {
@@ -46,5 +47,4 @@ public abstract class BaseModel {
     public void setResponseCode(String responseCode) {
         this.responseCode = responseCode;
     }
-
 }

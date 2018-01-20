@@ -157,7 +157,7 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
         String message = messageTxt.getText().toString().trim();
 
         if (!message.isEmpty()) {
-            //add message to list
+            //add responseMessage to list
             ChatMessage chatMessage = new ChatMessage(messageTxt.getText().toString(), isMine);
 
             chatMessages.add(chatMessage);

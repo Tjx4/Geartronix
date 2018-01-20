@@ -50,7 +50,9 @@ import co.za.geartronix.activities.ServicesListActivity;
 import co.za.geartronix.activities.SettingsActivty;
 import co.za.geartronix.constants.Constants;
 import co.za.geartronix.fragments.ProfileMoreOptionsFragment;
+import co.za.geartronix.models.UserModel;
 import co.za.geartronix.providers.PermissionsProvider;
+import co.za.geartronix.providers.SQLiteProvider;
 
 public abstract class BasePresenter {
 
@@ -658,6 +660,10 @@ public abstract class BasePresenter {
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
         java.util.regex.Matcher m = p.matcher(email);
         return m.matches();
+    }
+
+    protected void addUserToDataBase(UserModel user) {
+        new SQLiteProvider(activity).addUser(user);
     }
 
 }

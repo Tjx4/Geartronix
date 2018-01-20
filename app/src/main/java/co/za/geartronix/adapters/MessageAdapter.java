@@ -44,7 +44,7 @@ public class MessageAdapter extends ArrayAdapter<ChatMessage> {
             convertView.setTag(holder);
         }
 
-        //set message content
+        //set responseMessage content
         holder.msg.setText(chatMessage.getContent());
 
         return convertView;

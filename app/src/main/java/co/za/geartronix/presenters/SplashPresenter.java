@@ -8,6 +8,7 @@ import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.SplashActivity;
 import co.za.geartronix.models.UserModel;
 import co.za.geartronix.providers.MockProvider;
+import co.za.geartronix.providers.SQLiteProvider;
 import co.za.geartronix.views.ISplashView;
 
 public class SplashPresenter extends BaseAppActivityPresenter implements ISplashPresenter {
@@ -19,7 +20,7 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
         super((BaseActivity)iSplashView );
         setDependanciesNoActionBar(R.layout.splash_content);
         setViews();
-        checkLinkedUser();
+        new DoAsyncCall().execute();
     }
 
     public SplashPresenter(BaseActivity baseActivity, int index) {
@@ -46,13 +47,12 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
 
     @Override
     public void checkLinkedUser() {
-        user = new MockProvider(getActivity()).getMockUser();
-        new DoAsyncCall().execute();
+        user = new SQLiteProvider(getActivity()).getUser(1);
     }
 
     @Override
     protected void beforeAsyncCall() {
-
+        //super.beforeAsyncCall();
     }
 
     @Override
@@ -62,35 +62,17 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
 
     @Override
     protected Object doAsyncOperation(Object... args) throws Exception {
-        try {
-
-            Thread.sleep(10);
-
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-
+        checkLinkedUser();
         return null;
     }
 
     @Override
     protected void afterAsyncCall(Object result) {
 
-        if(user == null) {
+        if(user == null)
             goToRegistration();
-        }
-        else{
-            Bundle extras = new Bundle();
-
-            try {
-                extras.putByteArray("User", object2Bytes(user));
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-
-            goToLogin(extras);
-        }
+        else
+            goToLogin();
 
         getActivity().finish();
     }

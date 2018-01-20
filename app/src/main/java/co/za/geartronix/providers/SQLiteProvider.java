@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.za.geartronix.models.NamesModel;
 import co.za.geartronix.models.UserModel;
 
 public class SQLiteProvider extends SQLiteOpenHelper {
@@ -24,7 +25,6 @@ public class SQLiteProvider extends SQLiteOpenHelper {
     private static final String IDNO = "id_number";
     private static final String PASSWORD = "password";
     private static final String CITY = "city";
-    private static final String PROFILEPIC = "profile_pic";
     private static final String MEMBERTYPE = "member_type";
 
     public SQLiteProvider(Context context) {
@@ -36,6 +36,7 @@ public class SQLiteProvider extends SQLiteOpenHelper {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
                 + ID + " INTEGER PRIMARY KEY,"
                 + REMOTEID + " INTEGER,"
+                + NAME + " TEXT,"
                 + SURNAME + " TEXT,"
                 + MAINUMBER + " TEXT,"
                 + MAINEMAIL + " TEXT,"
@@ -66,18 +67,26 @@ public class SQLiteProvider extends SQLiteOpenHelper {
     public UserModel getUser(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_CONTACTS, new String[] { ID, NAME, MAINUMBER }, ID + "=?", new String[] { String.valueOf(id) }, null, null, null, null);
+        Cursor cursor = db.query(TABLE_CONTACTS, new String[] { ID, NAME, MAINUMBER, MAINEMAIL }, ID + "=?", new String[] { String.valueOf(id) }, null, null, null, null);
 
         if (cursor != null)
             cursor.moveToFirst();
 
         UserModel user = new UserModel();
-        user.getNames().setFirstName(cursor.getString(0));
+        user.setId(Integer.parseInt( cursor.getString(0)) );
+        user.setNames(new NamesModel());
+        user.getNames().setFirstName(cursor.getString(1));
+
+        ContactDetailsProvider contacts = new ContactDetailsProvider();
+        contacts.setContactNumbers(new int[]{ Integer.parseInt(cursor.getString(2)) });
+        contacts.setEmails(new String[]{cursor.getString(3)});
+
+        user.setContactDetailsProvider(contacts);
 
         return user;
     }
 
-    public List<UserModel> getAllContacts() {
+    public List<UserModel> getAllUsers() {
         List<UserModel> userList = new ArrayList<>();
 
         String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS;
@@ -88,9 +97,15 @@ public class SQLiteProvider extends SQLiteOpenHelper {
         if (cursor.moveToFirst()) {
             do {
                 UserModel user = new UserModel();
-                user.setId(Integer.parseInt(cursor.getString(0)));
-                user.getNames().setFirstName(cursor.getString(1));
-                user.getContactDetailsProvider().setContactNumbers(new int[]{Integer.parseInt(cursor.getString(3))});
+                user.setId(Integer.parseInt( cursor.getString(0)) );
+                user.setNames(new NamesModel());
+                user.getNames().setFirstName(cursor.getString(2));
+
+                ContactDetailsProvider contacts = new ContactDetailsProvider();
+                contacts.setContactNumbers(new int[]{ Integer.parseInt(cursor.getString(4)) });
+                contacts.setEmails(new String[]{cursor.getString(5)});
+
+                user.setContactDetailsProvider(contacts);
 
                 userList.add(user);
             } while (cursor.moveToNext());

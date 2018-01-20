@@ -432,7 +432,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     public void showMoreOptions(View view) {
-        // show dialog with list with categories (Car:Add new car, View cars) (Message: view messages, write message)
+        // show dialog with list with categories (Car:Add new car, View cars) (Message: view messages, write responseMessage)
         showFragmentDialog();
     }
 

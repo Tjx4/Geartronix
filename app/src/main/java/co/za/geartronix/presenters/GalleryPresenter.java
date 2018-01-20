@@ -4,6 +4,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+
+import com.google.gson.Gson;
+
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.GalleryActivity;
@@ -72,7 +75,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     protected String getRemoteJson() throws IOException {
         String service = DataServiceProvider.gallery.getPath();
         String url = environment + service;
-        return  new HttpConnectionProvider().makeCallForData(url, "GET", true, true, httpConTimeout);
+        return new HttpConnectionProvider().makeCallForData(url, "GET", true, true, httpConTimeout);
     }
 
     @Override
@@ -123,16 +126,24 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     protected void afterAsyncCall(Object result) {
         if(outOfFocus)
             return;
+        
+        if(galleryModel.isSuccessful) {
 
-        if(isCheckingUpdates) {
-            isCheckingUpdates = false;
-            return;
+            if(isCheckingUpdates) {
+                isCheckingUpdates = false;
+                return;
+            }
+
+            if(isCached())
+                checkAndUpdate();
+
+            porpulateServiceList();
+
         }
-
-        if(isCached())
-            checkAndUpdate();
-
-        porpulateServiceList();
+        else {
+            showErrorMessage(galleryModel.getResponseMessage(), getActivity().getString(R.string.error));
+        }
+        
         super.afterAsyncCall(result);
     }
 
