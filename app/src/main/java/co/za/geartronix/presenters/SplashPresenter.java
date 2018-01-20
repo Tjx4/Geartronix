@@ -7,6 +7,7 @@ import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.SplashActivity;
 import co.za.geartronix.models.UserModel;
+import co.za.geartronix.providers.MockProvider;
 import co.za.geartronix.views.ISplashView;
 
 public class SplashPresenter extends BaseAppActivityPresenter implements ISplashPresenter {
@@ -45,7 +46,7 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
 
     @Override
     public void checkLinkedUser() {
-        //user = new MockProvider(getActivity()).getMockUser();
+        user = new MockProvider(getActivity()).getMockUser();
         new DoAsyncCall().execute();
     }
 

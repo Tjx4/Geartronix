@@ -5,8 +5,7 @@ import co.za.geartronix.providers.HostProvider;
 
 public class Constants {
     public static final String CURRENTENVIRONMENT = HostProvider.demoHost.getUrl();
-
-
+    public static final String USECODE = "useCode";
     public static final String TYPEID = "typeId";
     public static final String TITLE = "title";
     public static final String LAYOUT = "layout";

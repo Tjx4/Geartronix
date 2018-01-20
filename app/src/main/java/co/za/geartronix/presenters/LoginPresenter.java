@@ -11,6 +11,7 @@ import android.widget.TextView;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.LoginActivity;
+import co.za.geartronix.constants.Constants;
 import co.za.geartronix.models.LoginModel;
 import co.za.geartronix.models.UserModel;
 import co.za.geartronix.providers.DataServiceProvider;
@@ -83,8 +84,9 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
 
     @Override
     public void forgotPassword(View view) {
-        showLongToast("Forgot password.");
-        resetIfTriggeredByView(view);
+        Bundle extras = new Bundle();
+        extras.putBoolean(Constants.USECODE, true);
+        goToForgotPassword(extras);
     }
 
     @Override
@@ -130,7 +132,7 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
     @Override
     public void getLinkedUserOREnterUsername() {
 
-        Bundle extras = getActivity().getIntent().getExtras();
+        Bundle extras = getActivity().getIntent().getExtras().getBundle("payload");
 
         if(extras != null && !extras.isEmpty())  {
             try {
