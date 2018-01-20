@@ -13,9 +13,9 @@ import co.za.geartronix.views.IRegistrationView;
 
 public class RegistrationPresenter extends BaseMenuPresenter implements IRegistrationPresenter {
 
-    private String title, firstName, city, email, cellNumber;
     private UserModel user;
-    private EditText nametxt, cityTxt, cellTxt, emailTxt;
+    private String title, firstName, city, email, cellNumber, password, passwordConfirmation;
+    private EditText nametxt, cityTxt, cellTxt, emailTxt, passwordTxt, passwordConfirmationTxt;
 
     public RegistrationPresenter(IRegistrationView iRegistrationView) {
         super((BaseActivity)iRegistrationView);
@@ -50,6 +50,8 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
     @Override
     public void setRegProperties() {
         firstName = nametxt.getText().toString();
+        password = passwordTxt.getText().toString();
+        passwordConfirmation = passwordConfirmationTxt.getText().toString();
         city = cityTxt.getText().toString();
         email = emailTxt.getText().toString();
         cellNumber = cellTxt.getText().toString();
@@ -82,15 +84,19 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
     protected void postAnimation(View view) {
         setRegProperties();
 
-        if(!isValidName(firstName) || !isValidCell(cellNumber)){
+        if(!isValidPasswordCreation(password, passwordConfirmation) || !isValidName(firstName) || !isValidCell(cellNumber)) {
             hideLoadingScreen();
 
             if(!isValidName(firstName))
-                showErrorMessage("Please enter a valid username", "Error");
-            else if(!isValidName(cellNumber))
-                showErrorMessage("Please enter a valid cellphone number", "Error");
+                showErrorMessage("Please enter a valid username", "Username error");
+            else if(!isValidCell(cellNumber))
+                showErrorMessage("Please enter a valid cellphone number", "Cell number error");
+            else if(!isValidPassword(password))
+                showErrorMessage("Your password does not meet minimum requirements", "Password error");
+            else if(!isMatchPasswords(password, passwordConfirmation))
+                showErrorMessage("Your passwords don't match", "Password error");
             else
-                showErrorMessage("Please enter all details", "Error");
+                showErrorMessage("Please enter all details correctly", "Error");
         }
         else {
             new DoAsyncCall().execute();
@@ -107,6 +113,8 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
         parentLayout = getMainLayout();
         loadingScreenFrm = parentLayout.findViewById(R.id.frmLoadingScreen);
         nametxt = parentLayout.findViewById(R.id.txtName);
+        passwordTxt = parentLayout.findViewById(R.id.txtPassword);
+        passwordConfirmationTxt = parentLayout.findViewById(R.id.txtConfirmPassword);
         cityTxt = parentLayout.findViewById(R.id.txtCity);
         cellTxt = parentLayout.findViewById(R.id.txtCell);
         emailTxt = parentLayout.findViewById(R.id.txtEmail);

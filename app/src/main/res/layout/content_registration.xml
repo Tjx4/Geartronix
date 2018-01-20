@@ -62,23 +62,46 @@
                 style="@style/mediumTextBox"
                 android:hint="Enter email..."/>
 
-            <TextView
+            <TextView android:visibility="gone"
                 style="@style/mediumLabel"
                 android:text="City"
                 android:textColor="#cccccc"/>
 
-            <EditText
+            <EditText android:visibility="gone"
                 android:id="@+id/txtCity"
                 style="@style/mediumTextBox"
                 android:hint="Enter city..."/>
+
+
+            <TextView
+                style="@style/mediumLabel"
+                android:text="*Create password"
+                android:textColor="#cccccc"/>
+
+            <EditText
+                android:id="@+id/txtPassword"
+                android:inputType="textPassword"
+                style="@style/mediumTextBox"
+                android:hint="Enter password..."/>
+
+            <TextView
+                style="@style/mediumLabel"
+                android:text="*Confirm your password"
+                android:textColor="#cccccc"/>
+
+            <EditText
+                android:id="@+id/txtConfirmPassword"
+                android:inputType="textPassword"
+                style="@style/mediumTextBox"
+                android:hint="Confirm password..."/>
 
             <Button
                 android:id="@+id/btnRegister"
                 style="@style/mediumButton"
                 android:layout_width="match_parent"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="40dp"
                 android:onClick="onViewClickedEvent"
-                android:text="Registet"/>
+                android:text="@string/register"/>
 
         </LinearLayout>
     </ScrollView>

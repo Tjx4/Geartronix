@@ -626,21 +626,31 @@ public abstract class BasePresenter {
         return o;
     }
 
-    protected boolean isValidCell(String cell){
-       // int cellLength = cell.trim().length();
-        //return cellLength > 8 && cellLength < 12;
-
-        CharSequence inputStr = cell.trim();
-        Pattern pattern = Pattern.compile(new String ("^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$"));
+    private boolean evaluateRegex(String val, String regex){
+        CharSequence inputStr = val.trim();
+        Pattern pattern = Pattern.compile(new String (regex));
         Matcher matcher = pattern.matcher(inputStr);
         return matcher.matches();
     }
 
+    protected boolean isValidCell(String cell){
+        return evaluateRegex(cell, "^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$");
+    }
+
     protected boolean isValidName(String name){
-        CharSequence inputStr = name.trim();
-        Pattern pattern = Pattern.compile(new String ("^[a-zA-Z\\\\s]+"));
-        Matcher matcher = pattern.matcher(inputStr);
-        return matcher.matches();
+        return evaluateRegex(name, "^[a-zA-Z\\\\s]+");
+    }
+
+    protected boolean isValidPassword(String password){
+        return evaluateRegex(password, "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20})");
+    }
+
+    protected boolean isMatchPasswords(String password, String passwordConfirmation){
+        return password.equals(passwordConfirmation);
+    }
+
+    protected boolean isValidPasswordCreation(String password, String passwordConfirmation) {
+      return isValidPassword(password) && isMatchPasswords(password, passwordConfirmation);
     }
 
     private boolean isValidEmail(String email){
