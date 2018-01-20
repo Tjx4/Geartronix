@@ -9,6 +9,7 @@ import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.GalleryActivity;
 import co.za.geartronix.adapters.GalleryImageAdapter;
 import co.za.geartronix.models.GalleryModel;
+import co.za.geartronix.models.ImageModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
 import co.za.geartronix.views.IGalleryView;
@@ -16,6 +17,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
 public class GalleryPresenter extends BaseAppActivityPresenter implements IGalleryPresenter {
 
@@ -49,7 +51,21 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
 
     @Override
     protected boolean hasUpdate(GalleryModel remoteGalleryModel) {
-        return remoteGalleryModel == galleryModel;
+        List<ImageModel> currImages = galleryModel.getImages();
+        List<ImageModel> remoteImages = remoteGalleryModel.getImages();
+//TODO: Fix
+        boolean isSame = false;
+        int indx = 0;
+        for(ImageModel i : currImages){
+
+            if( !i.getDescription().equals( remoteImages.get(indx).getDescription() ) )
+                isSame = true;
+
+            indx++;
+        }
+
+        //!currImages.equals(remoteImages);
+        return isSame;
     }
 
     @Override

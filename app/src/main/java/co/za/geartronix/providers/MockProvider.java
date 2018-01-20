@@ -110,6 +110,8 @@ public class MockProvider {
         UserModel mockUser = new UserModel();
         mockUser.setId(1);
 
+        mockUser.setIdNo("8906175416080");
+
         NamesModel names = new NamesModel();
         names.setFirstName("Tshepo");
         names.setSecondName("Lucky");
@@ -117,6 +119,7 @@ public class MockProvider {
         mockUser.setNames(names);
 
         mockUser.setPoints(10);
+        mockUser.setPassword("123");
 
         MemberModel memberType = new MemberModel();
         memberType.setMemberType(1);

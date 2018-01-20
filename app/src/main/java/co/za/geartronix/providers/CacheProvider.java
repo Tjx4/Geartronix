@@ -2,17 +2,11 @@ package co.za.geartronix.providers;
 
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
 import com.google.gson.Gson;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONStringer;
-
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.models.GalleryModel;
-import static android.content.Context.MODE_PRIVATE;
-
 public class CacheProvider {
 
     private BaseActivity activity;

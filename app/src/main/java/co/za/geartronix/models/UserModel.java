@@ -9,8 +9,12 @@ public class UserModel extends BaseModel implements Serializable{
     private Bitmap profilePic;
     private MemberModel memberType;
     private NamesModel names;
-    private int points, id;
+    private int points;
+    private int id;
+    private int remoteId;
     private String city;
+    private String idNo;
+    private String password;
     private ContactDetailsProvider contactDetailsProvider;
     private List<CarModel> cars;
     private List<MessageModel> messages;
@@ -79,6 +83,26 @@ public class UserModel extends BaseModel implements Serializable{
         this.contactDetailsProvider = contactDetailsProvider;
     }
 
+    public void setMemberType(MemberModel memberType) {
+        this.memberType = memberType;
+    }
+
+    public String getIdNo() {
+        return idNo;
+    }
+
+    public void setIdNo(String idNo) {
+        this.idNo = idNo;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public List<CarModel> getCars() {
         return cars;
     }
@@ -95,11 +119,19 @@ public class UserModel extends BaseModel implements Serializable{
         this.messages = messages;
     }
 
-    public MemberModel getMemberType() {
+    public MemberModel getMember() {
         return memberType;
     }
 
     public void memberType(MemberModel userType) {
         this.memberType = userType;
+    }
+
+    public int getRemoteId() {
+        return remoteId;
+    }
+
+    public void setRemoteId(int remoteId) {
+        this.remoteId = remoteId;
     }
 }
