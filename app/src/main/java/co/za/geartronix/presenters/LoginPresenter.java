@@ -16,6 +16,7 @@ import co.za.geartronix.models.LoginModel;
 import co.za.geartronix.models.UserModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
+import co.za.geartronix.providers.MockProvider;
 import co.za.geartronix.providers.PermissionsProvider;
 import co.za.geartronix.views.ILoginView;
 import org.json.JSONException;
@@ -27,7 +28,7 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
     private UserModel user;
     private byte attempts;
     private EditText usernameTxt, passwordTxt;
-    private TextView welcomeMessageTxt, usernameLbl;
+    private TextView welcomeMessageTxt, usernameLbl, registerBtn;
     private LoginModel responseModel;
 
     public LoginPresenter(ILoginView iLoginView) {
@@ -78,8 +79,7 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
 
     @Override
     public void switchUsers(View view) {
-        showLongToast("switch user");
-        resetIfTriggeredByView(view);
+        setEnterUsername();
     }
 
     @Override
@@ -121,6 +121,7 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
         setAsyncViews();
         parentLayout = getMainLayout();
         loadingScreenFrm = parentLayout.findViewById(R.id.frmLoadingScreen);
+        registerBtn = parentLayout.findViewById(R.id.lblRegister);
         usernameTxt = parentLayout.findViewById(R.id.txtUsername);
         passwordTxt = parentLayout.findViewById(R.id.txtPassword);
         welcomeMessageTxt = parentLayout.findViewById(R.id.txtWelcomeMessage);
@@ -132,7 +133,10 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
     @Override
     public void getLinkedUserOREnterUsername() {
 
-        Bundle extras = getActivity().getIntent().getExtras().getBundle("payload");
+        Bundle extras = getActivity().getIntent().getExtras();
+
+        if(extras != null)
+            extras.getBundle("payload");
 
         if(extras != null && !extras.isEmpty())  {
             try {
@@ -141,6 +145,8 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
                 e.printStackTrace();
             }
         }
+
+user = new MockProvider(getActivity()).getMockUser();
 
         if(user == null)
             setEnterUsername();
@@ -155,6 +161,7 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
         welcomeMessageTxt.setVisibility(View.GONE);
         usernameTxt.setVisibility(View.VISIBLE);
         usernameLbl.setVisibility(View.VISIBLE);
+        registerBtn.setVisibility(View.GONE);
     }
 
     @Override
@@ -235,7 +242,7 @@ Log.i(BASE_LOG, "Thread started ... ...");
             case R.id.btnLogin:
                 signIn(button);
                 break;
-            case R.id.btnRegister:
+            case R.id.lblRegister:
                 switchUsers(button);
                 break;
             case R.id.txtForgotPassword:
