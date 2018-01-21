@@ -104,6 +104,7 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
         UserSelectionAdapter adp = new UserSelectionAdapter(getActivity(), R.layout.user_item,users);
         userSelectionLst.setAdapter(adp);
         userSelectContainerFrm.setVisibility(View.VISIBLE);
+        passwordTxt.setText("");
     }
 
     @Override

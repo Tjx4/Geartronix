@@ -66,7 +66,7 @@ public abstract class BasePresenter {
     private View lastView;
     protected Menu menuView;
     protected SQLiteProvider sqLiteProvider;
-
+    private String posiTiveButtonText;
 
     protected void setDependancies(int contentView) {
         setBasicDependancies(contentView);
@@ -346,8 +346,6 @@ public abstract class BasePresenter {
         Bitmap pic = ((BitmapDrawable)currImage.getDrawable()).getBitmap();
         return  pic;
     }
-
-    private String posiTiveButtonText;
     
     protected AlertDialog.Builder setupBasicMessage(String message, String title, boolean showNagativeButton, boolean showNutralButton){
 
@@ -421,6 +419,7 @@ public abstract class BasePresenter {
     }
 
     protected void showConfirmMessage(String message, String title, boolean showNagativeButton, boolean showNutralButton) {
+        posiTiveButtonText = activity.getResources().getString(R.string.yes);
         AlertDialog.Builder ab = setupBasicMessage(message, title, showNagativeButton, showNutralButton);
         ab.setIcon(R.drawable.confirm_icon);
         showMessage(ab);
