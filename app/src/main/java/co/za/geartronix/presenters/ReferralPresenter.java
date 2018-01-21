@@ -2,19 +2,21 @@ package co.za.geartronix.presenters;
 
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.ReferralActivity;
 import co.za.geartronix.views.IReferralView;
 
-public class ReferralPresenter  extends BaseAppActivityPresenter implements IReferralPresenter {
+public class ReferralPresenter extends BaseAppActivityPresenter implements IReferralPresenter {
 
+    private String contactNumber, contactName;
+    private EditText contactNumberTxt, contactNameTxt;
 
     public ReferralPresenter(IReferralView iReferralView) {
         super((BaseActivity)iReferralView);
         setDependanciesChildActivities(R.layout.activity_referral);
         currentActionBar.setTitle(" "+activity.getString(R.string.referral));
-        setViews();
         new DoAsyncCall().execute();
     }
 
@@ -26,7 +28,18 @@ public class ReferralPresenter  extends BaseAppActivityPresenter implements IRef
 
     @Override
     protected void postAnimation(View view) {
-        showShortToast("View clicked");
+
+        clickedViewId = view.getId();
+
+        switch (clickedViewId){
+            case R.id.imgGetContact:
+                getNumberFromPhoneContacts();
+                break;
+            case R.id.btnReferral:
+                sendReferral();
+                break;
+        }
+
     }
 
     @Override
@@ -36,7 +49,8 @@ public class ReferralPresenter  extends BaseAppActivityPresenter implements IRef
 
     @Override
     public void setViews() {
-//Refer someone to geartronix and help them get the same great service you did or heard about, plus earn points and get free services like sofware upgrades
+        contactNumberTxt = (EditText)getActivity().findViewById(R.id.txtContactName);
+        contactNameTxt = (EditText)getActivity().findViewById(R.id.txtContactName);
     }
 
     @Override
@@ -45,8 +59,25 @@ public class ReferralPresenter  extends BaseAppActivityPresenter implements IRef
     }
 
     @Override
-    protected void beforeAsyncCall() {
+    public void getNumberFromPhoneContacts() {
+        showShortToast("getNumberFromPhoneContacts");
+    }
 
+    @Override
+    public void sendReferral() {
+        contactNumber = contactNumberTxt.getText().toString().trim();
+        contactName = contactNameTxt.getText().toString().trim();
+
+        if(contactName.isEmpty() || contactNumber.isEmpty())
+            showShortToast("Please enter a name and cell number");
+
+        showShortToast("sendReferral");
+    }
+
+    @Override
+    protected void beforeAsyncCall() {
+        super.beforeAsyncCall();
+        setViews();
     }
 
     @Override
@@ -56,12 +87,13 @@ public class ReferralPresenter  extends BaseAppActivityPresenter implements IRef
 
     @Override
     protected Object doAsyncOperation(Object... args) throws Exception {
+        setViews();
         return null;
     }
 
     @Override
     protected void afterAsyncCall(Object result) {
-
+        super.afterAsyncCall(result);
     }
 
     @Override

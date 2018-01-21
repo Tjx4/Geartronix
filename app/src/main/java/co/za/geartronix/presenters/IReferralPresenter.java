@@ -4,4 +4,6 @@ import co.za.geartronix.activities.ReferralActivity;
 
 public interface IReferralPresenter extends IBaseAsyncPresenter {
     ReferralActivity getActivity();
+    void getNumberFromPhoneContacts();
+    void sendReferral();
 }

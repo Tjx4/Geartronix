@@ -20,7 +20,7 @@ public class ForgotPasswordPresenter extends BaseAppActivityPresenter implements
     public ForgotPasswordPresenter(IForgotPasswordView iForgotPasswordView) {
         super((BaseActivity)iForgotPasswordView);
         setDependanciesChildActivities(R.layout.activity_forgot_password);
-        currentActionBar.setTitle("Change your password");
+        currentActionBar.setTitle(" "+activity.getString(R.string.change_password));
 
         try {
             Bundle extras = getActivity().getIntent().getExtras();

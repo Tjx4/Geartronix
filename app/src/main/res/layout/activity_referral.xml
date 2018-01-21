@@ -24,7 +24,7 @@
 
             <TextView
                 style="@style/mediumLabel"
-                android:text="Refer someone to geartronix and help them get the same great service you did or heard about, plus earn points and get free services like sofware upgrades"
+                android:text="Refer someone to geartronix and help them get the same great service you did or heard about, plus earn points and get free services like sofware upgrades etc."
                 android:textColor="#cccccc"
                 android:layout_marginBottom="20dp"/>
 
@@ -49,7 +49,7 @@
                     style="@style/mediumTextBox"
                     android:layout_centerInParent="true"
                     android:layout_centerVertical="true"
-                    android:hint="Contact number..."/>
+                    android:hint="Contact number"/>
 
                 <FrameLayout android:id="@+id/frmGetContact"
                     android:layout_width="wrap_content"
@@ -92,11 +92,11 @@
                 style="@style/mediumTextBox"
                 android:layout_centerInParent="true"
                 android:layout_centerVertical="true"
-                android:hint="Enter name..."/>
+                android:hint="Enter name"/>
 
 
             <Button
-                android:id="@+id/btnRegister"
+                android:id="@+id/btnReferral"
                 style="@style/mediumButton"
                 android:layout_width="match_parent"
                 android:layout_marginTop="40dp"
