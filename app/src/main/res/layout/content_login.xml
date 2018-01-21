@@ -128,7 +128,7 @@
             android:paddingLeft="40dp"
             android:paddingRight="30dp"
             android:paddingTop="0dp"
-            android:text="Switch user"
+            android:text="@string/switch_user"
             android:textAlignment="center"/>
     </RelativeLayout>
 

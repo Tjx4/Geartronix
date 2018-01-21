@@ -12,7 +12,7 @@
         <item
             android:id="@+id/action_switch_users"
             android:icon="@drawable/switch_users_icon"
-            android:title="Switch users"/>
+            android:title="@string/switch_user"/>
 
         <item
             android:id="@+id/action_exit"
