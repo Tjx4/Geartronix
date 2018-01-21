@@ -141,6 +141,9 @@
         <item name="android:background">@drawable/geartronix_textbox_background</item>
     </style>
 
+    <style name="gtxRadioBtn" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:textColor">@color/textWhite</item>
+    </style>
     <style name="mediumTextBox" parent="geartronixTextBox">
         <item name="android:layout_height">@dimen/medium_textbox_height</item>
     </style>

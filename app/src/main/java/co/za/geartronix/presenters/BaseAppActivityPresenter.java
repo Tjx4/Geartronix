@@ -26,6 +26,7 @@ import co.za.geartronix.customViews.CustomImageVIew;
 import co.za.geartronix.providers.CacheProvider;
 import co.za.geartronix.providers.Permissions;
 import co.za.geartronix.providers.ResizeAnimation;
+import co.za.geartronix.providers.SQLiteProvider;
 
 public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
 
@@ -56,6 +57,7 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
         activity = baseActivity;
         imageAnimationDuration = 400;
         cacheProvider = new CacheProvider(activity);
+        sqLiteProvider = new SQLiteProvider(activity);
     }
 
     public void setProperties(BaseActivity baseActivity, int index) {

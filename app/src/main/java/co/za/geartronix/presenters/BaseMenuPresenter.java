@@ -83,10 +83,6 @@ public abstract class BaseMenuPresenter extends BaseAppActivityPresenter {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
-        else
-        {
-            activity.moveTaskToBack(true);
-        }
     }
 
     public void setMainLayout(int pageLayout) {

@@ -3,13 +3,12 @@ package co.za.geartronix.presenters;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
-
 import org.json.JSONObject;
-
 import java.io.IOException;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.RegistrationActivity;
+import co.za.geartronix.constants.Constants;
 import co.za.geartronix.models.MemberModel;
 import co.za.geartronix.models.NamesModel;
 import co.za.geartronix.models.UserModel;
@@ -22,6 +21,7 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
 
     private UserModel user;
     private String title, firstName, city, email, cellNumber, password, passwordConfirmation;
+    private char gender = 0;
     private EditText nametxt, cityTxt, cellTxt, emailTxt, passwordTxt, passwordConfirmationTxt;
 
     public RegistrationPresenter(IRegistrationView iRegistrationView) {
@@ -70,6 +70,7 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
         names.setFirstName(firstName);
         user.setNames(names);
         user.setCity(city);
+        user.setGender(gender);
         ContactDetailsProvider contactDetails = new ContactDetailsProvider();
         int cell1 = Integer.parseInt(cellNumber);
         contactDetails.setContactNumbers(new int[]{cell1});
@@ -78,16 +79,10 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
         MemberModel memberModel = new MemberModel();
         memberModel.setMemberType(0);
         user.setMemberType(memberModel);
-        try {
-            addUserToDataBase(user);
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
 
         String response = getRemoteJson();
-        user = new UserModel();
         user.setModel(new JSONObject(response));
+
         return response;
     }
 
@@ -97,7 +92,11 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
             return;
 
         if(user.isSuccessful) {
-            goToLogin();
+            addUserToDataBase(user);
+            Bundle extras = new Bundle();
+            int regUserId = sqLiteProvider.getLastUser().getId();
+            extras.putInt(Constants.USERID, regUserId);
+            goToLogin(extras);
         }
         else {
             showErrorMessage(user.getResponseMessage(), getActivity().getString(R.string.error));
@@ -130,28 +129,30 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
     protected void postAnimation(View view) {
         setRegProperties();
 
-        if(!isValidPasswordCreation(password, passwordConfirmation) || !isValidName(firstName) || !isValidCell(cellNumber)) {
-            hideLoadingScreen();
-
-            if(!isValidName(firstName))
-                showErrorMessage("Please enter a valid username", "Username error");
-            else if(!isValidCell(cellNumber))
-                showErrorMessage("Please enter a valid cellphone number", "Cell number error");
-            else if(!isValidPassword(password))
-                showErrorMessage("Your password does not meet minimum requirements", "Password error");
-            else if(!isMatchPasswords(password, passwordConfirmation))
-                showErrorMessage("Your passwords don't match", "Password error");
-            else
-                showErrorMessage("Please enter all details correctly", "Error");
-        }
-        else {
+        if(!isValidName(firstName))
+            showErrorMessage(getActivity().getString(R.string.username_error), "Username error");
+        else if(!isValidCell(cellNumber))
+            showErrorMessage(getActivity().getString(R.string.cell_error), "Cell number error");
+        else if(!isValidGender(gender))
+            showErrorMessage(getActivity().getString(R.string.gender_error), "Gender error");
+        else if(!isValidPassword(password))
+            showErrorMessage(getActivity().getString(R.string.password_error), "Password error");
+        else if(!isMatchPasswords(password, passwordConfirmation))
+            showErrorMessage(getActivity().getString(R.string.password_match_error), "Password error");
+        else
             new DoAsyncCall().execute();
-        }
     }
 
     @Override
     public void handleViewClickedEvent(View view) {
-        blinkView(view, 30, 70);
+        int viewId = view.getId();
+
+        if(viewId == R.id.rdoFemale)
+            gender = 'f';
+        else if(viewId == R.id.rdoMale)
+            gender = 'm';
+        else
+            blinkView(view, 30, 70);
     }
 
     @Override

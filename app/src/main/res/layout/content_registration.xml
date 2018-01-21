@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/menuContenRegisterID"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
                 android:layout_width="match_parent"
@@ -71,6 +72,36 @@
                 android:id="@+id/txtCity"
                 style="@style/mediumTextBox"
                 android:hint="Enter city..."/>
+
+            <TextView
+                style="@style/mediumLabel"
+                android:layout_marginTop="13dp"
+                android:text="*Select your gender"
+                android:textColor="#cccccc"/>
+
+            <RadioGroup
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:id="@+id/rdoGroupGender">
+
+                <RadioButton
+                    android:id="@+id/rdoFemale"
+                    style="@style/gtxRadioBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:onClick="onViewClickedEvent"
+                    android:text="Female"/>
+
+                <RadioButton style="@style/gtxRadioBtn"
+                    android:id="@+id/rdoMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:onClick="onViewClickedEvent"
+                    android:text="Male"/>
+
+            </RadioGroup>
 
 
             <TextView

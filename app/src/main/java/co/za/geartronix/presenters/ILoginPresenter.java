@@ -6,7 +6,7 @@ import co.za.geartronix.activities.LoginActivity;
 public interface ILoginPresenter extends IBaseAsyncPresenter {
     LoginActivity getActivity();
     void signIn(View view);
-    void switchUsers(View view);
+    void switchUsers();
     void forgotPassword(View view);
     void setLoginDetails();
     void enterApp();

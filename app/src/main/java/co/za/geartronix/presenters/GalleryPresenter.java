@@ -4,9 +4,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
-
-import com.google.gson.Gson;
-
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.GalleryActivity;
@@ -18,7 +15,6 @@ import co.za.geartronix.providers.HttpConnectionProvider;
 import co.za.geartronix.views.IGalleryView;
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.IOException;
 import java.util.List;
 

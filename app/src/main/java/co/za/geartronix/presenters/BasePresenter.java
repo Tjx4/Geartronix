@@ -27,7 +27,6 @@ import android.view.animation.TranslateAnimation;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -35,7 +34,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import co.za.geartronix.R;
 import co.za.geartronix.activities.AskActivity;
 import co.za.geartronix.activities.BaseActivity;
@@ -67,6 +65,8 @@ public abstract class BasePresenter {
     public boolean outOfFocus, viewOpenState;
     private View lastView;
     protected Menu menuView;
+    protected SQLiteProvider sqLiteProvider;
+
 
     protected void setDependancies(int contentView) {
         setBasicDependancies(contentView);
@@ -347,12 +347,14 @@ public abstract class BasePresenter {
         return  pic;
     }
 
+    private String posiTiveButtonText;
+    
     protected AlertDialog.Builder setupBasicMessage(String message, String title, boolean showNagativeButton, boolean showNutralButton){
 
         AlertDialog.Builder ab = new AlertDialog.Builder(activity, R.style.AlertDialogCustom);
         ab.setMessage(message)
                 .setTitle(title)
-                .setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                .setPositiveButton(posiTiveButtonText, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         onPositiveDialogButtonClicked(dialogInterface,  i);
@@ -402,14 +404,17 @@ public abstract class BasePresenter {
 
     }
 
-
     protected void showSuccessMessage(String message, String title) {
+        posiTiveButtonText = activity.getResources().getString(R.string.ok);
+        message = (message.isEmpty())? activity.getString(R.string.generic_success_message) : message;
         AlertDialog.Builder ab = setupBasicMessage(message, title, false, false);
         ab.setIcon(R.drawable.success_icon);
         showMessage(ab);
     }
 
     protected void showErrorMessage(String message, String title) {
+        posiTiveButtonText = activity.getResources().getString(R.string.ok);
+        message = (message.isEmpty())? activity.getResources().getString(R.string.technical_error) : message;
         AlertDialog.Builder ab = setupBasicMessage(message, title, false, false);
         ab.setIcon(R.drawable.error_icon);
         showMessage(ab);
@@ -639,6 +644,10 @@ public abstract class BasePresenter {
         return evaluateRegex(cell, "^\\(?(\\d{3})\\)?[- ]?(\\d{3})[- ]?(\\d{4})$");
     }
 
+    protected boolean isValidGender(char gender){
+        return gender != 0;
+    }
+
     protected boolean isValidName(String name){
         return evaluateRegex(name, "^[a-zA-Z\\\\s]+");
     }
@@ -663,7 +672,11 @@ public abstract class BasePresenter {
     }
 
     protected void addUserToDataBase(UserModel user) {
-        new SQLiteProvider(activity).addUser(user);
+        sqLiteProvider.addUser(user);
+    }
+
+    public SQLiteProvider getSQLiteDb() {
+        return sqLiteProvider;
     }
 
 }

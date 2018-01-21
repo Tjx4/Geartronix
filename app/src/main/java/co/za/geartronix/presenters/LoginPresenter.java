@@ -20,7 +20,6 @@ import co.za.geartronix.models.UserModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
 import co.za.geartronix.providers.PermissionsProvider;
-import co.za.geartronix.providers.SQLiteProvider;
 import co.za.geartronix.views.ILoginView;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -85,15 +84,14 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
     }
 
     @Override
-    public void switchUsers(View view) {
-        //setEnterUsername();
+    public void switchUsers() {
         showUserSelectionView();
     }
 
 
     @Override
     public void showUserSelectionView() {
-        List<UserModel> users = new SQLiteProvider(getActivity()).getAllUsers();
+        List<UserModel> users = sqLiteProvider.getAllUsers();
         UserSelectionAdapter adp = new UserSelectionAdapter(getActivity(), R.layout.user_item,users);
         userSelectionLst.setAdapter(adp);
         userSelectContainerFrm.setVisibility(View.VISIBLE);
@@ -103,7 +101,7 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
     public void handleOnUserSelected(View view) {
         RelativeLayout parent = (RelativeLayout)view;
         int userId = parent.getChildAt(0).getId();
-        user = new SQLiteProvider(getActivity()).getUser(userId);
+        user = sqLiteProvider.getUser(userId);
 
         FrameLayout container = (FrameLayout)parent.getParent().getParent().getParent();
         container.setVisibility(View.GONE);
@@ -157,14 +155,21 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
         userSelectContainerFrm = parentLayout.findViewById(R.id.frmUserSelectContainer);
         switchUsersLbl = parentLayout.findViewById(R.id.lblSwitchUser);
         userSelectionLst = parentLayout.findViewById(R.id.lstUserSelection);
-
-        passwordTxt.setText("123");
     }
 
     @Override
     public void getLinkedUserOREnterUsername() {
         userId = 1;
-        user = new SQLiteProvider(getActivity()).getUser(userId);
+        Bundle extras = getActivity().getIntent().getExtras();
+
+        if(extras != null) {
+            Bundle bundle_extras = extras.getBundle(Constants.PAYLOAD);
+
+            if(bundle_extras != null)
+                userId = bundle_extras.getInt(Constants.USERID);
+        }
+
+        user = sqLiteProvider.getUser(userId);
 
         if(user == null)
             setEnterUsername();
@@ -174,8 +179,6 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
 
     @Override
     public void setEnterUsername() {
-        usernameTxt.setText("rocboyt@gmail.com");
-
         welcomeMessageTxt.setVisibility(View.GONE);
         usernameTxt.setVisibility(View.VISIBLE);
         usernameLbl.setVisibility(View.VISIBLE);
@@ -258,7 +261,7 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
                 signIn(view);
                 break;
             case R.id.lblSwitchUser:
-                switchUsers(view);
+                switchUsers();
                 break;
             case R.id.txtForgotPassword:
                 forgotPassword(view);
@@ -271,6 +274,15 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
 
     public boolean handleNavigationItemSelected(MenuItem item) {
         super.handleNavigationItemSelected(item);
+
+        switch (item.getItemId()) {
+            case R.id.action_register:
+                goToRegistration();
+                break;
+            case R.id.action_switch_users:
+                switchUsers();
+                break;
+        }
         return true;
     }
 

@@ -21,7 +21,7 @@ public abstract class BaseModel {
     public void setModel(JSONObject responseJson) throws JSONException {
         setResponseJson(responseJson);
         isSuccessful = responseJson.getBoolean(("isSuccessful"));
-        responseMessage = responseJson.getString(("resposeMessage"));
+        responseMessage = responseJson.getString(("responseMessage"));
     }
 
     public boolean isSuccessful() {

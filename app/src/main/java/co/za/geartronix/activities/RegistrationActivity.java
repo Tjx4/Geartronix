@@ -47,6 +47,7 @@ public class RegistrationActivity extends BaseAsyncActivity implements IRegistra
 
     @Override
     public void onBackPressed() {
+        super.onBackPressed();
         getPresenter().handleBackButtonPressed();
     }
 

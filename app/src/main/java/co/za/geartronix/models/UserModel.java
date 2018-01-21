@@ -3,14 +3,14 @@ package co.za.geartronix.models;
 import android.graphics.Bitmap;
 import org.json.JSONException;
 import org.json.JSONObject;
-import java.io.Serializable;
 import java.util.List;
 import co.za.geartronix.providers.ContactDetailsProvider;
 
-public class UserModel extends BaseModel implements Serializable{
+public class UserModel extends BaseModel{
     private Bitmap profilePic;
     private MemberModel memberType;
     private NamesModel names;
+    private char gender;
     private int points;
     private int id;
     private int remoteId;
@@ -140,5 +140,13 @@ public class UserModel extends BaseModel implements Serializable{
 
     public void setRemoteId(int remoteId) {
         this.remoteId = remoteId;
+    }
+
+    public char getGender() {
+        return gender;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
     }
 }
