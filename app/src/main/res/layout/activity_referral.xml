@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,4 +7,111 @@
     android:layout_height="match_parent"
     tools:context="co.za.geartronix.activities.ReferralActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:paddingBottom="20dp"
+            android:paddingTop="10dp"
+            android:layout_gravity="clip_vertical">
+
+            <TextView
+                style="@style/mediumLabel"
+                android:text="Refer someone to geartronix and help them get the same great service you did or heard about, plus earn points and get free services like sofware upgrades"
+                android:textColor="#cccccc"
+                android:layout_marginBottom="20dp"/>
+
+
+            <TextView
+                  style="@style/mediumLabel"
+                  android:text="*Enter contact number"
+                  android:textColor="#cccccc"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="0dp">
+
+                <EditText
+                    android:id="@+id/txtContactNumber"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_toLeftOf="@+id/frmGetContact"
+                    android:layout_toStartOf="@+id/frmGetContact"
+                    android:layout_marginRight="10dp"
+                    style="@style/mediumTextBox"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:hint="Contact number..."/>
+
+                <FrameLayout android:id="@+id/frmGetContact"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:padding="3dp"
+                    android:background="@drawable/grey_circle"
+                    android:layout_alignParentRight="true">
+
+                    <ImageButton
+                        android:id="@+id/imgGetContact"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:background="@color/colorTransparent"
+                        android:onClick="onViewClickedEvent"
+                        android:padding="2dp"
+                        android:scaleType="fitXY"
+                        app:srcCompat="@drawable/contact_icon"/>
+                </FrameLayout>
+
+            </RelativeLayout>
+
+
+            <TextView
+                style="@style/mediumLabel"
+                android:text="*Enter Contact name"
+                android:textColor="#cccccc"/>
+
+
+            <EditText
+                android:id="@+id/txtContactName"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_toLeftOf="@+id/frmGetContact"
+                android:layout_toStartOf="@+id/frmGetContact"
+                android:layout_marginRight="10dp"
+                style="@style/mediumTextBox"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:hint="Enter name..."/>
+
+
+            <Button
+                android:id="@+id/btnRegister"
+                style="@style/mediumButton"
+                android:layout_width="match_parent"
+                android:layout_marginTop="40dp"
+                android:onClick="onViewClickedEvent"
+                android:text="Send referral"/>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <include
+        android:id="@+id/frmLoadingScreen"
+        layout="@layout/loading_screen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone"/>
+
+</RelativeLayout>
