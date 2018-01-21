@@ -183,12 +183,14 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
         emailTxt = parentLayout.findViewById(R.id.txtEmail);
         genderImg = parentLayout.findViewById(R.id.imgGender);
 
+        /*
         nametxt.setText("Rob");
         cellTxt.setText("0842630120");
         emailTxt.setText("rob@gmail.com");
         cityTxt.setText("Pretoria");
         passwordTxt.setText("Tl@0793079399");
         passwordConfirmationTxt.setText("Tl@0793079399");
+        */
     }
 
     @Override

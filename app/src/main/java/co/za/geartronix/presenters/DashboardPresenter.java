@@ -193,18 +193,18 @@ public class DashboardPresenter extends BaseMenuPresenter implements IDashboardP
 
     @Override
     protected void duringAnimation(View view) {
-        setActiveColor(view);
+        //setActiveColor(view);
     }
 
     @Override
     protected void postAnimation(View view) {
-        revertViewBackgroundColor(view);
+        //revertViewBackgroundColor(view);
         goToSelectedActivity(view);
     }
 
     @Override
     public void handleViewClickedEvent(View view) {
-        blinkView(view, 30, 70);
+        blinkView(view, 30, 150);
     }
 
     @Override
