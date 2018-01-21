@@ -24,7 +24,7 @@ import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.customViews.CustomImageVIew;
 import co.za.geartronix.providers.CacheProvider;
-import co.za.geartronix.providers.Permissions;
+import co.za.geartronix.providers.PermissionsProvider;
 import co.za.geartronix.providers.ResizeAnimation;
 import co.za.geartronix.providers.SQLiteProvider;
 
@@ -58,6 +58,7 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
         imageAnimationDuration = 400;
         cacheProvider = new CacheProvider(activity);
         sqLiteProvider = new SQLiteProvider(activity);
+        permissionProvider = new PermissionsProvider(activity);
     }
 
     public void setProperties(BaseActivity baseActivity, int index) {
@@ -226,7 +227,6 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
     }
 
     protected void saveCurrentImageToGallery() {
-        String permission = Permissions.writeStorage.getPermission();
         ImageView iv = activeImage;
         iv.buildDrawingCache();
         Bitmap bmp = iv.getDrawingCache();
@@ -245,10 +245,9 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
             showShortToast(activity.getString(R.string.picture_saved_to_gallery));
 
         } catch (FileNotFoundException e) {
-            requestPermission(permission);
-
+            permissionProvider.requestWriteStoragePermission();
         } catch (IOException e) {
-            requestPermission(permission);
+            permissionProvider.requestWriteStoragePermission();
         }
     }
 

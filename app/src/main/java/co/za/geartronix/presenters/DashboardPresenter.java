@@ -32,9 +32,7 @@ public class DashboardPresenter extends BaseMenuPresenter implements IDashboardP
         super((BaseActivity)iHomeView);
         setDependanciesNoActionBar(R.layout.activity_dashboard);
         setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_dashboard);
-        setViews();
-
-        responseModel = new AccountModel();
+        new DoAsyncCall().execute();
     }
 
     @Override
@@ -44,7 +42,9 @@ public class DashboardPresenter extends BaseMenuPresenter implements IDashboardP
 
     @Override
     protected void beforeAsyncCall() {
-
+        super.beforeAsyncCall();
+        responseModel = new AccountModel();
+        setViews();
     }
 
     @Override
@@ -54,12 +54,16 @@ public class DashboardPresenter extends BaseMenuPresenter implements IDashboardP
 
     @Override
     protected Object doAsyncOperation(Object... args) throws Exception {
+
+        // Set tiles
+        homeTileContainer.setAdapter(getAdapter());
         return null;
     }
 
     @Override
     protected void afterAsyncCall(Object result) {
-
+        slideInTiles();
+        super.afterAsyncCall(result);
     }
 
     @Override
@@ -72,16 +76,9 @@ public class DashboardPresenter extends BaseMenuPresenter implements IDashboardP
         parentLayout = getMainLayout();
         homeHeaderText = parentLayout.findViewById(R.id.txtHomeHeader);
         welcomeImg = parentLayout.findViewById(R.id.imgWelcome);
-
-
-        // Set tiles
         homeTileContainer = parentLayout.findViewById(R.id.grdHomeTiles);
-        homeTileContainer.setAdapter(getAdapter());
 
         homeTileContainer.setVisibility(View.GONE);
-
-        slideInTiles();
-
     }
 
     public void showWelcome() {
@@ -153,7 +150,7 @@ public class DashboardPresenter extends BaseMenuPresenter implements IDashboardP
         homeItems.add(new GalleryPresenter(activity, 2));
         homeItems.add(new FindUsPresenter(activity, 3));
         homeItems.add(new MessagesPresenter(activity, 4));
-        homeItems.add(new DiagnosticsPresenter(activity, 5));
+        homeItems.add(new ReferralPresenter(activity, 5));
 
 //Todo: fix
         homeTileAdapter = new HomeTileAdapter(getActivity(), R.layout.home_tile_item, homeItems);

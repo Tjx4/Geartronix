@@ -18,6 +18,5 @@ public class Constants {
     public static final int FINDUSID = 007;
     public static final int MESSAGES = 010;
     public static final int DIAGNOSTICS = 011;
-
-
+    public static final int REFERRAL = 012;
 }

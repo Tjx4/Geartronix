@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
-
 import org.json.JSONObject;
 import java.io.IOException;
 import co.za.geartronix.R;
@@ -33,6 +32,7 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
         title = getActivity().getString(R.string.create_account);
         setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_registration);
         setViews();
+        permissionProvider.requestPhoneStatePermission();
     }
 
     @Override

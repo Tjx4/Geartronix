@@ -45,7 +45,7 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
         setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_login);
         setViews();
         responseModel = new LoginModel();
-        new PermissionsProvider(getActivity()).requestInternetPermission();
+        permissionProvider.requestInternetPermission();
         getLinkedUserOREnterUsername();
     }
 

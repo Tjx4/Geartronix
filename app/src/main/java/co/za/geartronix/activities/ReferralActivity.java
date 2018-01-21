@@ -5,10 +5,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import co.za.geartronix.R;
-import co.za.geartronix.presenters.DiagnosticsPresenter;
-import co.za.geartronix.views.IDiagnosticsView;
+import co.za.geartronix.presenters.ReferralPresenter;
+import co.za.geartronix.views.IReferralView;
 
-public class DiagnosticsActivity extends BaseAsyncActivity implements IDiagnosticsView {
+public class ReferralActivity extends BaseAsyncActivity implements IReferralView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,7 +18,7 @@ public class DiagnosticsActivity extends BaseAsyncActivity implements IDiagnosti
 
     @Override
     public void setPresenter() {
-        presenter = new DiagnosticsPresenter(this);
+        presenter = new ReferralPresenter(this);
     }
 
     @Override
@@ -27,13 +27,13 @@ public class DiagnosticsActivity extends BaseAsyncActivity implements IDiagnosti
     }
 
     @Override
-    public DiagnosticsPresenter getPresenter() {
-        return (DiagnosticsPresenter)presenter;
+    public ReferralPresenter getPresenter() {
+        return (ReferralPresenter)presenter;
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.diagnostics_menu, menu);
+        getMenuInflater().inflate(R.menu.referral_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -51,12 +51,7 @@ public class DiagnosticsActivity extends BaseAsyncActivity implements IDiagnosti
 
     @Override
     public void onBackPressed() {
-        if(getPresenter().imageEnlarged) {
-            getPresenter().hideEnlargedImage();
-        }
-        else {
-            super.onBackPressed();
-        }
+        super.onBackPressed();
     }
 
 }

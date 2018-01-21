@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
+import co.za.geartronix.activities.ReferralActivity;
 import co.za.geartronix.constants.Constants;
 import co.za.geartronix.presenters.BaseAppActivityPresenter;
 import co.za.geartronix.presenters.DiagnosticsPresenter;
@@ -17,6 +18,7 @@ import co.za.geartronix.presenters.FindUsPresenter;
 import co.za.geartronix.presenters.GalleryPresenter;
 import co.za.geartronix.presenters.MessagesPresenter;
 import co.za.geartronix.presenters.ProfilePresenter;
+import co.za.geartronix.presenters.ReferralPresenter;
 import co.za.geartronix.presenters.ServicesPresenter;
 import java.util.List;
 
@@ -53,7 +55,7 @@ public class HomeTileAdapter extends ArrayAdapter {
 
         //Color.parseColor("#FF01689B")
         int priorityColor = activity.getResources().getColor(R.color.priorityTiliColor);
-        if(appActivity.getClass() == ServicesPresenter.class || appActivity.getClass() == DiagnosticsPresenter.class )
+        if(appActivity.getClass() == ServicesPresenter.class || appActivity.getClass() == ReferralPresenter.class )
             parentView.setBackgroundColor(priorityColor);
 
         return parentView;
@@ -77,8 +79,8 @@ public class HomeTileAdapter extends ArrayAdapter {
             case Constants.MESSAGES:
                 currentAppActivity = new MessagesPresenter(activity, position);
             break;
-            case Constants.DIAGNOSTICS:
-                currentAppActivity = new DiagnosticsPresenter(activity, position);
+            case Constants.REFERRAL:
+                currentAppActivity = new ReferralPresenter(activity, position);
             break;
         }
 
@@ -104,12 +106,11 @@ public class HomeTileAdapter extends ArrayAdapter {
                 viewId = Constants.MESSAGES;
             break;
             case 5:
-                viewId = Constants.DIAGNOSTICS;
+                viewId = Constants.REFERRAL;
             break;
         }
 
         return viewId;
     }
-
 
 }

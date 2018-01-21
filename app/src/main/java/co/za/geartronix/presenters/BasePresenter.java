@@ -43,6 +43,7 @@ import co.za.geartronix.activities.ForgotPasswordActivity;
 import co.za.geartronix.activities.GalleryActivity;
 import co.za.geartronix.activities.LoginActivity;
 import co.za.geartronix.activities.ProfileActivity;
+import co.za.geartronix.activities.ReferralActivity;
 import co.za.geartronix.activities.RegistrationActivity;
 import co.za.geartronix.activities.ServicesListActivity;
 import co.za.geartronix.activities.SettingsActivty;
@@ -66,6 +67,7 @@ public abstract class BasePresenter {
     private View lastView;
     protected Menu menuView;
     protected SQLiteProvider sqLiteProvider;
+    protected PermissionsProvider permissionProvider;
     private String posiTiveButtonText;
 
     protected void setDependancies(int contentView) {
@@ -289,6 +291,13 @@ public abstract class BasePresenter {
         goToActivityWithPayload(DiagnosticsActivity.class, extras);
     }
 
+    protected void goToReferrals(Bundle...extras) {
+        if(isCurrentActivity(ReferralActivity.class))
+            return;
+
+        goToActivityWithPayload(ReferralActivity.class, extras);
+    }
+
     protected boolean isCurrentActivity(Class activity) {
         return this.activity.getClass() == activity;
     }
@@ -432,10 +441,6 @@ public abstract class BasePresenter {
     }
     protected void onNagativeButtonClicked(DialogInterface dialogInterface, int i){
         isSignOut = false;
-    }
-
-    protected void requestPermission(String permission) {
-        new PermissionsProvider(activity).requestStoragePermission();
     }
 
     protected boolean isPermissionGranted(String permission) {
@@ -672,10 +677,6 @@ public abstract class BasePresenter {
 
     protected void addUserToDataBase(UserModel user) {
         sqLiteProvider.addUser(user);
-    }
-
-    public SQLiteProvider getSQLiteDb() {
-        return sqLiteProvider;
     }
 
 }

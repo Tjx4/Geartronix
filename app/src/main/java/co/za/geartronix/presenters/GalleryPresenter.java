@@ -28,6 +28,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         setDependanciesChildActivities(R.layout.activity_gallery);
         currentActionBar.setTitle(" "+activity.getString(R.string.gallery));
         setViews();
+        permissionProvider.requestWriteStoragePermission();
         new DoAsyncCall().execute();
     }
 

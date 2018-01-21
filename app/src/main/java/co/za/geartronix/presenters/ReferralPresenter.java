@@ -4,27 +4,24 @@ import android.view.MenuItem;
 import android.view.View;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
-import co.za.geartronix.activities.DiagnosticsActivity;
-import co.za.geartronix.models.DiagnosticsModel;
-import co.za.geartronix.views.IDiagnosticsView;
+import co.za.geartronix.activities.ReferralActivity;
+import co.za.geartronix.views.IReferralView;
 
-public class DiagnosticsPresenter extends BaseAppActivityPresenter implements IDiagnosticsPresenter {
+public class ReferralPresenter  extends BaseAppActivityPresenter implements IReferralPresenter {
 
-     private DiagnosticsModel responseModel;
 
-    public DiagnosticsPresenter(IDiagnosticsView iDiagnosticsView) {
-        super((BaseActivity)iDiagnosticsView);
-        setDependanciesChildActivities(R.layout.activity_diagnostics);
-        currentActionBar.setTitle(" "+activity.getString(R.string.diagnostics));
+    public ReferralPresenter(IReferralView iReferralView) {
+        super((BaseActivity)iReferralView);
+        setDependanciesChildActivities(R.layout.activity_referral);
+        currentActionBar.setTitle(" "+activity.getString(R.string.referral));
         setViews();
-        responseModel = new DiagnosticsModel();
         new DoAsyncCall().execute();
     }
 
-    public DiagnosticsPresenter(BaseActivity baseActivity, int index) {
+    public ReferralPresenter(BaseActivity baseActivity, int index) {
         super(baseActivity, index);
-        setIcon(R.mipmap.diagnostics_icon);
-        setDisplayName(activity.getString(R.string.diagnostics));
+        setIcon(R.mipmap.referral_icon);
+        setDisplayName(baseActivity.getString(R.string.referral));
     }
 
     @Override
@@ -39,12 +36,12 @@ public class DiagnosticsPresenter extends BaseAppActivityPresenter implements ID
 
     @Override
     public void setViews() {
-
+//Refer someone to geartronix and help them get the same great service you did or heard about, plus earn points and get free services like sofware upgrades
     }
 
     @Override
-    public DiagnosticsActivity getActivity() {
-        return (DiagnosticsActivity)activity;
+    public ReferralActivity getActivity() {
+        return (ReferralActivity)activity;
     }
 
     @Override
@@ -80,6 +77,6 @@ public class DiagnosticsPresenter extends BaseAppActivityPresenter implements ID
 
     @Override
     public void goToCurrentAppActivity() {
-        goToDiagnostics();
+        goToReferrals();
     }
 }
