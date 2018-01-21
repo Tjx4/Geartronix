@@ -144,7 +144,7 @@
         android:id="@+id/frmUserSelectContainer"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/transBlack"
+        android:background="@color/tileTransBlack2"
         android:clickable="true"
         android:visibility="gone">
 
@@ -154,13 +154,14 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <TextView style="@style/largeLabel"
+            <TextView
                 android:id="@+id/textView"
-                android:layout_margin="25dp"
-                android:textAlignment="center"
+                style="@style/largeLabel"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Select a linked user"/>
+                android:layout_margin="25dp"
+                android:text="Select a linked user"
+                android:textAlignment="center"/>
 
             <ListView
                 android:id="@+id/lstUserSelection"

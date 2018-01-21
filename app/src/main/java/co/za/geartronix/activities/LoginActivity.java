@@ -55,7 +55,10 @@ public class LoginActivity extends BaseAsyncActivity implements ILoginView, Navi
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == android.view.KeyEvent.KEYCODE_BACK) {
+
+        boolean allow = getPresenter().allowKeyDown(keyCode, event);
+
+        if (allow && keyCode == android.view.KeyEvent.KEYCODE_BACK) {
             moveTaskToBack(true);
             return true;
         }

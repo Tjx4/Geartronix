@@ -3,6 +3,7 @@ package co.za.geartronix.presenters;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -36,6 +37,7 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
     private int userId;
     private ListView userSelectionLst;
     private FrameLayout userSelectContainerFrm;
+    private boolean isUserDialogOpened;
 
     public LoginPresenter(ILoginView iLoginView) {
         super((BaseActivity)iLoginView);
@@ -80,11 +82,18 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
         if(attemptsExceeded(button))
             return;
 
-        new DoAsyncCall(button).execute();
+        if(passwordTxt.getText().toString().isEmpty()){
+            showShortToast(getActivity().getString(R.string.enter_password));
+            return;
+        }
+        else{
+            new DoAsyncCall(button).execute();
+        }
     }
 
     @Override
     public void switchUsers() {
+        isUserDialogOpened = true;
         showUserSelectionView();
     }
 
@@ -107,6 +116,18 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
         container.setVisibility(View.GONE);
 
         setLinkedUserDetails();
+        isUserDialogOpened = false;
+    }
+
+    public boolean allowKeyDown(int keyCode, KeyEvent event) {
+        if(isUserDialogOpened) {
+            userSelectContainerFrm.setVisibility(View.GONE);
+            isUserDialogOpened = false;
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     @Override
@@ -255,7 +276,6 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
 //Todo: Revise
     @Override
     public void handleAsyncButtonClickedEvent(View view) {
-
         switch (view.getId()) {
             case R.id.btnLogin:
                 signIn(view);
