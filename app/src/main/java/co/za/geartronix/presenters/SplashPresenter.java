@@ -16,7 +16,6 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
     public SplashPresenter(ISplashView iSplashView) {
         super((BaseActivity)iSplashView );
         setDependanciesNoActionBar(R.layout.splash_content);
-        setViews();
         new DoAsyncCall().execute();
     }
 
@@ -50,6 +49,7 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
     @Override
     protected void beforeAsyncCall() {
         //super.beforeAsyncCall();
+        setViews();
     }
 
     @Override

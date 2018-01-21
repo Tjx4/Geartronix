@@ -116,6 +116,7 @@ public abstract class BaseAsyncPresenter extends BasePresenter {
 
         @Override
         protected Object doInBackground(Object...args) {
+            publishProgress(10);
 
             Object res;
 
