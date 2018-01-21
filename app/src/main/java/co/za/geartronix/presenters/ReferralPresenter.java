@@ -10,6 +10,7 @@ import co.za.geartronix.views.IReferralView;
 
 public class ReferralPresenter extends BaseAppActivityPresenter implements IReferralPresenter {
 
+    private boolean isRequestingContacts, isSendReferral;
     private String contactNumber, contactName;
     private EditText contactNumberTxt, contactNameTxt;
 
@@ -34,13 +35,14 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
 
         switch (clickedViewId){
             case R.id.imgGetContact:
-                getNumberFromPhoneContacts();
+                isRequestingContacts = true;
                 break;
             case R.id.btnReferral:
-                sendReferral();
+                isSendReferral = true;
                 break;
         }
 
+        new DoAsyncCall().execute();
     }
 
     @Override
@@ -61,7 +63,7 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
 
     @Override
     public void getNumberFromPhoneContacts() {
-        showShortToast("getNumberFromPhoneContacts");
+
     }
 
     @Override
@@ -80,7 +82,13 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
     @Override
     protected void beforeAsyncCall() {
         super.beforeAsyncCall();
-        setViews();
+
+        if(isRequestingContacts)
+            getNumberFromPhoneContacts();
+        else if(isSendReferral)
+            sendReferral();
+        else
+            setViews();
     }
 
     @Override
@@ -96,6 +104,8 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
 
     @Override
     protected void afterAsyncCall(Object result) {
+        isRequestingContacts = false;
+        isSendReferral = false;
         super.afterAsyncCall(result);
     }
 
