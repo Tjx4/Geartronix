@@ -3,6 +3,8 @@ package co.za.geartronix.presenters;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
+
 import org.json.JSONObject;
 import java.io.IOException;
 import co.za.geartronix.R;
@@ -23,6 +25,7 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
     private String title, firstName, city, email, cellNumber, password, passwordConfirmation;
     private char gender = 0;
     private EditText nametxt, cityTxt, cellTxt, emailTxt, passwordTxt, passwordConfirmationTxt;
+    private ImageView genderImg;
 
     public RegistrationPresenter(IRegistrationView iRegistrationView) {
         super((BaseActivity)iRegistrationView);
@@ -148,12 +151,25 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
         int viewId = view.getId();
 
         if(viewId == R.id.rdoFemale)
-            gender = 'f';
+            setGender('f');
         else if(viewId == R.id.rdoMale)
-            gender = 'm';
+            setGender('m');
         else
             blinkView(view, 30, 70);
     }
+
+    public void setGender(char gender) {
+        this.gender = gender;
+
+        if(gender == 'f'){
+            genderImg.setImageResource(R.drawable.female_icon);
+        }
+        else {
+            genderImg.setImageResource(R.drawable.male_icon);
+        }
+    }
+
+
 
     @Override
     public void setViews() {
@@ -165,6 +181,7 @@ public class RegistrationPresenter extends BaseMenuPresenter implements IRegistr
         cityTxt = parentLayout.findViewById(R.id.txtCity);
         cellTxt = parentLayout.findViewById(R.id.txtCell);
         emailTxt = parentLayout.findViewById(R.id.txtEmail);
+        genderImg = parentLayout.findViewById(R.id.imgGender);
 
         nametxt.setText("Rob");
         cellTxt.setText("0842630120");
