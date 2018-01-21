@@ -271,7 +271,7 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
             showErrorMessage(responseModel.responseMessage, getActivity().getString(R.string.error));
         }
 
-        super.afterAsyncCall(result);
+        //super.afterAsyncCall(result);
     }
 
 //Todo: Revise
