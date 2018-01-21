@@ -143,6 +143,9 @@
 
     <style name="gtxRadioBtn" parent="Widget.AppCompat.CompoundButton.RadioButton">
         <item name="android:textColor">@color/textWhite</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:stepSize">@dimen/medium_plus_font_size</item>
     </style>
     <style name="mediumTextBox" parent="geartronixTextBox">
         <item name="android:layout_height">@dimen/medium_textbox_height</item>

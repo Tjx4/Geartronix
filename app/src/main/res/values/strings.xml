@@ -77,4 +77,5 @@
     <string name="gender_error">Please select your gender</string>
     <string name="password_error">Your password does not meet minimum requirements</string>
     <string name="password_match_error">Your passwords don\'t match</string>
+    <string name="quit_registration">Quit registration</string>
 </resources>

@@ -73,35 +73,53 @@
                 style="@style/mediumTextBox"
                 android:hint="Enter city..."/>
 
-            <TextView
-                style="@style/mediumLabel"
-                android:layout_marginTop="13dp"
-                android:text="*Select your gender"
-                android:textColor="#cccccc"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal">
 
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:id="@+id/rdoGroupGender">
-
-                <RadioButton
-                    android:id="@+id/rdoFemale"
-                    style="@style/gtxRadioBtn"
+                <TextView
+                    android:id="@+id/textView5"
+                    style="@style/mediumLabel"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:onClick="onViewClickedEvent"
-                    android:text="Female"/>
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="0dp"
+                    android:layout_weight="1"
+                    android:text="*Gender"
+                    android:textColor="#cccccc"/>
 
-                <RadioButton style="@style/gtxRadioBtn"
-                    android:id="@+id/rdoMale"
+                <ImageView
+                    android:id="@+id/imageButton"
+                    android:layout_width="40dp"
+                    android:layout_height="23dp"
+                    android:layout_gravity="center_vertical"
+                    app:srcCompat="@drawable/service_arrow"/>
+
+                <RadioGroup
+                    android:id="@+id/rdoGroupGender"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:onClick="onViewClickedEvent"
-                    android:text="Male"/>
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
-            </RadioGroup>
+                    <RadioButton
+                        android:id="@+id/rdoFemale"
+                        style="@style/gtxRadioBtn"
+                        android:onClick="onViewClickedEvent"
+                        android:text="Female"/>
+
+                    <RadioButton
+                        android:id="@+id/rdoMale"
+                        style="@style/gtxRadioBtn"
+                        android:layout_marginLeft="20dp"
+                        android:onClick="onViewClickedEvent"
+                        android:text="Male"/>
+
+                </RadioGroup>
+
+            </LinearLayout>
 
 
             <TextView
