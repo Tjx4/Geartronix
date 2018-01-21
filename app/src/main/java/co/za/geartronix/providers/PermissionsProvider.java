@@ -96,6 +96,21 @@ public class PermissionsProvider {
         }
     }
 
+    public void requestPhoneContactPermission() {
+        if(isbellowMashMellow() )
+            return;
+
+        if (ContextCompat.checkSelfPermission(activity, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.READ_CONTACTS)) {
+
+            } else {
+                ActivityCompat.requestPermissions(activity, new String[]{Manifest.permission.READ_CONTACTS}, 1);
+            }
+        }
+    }
+
 
     public boolean isbellowMashMellow() {
         return Build.VERSION.SDK_INT < 23;

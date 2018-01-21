@@ -18,6 +18,7 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
         setDependanciesChildActivities(R.layout.activity_referral);
         currentActionBar.setTitle(" "+activity.getString(R.string.referral));
         new DoAsyncCall().execute();
+        permissionProvider.requestPhoneContactPermission();
     }
 
     public ReferralPresenter(BaseActivity baseActivity, int index) {
