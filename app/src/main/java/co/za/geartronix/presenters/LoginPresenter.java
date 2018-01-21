@@ -240,7 +240,7 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
 
     @Override
     protected void beforeAsyncCall() {
-        showLoadingScreen();
+        super.beforeAsyncCall();
     }
 
     @Override

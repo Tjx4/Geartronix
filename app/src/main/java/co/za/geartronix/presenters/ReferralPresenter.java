@@ -68,8 +68,10 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
         contactNumber = contactNumberTxt.getText().toString().trim();
         contactName = contactNameTxt.getText().toString().trim();
 
-        if(contactName.isEmpty() || contactNumber.isEmpty())
+        if(contactName.isEmpty() || contactNumber.isEmpty()){
             showShortToast("Please enter a name and cell number");
+            return;
+        }
 
         showShortToast("sendReferral");
     }

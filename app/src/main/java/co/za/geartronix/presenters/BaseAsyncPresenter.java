@@ -43,6 +43,7 @@ public abstract class BaseAsyncPresenter extends BasePresenter {
 
     protected void beforeAsyncCall(){
         showLoadingScreen();
+        hideKeyboard();
     }
 
     protected void afterAsyncCall(Object result){

@@ -44,7 +44,7 @@
     <string name="ask_geartronix_a_question">Ask Geartronix a question</string>
     <string name="edit_your_profile">Edit your profile</string>
     <string name="enter_email_or_cell">Enter your email or cell</string>
-    <string name="write_a_message">Write a responseMessage...</string>
+    <string name="write_a_message">Write a message...</string>
     <string name="typing">Typing...</string>
     <string name="inbox">Inbox</string>
     <string name="outbox">Outbox</string>
@@ -80,6 +80,6 @@
     <string name="quit_registration">Quit registration</string>
     <string name="enter_password">Please enter your password</string>
     <string name="switch_user">Switch user</string>
-    <string name="referral">Referral</string>
+    <string name="referral">Referrals</string>
     <string name="change_password">Change your password</string>
 </resources>
