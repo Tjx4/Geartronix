@@ -19,7 +19,7 @@ public class ServicesListModel extends BaseModel {
         for(int i = 0; i < itemsArray.length(); i++){
 
             JSONObject itemsAr = (JSONObject)itemsArray.get(i);
-
+// skip general service
             ServiceModel currService = new ServiceModel();
             currService.setId(itemsAr.getInt("id"));
             currService.setService(itemsAr.getString("service"));

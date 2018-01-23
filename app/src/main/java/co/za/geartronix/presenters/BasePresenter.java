@@ -413,7 +413,7 @@ public abstract class BasePresenter {
 
     protected void showSuccessMessage(String message, String title) {
         posiTiveButtonText = activity.getResources().getString(R.string.ok);
-        message = (message == null && message.isEmpty())? activity.getString(R.string.generic_success_message) : message;
+        message = (message != null && !message.isEmpty())? message : ""; //activity.getString(R.string.generic_success_message
         AlertDialog.Builder ab = setupBasicMessage(message, title, false, false);
         ab.setIcon(R.drawable.success_icon);
         showMessage(ab);
@@ -421,7 +421,7 @@ public abstract class BasePresenter {
 
     protected void showErrorMessage(String message, String title) {
         posiTiveButtonText = activity.getResources().getString(R.string.ok);
-        message = (message == null && message.isEmpty())? activity.getResources().getString(R.string.technical_error) : message;
+        message = (message != null && !message.isEmpty())? message : activity.getResources().getString(R.string.technical_error);
         AlertDialog.Builder ab = setupBasicMessage(message, title, false, false);
         ab.setIcon(R.drawable.error_icon);
         showMessage(ab);

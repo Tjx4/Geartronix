@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -24,7 +23,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.Set;
 
-
 public class HttpConnectionProvider {
 
     private Bundle values;
@@ -39,7 +37,6 @@ public class HttpConnectionProvider {
         if(values != null && values.length > 0)
             this.values = values[0];
     }
-
 
     public String makeCallForData(String stringUrl, String requestMethod, boolean doInput, boolean doOutput, int connectionTimeout) throws MalformedURLException, IOException {
 
@@ -81,7 +78,6 @@ public class HttpConnectionProvider {
 
         return result;
     }
-
 
     private HttpURLConnection getHttpConnection() throws IOException {
         URL url = new URL(stringUrl);

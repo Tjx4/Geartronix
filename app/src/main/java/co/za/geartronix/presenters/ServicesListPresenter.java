@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.FrameLayout;
 import android.widget.ListView;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -82,7 +83,8 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
         Bundle payload = new Bundle();
         payload.putInt("serviceId", serviceId);
 
-        return new HttpConnectionProvider(payload).makeCallForData(url, "GET", true, true, httpConTimeout);
+        String test = new HttpConnectionProvider(payload).makeCallForData(url, "GET", true, true, httpConTimeout);
+        return test;
     }
 
     @Override
@@ -130,7 +132,6 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
     @Override
     protected Object doAsyncOperation(int actionIndex) throws Exception {
         this.actionIndex = actionIndex;
-
         String response = getRemoteJson(actionIndex);
         serviceListModel = new ServicesListModel();
         serviceListModel.setModel(new JSONObject(response));
@@ -154,6 +155,7 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
             showErrorMessage(serviceListModel.responseMessage, getActivity().getString(R.string.error));
         }
 
+        clickedViewId = 0;
     }
 
     @Override
@@ -163,7 +165,6 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
     }
 
     public void onPostServicesRequest() {
-        showPostAsyncSuccess();
         showSuccessMessage(serviceListModel.responseMessage, getActivity().getString(R.string.success));
     }
 
@@ -172,8 +173,7 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
 
         if(clickedViewId == R.id.action_request_service)
             new DoAsyncCall().execute(1);
-        else
-        if(clickedViewId == R.id.action_general_checkup)
+        else if(clickedViewId == R.id.action_general_checkup)
             new DoAsyncCall().execute(2);
     }
 

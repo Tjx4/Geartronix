@@ -13,4 +13,14 @@
         android:layout_height="match_parent"
         android:divider="@android:color/transparent"
         android:dividerHeight="5dp"/>
+
+
+    <include
+        android:id="@+id/frmLoadingScreen"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_alignParentBottom="true"
+        layout="@layout/loading_screen"
+        android:visibility="invisible"/>
+
 </FrameLayout>
