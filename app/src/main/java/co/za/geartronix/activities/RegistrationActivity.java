@@ -5,12 +5,12 @@ import co.za.geartronix.R;
 import co.za.geartronix.presenters.RegistrationPresenter;
 import co.za.geartronix.views.IRegistrationView;
 
-public class RegistrationActivity extends BaseMenuActivity implements IRegistrationView {
+public class RegistrationActivity extends BaseSlideMenuActivity implements IRegistrationView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setMenu(R.menu.login_menu);
+        setMenu(R.menu.registration_menu);
     }
 
     @Override

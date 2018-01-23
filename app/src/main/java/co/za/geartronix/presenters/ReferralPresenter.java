@@ -18,7 +18,8 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
         super((BaseActivity)iReferralView);
         setDependanciesChildActivities(R.layout.activity_referral);
         currentActionBar.setTitle(" "+activity.getString(R.string.referral));
-        new DoAsyncCall().execute();
+        setViews();
+
         permissionProvider.requestPhoneContactPermission();
     }
 
@@ -92,8 +93,9 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
     }
 
     @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
-        setViews();
+    protected Object doAsyncOperation(int actionIndex) throws Exception {
+        this.actionIndex = actionIndex;
+
         return null;
     }
 

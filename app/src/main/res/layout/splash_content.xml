@@ -45,7 +45,8 @@
             android:layout_weight="1"
             android:background="@color/colorProgressBackgroud"
             android:max="100"
-            android:progress="50"/>
+            android:progress="50"
+            android:visibility="gone"/>
 
     </LinearLayout>
 

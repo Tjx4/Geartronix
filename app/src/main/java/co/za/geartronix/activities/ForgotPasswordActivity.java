@@ -6,7 +6,7 @@ import co.za.geartronix.R;
 import co.za.geartronix.presenters.ForgotPasswordPresenter;
 import co.za.geartronix.views.IForgotPasswordView;
 
-public class ForgotPasswordActivity extends BaseMenuActivity implements IForgotPasswordView {
+public class ForgotPasswordActivity extends BaseOverflowMenuActivity implements IForgotPasswordView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

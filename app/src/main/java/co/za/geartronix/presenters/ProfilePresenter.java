@@ -7,7 +7,6 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.ActionBar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -34,14 +33,14 @@ import co.za.geartronix.models.ProgressBarModel;
 import co.za.geartronix.models.UserModel;
 import co.za.geartronix.views.IProfileView;
 
-public class ProfilePresenter extends BaseAppActivityPresenter implements IProfilePresenter{
+public class ProfilePresenter extends BaseOverflowMenuPresenter implements IProfilePresenter{
 
     private ProfileModel responseModel;
     private UserModel user;
     public boolean isEditMode, isCarVieOptend;
     private ImageButton uploadImageBtn;
     private ProgressBar progressBar1, progressBar2;
-    private String city, newUsername, newCity;
+    private String newUsername, newCity;
     private ListView carsLst;
     private ProgressBarModel progressbar1Values, progressbar2Values;
     private TextView usernameTxt, memberTypetxt, cityTxt,pointsCountTxt, messageCountTxt, carsCountTxt, editUsernameTxt, editCityTxt;
@@ -60,10 +59,6 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         super((BaseActivity)iProfileView);
         setDependanciesChildActivities(R.layout.activity_profile);
         currentActionBar.setTitle(" "+activity.getString(R.string.profile));
-        responseModel = new ProfileModel();
-        setProfileDetails(new MockProvider(getActivity()).getMockUser());
-        setViews();
-
         new DoAsyncCall().execute();
     }
 
@@ -75,7 +70,11 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     protected void beforeAsyncCall() {
+        super.beforeAsyncCall();
 
+        setViews();
+        setProfileDetails(new MockProvider(getActivity()).getMockUser());
+        responseModel = new ProfileModel();
     }
 
     @Override
@@ -84,7 +83,9 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     }
 
     @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
+    protected Object doAsyncOperation(int actionIndex) throws Exception {
+        this.actionIndex = actionIndex;
+
         return null;
     }
 
@@ -336,7 +337,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
             return false;
 
         boolean usernameChanged = !newUsername.equals(user.getNames().getFirstName());
-        boolean cityChanged = !newCity.equals(city);
+        boolean cityChanged = !newCity.equals(user.getCity());
 
         return usernameChanged || cityChanged;
     }

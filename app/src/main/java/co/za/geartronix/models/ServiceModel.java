@@ -1,6 +1,6 @@
 package co.za.geartronix.models;
 
-public class ServiceModel {
+public class ServiceModel extends BaseModel{
     private String service, serviceDescription;
     private int id;
 

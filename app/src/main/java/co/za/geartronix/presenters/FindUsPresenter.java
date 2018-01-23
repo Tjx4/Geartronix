@@ -34,7 +34,9 @@ public class FindUsPresenter extends BaseAppActivityPresenter implements IFindUs
     }
 
     @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
+    protected Object doAsyncOperation(int actionIndex) throws Exception {
+        this.actionIndex = actionIndex;
+
         return null;
     }
 
@@ -50,7 +52,6 @@ public class FindUsPresenter extends BaseAppActivityPresenter implements IFindUs
 
     @Override
     public void setViews() {
-
     }
 
     @Override

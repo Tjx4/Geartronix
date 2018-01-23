@@ -13,7 +13,7 @@ public class ServicesPresenter extends BaseSlideMenuPresenter implements IServic
         super((BaseActivity)iServicesView);
         setDependanciesNoActionBar(R.layout.activity_dashboard);
         pageTitle = getActivity().getString(R.string.services);
-        setMenuDependencies(getActivity(), getPageTitle(), R.layout.activity_service );
+        setSlideMenuDependencies(getActivity(), getPageTitle(), R.layout.activity_service );
         setViews();
     }
 
@@ -35,7 +35,9 @@ public class ServicesPresenter extends BaseSlideMenuPresenter implements IServic
     }
 
     @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
+    protected Object doAsyncOperation(int actionIndex) throws Exception {
+        this.actionIndex = actionIndex;
+
         return null;
     }
 
@@ -51,7 +53,6 @@ public class ServicesPresenter extends BaseSlideMenuPresenter implements IServic
 
     @Override
     public void setViews() {
-
     }
 
     @Override

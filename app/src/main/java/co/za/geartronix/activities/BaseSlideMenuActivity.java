@@ -5,6 +5,8 @@ import android.view.MenuItem;
 
 public abstract class BaseSlideMenuActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener  {
 
+    private int menu2;
+
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {

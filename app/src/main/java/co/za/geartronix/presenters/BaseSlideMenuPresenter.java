@@ -9,7 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 
@@ -27,7 +30,7 @@ public abstract class BaseSlideMenuPresenter extends BaseAppActivityPresenter {
         super(baseActivity, index);
     }
 
-    protected void setMenuDependencies(BaseActivity activity, String title, int pageLayout) {
+    protected void setSlideMenuDependencies(BaseActivity activity, String title, int pageLayout) {
 
         setMainLayout(pageLayout);
         toolbar = (Toolbar) activity.findViewById(R.id.toolbar);
@@ -45,7 +48,6 @@ public abstract class BaseSlideMenuPresenter extends BaseAppActivityPresenter {
 
         RelativeLayout mainFramelayout = (RelativeLayout) activity.findViewById(R.id.menuContentHomeID);
         //dd.setContentDescription("co.za.geartronix.activities.DashBoardActivity");
-
     }
 
     public boolean handleNavigationItemSelected(MenuItem item) {

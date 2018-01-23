@@ -34,7 +34,6 @@ public class DiagnosticsPresenter extends BaseAppActivityPresenter implements ID
 
     @Override
     public void setViews() {
-
     }
 
     @Override
@@ -53,7 +52,9 @@ public class DiagnosticsPresenter extends BaseAppActivityPresenter implements ID
     }
 
     @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
+    protected Object doAsyncOperation(int actionIndex) throws Exception {
+        this.actionIndex = actionIndex;
+
         return null;
     }
 

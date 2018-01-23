@@ -6,7 +6,7 @@ import co.za.geartronix.R;
 import co.za.geartronix.presenters.SettingsPresenter;
 import co.za.geartronix.views.ISettingsView;
 
-public class SettingsActivty extends BaseMenuActivity implements ISettingsView {
+public class SettingsActivty extends BaseOverflowMenuActivity implements ISettingsView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

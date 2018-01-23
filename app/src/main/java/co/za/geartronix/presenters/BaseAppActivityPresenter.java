@@ -126,7 +126,6 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
     }
 
     protected void setViews() {
-
     }
 
     private String getImageName() {

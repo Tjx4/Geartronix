@@ -6,7 +6,7 @@ import co.za.geartronix.R;
 import co.za.geartronix.presenters.ReferralPresenter;
 import co.za.geartronix.views.IReferralView;
 
-public class ReferralActivity extends BaseMenuActivity implements IReferralView {
+public class ReferralActivity extends BaseOverflowMenuActivity implements IReferralView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -5,7 +5,7 @@ import co.za.geartronix.R;
 import co.za.geartronix.presenters.ServicesPresenter;
 import co.za.geartronix.views.IServicesView;
 
-public class ServicesActivity extends BaseMenuActivity implements  IServicesView {
+public class ServicesActivity extends BaseOverflowMenuActivity implements  IServicesView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -71,8 +71,9 @@
     <string name="create_account">Create account</string>
     <string name="update_password">Update password</string>
     <string name="error">Error</string>
+    <string name="success">Success</string>
     <string name="generic_success_message">Successful</string>
-    <string name="username_error">Please enter a valid username</string>
+    <string name="username_error">Please enter a valid name</string>
     <string name="cell_error">Please enter a valid cellphone number</string>
     <string name="gender_error">Please select your gender</string>
     <string name="password_error">Your password does not meet minimum requirements</string>

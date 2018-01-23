@@ -18,7 +18,7 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 
-public class GalleryPresenter extends BaseAppActivityPresenter implements IGalleryPresenter {
+public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGalleryPresenter {
 
     private GridView imagesGridview;
     private GalleryModel galleryModel;
@@ -69,7 +69,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     }
 
     @Override
-    protected String getRemoteJson() throws IOException {
+    protected String getRemoteJson(int methodIndex) throws IOException {
         String service = DataServiceProvider.gallery.getPath();
         String url = environment + service;
         return new HttpConnectionProvider().makeCallForData(url, "GET", true, true, httpConTimeout);
@@ -95,12 +95,13 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     }
 
     @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
+    protected Object doAsyncOperation(int actionIndex) throws Exception {
+        this.actionIndex = actionIndex;
 
         String response = "";
 
         if(isCheckingUpdates) {
-            response = getRemoteJson();
+            response = getRemoteJson(actionIndex);
             GalleryModel remoteGalleryModel = new GalleryModel();
             remoteGalleryModel.setModel(new JSONObject(response));
 
@@ -109,7 +110,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
         }
         else {
             if(!isCached()) {
-                response = getRemoteJson();
+                response = getRemoteJson(actionIndex);
                 galleryModel = new GalleryModel();
                 galleryModel.setModel(new JSONObject(response));
                 cacheProvider.updateGallery(galleryModel);

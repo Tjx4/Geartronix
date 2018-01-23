@@ -32,7 +32,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     private byte attempts;
     private EditText usernameTxt, passwordTxt;
     private TextView welcomeMessageTxt, usernameLbl, switchUsersLbl;
-    private LoginModel responseModel;
+    private LoginModel loginModel;
     private int userId;
     private ListView userSelectionLst;
     private FrameLayout userSelectContainerFrm;
@@ -41,10 +41,11 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     public LoginPresenter(ILoginView iLoginView) {
         super((BaseActivity)iLoginView);
         setDependanciesNoActionBar(R.layout.activity_login);
-        setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_login);
-        responseModel = new LoginModel();
+        setSlideMenuDependencies(getActivity(), getPageTitle(), R.layout.content_login);
+        loginModel = new LoginModel();
         setViews();
         getLinkedUserOREnterUsername();
+
         permissionProvider.requestInternetPermission();
     }
 
@@ -77,20 +78,6 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     }
 
     @Override
-    public void signIn(View button) {
-        if(attemptsExceeded(button))
-            return;
-
-        if(passwordTxt.getText().toString().isEmpty()){
-            showShortToast(getActivity().getString(R.string.enter_password));
-            return;
-        }
-        else{
-            new DoAsyncCall(button).execute();
-        }
-    }
-
-    @Override
     public void switchUsers() {
         isUserDialogOpened = true;
         showUserSelectionView();
@@ -103,7 +90,6 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
         UserSelectionAdapter adp = new UserSelectionAdapter(getActivity(), R.layout.user_item,users);
         userSelectionLst.setAdapter(adp);
         userSelectContainerFrm.setVisibility(View.VISIBLE);
-        passwordTxt.setText("");
     }
 
     @Override
@@ -117,6 +103,8 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
 
         setLinkedUserDetails();
         isUserDialogOpened = false;
+
+        passwordTxt.setText("");
     }
 
     public boolean allowKeyDown(int keyCode, KeyEvent event) {
@@ -139,7 +127,6 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
 
     @Override
     public void setLoginDetails() {
-
         if(user == null)
             setUsername(usernameTxt.getText().toString());
         else
@@ -151,9 +138,9 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     @Override
     public void enterApp() {
         Bundle loginDetails = new Bundle();
-        loginDetails.putString("user", responseModel.getUser());
-        loginDetails.putInt("userId", responseModel.getUserId());
-        loginDetails.putString("session", responseModel.getSession());
+        loginDetails.putString("user", loginModel.getUser());
+        loginDetails.putInt("userId", loginModel.getUserId());
+        loginDetails.putString("session", loginModel.getSession());
 
         goToHome(loginDetails);
         getActivity().finish();
@@ -168,6 +155,9 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     public void setViews() {
         setAsyncViews();
         parentLayout = getMainLayout();
+        laodingTxt = parentLayout.findViewById(R.id.txtLoading);
+        loadingProgressBar = parentLayout.findViewById(R.id.progressBarLoading);
+        loadingImg = parentLayout.findViewById(R.id.imgLoading);
         loadingScreenFrm = parentLayout.findViewById(R.id.frmLoadingScreen);
         usernameTxt = parentLayout.findViewById(R.id.txtUsername);
         passwordTxt = parentLayout.findViewById(R.id.txtPassword);
@@ -227,12 +217,26 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
 
 
     @Override
-    protected String getRemoteJson() throws IOException {
+    protected String getRemoteJson(int methodIndex) throws IOException {
+        String result = null;
+
+        switch (methodIndex){
+            case 0:
+                result = signIn();
+                break;
+        }
+
+        return result;
+    }
+
+    @Override
+    public String signIn() throws IOException {
+        String service = DataServiceProvider.login.getPath();
+        String url = environment + service;
+
         Bundle payload = new Bundle();
         payload.putString("username", username);
         payload.putString("password", password);
-        String service = DataServiceProvider.login.getPath();
-        String url = environment + service;
 
         return new HttpConnectionProvider(payload).makeCallForData(url, "GET", true, true, httpConTimeout);
     }
@@ -248,13 +252,12 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     }
 
     @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
+    protected Object doAsyncOperation(int actionIndex) throws Exception {
+        this.actionIndex = actionIndex;
         setLoginDetails();
-
-        String response = getRemoteJson();
-        responseModel = new LoginModel();
-        responseModel.setModel(new JSONObject(response));
-
+        String response = getRemoteJson(actionIndex);
+        loginModel = new LoginModel();
+        loginModel.setModel(new JSONObject(response));
         return response;
     }
 
@@ -263,14 +266,16 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
         if(outOfFocus)
             return;
 
-        if(responseModel.isSuccessful){
+        if(loginModel.isSuccessful){
             enterApp();
+            showPostAsyncSuccess();
+            getActivity().finish();
         }
         else {
-            showErrorMessage(responseModel.responseMessage, getActivity().getString(R.string.error));
+            super.afterAsyncCall(result);
+            showErrorMessage(loginModel.responseMessage, getActivity().getString(R.string.error));
         }
 
-        //super.afterAsyncCall(result);
     }
 
     public boolean handleNavigationItemSelected(MenuItem item) {
@@ -287,11 +292,23 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
         return true;
     }
 
+
+
+    @Override
+    public void checkAndSignIn() {
+        if(passwordTxt.getText().toString().isEmpty()) {
+            showShortToast(getActivity().getString(R.string.enter_password));
+        }
+        else {
+            new DoAsyncCall().execute(0);
+        }
+    }
+
     @Override
     protected void postAnimation(View view) {
         switch (view.getId()) {
             case R.id.btnLogin:
-                signIn(view);
+                checkAndSignIn();
                 break;
             case R.id.lblSwitchUser:
                 switchUsers();

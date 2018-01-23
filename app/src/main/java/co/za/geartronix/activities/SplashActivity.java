@@ -1,16 +1,9 @@
 package co.za.geartronix.activities;
 
-import android.os.Bundle;
 import co.za.geartronix.presenters.SplashPresenter;
 import co.za.geartronix.views.ISplashView;
 
-public class SplashActivity extends BaseMenuActivity implements ISplashView {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setPresenter();
-    }
+public class SplashActivity extends BaseOverflowMenuActivity implements ISplashView {
 
     @Override
     public void setPresenter() {
@@ -20,10 +13,5 @@ public class SplashActivity extends BaseMenuActivity implements ISplashView {
     @Override
     public SplashPresenter getPresenter() {
         return (SplashPresenter)presenter;
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 }

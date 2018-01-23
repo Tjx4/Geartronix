@@ -2,14 +2,13 @@ package co.za.geartronix.activities;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import co.za.geartronix.R;
 import co.za.geartronix.presenters.DashboardPresenter;
 import co.za.geartronix.views.IHomeView;
 
-public class DashBoardActivity extends BaseMenuActivity implements IHomeView {
+public class DashBoardActivity extends BaseSlideMenuActivity implements IHomeView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +24,18 @@ public class DashBoardActivity extends BaseMenuActivity implements IHomeView {
     @Override
     public void setPresenter() {
         presenter = new DashboardPresenter(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.dashboard_main_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        getPresenter().menuOptionSelected(item);
+        return true;
     }
 
     @Override

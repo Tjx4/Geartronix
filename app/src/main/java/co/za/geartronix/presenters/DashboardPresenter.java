@@ -31,8 +31,10 @@ public class DashboardPresenter extends BaseSlideMenuPresenter implements IDashb
     public DashboardPresenter(IHomeView iHomeView) {
         super((BaseActivity)iHomeView);
         setDependanciesNoActionBar(R.layout.activity_dashboard);
-        setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_dashboard);
-        new DoAsyncCall().execute();
+        setSlideMenuDependencies(getActivity(), getPageTitle(), R.layout.content_dashboard);
+        setViews();
+
+        new DoAsyncCall().execute(0);
     }
 
     @Override
@@ -43,20 +45,16 @@ public class DashboardPresenter extends BaseSlideMenuPresenter implements IDashb
     @Override
     protected void beforeAsyncCall() {
         super.beforeAsyncCall();
-        responseModel = new AccountModel();
-        setViews();
-    }
-
-    @Override
-    protected void duringAsyncCall(Integer... values) {
-
-    }
-
-    @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
-
         // Set tiles
         homeTileContainer.setAdapter(getAdapter());
+    }
+
+    @Override
+    protected Object doAsyncOperation(int actionIndex) throws Exception {
+        this.actionIndex = actionIndex;
+
+        // Set tiles
+        responseModel = new AccountModel();
         return null;
     }
 
@@ -77,8 +75,6 @@ public class DashboardPresenter extends BaseSlideMenuPresenter implements IDashb
         homeHeaderText = parentLayout.findViewById(R.id.txtHomeHeader);
         welcomeImg = parentLayout.findViewById(R.id.imgWelcome);
         homeTileContainer = parentLayout.findViewById(R.id.grdHomeTiles);
-
-        homeTileContainer.setVisibility(View.GONE);
     }
 
     public void showWelcome() {

@@ -1,22 +1,19 @@
 package co.za.geartronix.presenters;
 
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-
 import java.util.ArrayList;
 import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.AskActivity;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.adapters.MessageAdapter;
-import co.za.geartronix.constants.Constants;
 import co.za.geartronix.providers.ChatMessage;
 import co.za.geartronix.views.IAskView;
 
-public class AskPresenter  extends BaseAppActivityPresenter implements IAskPresenter {
+public class AskPresenter extends BaseAppActivityPresenter implements IAskPresenter {
 
     private ListView listView;
     private View btnSend;
@@ -92,7 +89,9 @@ public class AskPresenter  extends BaseAppActivityPresenter implements IAskPrese
 
 
     @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
+    protected Object doAsyncOperation(int actionIndex) throws Exception {
+        this.actionIndex = actionIndex;
+
         return null;
     }
 
@@ -107,7 +106,6 @@ public class AskPresenter  extends BaseAppActivityPresenter implements IAskPrese
     }
 
     protected void initMessages() {
-
         chatMessages = new ArrayList<>();
         adapter = new MessageAdapter(getActivity(), R.layout.item_chat_left, chatMessages);
         listView.setAdapter(adapter);

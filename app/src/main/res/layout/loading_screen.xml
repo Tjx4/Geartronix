@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
              style="@style/loadingScreen"
              android:animateLayoutChanges="true"
              android:clickable="true"
@@ -12,11 +13,18 @@
         android:layout_gravity="center"
         android:layout_marginBottom="30dp">
 
+        <ImageView
+            android:id="@+id/imgLoading"
+            android:layout_width="70dp"
+            android:layout_height="40dp"
+            android:visibility="gone"
+            app:srcCompat="@drawable/save_icon"/>
+
         <ProgressBar
-            android:id="@+id/progressBar"
+            android:id="@+id/progressBarLoading"
             style="@style/loadingSpinner"/>
 
-        <TextView
+        <TextView android:id="@+id/txtLoading"
             style="@style/mediumLabel"
             android:text="Please wait..."/>
     </LinearLayout>

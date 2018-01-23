@@ -4,8 +4,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
+import java.net.MalformedURLException;
+
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.RegistrationActivity;
@@ -30,8 +34,9 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
         super((BaseActivity)iRegistrationView);
         setDependanciesNoActionBar(R.layout.activity_registration);
         title = getActivity().getString(R.string.create_account);
-        setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_registration);
+        setSlideMenuDependencies(getActivity(), getPageTitle(), R.layout.content_registration);
         setViews();
+
         permissionProvider.requestPhoneStatePermission();
     }
 
@@ -41,13 +46,14 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
     }
 
     @Override
-    protected String getRemoteJson() throws IOException {
+    protected String getRemoteJson(int methodIndex) throws IOException {
 
         String service = DataServiceProvider.registration.getPath();
         String url = environment + service;
 
         Bundle payload = new Bundle();
         payload.putString("name", user.getNames().getFirstName());
+        payload.putString("gender", user.getGender()+"");
         payload.putString("password", user.getPassword());
         payload.putString("city", user.getCity());
         payload.putString("email", user.getContactDetailsProvider().getEmails()[0]);
@@ -67,10 +73,10 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
     }
 
     @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
-        String response = getRemoteJson();
+    protected Object doAsyncOperation(int actionIndex) throws Exception {
+        this.actionIndex = actionIndex;
+        String response = getRemoteJson(actionIndex);
         user.setModel(new JSONObject(response));
-
         return response;
     }
 
@@ -115,7 +121,7 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
 
     @Override
     public void registerUser() {
-
+       new DoAsyncCall().execute();
     }
 
     @Override
@@ -123,23 +129,25 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
         setRegProperties();
 
         if(!isValidName(user.getNames().getFirstName()))
-            showErrorMessage(getActivity().getString(R.string.username_error), "Username error");
+            showErrorMessage(getActivity().getString(R.string.username_error), getActivity().getString(R.string.error));
         else if(!isValidCell(user.getContactDetailsProvider().getContactNumbers()[0]))
-            showErrorMessage(getActivity().getString(R.string.cell_error), "Cell number error");
+            showErrorMessage(getActivity().getString(R.string.cell_error), getActivity().getString(R.string.error));
         else if(user.getContactDetailsProvider().getEmails()[0].isEmpty() && !isValidEmail(user.getContactDetailsProvider().getEmails()[0]))
-            showErrorMessage(getActivity().getString(R.string.cell_error), "Cell number error");
+            showErrorMessage(getActivity().getString(R.string.cell_error), getActivity().getString(R.string.error));
         else if(!isValidGender(user.getGender()))
-            showErrorMessage(getActivity().getString(R.string.gender_error), "Gender error");
+            showErrorMessage(getActivity().getString(R.string.gender_error), getActivity().getString(R.string.error));
         else if(!isValidPassword(user.getPassword()))
-            showErrorMessage(getActivity().getString(R.string.password_error), "Password error");
+            showErrorMessage(getActivity().getString(R.string.password_error), getActivity().getString(R.string.error));
         else if(!isMatchPasswords(user.getPassword(), passwordConfirmationTxt.getText().toString()))
             showErrorMessage(getActivity().getString(R.string.password_match_error), "Password error");
         else
-            new DoAsyncCall().execute();
+            registerUser();
     }
 
     @Override
     public void handleAsyncButtonClickedEvent(View view) {
+        super.handleAsyncButtonClickedEvent(view);
+
         int viewId = view.getId();
 
         if(viewId == R.id.rdoFemale)
@@ -174,9 +182,9 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
         genderImg = parentLayout.findViewById(R.id.imgGender);
 
         /*
-        nametxt.setText("Rob");
+        nametxt.setText("Tshepiso");
         cellTxt.setText("0842630120");
-        emailTxt.setText("rob@gmail.com");
+        emailTxt.setText("rocboyt@gmail.com");
         cityTxt.setText("Pretoria");
         passwordTxt.setText("Tl@0793079399");
         passwordConfirmationTxt.setText("Tl@0793079399");

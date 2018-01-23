@@ -50,7 +50,9 @@ public class ForgotPasswordPresenter extends BaseAppActivityPresenter implements
     }
 
     @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
+    protected Object doAsyncOperation(int actionIndex) throws Exception {
+        this.actionIndex = actionIndex;
+
         return null;
     }
 

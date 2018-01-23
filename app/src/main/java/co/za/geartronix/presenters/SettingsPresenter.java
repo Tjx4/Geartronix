@@ -32,7 +32,9 @@ public class SettingsPresenter extends BaseAppActivityPresenter implements ISett
     }
 
     @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
+    protected Object doAsyncOperation(int actionIndex) throws Exception {
+        this.actionIndex = actionIndex;
+
         return null;
     }
 
@@ -48,6 +50,5 @@ public class SettingsPresenter extends BaseAppActivityPresenter implements ISett
 
     @Override
     public void setViews() {
-
     }
 }

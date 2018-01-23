@@ -7,7 +7,7 @@ import co.za.geartronix.R;
 import co.za.geartronix.presenters.FindUsPresenter;
 import co.za.geartronix.views.IFindUsView;
 
-public class FindUsActivity extends BaseMenuActivity implements IFindUsView {
+public class FindUsActivity extends BaseOverflowMenuActivity implements IFindUsView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

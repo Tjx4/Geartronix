@@ -2,12 +2,20 @@ package co.za.geartronix.activities;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.view.ViewGroup;
+
 import co.za.geartronix.presenters.BaseAsyncPresenter;
 import co.za.geartronix.presenters.BasePresenter;
 
 public abstract class BaseActivity extends AppCompatActivity {
     public BasePresenter presenter;
     private int menu;
+    private ViewGroup activityViews;
+
+    public void onViewClickedEvent(View view) {
+        getPresenter().handleAsyncButtonClickedEvent(view);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

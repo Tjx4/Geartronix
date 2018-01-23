@@ -1,12 +1,11 @@
 package co.za.geartronix.activities;
 
 import android.os.Bundle;
-import android.view.MenuItem;
 import co.za.geartronix.R;
 import co.za.geartronix.presenters.AskPresenter;
 import co.za.geartronix.views.IAskView;
 
-public class AskActivity extends BaseMenuActivity implements IAskView {
+public class AskActivity extends BaseOverflowMenuActivity implements IAskView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,18 +21,6 @@ public class AskActivity extends BaseMenuActivity implements IAskView {
     @Override
     public AskPresenter getPresenter() {
         return (AskPresenter)presenter;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int itemId = item.getItemId();
-
-        if( itemId == android.R.id.home)
-            onBackPressed();
-        else
-            super.onOptionsItemSelected(item);
-
-        return true;
     }
 
     @Override

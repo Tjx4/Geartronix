@@ -40,4 +40,9 @@ public class LoginActivity extends BaseSlideMenuActivity implements ILoginView {
     protected void onDestroy() {
         super.onDestroy();
     }
+
+    @Override
+    public void onBackPressed() {
+        getPresenter().handleBackButtonPressed();
+    }
 }

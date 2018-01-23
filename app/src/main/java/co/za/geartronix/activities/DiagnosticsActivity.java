@@ -8,7 +8,7 @@ import co.za.geartronix.R;
 import co.za.geartronix.presenters.DiagnosticsPresenter;
 import co.za.geartronix.views.IDiagnosticsView;
 
-public class DiagnosticsActivity extends BaseMenuActivity implements IDiagnosticsView {
+public class DiagnosticsActivity extends BaseOverflowMenuActivity implements IDiagnosticsView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

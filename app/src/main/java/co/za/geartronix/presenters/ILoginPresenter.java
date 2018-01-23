@@ -1,11 +1,12 @@
 package co.za.geartronix.presenters;
 
 import android.view.View;
+import java.io.IOException;
 import co.za.geartronix.activities.LoginActivity;
 
 public interface ILoginPresenter extends IBaseAsyncPresenter {
     LoginActivity getActivity();
-    void signIn(View view);
+    String signIn() throws IOException;
     void switchUsers();
     void forgotPassword(View view);
     void setLoginDetails();
@@ -15,4 +16,5 @@ public interface ILoginPresenter extends IBaseAsyncPresenter {
     void setEnterUsername();
     void showUserSelectionView();
     void handleOnUserSelected(View view);
+    void checkAndSignIn();
 }

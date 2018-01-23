@@ -36,7 +36,7 @@ public class MessagesPresenter extends BaseSlideMenuPresenter implements IMessag
         super((BaseActivity)iMessagesView);
         setDependanciesNoActionBar(R.layout.activity_messages);
         pageTitle = getActivity().getString(R.string.messages);
-        setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_messages );
+        setSlideMenuDependencies(getActivity(), getPageTitle(), R.layout.content_messages );
         setViews();
         initMessages();
     }
@@ -95,7 +95,8 @@ public class MessagesPresenter extends BaseSlideMenuPresenter implements IMessag
     }
 
     @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
+    protected Object doAsyncOperation(int actionIndex) throws Exception {
+        this.actionIndex = actionIndex;
         return null;
     }
 

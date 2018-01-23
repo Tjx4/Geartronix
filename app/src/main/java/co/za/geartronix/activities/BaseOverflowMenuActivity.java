@@ -2,13 +2,8 @@ package co.za.geartronix.activities;
 
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
-public abstract class BaseMenuActivity extends BaseActivity {
-
-    public void onViewClickedEvent(View view) {
-        getPresenter().handleAsyncButtonClickedEvent(view);
-    }
+public abstract class BaseOverflowMenuActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
@@ -19,12 +14,19 @@ public abstract class BaseMenuActivity extends BaseActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(getMenu(), menu);
+        getPresenter().configureActionBarItems(menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        getPresenter().menuOptionSelected(item);
+        int itemId = item.getItemId();
+
+        if( itemId == android.R.id.home)
+            onBackPressed();
+        else
+            getPresenter().menuOptionSelected(item);
+
         return true;
     }
 

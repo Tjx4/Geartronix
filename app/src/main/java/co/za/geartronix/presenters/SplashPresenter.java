@@ -16,6 +16,7 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
         super((BaseActivity)iSplashView );
         setDependanciesNoActionBar(R.layout.splash_content);
         setViews();
+        checkLinkedUser();
         new DoAsyncCall().execute();
     }
 
@@ -47,8 +48,7 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
     }
 
     @Override
-    protected Object doAsyncOperation(Object... args) throws Exception {
-        checkLinkedUser();
+    protected Object doAsyncOperation(int actionIndex) throws Exception {
         return null;
     }
 
