@@ -27,7 +27,6 @@ public class GalleryModel extends BaseModel {
 
            images.add(currImage);
         }
-
     }
 
     public List<ImageModel> getImages() {

@@ -10,7 +10,7 @@ public enum DataServiceProvider {
     referral("rest/services/v1/apps/referral/referUser/"),
     askQuestion("rest/services/v1/apps/questions/askQuestion/"),
     getQuestions("rest/services/v1/apps/questions/getQuestion/"),
-    getServices("rest/services/v1/apps/services/requestServices/"),
+    getServices("rest/services/v1/apps/services/getServices/"),
     requestService("rest/services/v1/apps/services/requestService/");
 
     private String path;
