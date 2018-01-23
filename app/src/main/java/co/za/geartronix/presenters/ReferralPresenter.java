@@ -46,11 +46,6 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
     }
 
     @Override
-    public void handleViewClickedEvent(View view) {
-        blinkView(view, 30, 70);
-    }
-
-    @Override
     public void setViews() {
         contactNumberTxt = (EditText)getActivity().findViewById(R.id.txtContactName);
         contactNameTxt = (EditText)getActivity().findViewById(R.id.txtContactName);
@@ -110,10 +105,11 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
     }
 
     @Override
-    protected void handleAsyncButtonClickedEvent(View button) {
-
+    public void handleAsyncButtonClickedEvent(View view) {
+        blinkView(view, 30, 70);
     }
 
+    @Override
     public void menuOptionSelected(MenuItem item) {
         super.menuOptionSelected(item);
 

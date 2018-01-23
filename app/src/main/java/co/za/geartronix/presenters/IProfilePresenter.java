@@ -1,13 +1,11 @@
 package co.za.geartronix.presenters;
 
 import android.graphics.Bitmap;
-import android.support.v7.app.ActionBar;
-import android.view.MenuItem;
 import android.view.View;
 import co.za.geartronix.activities.ProfileActivity;
 import co.za.geartronix.models.UserModel;
 
-interface IProfilePresenter  extends IBaseAsyncPresenter {
+interface IProfilePresenter extends IBaseAsyncPresenter {
     ProfileActivity getActivity();
     boolean isProfileChanged();
     void checkAndSave();
@@ -30,11 +28,9 @@ interface IProfilePresenter  extends IBaseAsyncPresenter {
     void confirmChanges();
     void saveChanges();
     void setPointsCount(int count);
-    MenuItem getModeMenuItem();
     void setUsername(String username);
     void setMemberType(String userType);
     void setCity(String city);
     void setProfPic(Bitmap image);
-    ActionBar profileEditActionBar();
     void setProfileDetails(UserModel user);
 }

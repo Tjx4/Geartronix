@@ -1,20 +1,17 @@
 package co.za.geartronix.activities;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-
 import co.za.geartronix.R;
 import co.za.geartronix.presenters.GalleryPresenter;
 import co.za.geartronix.views.IGalleryView;
 
-public class GalleryActivity extends BaseAsyncActivity implements IGalleryView {
+public class GalleryActivity extends BaseMenuActivity implements IGalleryView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setPresenter();
+        setMenu(R.menu.gallery_menu);
     }
 
     @Override
@@ -23,19 +20,8 @@ public class GalleryActivity extends BaseAsyncActivity implements IGalleryView {
     }
 
     @Override
-    public void onViewClickedEvent(View view) {
-        getPresenter().handleViewClickedEvent(view);
-    }
-
-    @Override
     public GalleryPresenter getPresenter() {
         return (GalleryPresenter)presenter;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.gallery_menu, menu);
-        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
@@ -45,7 +31,7 @@ public class GalleryActivity extends BaseAsyncActivity implements IGalleryView {
         if( itemId == android.R.id.home)
             onBackPressed();
         else
-            getPresenter().menuOptionSelected(item);
+            super.onOptionsItemSelected(item);
 
         return true;
     }

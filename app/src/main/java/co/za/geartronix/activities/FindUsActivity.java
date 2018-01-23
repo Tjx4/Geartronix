@@ -1,20 +1,18 @@
 package co.za.geartronix.activities;
 
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
 import co.za.geartronix.R;
 import co.za.geartronix.presenters.FindUsPresenter;
 import co.za.geartronix.views.IFindUsView;
 
-public class FindUsActivity  extends BaseAsyncActivity implements IFindUsView {
+public class FindUsActivity extends BaseMenuActivity implements IFindUsView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setPresenter();
+        setMenu(R.menu.findus_menu);
     }
 
     @Override
@@ -29,14 +27,7 @@ public class FindUsActivity  extends BaseAsyncActivity implements IFindUsView {
 
     @Override
     public void onViewClickedEvent(View view) {
-        getPresenter().handleViewClickedEvent(view);
-    }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.findus_menu, menu);
-        return super.onCreateOptionsMenu(menu);
+        getPresenter().handleAsyncButtonClickedEvent(view);
     }
 
     @Override

@@ -131,7 +131,7 @@ public class MockProvider {
         mockUser.setProfilePic(propic);
 
         ContactDetailsProvider contactDetailes = new ContactDetailsProvider();
-        int[] contactnumbers = new int[]{823835792, 842630120};
+        String[] contactnumbers = new String[]{"823835792", "842630120"};
         contactDetailes.setContactNumbers(contactnumbers);
         String[] emails = new String[]{"rocboyt@gmail.com", "tlmahlaula@gmail.com"};
         contactDetailes.setEmails(emails);

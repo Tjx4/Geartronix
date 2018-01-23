@@ -13,7 +13,6 @@ public class SettingsPresenter extends BaseAppActivityPresenter implements ISett
         setDependanciesChildActivities(R.layout.activity_settings_activty);
         currentActionBar.setTitle(" "+activity.getString(R.string.settings));
         setViews();
-        //responseModel = new GalleryModel();
     }
 
     public SettingsPresenter(BaseActivity baseActivity, int index) {
@@ -43,12 +42,7 @@ public class SettingsPresenter extends BaseAppActivityPresenter implements ISett
     }
 
     @Override
-    protected void handleAsyncButtonClickedEvent(View button) {
-
-    }
-
-    @Override
-    public void handleViewClickedEvent(View view) {
+    public void handleAsyncButtonClickedEvent(View button) {
 
     }
 

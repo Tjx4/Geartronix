@@ -1,24 +1,17 @@
 package co.za.geartronix.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.NavigationView;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
 import co.za.geartronix.R;
-import co.za.geartronix.presenters.DashboardPresenter;
 import co.za.geartronix.presenters.LoginPresenter;
-import co.za.geartronix.views.IHomeView;
 import co.za.geartronix.views.ILoginView;
 
-public class LoginActivity extends BaseAsyncActivity implements ILoginView, NavigationView.OnNavigationItemSelectedListener {
+public class LoginActivity extends BaseSlideMenuActivity implements ILoginView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setPresenter();
+        setMenu(R.menu.login_menu);
     }
 
     @Override
@@ -29,28 +22,6 @@ public class LoginActivity extends BaseAsyncActivity implements ILoginView, Navi
     @Override
     public void setPresenter() {
         presenter = new LoginPresenter(this);
-    }
-
-    @Override
-    public void onViewClickedEvent(View view) {
-        getPresenter().handleViewClickedEvent(view);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.login_menu, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        getPresenter().menuOptionSelected(item);
-        return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        getPresenter().handleBackButtonPressed();
     }
 
     @Override
@@ -68,11 +39,5 @@ public class LoginActivity extends BaseAsyncActivity implements ILoginView, Navi
     @Override
     protected void onDestroy() {
         super.onDestroy();
-    }
-
-    @SuppressWarnings("StatementWithEmptyBody")
-    @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
-        return getPresenter().handleNavigationItemSelected(item);
     }
 }

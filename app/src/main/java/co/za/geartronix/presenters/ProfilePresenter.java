@@ -21,9 +21,6 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.ProfileActivity;
@@ -31,9 +28,6 @@ import co.za.geartronix.adapters.CarsAdapter;
 import co.za.geartronix.constants.Constants;
 import co.za.geartronix.models.NamesModel;
 import co.za.geartronix.models.ProfileModel;
-import co.za.geartronix.models.CarModel;
-import co.za.geartronix.models.MemberModel;
-import co.za.geartronix.models.MessageModel;
 import co.za.geartronix.providers.MessagesCategoryProvider;
 import co.za.geartronix.providers.MockProvider;
 import co.za.geartronix.models.ProgressBarModel;
@@ -47,12 +41,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     public boolean isEditMode, isCarVieOptend;
     private ImageButton uploadImageBtn;
     private ProgressBar progressBar1, progressBar2;
-    private int points;
-    private Bitmap profpic;
     private String city, newUsername, newCity;
-    private MemberModel memberType;
-    private List<MessageModel> messages;
-    private List<CarModel> cars;
     private ListView carsLst;
     private ProgressBarModel progressbar1Values, progressbar2Values;
     private TextView usernameTxt, memberTypetxt, cityTxt,pointsCountTxt, messageCountTxt, carsCountTxt, editUsernameTxt, editCityTxt;
@@ -71,8 +60,10 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         super((BaseActivity)iProfileView);
         setDependanciesChildActivities(R.layout.activity_profile);
         currentActionBar.setTitle(" "+activity.getString(R.string.profile));
-        setViews();
         responseModel = new ProfileModel();
+        setProfileDetails(new MockProvider(getActivity()).getMockUser());
+        setViews();
+
         new DoAsyncCall().execute();
     }
 
@@ -94,7 +85,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
 
     @Override
     protected Object doAsyncOperation(Object... args) throws Exception {
-        return "";
+        return null;
     }
 
     @Override
@@ -102,22 +93,19 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         if(outOfFocus)
             return;
 
-        try {
-            String res = result.toString();
-
-            responseModel.setModel(new JSONObject(res));
-
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-
-        hideLoadingScreen();
     }
 
     @Override
-    protected void handleAsyncButtonClickedEvent(View button) {
+    public void handleAsyncButtonClickedEvent(View view) {
+        int viewId = view.getId();
+        boolean isUploadPropic = viewId == R.id.imgBtnuploadImage;
+        boolean isSaveUpdate = viewId == R.id.btnSave;
+        boolean viewMode = !isEditMode;
 
+        if(viewId == R.id.lnrServiceContainer)
+            toggleSubContent(view);
+        else if(viewMode || isUploadPropic || isSaveUpdate)
+            blinkView(view, 30, 70);
     }
 
     @Override
@@ -223,23 +211,8 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         }
     }
 
-    @Override
-    public void handleViewClickedEvent(View view) {
-        int viewId = view.getId();
-        boolean isUploadPropic = viewId == R.id.imgBtnuploadImage;
-        boolean isSaveUpdate = viewId == R.id.btnSave;
-        boolean viewMode = !isEditMode;
-
-        if(viewId == R.id.lnrServiceContainer)
-            toggleSubContent(view);
-        else if(viewMode || isUploadPropic || isSaveUpdate)
-            blinkView(view, 30, 70);
-
-    }
-
-
     public void handleFragmentClickedEvent(DialogFragment dialogFragment, View view) {
-        handleViewClickedEvent(view);
+        handleAsyncButtonClickedEvent(view);
         this.dialogFragment = dialogFragment;
     }
 
@@ -279,32 +252,21 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         overLayfrm2.animate().alpha(0.0f).setDuration(imageAnimationDuration);
         closeCarView(false);
 
-        UserModel user = new MockProvider(getActivity()).getMockUser();
-        setProfileDetails(user);
-
         setLargeImageViews();
     }
 
     @Override
     public void setProfileDetails(UserModel user) {
-        username = user.getNames().getFirstName();
-        memberType = user.getMember();
-        profpic = user.getProfilePic();
-        city = user.getCity();
-        userId = user.getId();
-        cars = user.getCars();
-        points = user.getPoints();
-        messages = user.getMessages();
+        setUsername(user.getNames().getFirstName());
+        setProfPic(user.getProfilePic());
+        setMemberType(user.getMember().getSimpleName());
+        setCity(user.getCity());
+        setMessageCount(user.getMessages().size());
+        setPointsCount(user.getPoints());
+        setCarsCount(user.getCars().size());
+
         progressbar1Values = user.getProgressBar1();
         progressbar2Values  = user.getProgressBar2();
-
-        setUsername(username);
-        setProfPic(profpic);
-        setMemberType(memberType.getSimpleName());
-        setCity(city);
-        setMessageCount(messages.size());
-        setPointsCount(points);
-        setCarsCount(cars.size());
         setProgressbar1Progress(progressbar1Values);
         setProgressbar2Progress(progressbar2Values);
 
@@ -373,7 +335,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         if(hasEmpty())
             return false;
 
-        boolean usernameChanged = !newUsername.equals(username);
+        boolean usernameChanged = !newUsername.equals(user.getNames().getFirstName());
         boolean cityChanged = !newCity.equals(city);
 
         return usernameChanged || cityChanged;
@@ -440,7 +402,7 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     public void viewCars(View view) {
 
         if(carsLst.getAdapter() == null){
-            CarsAdapter carsAdapter = new CarsAdapter(getActivity(), R.layout.car_item,cars);
+            CarsAdapter carsAdapter = new CarsAdapter(getActivity(), R.layout.car_item, user.getCars());
             carsLst.setAdapter(carsAdapter);
         }
 
@@ -465,17 +427,15 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         fadeInOverlay(overLayfrm);
         fadeInOverlay(overLayfrm2);
         setViewsInVisible(new View[]{usernameTxt, cityTxt, memberTypetxt, moreBtn});
-        editUsernameTxt.setText(username);
-        editCityTxt.setText(city);
-        ogActionBar = currentActionBar;
-        currentActionBar.setTitle("Edit"); //= profileEditActionBar();
+        editUsernameTxt.setText(user.getNames().getFirstName());
+        editCityTxt.setText(user.getCity());
+        currentActionBar.setTitle("Edit");
         saveMenuItem.setVisible(true);
         settingsMenuItem.setVisible(false);
         setMenuItemIcon(modeMenuItem, R.drawable.cancell_icon);
         setViewHeight(userInfoRltv , userInfoRltv.getHeight() + 25);
         profContainerFrm.animate().setDuration(200).translationYBy(-30).start();
         isEditMode = true;
-        //showShortToast(getActivity().getString(R.string.edit_your_profile));
     }
 
     @Override
@@ -491,12 +451,6 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
         setViewHeight(userInfoRltv , RelativeLayout.LayoutParams.WRAP_CONTENT);
         profContainerFrm.animate().setDuration(200).translationYBy(30).start();
         isEditMode = false;
-        //showShortToast(getActivity().getString(R.string.profile_editmode_exited));
-    }
-
-    @Override
-    public MenuItem getModeMenuItem() {
-        return modeMenuItem;
     }
 
     @Override
@@ -555,13 +509,6 @@ public class ProfilePresenter extends BaseAppActivityPresenter implements IProfi
     @Override
     public void setProfPic(Bitmap image) {
         profpicImg.setImageBitmap(image);
-    }
-
-    @Override
-    public ActionBar profileEditActionBar() {
-        ActionBar me = this.activity.getSupportActionBar();
-        me.setTitle("Save");
-        return  me;
     }
 
     @Override

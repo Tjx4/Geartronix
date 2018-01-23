@@ -29,7 +29,7 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
         currentActionBar.setTitle(" "+activity.getString(R.string.services));
         setViews();
         responseModel = new ServicesListModel();
-        new BaseAsyncPresenter.DoAsyncCall().execute();
+        new BaseMenuPresenter.DoAsyncCall().execute();
     }
 
     public ServicesListPresenter(BaseActivity baseActivity, int index) {
@@ -46,12 +46,6 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
     @Override
     protected void closedStateMethod() {
         requestMenuItem.setVisible(true);
-    }
-
-    @Override
-    public void handleViewClickedEvent(View view) {
-        toggleSubContent(view);
-        setSelectedService(view.getId());
     }
 
     @Override
@@ -109,8 +103,9 @@ public class ServicesListPresenter extends BaseAppActivityPresenter implements I
     }
 
     @Override
-    protected void handleAsyncButtonClickedEvent(View button) {
-
+    public void handleAsyncButtonClickedEvent(View view) {
+        toggleSubContent(view);
+        setSelectedService(view.getId());
     }
 
     @Override

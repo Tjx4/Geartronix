@@ -3,33 +3,43 @@ package co.za.geartronix.presenters;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.constants.Constants;
 import co.za.geartronix.models.GalleryModel;
 import co.za.geartronix.providers.HttpConnectionProvider;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
-public abstract class BaseAsyncPresenter extends BasePresenter {
+public abstract class BaseAsyncPresenter extends BasePresenter{
+
     protected boolean isCheckingUpdates;
     protected int httpConTimeout = 6000;
     protected String environment = Constants.CURRENTENVIRONMENT;
     protected List<View> activeButtons  = new ArrayList<>();
     public FrameLayout loadingScreenFrm;
 
-    // Abstract methods
     protected abstract void duringAsyncCall(Integer...values);
     protected abstract Object doAsyncOperation(Object...args) throws Exception;
-    protected abstract void handleAsyncButtonClickedEvent(View button);
+
+    public boolean handleNavigationItemSelected(MenuItem item) {
+        return false;
+    }
+
+    public void handleBackButtonPressed(){
+
+    }
 
     protected void checkAndUpdate() {
 
     }
 
-    protected String getRemoteJson() throws IOException{
+    protected String getRemoteJson() throws IOException {
         return null;
     }
 
@@ -39,6 +49,13 @@ public abstract class BaseAsyncPresenter extends BasePresenter {
 
     protected boolean isCached() {
         return false;
+    }
+
+    public void handleAsyncButtonClickedEvent(View button) {
+        if (isCurrentlyWorking(button))
+            return;
+
+        activeButtons.add(button);
     }
 
     protected void beforeAsyncCall(){
@@ -52,15 +69,6 @@ public abstract class BaseAsyncPresenter extends BasePresenter {
 
     protected void setAsyncViews() {
         loadingScreenFrm = (FrameLayout) activity.findViewById(R.id.frmLoadingScreen);
-    }
-
-    public void onAsyncButtonClickeEvent(View button) {
-        if (isCurrentlyWorking(button))
-            return;
-
-        activeButtons.add(button);
-        //setBusy(true);
-        handleAsyncButtonClickedEvent(button);
     }
 
     protected void showLoadingScreen() {
@@ -78,7 +86,6 @@ public abstract class BaseAsyncPresenter extends BasePresenter {
 
     protected void resetButtonState(View button) {
         activeButtons.remove(button);
-        //setBusy(false);
     }
     protected void resetIfTriggeredByView(View triggerView) {
         if(triggerView != null)
@@ -116,8 +123,6 @@ public abstract class BaseAsyncPresenter extends BasePresenter {
 
         @Override
         protected Object doInBackground(Object...args) {
-            publishProgress(10);
-
             Object res;
 
             try {
@@ -145,12 +150,10 @@ public abstract class BaseAsyncPresenter extends BasePresenter {
             afterAsyncCall(outputData);
 
             resetIfTriggeredByView(triggerView);
-
         }
 
         private boolean appDisposed() {
             return activity.presenter == null;
         }
-
     }
 }

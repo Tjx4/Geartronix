@@ -6,7 +6,7 @@ import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.ServicesActivity;
 import co.za.geartronix.views.IServicesView;
 
-public class ServicesPresenter extends BaseMenuPresenter implements IServicesPresenter {
+public class ServicesPresenter extends BaseSlideMenuPresenter implements IServicesPresenter {
 
 
     public ServicesPresenter(IServicesView iServicesView) {
@@ -45,7 +45,7 @@ public class ServicesPresenter extends BaseMenuPresenter implements IServicesPre
     }
 
     @Override
-    protected void handleAsyncButtonClickedEvent(View button) {
+    public void handleAsyncButtonClickedEvent(View button) {
 
     }
 
@@ -57,11 +57,6 @@ public class ServicesPresenter extends BaseMenuPresenter implements IServicesPre
     @Override
     public ServicesActivity getActivity() {
         return (ServicesActivity)activity;
-    }
-
-    @Override
-    public void handleViewClickedEvent(View view) {
-
     }
 
     @Override

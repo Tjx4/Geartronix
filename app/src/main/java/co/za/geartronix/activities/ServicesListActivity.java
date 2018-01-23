@@ -3,27 +3,21 @@ package co.za.geartronix.activities;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import co.za.geartronix.R;
 import co.za.geartronix.presenters.ServicesListPresenter;
 import co.za.geartronix.views.IServicesListView;
 
-public class ServicesListActivity  extends BaseAsyncActivity implements IServicesListView {
+public class ServicesListActivity  extends BaseMenuActivity implements IServicesListView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setPresenter();
+        setMenu(R.menu.services_menu);
     }
 
     @Override
     public void setPresenter() {
         presenter = new ServicesListPresenter(this);
-    }
-
-    @Override
-    public void onViewClickedEvent(View view) {
-        getPresenter().handleViewClickedEvent(view);
     }
 
     @Override
@@ -33,7 +27,7 @@ public class ServicesListActivity  extends BaseAsyncActivity implements IService
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.services_menu, menu);
+        getMenuInflater().inflate(getMenu(), menu);
         getPresenter().configureActionBarItems(menu);
         return super.onCreateOptionsMenu(menu);
     }
@@ -45,13 +39,8 @@ public class ServicesListActivity  extends BaseAsyncActivity implements IService
         if( itemId == android.R.id.home)
             onBackPressed();
         else
-            getPresenter().menuOptionSelected(item);
+            super.onOptionsItemSelected(item);
 
         return true;
-    }
-
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
     }
 }

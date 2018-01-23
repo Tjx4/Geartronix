@@ -1,17 +1,23 @@
 package co.za.geartronix.activities;
+
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import co.za.geartronix.presenters.BaseAsyncPresenter;
 import co.za.geartronix.presenters.BasePresenter;
 
 public abstract class BaseActivity extends AppCompatActivity {
     public BasePresenter presenter;
+    private int menu;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setPresenter();
+    }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //presenter.activity = null;
     }
 
     @Override
@@ -25,6 +31,18 @@ public abstract class BaseActivity extends AppCompatActivity {
         super.onBackPressed();
         presenter.slideOutActivity();
         presenter.outOfFocus = true;
+
+        getPresenter().handleBackButtonPressed();
     }
 
+    public abstract BaseAsyncPresenter getPresenter();
+    public abstract void setPresenter();
+
+    public int getMenu() {
+        return menu;
+    }
+
+    public void setMenu(int menu) {
+        this.menu = menu;
+    }
 }

@@ -9,7 +9,7 @@ import co.za.geartronix.R;
 import co.za.geartronix.presenters.MessagesPresenter;
 import co.za.geartronix.views.IMessagesView;
 
-public class MessagesActivity extends BaseAsyncActivity implements IMessagesView, NavigationView.OnNavigationItemSelectedListener  {
+public class MessagesActivity extends BaseMenuActivity implements IMessagesView, NavigationView.OnNavigationItemSelectedListener  {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class MessagesActivity extends BaseAsyncActivity implements IMessagesView
 
     @Override
     public void onViewClickedEvent(View view) {
-        getPresenter().handleViewClickedEvent(view);
+        getPresenter().handleAsyncButtonClickedEvent(view);
     }
 
     @Override

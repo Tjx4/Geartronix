@@ -51,21 +51,22 @@
                     android:layout_centerVertical="true"
                     android:hint="Contact number"/>
 
-                <FrameLayout android:id="@+id/frmGetContact"
+                <FrameLayout
+                    android:id="@+id/frmGetContact"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    android:padding="3dp"
+                    android:layout_alignParentRight="true"
                     android:background="@drawable/grey_circle"
-                    android:layout_alignParentRight="true">
+                    android:padding="6dp">
 
                     <ImageButton
                         android:id="@+id/imgGetContact"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:layout_centerInParent="true"
                         android:layout_centerVertical="true"
+                        android:layout_gravity="center"
                         android:background="@color/colorTransparent"
                         android:onClick="onViewClickedEvent"
                         android:padding="2dp"

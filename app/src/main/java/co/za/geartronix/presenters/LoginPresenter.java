@@ -20,13 +20,12 @@ import co.za.geartronix.models.LoginModel;
 import co.za.geartronix.models.UserModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
-import co.za.geartronix.providers.PermissionsProvider;
 import co.za.geartronix.views.ILoginView;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
 
-public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter {
+public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPresenter {
 
     private String username, password, welcomeMessage;
     private UserModel user;
@@ -43,8 +42,8 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
         super((BaseActivity)iLoginView);
         setDependanciesNoActionBar(R.layout.activity_login);
         setMenuDependencies(getActivity(), getPageTitle(), R.layout.content_login);
-        setViews();
         responseModel = new LoginModel();
+        setViews();
         getLinkedUserOREnterUsername();
         permissionProvider.requestInternetPermission();
     }
@@ -274,25 +273,6 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
         //super.afterAsyncCall(result);
     }
 
-//Todo: Revise
-    @Override
-    public void handleAsyncButtonClickedEvent(View view) {
-        switch (view.getId()) {
-            case R.id.btnLogin:
-                signIn(view);
-                break;
-            case R.id.lblSwitchUser:
-                switchUsers();
-                break;
-            case R.id.txtForgotPassword:
-                forgotPassword(view);
-                break;
-            case R.id.rltvUserSelect:
-                handleOnUserSelected(view);
-                break;
-        }
-    }
-
     public boolean handleNavigationItemSelected(MenuItem item) {
         super.handleNavigationItemSelected(item);
 
@@ -309,11 +289,24 @@ public class LoginPresenter extends BaseMenuPresenter implements ILoginPresenter
 
     @Override
     protected void postAnimation(View view) {
-        handleAsyncButtonClickedEvent(view);
+        switch (view.getId()) {
+            case R.id.btnLogin:
+                signIn(view);
+                break;
+            case R.id.lblSwitchUser:
+                switchUsers();
+                break;
+            case R.id.txtForgotPassword:
+                forgotPassword(view);
+                break;
+            case R.id.rltvUserSelect:
+                handleOnUserSelected(view);
+                break;
+        }
     }
 
     @Override
-    public void handleViewClickedEvent(View view) {
+    public void handleAsyncButtonClickedEvent(View view) {
         blinkView(view,30,70);
     }
 

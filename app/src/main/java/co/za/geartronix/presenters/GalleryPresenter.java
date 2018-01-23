@@ -145,7 +145,7 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     }
 
     @Override
-    protected void handleAsyncButtonClickedEvent(View view) {
+    public void handleAsyncButtonClickedEvent(View view) {
 
         int viewId = view.getId();
 
@@ -169,11 +169,6 @@ public class GalleryPresenter extends BaseAppActivityPresenter implements IGalle
     @Override
     public GalleryActivity getActivity() {
         return (GalleryActivity) activity;
-    }
-
-    @Override
-    public void handleViewClickedEvent(View view) {
-        handleAsyncButtonClickedEvent(view);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package co.za.geartronix.presenters;
 
-import android.view.View;
 import android.widget.ProgressBar;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
@@ -16,6 +15,7 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
     public SplashPresenter(ISplashView iSplashView) {
         super((BaseActivity)iSplashView );
         setDependanciesNoActionBar(R.layout.splash_content);
+        setViews();
         new DoAsyncCall().execute();
     }
 
@@ -23,11 +23,6 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
         super(baseActivity, index);
         setIcon(R.mipmap.ic_launcher);
         setDisplayName(activity.getString(R.string.register));
-    }
-
-    @Override
-    public void handleViewClickedEvent(View view) {
-
     }
 
     @Override
@@ -44,12 +39,6 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
     @Override
     public void checkLinkedUser() {
         user = sqLiteProvider.getUser(1);
-    }
-
-    @Override
-    protected void beforeAsyncCall() {
-        //super.beforeAsyncCall();
-        setViews();
     }
 
     @Override
@@ -72,10 +61,5 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
             goToLogin();
 
         getActivity().finish();
-    }
-
-    @Override
-    protected void handleAsyncButtonClickedEvent(View button) {
-
     }
 }

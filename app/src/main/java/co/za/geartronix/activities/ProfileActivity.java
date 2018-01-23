@@ -8,7 +8,7 @@ import co.za.geartronix.R;
 import co.za.geartronix.presenters.ProfilePresenter;
 import co.za.geartronix.views.IProfileView;
 
-public class ProfileActivity  extends BaseAsyncActivity implements IProfileView {
+public class ProfileActivity  extends BaseMenuActivity implements IProfileView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +42,7 @@ public class ProfileActivity  extends BaseAsyncActivity implements IProfileView 
 
     @Override
     public void onViewClickedEvent(View view) {
-        getPresenter().handleViewClickedEvent(view);
+        getPresenter().handleAsyncButtonClickedEvent(view);
     }
 
     @Override

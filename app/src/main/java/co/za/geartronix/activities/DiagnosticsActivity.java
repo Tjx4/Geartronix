@@ -8,7 +8,7 @@ import co.za.geartronix.R;
 import co.za.geartronix.presenters.DiagnosticsPresenter;
 import co.za.geartronix.views.IDiagnosticsView;
 
-public class DiagnosticsActivity extends BaseAsyncActivity implements IDiagnosticsView {
+public class DiagnosticsActivity extends BaseMenuActivity implements IDiagnosticsView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +23,7 @@ public class DiagnosticsActivity extends BaseAsyncActivity implements IDiagnosti
 
     @Override
     public void onViewClickedEvent(View view) {
-        getPresenter().handleViewClickedEvent(view);
+        getPresenter().handleAsyncButtonClickedEvent(view);
     }
 
     @Override

@@ -60,12 +60,7 @@ public class ForgotPasswordPresenter extends BaseAppActivityPresenter implements
     }
 
     @Override
-    protected void handleAsyncButtonClickedEvent(View button) {
-
-    }
-
-    @Override
-    public void handleViewClickedEvent(View view) {
+    public void handleAsyncButtonClickedEvent(View button) {
 
     }
 

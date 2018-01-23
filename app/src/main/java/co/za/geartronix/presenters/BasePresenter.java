@@ -56,11 +56,11 @@ import co.za.geartronix.providers.SQLiteProvider;
 public abstract class BasePresenter {
 
     protected String BASE_LOG = "base_log";
-    protected String username, pageTitle;
+    protected String pageTitle;
     public BaseActivity activity;
-    protected int userId, clickedViewId, deviceOrientation, verticalSlideHeit, horizontalSlideWidth;
+    protected int clickedViewId, deviceOrientation, verticalSlideHeit, horizontalSlideWidth;
     private Animation animate;
-    protected ActionBar currentActionBar, ogActionBar;
+    protected ActionBar currentActionBar;
     public boolean isBack, isSignOut;
     protected final String PACKAGENAME = "co.za.geartronix";
     public boolean outOfFocus, viewOpenState;
@@ -435,10 +435,10 @@ public abstract class BasePresenter {
     }
 
     protected void onPositiveDialogButtonClicked(DialogInterface dialogInterface, int i){
-
         if(isSignOut)
             signOut();
     }
+
     protected void onNagativeButtonClicked(DialogInterface dialogInterface, int i){
         isSignOut = false;
     }
@@ -546,11 +546,6 @@ public abstract class BasePresenter {
     protected int getScreenWidth() {
         return activity.getWindow().getWindowManager().getDefaultDisplay().getWidth();
     }
-
-    public void handleBackButtonPressed(){
-        showShortToast("Base handleBackButtonPressed");
-    }
-
 
     protected void slideUpView(View view) {
         final View currentView = view;
@@ -668,7 +663,7 @@ public abstract class BasePresenter {
       return isValidPassword(password) && isMatchPasswords(password, passwordConfirmation);
     }
 
-    private boolean isValidEmail(String email){
+    protected boolean isValidEmail(String email){
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
         java.util.regex.Matcher m = p.matcher(email);

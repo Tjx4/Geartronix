@@ -30,7 +30,6 @@ import co.za.geartronix.providers.SQLiteProvider;
 
 public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
 
-    protected int AppActivityIndex;
     protected int icon;
     protected int activeColor, defColor;
     protected int inactivecolor;
@@ -126,7 +125,9 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
         this.currentAppActivity = currentAppActivity;
     }
 
+    protected void setViews() {
 
+    }
 
     private String getImageName() {
 // Todo: fix date time
@@ -216,14 +217,6 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
         shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
         shareIntent.setType("image/png");
         activity.startActivity(Intent.createChooser(shareIntent, activity.getString(R.string.send_to)));
-
-        /*
-        Intent shareIntent = new Intent();
-        shareIntent.setAction(Intent.ACTION_SEND);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, imageFilePath);
-        shareIntent.setType("image/png");
-        getActivity().startActivity(Intent.createChooser(shareIntent, getActivity().getString(R.string.send_to)));
-        */
     }
 
     protected void saveCurrentImageToGallery() {

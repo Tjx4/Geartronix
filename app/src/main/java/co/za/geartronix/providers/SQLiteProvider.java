@@ -84,7 +84,7 @@ public class SQLiteProvider extends SQLiteOpenHelper {
         user.setGender(cursor.getString(2).charAt(0));
 
         ContactDetailsProvider contacts = new ContactDetailsProvider();
-        contacts.setContactNumbers(new int[]{ Integer.parseInt(cursor.getString(3)) });
+        contacts.setContactNumbers(new String[]{ cursor.getString(3) });
         contacts.setEmails(new String[]{cursor.getString(4)});
         user.setContactDetailsProvider(contacts);
 
@@ -115,7 +115,7 @@ public class SQLiteProvider extends SQLiteOpenHelper {
                 user.setGender(cursor.getString(4).charAt(0));
 
                 ContactDetailsProvider contacts = new ContactDetailsProvider();
-                contacts.setContactNumbers(new int[]{ Integer.parseInt(cursor.getString(5)) });
+                contacts.setContactNumbers(new String[]{ cursor.getString(5) });
                 contacts.setEmails(new String[]{cursor.getString(6)});
                 user.setContactDetailsProvider(contacts);
 
@@ -150,7 +150,7 @@ public class SQLiteProvider extends SQLiteOpenHelper {
                 user.setGender(cursor.getString(4).charAt(0));
 
                 ContactDetailsProvider contacts = new ContactDetailsProvider();
-                contacts.setContactNumbers(new int[]{ Integer.parseInt(cursor.getString(5)) });
+                contacts.setContactNumbers(new String[]{ cursor.getString(5) });
                 contacts.setEmails(new String[]{cursor.getString(6)});
                 user.setContactDetailsProvider(contacts);
 

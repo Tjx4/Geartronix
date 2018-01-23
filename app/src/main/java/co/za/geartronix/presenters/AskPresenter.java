@@ -40,11 +40,6 @@ public class AskPresenter  extends BaseAppActivityPresenter implements IAskPrese
     }
 
     @Override
-    public void handleViewClickedEvent(View view) {
-        blinkView(view, 30, 70);
-    }
-
-    @Override
     public void setViews() {
         listView = (ListView) getActivity().findViewById(R.id.list_msg);
         btnSend = getActivity().findViewById(R.id.btnSendMessage);
@@ -107,8 +102,8 @@ public class AskPresenter  extends BaseAppActivityPresenter implements IAskPrese
     }
 
     @Override
-    protected void handleAsyncButtonClickedEvent(View button) {
-
+    public void handleAsyncButtonClickedEvent(View view) {
+        blinkView(view, 30, 70);
     }
 
     protected void initMessages() {

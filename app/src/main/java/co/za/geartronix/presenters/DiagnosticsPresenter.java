@@ -33,11 +33,6 @@ public class DiagnosticsPresenter extends BaseAppActivityPresenter implements ID
     }
 
     @Override
-    public void handleViewClickedEvent(View view) {
-        blinkView(view, 30, 70);
-    }
-
-    @Override
     public void setViews() {
 
     }
@@ -68,8 +63,8 @@ public class DiagnosticsPresenter extends BaseAppActivityPresenter implements ID
     }
 
     @Override
-    protected void handleAsyncButtonClickedEvent(View button) {
-
+    public void handleAsyncButtonClickedEvent(View view) {
+        blinkView(view, 30, 70);
     }
 
     public void menuOptionSelected(MenuItem item) {

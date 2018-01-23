@@ -149,6 +149,9 @@
     </style>
     <style name="mediumTextBox" parent="geartronixTextBox">
         <item name="android:layout_height">@dimen/medium_textbox_height</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:lines">1</item>
+        <item name="android:inputType">text</item>
     </style>
     <style name="viewOverlay">
         <item name="android:layout_width">match_parent</item>

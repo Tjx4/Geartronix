@@ -1,14 +1,14 @@
 package co.za.geartronix.providers;
 
 public class ContactDetailsProvider {
-    private int[] contactNumbers;
+    private String[] contactNumbers;
     private String[] emails;
 
-    public int[] getContactNumbers() {
+    public String[] getContactNumbers() {
         return contactNumbers;
     }
 
-    public void setContactNumbers(int[] contactNumbers) {
+    public void setContactNumbers(String[] contactNumbers) {
         this.contactNumbers = contactNumbers;
     }
 

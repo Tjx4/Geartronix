@@ -17,7 +17,7 @@ import co.za.geartronix.views.IHomeView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DashboardPresenter extends BaseMenuPresenter implements IDashboardPresenter {
+public class DashboardPresenter extends BaseSlideMenuPresenter implements IDashboardPresenter {
 
     private AccountModel responseModel;
     private DrawerLayout mDrawerLayout;
@@ -67,8 +67,8 @@ public class DashboardPresenter extends BaseMenuPresenter implements IDashboardP
     }
 
     @Override
-    protected void handleAsyncButtonClickedEvent(View button) {
-
+    public void handleAsyncButtonClickedEvent(View view) {
+        blinkView(view, 30, 150);
     }
 
     @Override
@@ -200,11 +200,6 @@ public class DashboardPresenter extends BaseMenuPresenter implements IDashboardP
     protected void postAnimation(View view) {
         //revertViewBackgroundColor(view);
         goToSelectedActivity(view);
-    }
-
-    @Override
-    public void handleViewClickedEvent(View view) {
-        blinkView(view, 30, 150);
     }
 
     @Override

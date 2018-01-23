@@ -16,11 +16,10 @@ import co.za.geartronix.adapters.MessageAdapter;
 import co.za.geartronix.constants.Constants;
 import co.za.geartronix.models.MessageModel;
 import co.za.geartronix.providers.ChatMessage;
-import co.za.geartronix.providers.MessagesCategoryProvider;
 import co.za.geartronix.views.IMessagesView;
 import static android.view.MenuItem.SHOW_AS_ACTION_ALWAYS;
 
-public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPresenter {
+public class MessagesPresenter extends BaseSlideMenuPresenter implements IMessagesPresenter {
 
     private MessageModel responseModel;
     private ListView listView;
@@ -106,8 +105,8 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
     }
 
     @Override
-    protected void handleAsyncButtonClickedEvent(View button) {
-
+    public void handleAsyncButtonClickedEvent(View view) {
+        blinkView(view, 30, 70);
     }
 
     @Override
@@ -128,11 +127,6 @@ public class MessagesPresenter extends BaseMenuPresenter implements IMessagesPre
         }
 
         return super.handleNavigationItemSelected(item);
-    }
-
-    @Override
-    public void handleViewClickedEvent(View view) {
-        blinkView(view, 30, 70);
     }
 
     @Override
