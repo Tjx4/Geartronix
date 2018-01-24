@@ -101,21 +101,14 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
 
     @Override
     protected String getRemoteJson(int methodIndex) throws IOException {
-        String result = null;
-
-        switch (methodIndex){
-            case 0:
-                result = requestServices();
-                break;
-            case 1:
-                result = requestService(selectedService.getId());
-                break;
-            case 2:
-                result = requestGeneralCheckup();
-                break;
-        }
-
-        return result;
+        if (methodIndex == 0)
+            return requestServices();
+        else if (methodIndex == 1)
+            return requestService(selectedService.getId());
+        else if (methodIndex == 2)
+            return requestGeneralCheckup();
+        else
+            return null;
     }
 
     @Override

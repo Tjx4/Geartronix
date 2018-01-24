@@ -131,22 +131,72 @@
                 android:text="*Create password"
                 android:textColor="#cccccc"/>
 
-            <EditText
-                android:id="@+id/txtPassword"
-                android:inputType="textPassword"
-                style="@style/mediumTextBox"
-                android:hint="Enter password"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:padding="0dp">
+
+                <EditText
+                    android:id="@+id/txtPassword"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="55dp"
+                    style="@style/mediumTextBox"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:hint="Enter password"
+                    android:inputType="textPassword"/>
+
+                <ImageButton
+                    android:id="@+id/imgBtnPasswordViewtoggle"
+                    android:layout_width="45dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:background="@android:color/transparent"
+                    android:onClick="onViewClickedEvent"
+                    app:srcCompat="@drawable/passhidden_view_mode"/>
+
+            </RelativeLayout>
 
             <TextView
                 style="@style/mediumLabel"
                 android:text="*Confirm your password"
                 android:textColor="#cccccc"/>
 
-            <EditText
-                android:id="@+id/txtConfirmPassword"
-                android:inputType="textPassword"
-                style="@style/mediumTextBox"
-                android:hint="Confirm password"/>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:padding="0dp">
+
+                <EditText
+                    android:id="@+id/txtConfirmPassword"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:paddingRight="55dp"
+                    style="@style/mediumTextBox"
+                    android:layout_margin="0dp"
+                    android:layout_weight="1"
+                    android:hint="Confirm password"
+                    android:inputType="textPassword"/>
+
+                <ImageButton
+                    android:id="@+id/imgBtnConfirmPasswordViewtoggle"
+                    android:layout_width="45dp"
+                    android:layout_height="30dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="5dp"
+                    android:background="@android:color/transparent"
+                    android:onClick="onViewClickedEvent"
+                    app:srcCompat="@drawable/passhidden_view_mode"/>
+
+            </RelativeLayout>
 
             <Button
                 android:id="@+id/btnRegister"

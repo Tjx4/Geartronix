@@ -15,8 +15,6 @@ public class LoginModel extends BaseModel{
        super.setModel(responseJson);
         setUserId(responseJson.getInt("userId"));
         setUser(responseJson.getString("user"));
-        setResponseMessage(responseJson.getString("responseMessage"));
-        setSuccessful(responseJson.getBoolean("isSuccessful"));
         setSession(responseJson.getString("session"));
     }
 

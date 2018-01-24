@@ -1,15 +1,15 @@
 package co.za.geartronix.presenters;
 
 import android.os.Bundle;
+import android.text.InputType;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-
-import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
-import java.net.MalformedURLException;
-
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.RegistrationActivity;
@@ -45,8 +45,9 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
         return title;
     }
 
+
     @Override
-    protected String getRemoteJson(int methodIndex) throws IOException {
+    public String registerUser() throws IOException {
 
         String service = DataServiceProvider.registration.getPath();
         String url = environment + service;
@@ -60,6 +61,15 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
         payload.putString("cellNumber", user.getContactDetailsProvider().getContactNumbers()[0]);
 
         return new HttpConnectionProvider(payload).makeCallForData(url, "GET", true, true, httpConTimeout);
+
+    }
+
+    @Override
+    protected String getRemoteJson(int methodIndex) throws IOException {
+        if (methodIndex == 0)
+            return registerUser();
+
+        return null;
     }
 
     @Override
@@ -120,13 +130,38 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
     }
 
     @Override
-    public void registerUser() {
-       new DoAsyncCall().execute();
+    public void togglePasswordFieldView(EditText passwordTxt, ImageButton toggleIcon) {
+        int inputType = passwordTxt.getInputType();
+
+        if(inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD){
+            //passwordTxt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            passwordTxt.setInputType( InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            toggleIcon.setImageResource(R.drawable.passhidden_view_mode);
+        }
+        else {
+            //passwordTxt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            passwordTxt.setInputType( InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD );
+            toggleIcon.setImageResource(R.drawable.view_mode_icon);
+        }
     }
 
     @Override
     protected void postAnimation(View view) {
         setRegProperties();
+
+        if (view.getId() == R.id.imgBtnPasswordViewtoggle) {
+            togglePasswordFieldView(passwordTxt, (ImageButton) view);
+            return;
+        } else if (view.getId() == R.id.imgBtnConfirmPasswordViewtoggle) {
+            togglePasswordFieldView(passwordConfirmationTxt, (ImageButton) view);
+            return;
+        } else {
+            validateRegistrationInfo(view);
+        }
+    }
+
+    @Override
+    public void validateRegistrationInfo(View view) {
 
         if(!isValidName(user.getNames().getFirstName()))
             showErrorMessage(getActivity().getString(R.string.username_error), getActivity().getString(R.string.error));
@@ -141,7 +176,7 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
         else if(!isMatchPasswords(user.getPassword(), passwordConfirmationTxt.getText().toString()))
             showErrorMessage(getActivity().getString(R.string.password_match_error), "Password error");
         else
-            registerUser();
+            new DoAsyncCall().execute(0);
     }
 
     @Override
@@ -181,14 +216,14 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
         emailTxt = parentLayout.findViewById(R.id.txtEmail);
         genderImg = parentLayout.findViewById(R.id.imgGender);
 
-        /*
+
         nametxt.setText("Tshepiso");
         cellTxt.setText("0842630120");
         emailTxt.setText("rocboyt@gmail.com");
         cityTxt.setText("Pretoria");
         passwordTxt.setText("Tl@0793079399");
         passwordConfirmationTxt.setText("Tl@0793079399");
-        */
+
     }
 
     @Override

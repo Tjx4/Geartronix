@@ -218,15 +218,10 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
 
     @Override
     protected String getRemoteJson(int methodIndex) throws IOException {
-        String result = null;
+        if (methodIndex == 0)
+            return signIn();
 
-        switch (methodIndex){
-            case 0:
-                result = signIn();
-                break;
-        }
-
-        return result;
+        return null;
     }
 
     @Override
