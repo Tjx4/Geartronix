@@ -28,8 +28,9 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
         setDependanciesChildActivities(R.layout.activity_gallery);
         currentActionBar.setTitle(" "+activity.getString(R.string.gallery));
         setViews();
+
+        new DoAsyncCall().execute(0);
         permissionProvider.requestWriteStoragePermission();
-        new DoAsyncCall().execute();
     }
 
     public GalleryPresenter(BaseActivity baseActivity, int index) {
@@ -41,7 +42,7 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
     @Override
     protected void checkAndUpdate() {
         isCheckingUpdates = true;
-        new DoAsyncCall().execute();
+        new DoAsyncCall().execute(0);
     }
 
     @Override
@@ -69,10 +70,24 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
     }
 
     @Override
-    protected String getRemoteJson(int methodIndex) throws IOException {
+    public String getGallery() throws IOException {
         String service = DataServiceProvider.gallery.getPath();
         String url = environment + service;
+
         return new HttpConnectionProvider().makeCallForData(url, "GET", true, true, httpConTimeout);
+    }
+
+    @Override
+    protected String getRemoteJson(int methodIndex) throws IOException {
+        String result = null;
+
+        switch (methodIndex){
+            case 0:
+                getGallery();
+                break;
+        }
+
+        return result;
     }
 
     @Override
@@ -81,22 +96,12 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
             return;
 
         super.beforeAsyncCall();
-
-        try {
-            galleryModel = cacheProvider.getGalleryImages();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void duringAsyncCall(Integer... values) {
-
     }
 
     @Override
     protected Object doAsyncOperation(int actionIndex) throws Exception {
         this.actionIndex = actionIndex;
+        galleryModel = cacheProvider.getGalleryImages();
 
         String response = "";
 

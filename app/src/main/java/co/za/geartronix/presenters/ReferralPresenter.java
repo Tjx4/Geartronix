@@ -10,7 +10,6 @@ import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.ReferralActivity;
 import co.za.geartronix.models.ReferralModel;
-import co.za.geartronix.models.ServicesListModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
 import co.za.geartronix.views.IReferralView;
@@ -47,9 +46,20 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
                 new DoAsyncCall().execute(0);
                 break;
             case R.id.btnReferral:
-                new DoAsyncCall().execute(1);
+                checkAndSendReferall();
                 break;
         }
+    }
+
+    @Override
+    public void checkAndSendReferall() {
+        contactName = contactNameTxt.getText().toString();
+        contactNumber = contactNumberTxt.getText().toString();
+
+        if(contactName.isEmpty() || contactNumber.isEmpty())
+            showShortToast("Please enter name and phone number");
+        else
+            new DoAsyncCall().execute(1);
     }
 
     @Override
@@ -66,7 +76,7 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
     @Override
     public void getNumberFromPhoneContacts() {
         isRequestingContacts = true;
-        //
+        showShortToast("public void getNumberFromPhoneContacts() ");
     }
 
     @Override
@@ -138,7 +148,6 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
     @Override
     public void menuOptionSelected(MenuItem item) {
         super.menuOptionSelected(item);
-
     }
 
     @Override

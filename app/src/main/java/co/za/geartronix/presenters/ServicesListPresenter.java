@@ -54,6 +54,7 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
 
     @Override
     public void setViews() {
+        setAsyncViews();
         servicesLst = (ListView)getActivity().findViewById(R.id.lstServices);
     }
 

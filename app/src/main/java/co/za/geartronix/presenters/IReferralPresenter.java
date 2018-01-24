@@ -7,4 +7,5 @@ public interface IReferralPresenter extends IBaseAsyncPresenter {
     ReferralActivity getActivity();
     void getNumberFromPhoneContacts();
     String sendReferral() throws IOException;
+    void checkAndSendReferall();
 }
