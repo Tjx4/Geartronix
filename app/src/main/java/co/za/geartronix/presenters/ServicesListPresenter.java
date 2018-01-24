@@ -6,7 +6,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
 import android.widget.ListView;
 import org.json.JSONObject;
 import java.io.IOException;
@@ -83,8 +82,7 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
         Bundle payload = new Bundle();
         payload.putInt("serviceId", serviceId);
 
-        String test = new HttpConnectionProvider(payload).makeCallForData(url, "GET", true, true, httpConTimeout);
-        return test;
+        return new HttpConnectionProvider(payload).makeCallForData(url, "GET", true, true, httpConTimeout);
     }
 
     @Override
@@ -122,11 +120,6 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
     @Override
     protected void beforeAsyncCall() {
         super.beforeAsyncCall();
-    }
-
-    @Override
-    protected void duringAsyncCall(Integer... values) {
-
     }
 
     @Override

@@ -7,7 +7,7 @@ public enum DataServiceProvider {
     gallery("rest/services/v1/apps/gallery/images/"),
     login("rest/services/v1/apps/login/loginUser/"),
     registration("rest/services/v1/apps/registration/registerUser/"),
-    referral("rest/services/v1/apps/referral/referUser/"),
+    sendReferral("rest/services/v1/apps/referral/referUser/"),
     askQuestion("rest/services/v1/apps/questions/askQuestion/"),
     getQuestions("rest/services/v1/apps/questions/getQuestion/"),
     getServices("rest/services/v1/apps/services/getServices/"),
