@@ -402,6 +402,9 @@ public class ProfilePresenter extends BaseOverflowMenuPresenter implements IProf
     @Override
     public void viewCars(View view) {
 
+        if(isCarVieOptend)
+            return;
+
         if(carsLst.getAdapter() == null){
             CarsAdapter carsAdapter = new CarsAdapter(getActivity(), R.layout.car_item, user.getCars());
             carsLst.setAdapter(carsAdapter);

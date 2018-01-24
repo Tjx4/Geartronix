@@ -39,7 +39,12 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
 
     @Override
     public void checkLinkedUser() {
-        user = sqLiteProvider.getUser(1);
+        try {
+            user = sqLiteProvider.getUser(1);
+        }
+        catch (Exception e){
+
+        }
     }
 
     @Override
