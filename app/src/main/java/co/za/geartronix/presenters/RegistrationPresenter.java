@@ -68,8 +68,8 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
     protected String getRemoteJson(int methodIndex) throws IOException {
         if (methodIndex == 0)
             return registerUser();
-
-        return null;
+        else
+            return null;
     }
 
     @Override

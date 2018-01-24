@@ -390,7 +390,7 @@ public class ProfilePresenter extends BaseOverflowMenuPresenter implements IProf
     @Override
     public void viewPoints(View view) {
         showShortToast("viewPoints");
-        // Just show a dialog that tells the user how much points they have and what they need to do to get more
+        // Just show a dialog that tells the userName how much points they have and what they need to do to get more
     }
 
     @Override

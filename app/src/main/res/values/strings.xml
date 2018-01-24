@@ -80,7 +80,7 @@
     <string name="password_match_error">Your passwords don\'t match</string>
     <string name="quit_registration">Quit registration</string>
     <string name="enter_password">Please enter your password</string>
-    <string name="switch_user">Switch user</string>
+    <string name="switch_user">Switch userName</string>
     <string name="referral">Referrals</string>
     <string name="change_password">Change your password</string>
 </resources>

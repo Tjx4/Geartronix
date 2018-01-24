@@ -3,31 +3,18 @@ package co.za.geartronix.models;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class LoginModel extends BaseModel{
+public class LoginModel extends UserModel{
 
     public String session;
-    public int userId;
-    public String user;
-    //public UserModel user;
+    public String userName;
+    public int id;
 
     @Override
     public void setModel(JSONObject responseJson) throws JSONException {
        super.setModel(responseJson);
-        setUserId(responseJson.getInt("userId"));
-        setUser(responseJson.getString("user"));
+        setUserName(responseJson.getString("userName"));
+        setId(responseJson.getInt("id"));
         setSession(responseJson.getString("session"));
-    }
-
-    public int getUserId() {  return userId;}
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public String getUser() {
-        return user;
-    }
-    public void setUser(String user) {
-        this.user = user;
     }
 
     public String getSession() {
@@ -35,5 +22,21 @@ public class LoginModel extends BaseModel{
     }
     public void setSession(String session) {
         this.session = session;
+    }
+
+    public int getUserId() {
+        return id;
+    }
+
+    public void setUserId(int id) {
+        this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 }

@@ -138,7 +138,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     @Override
     public void enterApp() {
         Bundle loginDetails = new Bundle();
-        loginDetails.putString("user", loginModel.getUser());
+        loginDetails.putString("userName", loginModel.getUserName());
         loginDetails.putInt("userId", loginModel.getUserId());
         loginDetails.putString("session", loginModel.getSession());
 
@@ -220,8 +220,8 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     protected String getRemoteJson(int methodIndex) throws IOException {
         if (methodIndex == 0)
             return signIn();
-
-        return null;
+        else
+            return null;
     }
 
     @Override

@@ -92,7 +92,7 @@ public class SQLiteProvider extends SQLiteOpenHelper {
         user.setCity(cursor.getString(7));
         MemberModel member = new MemberModel();
         //member.setMemberType(Integer.parseInt(cursor.getString(7)));
-        //user.setMemberType(member);
+        //userName.setMemberType(member);
 
         return user;
     }
@@ -123,7 +123,7 @@ public class SQLiteProvider extends SQLiteOpenHelper {
                 user.setCity(cursor.getString(9));
                 MemberModel member = new MemberModel();
                 member.setMemberType(Integer.parseInt(cursor.getString(10)));
-                //user.setMemberType(member);
+                //userName.setMemberType(member);
 
                 userList.add(user);
             } while (cursor.moveToNext());
@@ -158,7 +158,7 @@ public class SQLiteProvider extends SQLiteOpenHelper {
                 user.setCity(cursor.getString(9));
                 MemberModel member = new MemberModel();
                 member.setMemberType(Integer.parseInt(cursor.getString(10)));
-                //user.setMemberType(member);
+                //userName.setMemberType(member);
 
                 userList.add(user);
             } while (cursor.moveToNext());

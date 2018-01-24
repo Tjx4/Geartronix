@@ -7,7 +7,7 @@
         <item
             android:id="@+id/action_register"
             android:icon="@drawable/register_icon"
-            android:title="Register new user"/>
+            android:title="Register new userName"/>
 
         <item
             android:id="@+id/action_switch_users"

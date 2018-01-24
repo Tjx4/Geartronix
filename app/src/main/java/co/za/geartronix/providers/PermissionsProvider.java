@@ -64,8 +64,8 @@ public class PermissionsProvider {
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity, Manifest.permission.INTERNET)) {
 
-                // Show an explanation to the user *asynchronously* -- don't block
-                // this thread waiting for the user's response! After the user
+                // Show an explanation to the userName *asynchronously* -- don't block
+                // this thread waiting for the userName's response! After the userName
                 // sees the explanation, try again to request the permission.
 
             } else {

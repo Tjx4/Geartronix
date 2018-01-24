@@ -6,7 +6,7 @@
     <item
         android:id="@+id/action_typing"
         android:icon="@drawable/typing_icon"
-        android:title="user status"
+        android:title="userName status"
         android:visible="false"
         app:showAsAction="never"/>
 

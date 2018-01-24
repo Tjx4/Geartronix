@@ -130,7 +130,7 @@ public class DashboardPresenter extends BaseSlideMenuPresenter implements IDashb
     public void greetUser() {
 
         try {
-            String user = getActivity().getIntent().getExtras().getBundle("payload").getString("user");
+            String user = getActivity().getIntent().getExtras().getBundle("payload").getString("userName");
             showShortToast(activity.getString(R.string.welcome)+" "+user);
         }
         catch (Exception e) {

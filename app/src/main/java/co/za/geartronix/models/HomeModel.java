@@ -14,7 +14,7 @@ public class HomeModel extends BaseModel{
     public void setModel(JSONObject responseJson) throws JSONException {
         super.setModel(responseJson);
         setUserId(responseJson.getInt("userId"));
-        setUser(responseJson.getString("user"));
+        setUser(responseJson.getString("userName"));
         setResponseMessage(responseJson.getString("responseMessage"));
         setSuccessful(responseJson.getBoolean("isSuccessful"));
         setSession(responseJson.getString("session"));
