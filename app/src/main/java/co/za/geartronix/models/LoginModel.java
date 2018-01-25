@@ -14,7 +14,7 @@ public class LoginModel extends UserModel{
        super.setModel(responseJson);
         setUserName(responseJson.getString("user"));
         setId(responseJson.getInt("id"));
-        setSession(responseJson.getString("session"));
+        //setSession(responseJson.getString("session"));
     }
 
     public String getSession() {

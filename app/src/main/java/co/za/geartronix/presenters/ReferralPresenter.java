@@ -76,7 +76,7 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
     @Override
     public void getNumberFromPhoneContacts() {
         isRequestingContacts = true;
-        showShortToast("public void getNumberFromPhoneContacts() ");
+
     }
 
     @Override
@@ -93,17 +93,12 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
 
     @Override
     protected String getRemoteJson(int methodIndex) throws IOException {
-        String result = null;
+        if(methodIndex == 0)
+            getNumberFromPhoneContacts();
+        else if(methodIndex == 1)
+            return sendReferral();
 
-        switch (methodIndex){
-            case 0:
-                getNumberFromPhoneContacts();
-                break;
-            case 1:
-                result = sendReferral();
-        }
-
-        return result;
+            return null;
     }
 
     @Override
@@ -128,12 +123,18 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
     @Override
     protected void afterAsyncCall(Object result) {
 
-        if(referralModel.isSuccessful) {
-            if(!isRequestingContacts)
-                showErrorMessage(referralModel.responseMessage, getActivity().getString(R.string.success));
+        if(!isRequestingContacts){
+            showShortToast("Get contacts from phone book");
+            return;
         }
-        else {
-            showErrorMessage(referralModel.responseMessage, getActivity().getString(R.string.error));
+        else
+        {
+            if(referralModel.isSuccessful) {
+                showSuccessMessage(referralModel.responseMessage, getActivity().getString(R.string.success));
+            }
+            else {
+                showErrorMessage(referralModel.responseMessage, getActivity().getString(R.string.error));
+            }
         }
 
         isRequestingContacts = false;
