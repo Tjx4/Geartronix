@@ -126,6 +126,8 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
             return;
 
         if(isRequestingContacts){
+            isRequestingContacts = false;
+
             showShortToast("Get contacts from phone book");
             return;
         }
@@ -139,7 +141,6 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
             }
         }
 
-        isRequestingContacts = false;
         super.afterAsyncCall(result);
     }
 
