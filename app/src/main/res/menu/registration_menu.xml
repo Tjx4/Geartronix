@@ -3,21 +3,9 @@
       xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/action_loginExisting"
-        android:icon="@drawable/signin_icon"
-        android:title="Sign in with existing user"
-        app:showAsAction="never"/>
-
-    <item
         android:id="@+id/action_help"
         android:icon="@drawable/help_icon"
         android:title="@string/help"
-        app:showAsAction="never"/>
-
-    <item
-        android:id="@+id/action_exit"
-        android:icon="@drawable/close_icon"
-        android:title="@string/quit_registration"
         app:showAsAction="never"/>
 
 </menu>
