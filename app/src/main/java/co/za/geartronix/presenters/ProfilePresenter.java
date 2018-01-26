@@ -60,6 +60,8 @@ public class ProfilePresenter extends BaseOverflowMenuPresenter implements IProf
         setDependanciesChildActivities(R.layout.activity_profile);
         currentActionBar.setTitle(" "+activity.getString(R.string.profile));
         new DoAsyncCall().execute();
+
+        permissionProvider.requestWriteStoragePermission();
     }
 
     public ProfilePresenter(BaseActivity baseActivity, int index) {

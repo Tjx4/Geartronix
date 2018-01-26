@@ -1,11 +1,16 @@
 package co.za.geartronix.presenters;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -102,9 +107,9 @@ public abstract class BaseAsyncPresenter extends BasePresenter{
 
 
     protected void showPostAsyncSuccess() {
-        showLoadingSuccessTic();
         hideLoadingProgressBar();
         setLoadingText("");
+        showLoadingSuccessTic();
     }
 
     protected void setLoadingText(String loadingText) {
@@ -112,12 +117,10 @@ public abstract class BaseAsyncPresenter extends BasePresenter{
     }
 
     protected void showLoadingScreen() {
-        if(loadingScreenFrm != null)
-            loadingScreenFrm.setVisibility(View.VISIBLE);
+
     }
     protected void hideLoadingScreen() {
-        if(loadingScreenFrm != null)
-            loadingScreenFrm.setVisibility(View.GONE);
+
     }
 
     protected void testConnection() throws IOException {

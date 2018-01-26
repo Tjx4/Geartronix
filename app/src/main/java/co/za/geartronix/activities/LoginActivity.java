@@ -2,6 +2,9 @@ package co.za.geartronix.activities;
 
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
+
 import co.za.geartronix.R;
 import co.za.geartronix.presenters.LoginPresenter;
 import co.za.geartronix.views.ILoginView;
@@ -34,6 +37,18 @@ public class LoginActivity extends BaseSlideMenuActivity implements ILoginView {
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.login_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        getPresenter().menuOptionSelected(item);
+        return true;
     }
 
     @Override

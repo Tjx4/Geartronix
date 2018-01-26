@@ -10,10 +10,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Environment;
+import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import java.io.File;
@@ -36,7 +39,7 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
     protected String activityName, displayName;
     protected BaseAppActivityPresenter currentAppActivity;
     protected FrameLayout controlMenu, largeContainerFrm;
-    public boolean imageEnlarged;
+    public boolean imageEnlarged, isShowingLoading;
     protected CustomImageVIew activeImage;
     protected long imageAnimationDuration;
     protected String imageName;
@@ -180,7 +183,6 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
         controlMenu = largeContainerFrm.findViewById(R.id.frmContrlMenu);
     }
 
-
     protected void showEnlargedImage(View view) {
         showPanels(view);
     }
@@ -249,14 +251,28 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
         context.sendBroadcast(scanIntent);
     }
 
+    protected void showLoadingScreen() {
+        if(loadingScreenFrm == null)
+            return;
+
+        fadeInOverlay(loadingScreenFrm);
+    }
+    protected void hideLoadingScreen() {
+        if(loadingScreenFrm == null)
+            return;
+
+        fadeOutOverlay(loadingScreenFrm);
+    }
 
     public void fadeInOverlay(View view) {
+        view.setVisibility(View.VISIBLE);
         view.animate().alpha(1.0f).setDuration(imageAnimationDuration);
+        isShowingLoading = true;
     }
 
     protected void fadeOutOverlay(View view) {
-        view.animate().alpha(0.0f).setDuration(imageAnimationDuration);
-        /*
+        isShowingLoading = false;
+
         final View ofverlay = view;
 
         ofverlay.animate()
@@ -265,10 +281,13 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
                 .setListener(new AnimatorListenerAdapter() {
                     @Override
                     public void onAnimationEnd(Animator animation) {
+                        if(isShowingLoading)
+                            return;
+
                         ofverlay.setVisibility(View.GONE);
                     }
                 });
-        */
+
     }
 
     protected void openedStateMethod() {
@@ -343,6 +362,21 @@ public abstract class BaseAppActivityPresenter extends BaseAsyncPresenter {
         ResizeAnimation resizeAnimation = new ResizeAnimation(view, target, start);
         resizeAnimation.setDuration(0);
         view.startAnimation(resizeAnimation);
+    }
+
+    protected void togglePasswordFieldView(EditText passwordTxt, ImageButton toggleIcon) {
+        int inputType = passwordTxt.getInputType();
+
+        if(inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD) {
+            //passwordTxt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+            passwordTxt.setInputType( InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            toggleIcon.setImageResource(R.drawable.passhidden_view_mode);
+        }
+        else {
+            //passwordTxt.setTransformationMethod(PasswordTransformationMethod.getInstance());
+            passwordTxt.setInputType( InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD );
+            toggleIcon.setImageResource(R.drawable.view_mode_icon);
+        }
     }
 
 }

@@ -1,5 +1,7 @@
 package co.za.geartronix.presenters;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -8,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -90,6 +93,12 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
         UserSelectionAdapter adp = new UserSelectionAdapter(getActivity(), R.layout.user_item,users);
         userSelectionLst.setAdapter(adp);
         userSelectContainerFrm.setVisibility(View.VISIBLE);
+        fadeInOverlay(userSelectContainerFrm);
+    }
+
+    @Override
+    public void hideUserSelectionView() {
+        fadeOutOverlay(userSelectContainerFrm);
     }
 
     @Override
@@ -99,7 +108,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
         user = sqLiteProvider.getUser(userId);
 
         FrameLayout container = (FrameLayout)parent.getParent().getParent().getParent();
-        container.setVisibility(View.GONE);
+        hideUserSelectionView();
 
         setLinkedUserDetails();
         isUserDialogOpened = false;
@@ -109,7 +118,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
 
     public boolean allowKeyDown(int keyCode, KeyEvent event) {
         if(isUserDialogOpened) {
-            userSelectContainerFrm.setVisibility(View.GONE);
+            hideUserSelectionView();
             isUserDialogOpened = false;
             return false;
         }
@@ -166,6 +175,8 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
         userSelectContainerFrm = parentLayout.findViewById(R.id.frmUserSelectContainer);
         switchUsersLbl = parentLayout.findViewById(R.id.lblSwitchUser);
         userSelectionLst = parentLayout.findViewById(R.id.lstUserSelection);
+
+        fadeOutOverlay(userSelectContainerFrm);
     }
 
     @Override
@@ -268,6 +279,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
         }
         else {
             super.afterAsyncCall(result);
+            passwordTxt.setText("");
             showErrorMessage(loginModel.responseMessage, getActivity().getString(R.string.error));
         }
 
@@ -313,6 +325,9 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
                 break;
             case R.id.rltvUserSelect:
                 handleOnUserSelected(view);
+                break;
+            case R.id.imgBtnPasswordViewtoggle:
+                togglePasswordFieldView(passwordTxt, (ImageButton) view);
                 break;
         }
     }

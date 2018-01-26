@@ -122,8 +122,10 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
 
     @Override
     protected void afterAsyncCall(Object result) {
+        if(outOfFocus)
+            return;
 
-        if(!isRequestingContacts){
+        if(isRequestingContacts){
             showShortToast("Get contacts from phone book");
             return;
         }

@@ -15,6 +15,7 @@ public interface ILoginPresenter extends IBaseAsyncPresenter {
     void setLinkedUserDetails();
     void setEnterUsername();
     void showUserSelectionView();
+    void hideUserSelectionView();
     void handleOnUserSelected(View view);
     void checkAndSignIn();
 }

@@ -29,7 +29,7 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
     @Override
     public void setViews() {
         startingProgress = (ProgressBar)getActivity().findViewById(R.id.prbSplashProgress);
-        startingProgress.setProgress(0);
+        //startingProgress.setProgress(0);
     }
 
     @Override

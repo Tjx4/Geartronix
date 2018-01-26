@@ -1,9 +1,6 @@
 package co.za.geartronix.presenters;
 
 import android.os.Bundle;
-import android.text.InputType;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -127,22 +124,6 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
         MemberModel memberModel = new MemberModel();
         memberModel.setMemberType(0);
         user.setMemberType(memberModel);
-    }
-
-    @Override
-    public void togglePasswordFieldView(EditText passwordTxt, ImageButton toggleIcon) {
-        int inputType = passwordTxt.getInputType();
-
-        if(inputType == InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD){
-            //passwordTxt.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-            passwordTxt.setInputType( InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-            toggleIcon.setImageResource(R.drawable.passhidden_view_mode);
-        }
-        else {
-            //passwordTxt.setTransformationMethod(PasswordTransformationMethod.getInstance());
-            passwordTxt.setInputType( InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD );
-            toggleIcon.setImageResource(R.drawable.view_mode_icon);
-        }
     }
 
     @Override
