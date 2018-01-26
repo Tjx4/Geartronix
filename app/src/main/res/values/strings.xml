@@ -81,4 +81,5 @@
     <string name="switch_user">Switch user</string>
     <string name="referral">Referrals</string>
     <string name="change_password">Change your password</string>
+    <string name="feature_error_message">This feature is currently unavailable</string>
 </resources>

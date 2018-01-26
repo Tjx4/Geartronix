@@ -1,7 +1,5 @@
 package co.za.geartronix.presenters;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -151,7 +149,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
         loginDetails.putInt("userId", loginModel.getUserId());
         loginDetails.putString("session", loginModel.getSession());
 
-        goToHome(loginDetails);
+        goToDashboard(loginDetails);
         getActivity().finish();
     }
 

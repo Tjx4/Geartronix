@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.constants.Constants;
+import co.za.geartronix.models.BaseModel;
 import co.za.geartronix.models.GalleryModel;
 import co.za.geartronix.providers.HttpConnectionProvider;
 
@@ -43,6 +44,10 @@ public abstract class BaseAsyncPresenter extends BasePresenter{
 
     public void handleBackButtonPressed(){
 
+    }
+
+    protected boolean isNullModel(BaseModel model) {
+        return model == null;
     }
 
     protected void checkAndUpdate() {

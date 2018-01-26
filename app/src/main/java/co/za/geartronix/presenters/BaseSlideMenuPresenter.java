@@ -9,9 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewStub;
-import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
@@ -64,7 +62,7 @@ public abstract class BaseSlideMenuPresenter extends BaseAppActivityPresenter {
                 goToServices();
                 break;
             case R.id.action_home:
-                goToHome();
+                goToDashboard();
                 break;
             case R.id.action_discutions:
                 goToDiscussions();

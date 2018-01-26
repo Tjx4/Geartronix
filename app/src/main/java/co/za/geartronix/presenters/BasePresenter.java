@@ -302,7 +302,7 @@ public abstract class BasePresenter {
         return this.activity.getClass() == activity;
     }
 
-    protected void goToHome(Bundle...loginDetails) {
+    protected void goToDashboard(Bundle...loginDetails) {
         if(isCurrentActivity(DashBoardActivity.class))
             return;
 

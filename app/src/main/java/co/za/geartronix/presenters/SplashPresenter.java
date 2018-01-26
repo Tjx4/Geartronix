@@ -48,6 +48,10 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
     }
 
     @Override
+    protected void beforeAsyncCall() {
+    }
+
+    @Override
     protected void duringAsyncCall(Integer... values) {
         startingProgress.setProgress(values[0]);
     }

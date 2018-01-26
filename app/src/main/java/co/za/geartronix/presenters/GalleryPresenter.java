@@ -1,5 +1,6 @@
 package co.za.geartronix.presenters;
 
+import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -8,12 +9,12 @@ import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.GalleryActivity;
 import co.za.geartronix.adapters.GalleryImageAdapter;
+import co.za.geartronix.constants.Constants;
 import co.za.geartronix.models.GalleryModel;
 import co.za.geartronix.models.ImageModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
 import co.za.geartronix.views.IGalleryView;
-import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
@@ -74,20 +75,16 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
         String service = DataServiceProvider.gallery.getPath();
         String url = environment + service;
 
-        return new HttpConnectionProvider().makeCallForData(url, "GET", true, true, httpConTimeout);
+        String jstr = new HttpConnectionProvider().makeCallForData(url, "GET", true, true, httpConTimeout);
+        return jstr;
     }
 
     @Override
     protected String getRemoteJson(int methodIndex) throws IOException {
-        String result = null;
+        if(methodIndex == 0)
+            getGallery();
 
-        switch (methodIndex){
-            case 0:
-                getGallery();
-                break;
-        }
-
-        return result;
+        return null;
     }
 
     @Override
@@ -101,7 +98,14 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
     @Override
     protected Object doAsyncOperation(int actionIndex) throws Exception {
         this.actionIndex = actionIndex;
-        galleryModel = cacheProvider.getGalleryImages();
+
+try {
+    galleryModel = cacheProvider.getGalleryImages();
+
+}
+catch (Exception e){
+
+}
 
         String response = "";
 
@@ -129,7 +133,15 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
     protected void afterAsyncCall(Object result) {
         if(outOfFocus)
             return;
-        
+
+        if(isNullModel(galleryModel)) {
+            getActivity().finish();
+            Bundle extras = new Bundle();
+            extras.putString(Constants.FEATURE_ERROR, getActivity().getString(R.string.feature_error_message));
+            goToDashboard(extras);
+            return;
+        }
+
         if(galleryModel.isSuccessful) {
 
             if(isCheckingUpdates) {
