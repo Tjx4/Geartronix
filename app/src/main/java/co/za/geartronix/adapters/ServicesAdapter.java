@@ -34,6 +34,7 @@ public class ServicesAdapter extends ArrayAdapter{
 
         ServiceModel currentService = services.get(position);
         int serviceId = currentService.getId();
+
         String service = currentService.getService();
         String serviceDescription = currentService.getServiceDescription();
 
@@ -44,7 +45,6 @@ public class ServicesAdapter extends ArrayAdapter{
         serviceDescriptionTxt.setText(serviceDescription);
 
         parentView.setId(serviceId);
-
 
         return parentView;
     }

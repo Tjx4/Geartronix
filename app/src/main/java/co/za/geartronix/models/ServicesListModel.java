@@ -17,14 +17,17 @@ public class ServicesListModel extends BaseModel {
 
         services = new ArrayList<>();
         for(int i = 0; i < itemsArray.length(); i++){
-
             JSONObject itemsAr = (JSONObject)itemsArray.get(i);
-// skip general service
+
+            int showService = Integer.parseInt(itemsAr.getString("show_service"));
+            if(showService == 0)
+                continue;
+
             ServiceModel currService = new ServiceModel();
             currService.setId(itemsAr.getInt("id"));
             currService.setService(itemsAr.getString("service"));
             currService.setServiceDescription(itemsAr.getString("description"));
-
+            currService.setShow_service(showService);
             services.add(currService);
         }
     }

@@ -72,7 +72,7 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
 
     @Override
     public void setSelectedService(int id) {
-        selectedService = services.get(id);
+        selectedService = services.get(id - 2);
     }
 
     @Override
@@ -96,7 +96,7 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
 
     @Override
     public String requestGeneralCheckup()throws IOException {
-        return requestService(0);
+        return requestService(1);
     }
 
     @Override
