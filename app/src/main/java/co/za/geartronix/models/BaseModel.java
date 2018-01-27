@@ -9,6 +9,7 @@ public abstract class BaseModel {
     public String responseMessage;
     public String responseCode;
     private String responseJson;
+    private String user;
 
     public String getResponseJson() {
         return responseJson;
@@ -23,6 +24,7 @@ public abstract class BaseModel {
             return;
 
         setResponseJson(responseJson);
+        user = responseJson.getString(("user"));
         isSuccessful = responseJson.getBoolean(("isSuccessful"));
         responseMessage = responseJson.getString(("responseMessage"));
     }
@@ -41,6 +43,14 @@ public abstract class BaseModel {
 
     public void setResponseMessage(String responseMessage) {
         this.responseMessage = responseMessage;
+    }
+
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
     }
 
     public String getResponseCode() {

@@ -75,14 +75,13 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
         String service = DataServiceProvider.gallery.getPath();
         String url = environment + service;
 
-        String jstr = new HttpConnectionProvider().makeCallForData(url, "GET", true, true, httpConTimeout);
-        return jstr;
+        return new HttpConnectionProvider().makeCallForData(url, "GET", true, true, httpConTimeout);
     }
 
     @Override
     protected String getRemoteJson(int methodIndex) throws IOException {
         if(methodIndex == 0)
-            getGallery();
+            return getGallery();
 
         return null;
     }
@@ -103,10 +102,9 @@ try {
     galleryModel = cacheProvider.getGalleryImages();
 
 }
-catch (Exception e){
+catch (Exception e) {
 
 }
-
         String response = "";
 
         if(isCheckingUpdates) {
@@ -114,7 +112,7 @@ catch (Exception e){
             response = getRemoteJson(actionIndex);
             remoteGalleryModel.setModel(new JSONObject(response));
 
-            if (hasUpdate(remoteGalleryModel))
+            if (hasUpdate(remoteGalleryModel) || !isCached())
                 cacheProvider.updateGallery(remoteGalleryModel);
         }
         else {

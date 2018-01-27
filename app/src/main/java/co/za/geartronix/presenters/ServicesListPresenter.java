@@ -7,6 +7,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
@@ -14,7 +16,9 @@ import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.ServicesListActivity;
 import co.za.geartronix.adapters.ServicesAdapter;
+import co.za.geartronix.models.BaseModel;
 import co.za.geartronix.models.ServiceModel;
+import co.za.geartronix.models.ServiceRequestModel;
 import co.za.geartronix.models.ServicesListModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
@@ -22,7 +26,9 @@ import co.za.geartronix.views.IServicesListView;
 
 public class ServicesListPresenter extends BaseOverflowMenuPresenter implements IServicesListPresenter {
 
+    private BaseModel servicestModel;
     private ServicesListModel serviceListModel;
+    private ServiceRequestModel serviceRequestModel;
     private List<ServiceModel> services;
     private ServiceModel selectedService;
     private ListView servicesLst;
@@ -32,6 +38,7 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
         setDependanciesChildActivities(R.layout.activity_services_list);
         currentActionBar.setTitle(" "+getActivity().getString(R.string.services));
         setViews();
+        setLoadingText("Loading services...");
 
         new DoAsyncCall().execute(0);
     }
@@ -55,6 +62,7 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
     @Override
     public void setViews() {
         setAsyncViews();
+        laodingTxt = (TextView) getActivity().findViewById(R.id.txtLoading);
         servicesLst = (ListView)getActivity().findViewById(R.id.lstServices);
     }
 
@@ -81,7 +89,7 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
         String url = environment + service;
 
         Bundle payload = new Bundle();
-        payload.putInt("serviceId", serviceId);
+        payload.putString("serviceId", serviceId+"");
 
         return new HttpConnectionProvider(payload).makeCallForData(url, "GET", true, true, httpConTimeout);
     }
@@ -119,9 +127,19 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
     @Override
     protected Object doAsyncOperation(int actionIndex) throws Exception {
         this.actionIndex = actionIndex;
-        serviceListModel = new ServicesListModel();
         String response = getRemoteJson(actionIndex);
-        serviceListModel.setModel(new JSONObject(response));
+
+        if(actionIndex == 0) {
+            servicestModel = serviceListModel = new ServicesListModel();
+            serviceListModel.setModel(new JSONObject(response));
+            servicestModel = serviceListModel;
+        }
+        else {
+            serviceRequestModel = new ServiceRequestModel();
+            serviceRequestModel.setModel(new JSONObject(response));
+            servicestModel = serviceRequestModel;
+        }
+
         return response;
     }
 
@@ -132,14 +150,16 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
 
         super.afterAsyncCall(result);
 
-        if(serviceListModel.isSuccessful) {
-            if(actionIndex == 0)
+        if(servicestModel.isSuccessful) {
+            if(actionIndex == 0) {
                 showServices();
-            else
+            }
+            else {
                 onPostServicesRequest();
+            }
         }
         else {
-            showErrorMessage(serviceListModel.responseMessage, getActivity().getString(R.string.error));
+            showErrorMessage(servicestModel.responseMessage, getActivity().getString(R.string.error));
         }
 
         clickedViewId = 0;
@@ -152,12 +172,11 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
     }
 
     public void onPostServicesRequest() {
-        showSuccessMessage(serviceListModel.responseMessage, getActivity().getString(R.string.success));
+        showSuccessMessage(servicestModel.responseMessage, getActivity().getString(R.string.success));
     }
 
     @Override
     protected void onPositiveDialogButtonClicked(DialogInterface dialogInterface, int i) {
-
         if(clickedViewId == R.id.action_request_service)
             new DoAsyncCall().execute(1);
         else if(clickedViewId == R.id.action_general_checkup)
