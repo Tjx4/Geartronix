@@ -14,7 +14,7 @@ import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
 import co.za.geartronix.views.IReferralView;
 
-public class ReferralPresenter extends BaseAppActivityPresenter implements IReferralPresenter {
+public class ReferralPresenter extends BaseOverflowMenuPresenter implements IReferralPresenter {
 
     private boolean isRequestingContacts;
     private String contactNumber, contactName;
@@ -56,15 +56,15 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
         contactName = contactNameTxt.getText().toString();
         contactNumber = contactNumberTxt.getText().toString();
 
-        if(contactName.isEmpty() || contactNumber.isEmpty())
-            showShortToast("Please enter name and phone number");
-        else
+        if(isValidCell(contactNumber) && !contactName.isEmpty())
             new DoAsyncCall().execute(1);
+        else
+            showShortToast("Please enter name and phone number");
     }
 
     @Override
     public void setViews() {
-        contactNumberTxt = (EditText)getActivity().findViewById(R.id.txtContactName);
+        contactNumberTxt = (EditText)getActivity().findViewById(R.id.txtContactNumber);
         contactNameTxt = (EditText)getActivity().findViewById(R.id.txtContactName);
     }
 
@@ -76,7 +76,6 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
     @Override
     public void getNumberFromPhoneContacts() {
         isRequestingContacts = true;
-
     }
 
     @Override
@@ -114,10 +113,10 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
     @Override
     protected Object doAsyncOperation(int actionIndex) throws Exception {
         this.actionIndex = actionIndex;
-        String response = getRemoteJson(actionIndex);
         referralModel = new ReferralModel();
+        String response = getRemoteJson(actionIndex);
         referralModel.setModel(new JSONObject(response));
-        return null;
+        return response;
     }
 
     @Override
@@ -134,6 +133,8 @@ public class ReferralPresenter extends BaseAppActivityPresenter implements IRefe
         else
         {
             if(referralModel.isSuccessful) {
+                contactNumberTxt.setText("");
+                contactNameTxt.setText("");
                 showSuccessMessage(referralModel.responseMessage, getActivity().getString(R.string.success));
             }
             else {

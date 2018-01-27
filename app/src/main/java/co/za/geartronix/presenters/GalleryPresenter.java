@@ -110,8 +110,8 @@ catch (Exception e){
         String response = "";
 
         if(isCheckingUpdates) {
-            response = getRemoteJson(actionIndex);
             GalleryModel remoteGalleryModel = new GalleryModel();
+            response = getRemoteJson(actionIndex);
             remoteGalleryModel.setModel(new JSONObject(response));
 
             if (hasUpdate(remoteGalleryModel))
@@ -119,8 +119,8 @@ catch (Exception e){
         }
         else {
             if(!isCached()) {
-                response = getRemoteJson(actionIndex);
                 galleryModel = new GalleryModel();
+                response = getRemoteJson(actionIndex);
                 galleryModel.setModel(new JSONObject(response));
                 cacheProvider.updateGallery(galleryModel);
             }

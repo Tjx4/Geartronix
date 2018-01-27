@@ -12,7 +12,7 @@ public class LoginModel extends UserModel{
     @Override
     public void setModel(JSONObject responseJson) throws JSONException {
        super.setModel(responseJson);
-        setUserName(responseJson.getString("user"));
+        setUserName(responseJson.getString("name"));
         setId(responseJson.getInt("id"));
         //setSession(responseJson.getString("session"));
     }

@@ -259,8 +259,8 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     protected Object doAsyncOperation(int actionIndex) throws Exception {
         this.actionIndex = actionIndex;
         setLoginDetails();
-        String response = getRemoteJson(actionIndex);
         loginModel = new LoginModel();
+        String response = getRemoteJson(actionIndex);
         loginModel.setModel(new JSONObject(response));
         return response;
     }
@@ -271,8 +271,8 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
             return;
 
         if(loginModel.isSuccessful){
-            enterApp();
             showPostAsyncSuccess();
+            enterApp();
             getActivity().finish();
         }
         else {

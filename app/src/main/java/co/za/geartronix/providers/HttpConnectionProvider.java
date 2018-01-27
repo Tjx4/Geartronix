@@ -102,7 +102,8 @@ public class HttpConnectionProvider {
         String deviceSerial = getDeviceSerial();
 
         String postData = URLEncoder.encode("os", encoding)+"="+URLEncoder.encode("ANDROID", encoding)
-                + "&"+URLEncoder.encode("deviceType", encoding)+"="+URLEncoder.encode(deviceSerial, encoding)
+                + "&"+URLEncoder.encode("user", encoding)+"="+URLEncoder.encode("1", encoding)
+                + "&"+URLEncoder.encode("deviceType", encoding)+"="+URLEncoder.encode("PHONE", encoding)
                 + "&"+URLEncoder.encode("deviceSerial", encoding)+"="+URLEncoder.encode(deviceSerial, encoding);
         String key;
 

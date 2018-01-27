@@ -119,8 +119,8 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
     @Override
     protected Object doAsyncOperation(int actionIndex) throws Exception {
         this.actionIndex = actionIndex;
-        String response = getRemoteJson(actionIndex);
         serviceListModel = new ServicesListModel();
+        String response = getRemoteJson(actionIndex);
         serviceListModel.setModel(new JSONObject(response));
         return response;
     }

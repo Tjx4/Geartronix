@@ -41,6 +41,7 @@
 
                 <EditText
                     android:id="@+id/txtContactNumber"
+                    android:inputType="phone"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true"
                     android:layout_toLeftOf="@+id/frmGetContact"

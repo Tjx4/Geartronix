@@ -17,6 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
@@ -392,7 +393,9 @@ public abstract class BasePresenter {
     }
     private void showMessage(AlertDialog.Builder ab) {
         AlertDialog a = ab.create();
+        a.requestWindowFeature(Window.FEATURE_NO_TITLE);
         a.show();
+
         a.getButton(a.BUTTON_NEGATIVE).setTextColor(activity.getResources().getColor(R.color.textWhite));
         a.getButton(a.BUTTON_POSITIVE).setTextColor(activity.getResources().getColor(R.color.textWhite));
         a.getButton(a.BUTTON_NEUTRAL).setTextColor(activity.getResources().getColor(R.color.textWhite));
