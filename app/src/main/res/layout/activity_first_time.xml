@@ -34,12 +34,12 @@
             android:paddingTop="10dp">
 
             <TextView
+                android:id="@+id/textView"
                 style="@style/mediumLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Welcome and thank you for downloading the Geartronix app, to proceed please select an option below"/>
-
+                android:text="Welcome and thank you for choosing Geartronix, to proceed please select an option below"/>
 
             <LinearLayout
                 android:layout_width="wrap_content"
