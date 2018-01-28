@@ -1,10 +1,12 @@
 package co.za.geartronix.presenters;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import co.za.geartronix.R;
@@ -13,6 +15,7 @@ import co.za.geartronix.activities.RegistrationActivity;
 import co.za.geartronix.constants.Constants;
 import co.za.geartronix.models.MemberModel;
 import co.za.geartronix.models.NamesModel;
+import co.za.geartronix.models.RegistrationModel;
 import co.za.geartronix.models.UserModel;
 import co.za.geartronix.providers.ContactDetailsProvider;
 import co.za.geartronix.providers.DataServiceProvider;
@@ -22,6 +25,7 @@ import co.za.geartronix.views.IRegistrationView;
 public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRegistrationPresenter {
 
     private UserModel user;
+    private RegistrationModel registrationModel;
     private String title;
     private char gender = 0;
     private EditText nametxt, cityTxt, cellTxt, emailTxt, passwordTxt, passwordConfirmationTxt;
@@ -44,7 +48,7 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
 
 
     @Override
-    public String registerUser() throws IOException {
+    public String makeRegistrationHttpCall() throws IOException {
 
         String service = DataServiceProvider.registration.getPath();
         String url = environment + service;
@@ -62,11 +66,34 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
     }
 
     @Override
+    public String registerUser() throws JSONException, IOException {
+        registrationModel = new RegistrationModel();
+        String response = getRemoteJson(actionIndex);
+        registrationModel.setModel(new JSONObject(response));
+        return response;
+    }
+
+
+    @Override
     protected String getRemoteJson(int methodIndex) throws IOException {
         if (methodIndex == 0)
-            return registerUser();
+            return makeRegistrationHttpCall();
         else
             return null;
+    }
+
+    @Override
+    protected void onPositiveDialogButtonClicked(DialogInterface dialogInterface, int i) {
+//===========================
+        if(registrationModel == null)
+            return;
+
+        if(registrationModel.isSuccessful) {
+            Bundle extras = new Bundle();
+            int regUserId = sqLiteProvider.getLastUser().getId();
+            extras.putInt(Constants.USERID, regUserId);
+            goToLogin(extras);
+        }
     }
 
     @Override
@@ -75,16 +102,9 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
     }
 
     @Override
-    protected void duringAsyncCall(Integer... values) {
-
-    }
-
-    @Override
     protected Object doAsyncOperation(int actionIndex) throws Exception {
         this.actionIndex = actionIndex;
-        String response = getRemoteJson(actionIndex);
-        user.setModel(new JSONObject(response));
-        return response;
+        return registerUser();
     }
 
     @Override
@@ -92,15 +112,12 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
         if(outOfFocus)
             return;
 
-        if(user.isSuccessful) {
+        if(registrationModel.isSuccessful) {
             addUserToDataBase(user);
-            Bundle extras = new Bundle();
-            int regUserId = sqLiteProvider.getLastUser().getId();
-            extras.putInt(Constants.USERID, regUserId);
-            goToLogin(extras);
+            showSuccessMessage(registrationModel.getResponseMessage(), getActivity().getString(R.string.success));
         }
         else {
-            showErrorMessage(user.getResponseMessage(), getActivity().getString(R.string.error));
+            showErrorMessage(registrationModel.getResponseMessage(), getActivity().getString(R.string.error));
         }
 
         super.afterAsyncCall(result);
@@ -197,13 +214,12 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
         emailTxt = parentLayout.findViewById(R.id.txtEmail);
         genderImg = parentLayout.findViewById(R.id.imgGender);
 
-
-        /*nametxt.setText("Tshepiso");
-        cellTxt.setText("0842630120");
+        nametxt.setText("Tshepo");
+        cellTxt.setText("0823835792");
         emailTxt.setText("rocboyt@gmail.com");
         cityTxt.setText("Pretoria");
-        passwordTxt.setText("Tl@0793079399");
-        passwordConfirmationTxt.setText("Tl@0793079399");*/
+        passwordTxt.setText("Tl@12345");
+        passwordConfirmationTxt.setText("Tl@12345");
 
     }
 

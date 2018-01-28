@@ -1,9 +1,11 @@
 package co.za.geartronix.presenters;
 
+import android.os.Bundle;
 import android.widget.ProgressBar;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.SplashActivity;
+import co.za.geartronix.constants.Constants;
 import co.za.geartronix.models.UserModel;
 import co.za.geartronix.views.ISplashView;
 
@@ -64,10 +66,14 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
     @Override
     protected void afterAsyncCall(Object result) {
 
-        if(user == null)
+        if(user == null) {
             goToFirstime();
-        else
-            goToLogin();
+        }
+        else {
+            Bundle extras = new Bundle();
+            extras.putInt(Constants.USERID, user.getId());
+            goToLogin(extras);
+        }
 
         getActivity().finish();
     }
