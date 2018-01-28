@@ -30,7 +30,7 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
         setDependanciesChildActivities(R.layout.activity_gallery);
         currentActionBar.setTitle(" "+activity.getString(R.string.gallery));
         setViews();
-        setLoadingText("Loading services...");
+        setLoadingText(getActivity().getString(R.string.loading_gallery));
 
         new DoAsyncCall().execute(0);
         permissionProvider.requestWriteStoragePermission();
@@ -146,10 +146,12 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
 
         if(galleryModel.isSuccessful) {
 
-            if(isCached())
-                checkAndUpdate();
+            if(actionIndex == 0) {
+                showGallery();
 
-            showGallery();
+                if(isCached())
+                    checkAndUpdate();
+            }
         }
         else {
             showErrorMessage(galleryModel.getResponseMessage(), getActivity().getString(R.string.error));

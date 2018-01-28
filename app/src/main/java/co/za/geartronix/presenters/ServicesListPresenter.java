@@ -223,13 +223,14 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
 
             if(actionIndex == 0) {
                 showServices();
+
+                if(isCached())
+                    checkAndUpdate();
             }
             else {
                 onPostServicesRequest();
             }
 
-            if(isCached())
-                checkAndUpdate();
         }
         else {
             showErrorMessage(baseServicesModel.getResponseMessage(), getActivity().getString(R.string.error));
