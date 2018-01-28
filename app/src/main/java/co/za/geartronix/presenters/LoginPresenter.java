@@ -310,8 +310,6 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
         return true;
     }
 
-
-
     @Override
     public void checkAndSignIn() {
         if(passwordTxt.getText().toString().isEmpty()) {
