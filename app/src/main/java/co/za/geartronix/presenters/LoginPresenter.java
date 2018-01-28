@@ -81,6 +81,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
 
     @Override
     public void switchUsers() {
+        slideMenu.getItem(3).setVisible(true);
         setLinkedUserDetails();
         isUserDialogOpened = true;
         showUserSelectionView();
@@ -89,9 +90,16 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     @Override
     public void showUserSelectionView() {
         List<UserModel> users = sqLiteProvider.getAllUsers();
-        UserSelectionAdapter adp = new UserSelectionAdapter(getActivity(), R.layout.user_item,users);
-        userSelectionLst.setAdapter(adp);
-        userSelectContainerFrm.setVisibility(View.VISIBLE);
+
+        if(users != null && !users.isEmpty()){
+            UserSelectionAdapter adp = new UserSelectionAdapter(getActivity(), R.layout.user_item, users);
+            userSelectionLst.setAdapter(adp);
+            userSelectContainerFrm.setVisibility(View.VISIBLE);
+        }
+        else{
+            linkedUserTitleTxt.setText(R.string.no_linked_users);
+        }
+
         fadeInOverlay(userSelectContainerFrm);
     }
 
@@ -185,8 +193,13 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
         Bundle extras = getActivity().getIntent().getExtras();
         Bundle bundle_extras = null;
 
-        if(extras != null)
+        if(extras != null) {
             bundle_extras = extras.getBundle(Constants.PAYLOAD);
+        }
+        else  {
+            user = sqLiteProvider.getUser(userId);
+            setLinkedUserDetails();
+        }
 
         if(bundle_extras != null) {
 
@@ -209,8 +222,10 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
 
     @Override
     public void setEnterUsername() {
+        slideMenu.getItem(3).setVisible(false);
+        slideMenu.getItem(1).setVisible(true);
         isLinkedUser = false;
-        linkedUserTitleTxt.setText("No linked users found");
+        hideUserSelectionView();
         welcomeMessageTxt.setVisibility(View.GONE);
         usernameTxt.setVisibility(View.VISIBLE);
         usernameLbl.setVisibility(View.VISIBLE);
@@ -315,12 +330,9 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
                 break;
             case R.id.action_switch_users:
                 switchUsers();
-                slideMenu.getItem(3).setVisible(true);
                 break;
             case R.id.action_username_password:
                 setEnterUsername();
-                slideMenu.getItem(3).setVisible(false);
-                slideMenu.getItem(1).setVisible(true);
                 break;
         }
         return true;

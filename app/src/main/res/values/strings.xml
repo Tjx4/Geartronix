@@ -84,4 +84,5 @@
     <string name="feature_error_message">This feature is currently unavailable</string>
     <string name="loading_services">Loading services...</string>
     <string name="loading_gallery">Loading Gallery...</string>
+    <string name="no_linked_users">No linked users found</string>
 </resources>

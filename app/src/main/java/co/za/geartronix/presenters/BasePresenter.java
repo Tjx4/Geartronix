@@ -331,7 +331,7 @@ public abstract class BasePresenter {
     protected void goToLogin(Bundle...loginDetails) {
         if(isCurrentActivity(LoginActivity.class))
         return;
-
+// set last / logged current in user id, if we want to display login for last logged in user
         goToActivityWithPayload(LoginActivity.class, loginDetails);
     }
 
