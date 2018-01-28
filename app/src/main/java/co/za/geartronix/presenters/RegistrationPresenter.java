@@ -214,12 +214,12 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
         emailTxt = parentLayout.findViewById(R.id.txtEmail);
         genderImg = parentLayout.findViewById(R.id.imgGender);
 
-        nametxt.setText("Tshepo");
+       /* nametxt.setText("Tshepo");
         cellTxt.setText("0823835792");
         emailTxt.setText("rocboyt@gmail.com");
         cityTxt.setText("Pretoria");
         passwordTxt.setText("Tl@12345");
-        passwordConfirmationTxt.setText("Tl@12345");
+        passwordConfirmationTxt.setText("Tl@12345");*/
 
     }
 

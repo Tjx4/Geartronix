@@ -3,7 +3,7 @@ package co.za.geartronix.constants;
 import co.za.geartronix.providers.HostProvider;
 
 public class Constants {
-    public static final String CURRENTENVIRONMENT = HostProvider.localHost.getUrl();
+    public static final String CURRENTENVIRONMENT = HostProvider.demoHost.getUrl();
     public static final String PAYLOAD = "payload";
     public static final String UNLINKEDUSER = "unlinked_user";
     public static final String FEATURE_ERROR = "feature_error";
