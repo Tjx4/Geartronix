@@ -148,7 +148,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
         else
             setUsername(usernameTxt.getText().toString());
 
-            setPassword(passwordTxt.getText().toString());
+        setPassword(passwordTxt.getText().toString());
     }
 
     @Override
