@@ -143,10 +143,11 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
 
     @Override
     public void setLoginDetails() {
-        if(user == null)
-            setUsername(usernameTxt.getText().toString());
-        else
+        if(isLinkedUser)
             setUsername(user.getContactDetailsProvider().getEmails()[0]);
+        else
+            setUsername(usernameTxt.getText().toString());
+
 
             setPassword(passwordTxt.getText().toString());
     }
