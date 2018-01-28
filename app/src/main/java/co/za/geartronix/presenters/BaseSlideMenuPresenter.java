@@ -19,6 +19,7 @@ public abstract class BaseSlideMenuPresenter extends BaseAppActivityPresenter {
     protected ViewStub currentPageLayout;
     protected View parentLayout;
     protected Toolbar toolbar;
+    protected Menu slideMenu;
 
     public BaseSlideMenuPresenter(BaseActivity baseActivity) {
         super(baseActivity);
@@ -46,6 +47,7 @@ public abstract class BaseSlideMenuPresenter extends BaseAppActivityPresenter {
 
         RelativeLayout mainFramelayout = (RelativeLayout) activity.findViewById(R.id.menuContentHomeID);
         //dd.setContentDescription("co.za.geartronix.activities.DashBoardActivity");
+        slideMenu = navigationView.getMenu();
     }
 
     public boolean handleNavigationItemSelected(MenuItem item) {

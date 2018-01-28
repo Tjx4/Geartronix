@@ -38,7 +38,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     private int userId;
     private ListView userSelectionLst;
     private FrameLayout userSelectContainerFrm;
-    private boolean isUserDialogOpened;
+    private boolean isUserDialogOpened, isLinkedUser;
 
     public LoginPresenter(ILoginView iLoginView) {
         super((BaseActivity)iLoginView);
@@ -81,6 +81,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
 
     @Override
     public void switchUsers() {
+        setLinkedUserDetails();
         isUserDialogOpened = true;
         showUserSelectionView();
     }
@@ -198,14 +199,17 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
             }
         }
 
-        if(user == null)
+        if(user == null) {
             setEnterUsername();
-        else
+        }
+        else{
             setLinkedUserDetails();
+        }
     }
 
     @Override
     public void setEnterUsername() {
+        isLinkedUser = false;
         linkedUserTitleTxt.setText("No linked users found");
         welcomeMessageTxt.setVisibility(View.GONE);
         usernameTxt.setVisibility(View.VISIBLE);
@@ -215,7 +219,12 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
 
     @Override
     public void setLinkedUserDetails() {
-        welcomeMessage = getActivity().getString(R.string.Hi)+ " "+user.getNames().getFirstName()+ " "+getActivity().getResources().getString(R.string.sign_in_welcome_message);
+        isLinkedUser = true;
+        welcomeMessageTxt.setVisibility(View.VISIBLE);
+        usernameTxt.setVisibility(View.GONE);
+        usernameLbl.setVisibility(View.GONE);
+        switchUsersLbl.setVisibility(View.VISIBLE);
+        welcomeMessage = getActivity().getString(R.string.Hi)+ " "+user.getNames().getFirstName()+ " "+ getActivity().getResources().getString(R.string.sign_in_welcome_message);
         welcomeMessageTxt.setText(welcomeMessage);
     }
 
@@ -247,6 +256,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
         String url = environment + service;
 
         Bundle payload = new Bundle();
+        payload.putString("isLinkedUser", isLinkedUser+"");
         payload.putString("username", username);
         payload.putString("password", password);
 
@@ -305,6 +315,12 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
                 break;
             case R.id.action_switch_users:
                 switchUsers();
+                slideMenu.getItem(3).setVisible(true);
+                break;
+            case R.id.action_username_password:
+                setEnterUsername();
+                slideMenu.getItem(3).setVisible(false);
+                slideMenu.getItem(1).setVisible(true);
                 break;
         }
         return true;
@@ -314,6 +330,9 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     public void checkAndSignIn() {
         if(passwordTxt.getText().toString().isEmpty()) {
             showShortToast(getActivity().getString(R.string.enter_password));
+        }
+        else if(!isLinkedUser && usernameTxt.getText().toString().isEmpty()) {
+            showShortToast(getActivity().getString(R.string.enter_email_or_cell));
         }
         else {
             new DoAsyncCall().execute(0);

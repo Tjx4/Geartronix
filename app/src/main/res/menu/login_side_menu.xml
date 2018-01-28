@@ -20,6 +20,12 @@
             android:title="Exit app"
             app:showAsAction="never"/>
 
+        <item
+            android:id="@+id/action_username_password"
+            android:icon="@drawable/signin_icon"
+            android:title="Manual sign in"
+            app:showAsAction="never"/>
+
     </group>
 
 </menu>
