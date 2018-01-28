@@ -206,7 +206,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
 
     @Override
     public void setEnterUsername() {
-        linkedUserTitleTxt.setText("No linked numbers found");
+        linkedUserTitleTxt.setText("No linked users found");
         welcomeMessageTxt.setVisibility(View.GONE);
         usernameTxt.setVisibility(View.VISIBLE);
         usernameLbl.setVisibility(View.VISIBLE);
