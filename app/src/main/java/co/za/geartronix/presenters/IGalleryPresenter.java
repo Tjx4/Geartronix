@@ -1,11 +1,14 @@
 package co.za.geartronix.presenters;
 
+import org.json.JSONException;
 import java.io.IOException;
 import co.za.geartronix.activities.GalleryActivity;
 
 public interface IGalleryPresenter extends IBaseAsyncPresenter {
     GalleryActivity getActivity();
-    void porpulateServiceList();
+    void showGallery();
     void fullScreeView();
-    String getGallery() throws IOException;
+    String makeGalleryHttpCall() throws IOException;
+    String checkServicesUpdate() throws IOException, JSONException;
+    String getGallery() throws IOException, JSONException;
 }

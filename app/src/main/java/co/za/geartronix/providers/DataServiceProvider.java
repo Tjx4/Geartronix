@@ -12,7 +12,7 @@ public enum DataServiceProvider {
     askQuestion("rest/services/v1/apps/questions/askQuestion/"),
     getQuestions("rest/services/v1/apps/questions/getQuestion/"),
     getServices("rest/services/v1/apps/services/getServices/"),
-    requestService("rest/services/v1/apps/services/requestService/");
+    requestService("rest/services/v1/apps/services/makeServiceRequestHttpCall/");
 
     private String path;
 

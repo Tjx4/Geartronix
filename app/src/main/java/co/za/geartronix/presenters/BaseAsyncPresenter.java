@@ -58,7 +58,7 @@ public abstract class BaseAsyncPresenter extends BasePresenter{
         return null;
     }
 
-    protected boolean hasUpdate(GalleryModel remoteGalleryModel) {
+    protected boolean hasUpdate(BaseModel baseModel) {
         return false;
     }
 
@@ -85,6 +85,7 @@ public abstract class BaseAsyncPresenter extends BasePresenter{
 
     protected void afterAsyncCall(Object result){
         hideLoadingScreen();
+        clickedViewId = 0;
     }
 
     protected void setAsyncViews() {

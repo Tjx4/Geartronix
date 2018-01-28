@@ -1,20 +1,21 @@
 package co.za.geartronix.presenters;
 
-import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
+import android.widget.TextView;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.GalleryActivity;
 import co.za.geartronix.adapters.GalleryImageAdapter;
-import co.za.geartronix.constants.Constants;
+import co.za.geartronix.models.BaseModel;
 import co.za.geartronix.models.GalleryModel;
 import co.za.geartronix.models.ImageModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
 import co.za.geartronix.views.IGalleryView;
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
@@ -29,6 +30,7 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
         setDependanciesChildActivities(R.layout.activity_gallery);
         currentActionBar.setTitle(" "+activity.getString(R.string.gallery));
         setViews();
+        setLoadingText("Loading services...");
 
         new DoAsyncCall().execute(0);
         permissionProvider.requestWriteStoragePermission();
@@ -52,7 +54,8 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
     }
 
     @Override
-    protected boolean hasUpdate(GalleryModel remoteGalleryModel) {
+    protected boolean hasUpdate(BaseModel baseModel) {
+        GalleryModel remoteGalleryModel = (GalleryModel)baseModel;
         List<ImageModel> currImages = galleryModel.getImages();
         List<ImageModel> remoteImages = remoteGalleryModel.getImages();
 //TODO: Fix
@@ -71,7 +74,7 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
     }
 
     @Override
-    public String getGallery() throws IOException {
+    public String makeGalleryHttpCall() throws IOException {
         String service = DataServiceProvider.gallery.getPath();
         String url = environment + service;
 
@@ -81,9 +84,36 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
     @Override
     protected String getRemoteJson(int methodIndex) throws IOException {
         if(methodIndex == 0)
-            return getGallery();
+            return makeGalleryHttpCall();
 
         return null;
+    }
+
+    @Override
+    public String checkServicesUpdate() throws IOException, JSONException {
+        GalleryModel remoteGalleryModel = new GalleryModel();
+        String response = getRemoteJson(actionIndex);
+        remoteGalleryModel.setModel(new JSONObject(response));
+
+        if (hasUpdate(remoteGalleryModel) || !isCached())
+            cacheProvider.updateGallery(remoteGalleryModel);
+
+        return response;
+    }
+
+    @Override
+    public String getGallery() throws IOException, JSONException {
+        galleryModel = cacheProvider.getGalleryImages();
+        String response = "";
+
+        if(!isCached()) {
+            galleryModel = new GalleryModel();
+            response = getRemoteJson(actionIndex);
+            galleryModel.setModel(new JSONObject(response));
+            cacheProvider.updateGallery(galleryModel);
+        }
+
+        return response;
     }
 
     @Override
@@ -97,34 +127,11 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
     @Override
     protected Object doAsyncOperation(int actionIndex) throws Exception {
         this.actionIndex = actionIndex;
-
-try {
-    galleryModel = cacheProvider.getGalleryImages();
-
-}
-catch (Exception e) {
-
-}
-        String response = "";
-
         if(isCheckingUpdates) {
-            GalleryModel remoteGalleryModel = new GalleryModel();
-            response = getRemoteJson(actionIndex);
-            remoteGalleryModel.setModel(new JSONObject(response));
-
-            if (hasUpdate(remoteGalleryModel) || !isCached())
-                cacheProvider.updateGallery(remoteGalleryModel);
-        }
-        else {
-            if(!isCached()) {
-                galleryModel = new GalleryModel();
-                response = getRemoteJson(actionIndex);
-                galleryModel.setModel(new JSONObject(response));
-                cacheProvider.updateGallery(galleryModel);
-            }
+            return checkServicesUpdate();
         }
 
-        return response;
+        return getGallery();
     }
 
     @Override
@@ -132,26 +139,17 @@ catch (Exception e) {
         if(outOfFocus)
             return;
 
-        if(isNullModel(galleryModel)) {
-            getActivity().finish();
-            Bundle extras = new Bundle();
-            extras.putString(Constants.FEATURE_ERROR, getActivity().getString(R.string.feature_error_message));
-            goToDashboard(extras);
+        if(isCheckingUpdates) {
+            isCheckingUpdates = false;
             return;
         }
 
         if(galleryModel.isSuccessful) {
 
-            if(isCheckingUpdates) {
-                isCheckingUpdates = false;
-                return;
-            }
-
             if(isCached())
                 checkAndUpdate();
 
-            porpulateServiceList();
-
+            showGallery();
         }
         else {
             showErrorMessage(galleryModel.getResponseMessage(), getActivity().getString(R.string.error));
@@ -162,7 +160,6 @@ catch (Exception e) {
 
     @Override
     public void handleAsyncButtonClickedEvent(View view) {
-
         int viewId = view.getId();
 
         if(viewId == R.id.imgPic)
@@ -179,6 +176,7 @@ catch (Exception e) {
     @Override
     public void setViews() {
         setAsyncViews();
+        laodingTxt = (TextView) getActivity().findViewById(R.id.txtLoading);
         setLargeImageViews();
     }
 
@@ -203,7 +201,7 @@ catch (Exception e) {
     }
 
     @Override
-    public void porpulateServiceList() {
+    public void showGallery() {
         imagesGridview = (GridView) activity.findViewById(R.id.grdvImageContainer);
         ArrayAdapter adp = new GalleryImageAdapter(activity, R.layout.gallery_item_view, galleryModel.getImages());
         imagesGridview.setAdapter(adp);

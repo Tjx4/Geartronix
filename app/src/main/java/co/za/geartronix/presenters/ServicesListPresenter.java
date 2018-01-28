@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
-
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
@@ -26,7 +26,7 @@ import co.za.geartronix.views.IServicesListView;
 
 public class ServicesListPresenter extends BaseOverflowMenuPresenter implements IServicesListPresenter {
 
-    private BaseModel servicestModel;
+    private BaseModel baseServicesModel;
     private ServicesListModel serviceListModel;
     private ServiceRequestModel serviceRequestModel;
     private List<ServiceModel> services;
@@ -38,7 +38,7 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
         setDependanciesChildActivities(R.layout.activity_services_list);
         currentActionBar.setTitle(" "+getActivity().getString(R.string.services));
         setViews();
-        setLoadingText("Loading services...");
+        setLoadingText(getActivity().getString(R.string.loading_services));
 
         new DoAsyncCall().execute(0);
     }
@@ -79,12 +79,42 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
     }
 
     @Override
+    protected void checkAndUpdate() {
+        isCheckingUpdates = true;
+        new DoAsyncCall().execute(0);
+    }
+
+    @Override
+    protected boolean isCached() {
+        return serviceListModel != null && !serviceListModel.getServices().isEmpty();
+    }
+
+    @Override
+    protected boolean hasUpdate(BaseModel baseModel) {
+        ServicesListModel servicesListModel = (ServicesListModel)baseModel;
+        List<ServiceModel> currImages = serviceListModel.getServices();
+        List<ServiceModel> remoteImages = servicesListModel.getServices();
+//TODO: Fix
+        boolean isSame = false;
+        int indx = 0;
+        for(ServiceModel i : currImages){
+
+            if( !i.getServiceDescription().equals( remoteImages.get(indx).getServiceDescription() ) )
+                isSame = true;
+
+            indx++;
+        }
+
+        //!currImages.equals(remoteImages);
+        return isSame;
+    }
+    @Override
     public void setSelectedService(int id) {
         selectedService = services.get(id - 2);
     }
 
     @Override
-    public String requestService(int serviceId)throws IOException {
+    public String makeServiceRequestHttpCall(int serviceId)throws IOException {
         String service = DataServiceProvider.requestService.getPath();
         String url = environment + service;
 
@@ -95,7 +125,7 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
     }
 
     @Override
-    public String requestServices() throws IOException{
+    public String makeServicesListHttpCall() throws IOException{
         String service = DataServiceProvider.getServices.getPath();
         String url = environment + service;
 
@@ -104,15 +134,15 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
 
     @Override
     public String requestGeneralCheckup()throws IOException {
-        return requestService(1);
+        return makeServiceRequestHttpCall(1);
     }
 
     @Override
     protected String getRemoteJson(int methodIndex) throws IOException {
         if (methodIndex == 0)
-            return requestServices();
+            return makeServicesListHttpCall();
         else if (methodIndex == 1)
-            return requestService(selectedService.getId());
+            return makeServiceRequestHttpCall(selectedService.getId());
         else if (methodIndex == 2)
             return requestGeneralCheckup();
         else
@@ -120,27 +150,63 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
     }
 
     @Override
+    public String checkServicesUpdate() throws IOException, JSONException {
+        ServicesListModel remoteServices = new ServicesListModel();
+        String response = getRemoteJson(actionIndex);
+        remoteServices.setModel(new JSONObject(response));
+
+        if (hasUpdate(remoteServices) || !isCached())
+            cacheProvider.updateServices(remoteServices);
+
+        return response;
+    }
+
+    @Override
+    public String getServices() throws IOException, JSONException {
+        serviceListModel = cacheProvider.getServices();
+        String response = "";
+
+        if(!isCached()) {
+            serviceListModel = new ServicesListModel();
+            response = getRemoteJson(actionIndex);
+            serviceListModel.setModel(new JSONObject(response));
+            cacheProvider.updateServices(serviceListModel);
+        }
+
+        baseServicesModel = serviceListModel;
+        return response;
+    }
+
+    @Override
+    public String requestService() throws IOException, JSONException {
+        serviceRequestModel = new ServiceRequestModel();
+        String response = getRemoteJson(actionIndex);
+        serviceRequestModel.setModel(new JSONObject(response));
+        baseServicesModel = serviceRequestModel;
+        return response;
+    }
+
+    @Override
     protected void beforeAsyncCall() {
+        if(isCheckingUpdates)
+            return;
+
         super.beforeAsyncCall();
     }
 
     @Override
     protected Object doAsyncOperation(int actionIndex) throws Exception {
         this.actionIndex = actionIndex;
-        String response = getRemoteJson(actionIndex);
-
-        if(actionIndex == 0) {
-            servicestModel = serviceListModel = new ServicesListModel();
-            serviceListModel.setModel(new JSONObject(response));
-            servicestModel = serviceListModel;
-        }
-        else {
-            serviceRequestModel = new ServiceRequestModel();
-            serviceRequestModel.setModel(new JSONObject(response));
-            servicestModel = serviceRequestModel;
+        if(isCheckingUpdates) {
+            return checkServicesUpdate();
         }
 
-        return response;
+        if (actionIndex == 0) {
+            return getServices();
+        }
+        else{
+            return requestService();
+        }
     }
 
     @Override
@@ -148,21 +214,28 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
         if(outOfFocus)
             return;
 
-        super.afterAsyncCall(result);
+        if(isCheckingUpdates) {
+            isCheckingUpdates = false;
+            return;
+        }
 
-        if(servicestModel.isSuccessful) {
+        if(baseServicesModel.isSuccessful) {
+
             if(actionIndex == 0) {
                 showServices();
             }
             else {
                 onPostServicesRequest();
             }
+
+            if(isCached())
+                checkAndUpdate();
         }
         else {
-            showErrorMessage(servicestModel.responseMessage, getActivity().getString(R.string.error));
+            showErrorMessage(baseServicesModel.getResponseMessage(), getActivity().getString(R.string.error));
         }
 
-        clickedViewId = 0;
+        super.afterAsyncCall(result);
     }
 
     @Override
@@ -172,7 +245,7 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
     }
 
     public void onPostServicesRequest() {
-        showSuccessMessage(servicestModel.responseMessage, getActivity().getString(R.string.success));
+        showSuccessMessage(baseServicesModel.responseMessage, getActivity().getString(R.string.success));
     }
 
     @Override
