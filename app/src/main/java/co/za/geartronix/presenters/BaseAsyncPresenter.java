@@ -1,16 +1,11 @@
 package co.za.geartronix.presenters;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -21,7 +16,6 @@ import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.constants.Constants;
 import co.za.geartronix.models.BaseModel;
-import co.za.geartronix.models.GalleryModel;
 import co.za.geartronix.providers.HttpConnectionProvider;
 
 public abstract class BaseAsyncPresenter extends BasePresenter{

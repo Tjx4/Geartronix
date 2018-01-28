@@ -99,7 +99,7 @@ public class ServicesListPresenter extends BaseOverflowMenuPresenter implements 
         int indx = 0;
         for(ServiceModel i : currImages){
 
-            if( !i.getServiceDescription().equals( remoteImages.get(indx).getServiceDescription() ) )
+            if( !i.getService().equals( remoteImages.get(indx).getService() ) )
                 isSame = true;
 
             indx++;

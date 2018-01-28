@@ -23,7 +23,7 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
     public SplashPresenter(BaseActivity baseActivity, int index) {
         super(baseActivity, index);
         setIcon(R.mipmap.ic_launcher);
-        setDisplayName(activity.getString(R.string.register));
+        setDisplayName("");
     }
 
     @Override
@@ -65,7 +65,7 @@ public class SplashPresenter extends BaseAppActivityPresenter implements ISplash
     protected void afterAsyncCall(Object result) {
 
         if(user == null)
-            goToRegistration();
+            goToFirstime();
         else
             goToLogin();
 

@@ -40,6 +40,7 @@ import co.za.geartronix.activities.AskActivity;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.activities.DashBoardActivity;
 import co.za.geartronix.activities.DiagnosticsActivity;
+import co.za.geartronix.activities.FirstTimeActivity;
 import co.za.geartronix.activities.ForgotPasswordActivity;
 import co.za.geartronix.activities.GalleryActivity;
 import co.za.geartronix.activities.LoginActivity;
@@ -275,7 +276,17 @@ public abstract class BasePresenter {
         goToMessages(extras);
     }
 
+    protected void goToFirstime(Bundle...extras) {
+        if(isCurrentActivity(FirstTimeActivity.class))
+            return;
+
+        goToActivityWithPayload(FirstTimeActivity.class, extras);
+    }
+
     protected void goToProfile() {
+        if(isCurrentActivity(ProfileActivity.class))
+            return;
+
         goToActivity(ProfileActivity.class);
     }
     protected void goToGallery() {

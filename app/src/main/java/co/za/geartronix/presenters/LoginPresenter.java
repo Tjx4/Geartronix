@@ -22,6 +22,7 @@ import co.za.geartronix.models.UserModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
 import co.za.geartronix.views.ILoginView;
+import org.json.JSONException;
 import org.json.JSONObject;
 import java.io.IOException;
 import java.util.List;
@@ -32,7 +33,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     private UserModel user;
     private byte attempts;
     private EditText usernameTxt, passwordTxt;
-    private TextView welcomeMessageTxt, usernameLbl, switchUsersLbl;
+    private TextView welcomeMessageTxt, usernameLbl, switchUsersLbl, linkedUserTitleTxt;
     private LoginModel loginModel;
     private int userId;
     private ListView userSelectionLst;
@@ -83,7 +84,6 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
         isUserDialogOpened = true;
         showUserSelectionView();
     }
-
 
     @Override
     public void showUserSelectionView() {
@@ -163,6 +163,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
         setAsyncViews();
         parentLayout = getMainLayout();
         laodingTxt = parentLayout.findViewById(R.id.txtLoading);
+        linkedUserTitleTxt = parentLayout.findViewById(R.id.txtLinkedUserTitle);
         loadingProgressBar = parentLayout.findViewById(R.id.progressBarLoading);
         loadingImg = parentLayout.findViewById(R.id.imgLoading);
         loadingScreenFrm = parentLayout.findViewById(R.id.frmLoadingScreen);
@@ -181,15 +182,21 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     public void getLinkedUserOREnterUsername() {
         userId = 1;
         Bundle extras = getActivity().getIntent().getExtras();
+        Bundle bundle_extras = null;
 
-        if(extras != null) {
-            Bundle bundle_extras = extras.getBundle(Constants.PAYLOAD);
+        if(extras != null)
+            bundle_extras = extras.getBundle(Constants.PAYLOAD);
 
-            if(bundle_extras != null)
+        if(bundle_extras != null) {
+
+           boolean unlinkedUser = bundle_extras.getBoolean(Constants.UNLINKEDUSER);
+
+            if(!unlinkedUser){
                 userId = bundle_extras.getInt(Constants.USERID);
+                user = sqLiteProvider.getUser(userId);
+                setLinkedUserDetails();
+            }
         }
-
-        user = sqLiteProvider.getUser(userId);
 
         if(user == null)
             setEnterUsername();
@@ -199,6 +206,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
 
     @Override
     public void setEnterUsername() {
+        linkedUserTitleTxt.setText("No linked numbers found");
         welcomeMessageTxt.setVisibility(View.GONE);
         usernameTxt.setVisibility(View.VISIBLE);
         usernameLbl.setVisibility(View.VISIBLE);
@@ -228,13 +236,13 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     @Override
     protected String getRemoteJson(int methodIndex) throws IOException {
         if (methodIndex == 0)
-            return signIn();
+            return makeUserSignInHttpCall();
         else
             return null;
     }
 
     @Override
-    public String signIn() throws IOException {
+    public String makeUserSignInHttpCall() throws IOException {
         String service = DataServiceProvider.login.getPath();
         String url = environment + service;
 
@@ -246,8 +254,17 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     }
 
     @Override
+    public String signIn() throws IOException, JSONException {
+        loginModel = new LoginModel();
+        String response = getRemoteJson(actionIndex);
+        loginModel.setModel(new JSONObject(response));
+        return response;
+    }
+
+    @Override
     protected void beforeAsyncCall() {
         super.beforeAsyncCall();
+        setLoginDetails();
     }
 
     @Override
@@ -258,11 +275,7 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     @Override
     protected Object doAsyncOperation(int actionIndex) throws Exception {
         this.actionIndex = actionIndex;
-        setLoginDetails();
-        loginModel = new LoginModel();
-        String response = getRemoteJson(actionIndex);
-        loginModel.setModel(new JSONObject(response));
-        return response;
+        return signIn();
     }
 
     @Override
