@@ -29,6 +29,7 @@ public class FirstTimePresenter extends BaseAppActivityPresenter implements IFir
 
     @Override
     public void setViews() {
+        /*
         final VideoView vodaVid = (VideoView)getActivity().findViewById(R.id.vdoVoda);
         String fileName = "android.resource://"+  getActivity().getPackageName() + "/raw/dashboard_animation";
         vodaVid.setVideoURI(Uri.parse(fileName));
@@ -40,6 +41,7 @@ public class FirstTimePresenter extends BaseAppActivityPresenter implements IFir
                 vodaVid.setVisibility(View.GONE);
             }
         });
+        */
     }
 
     @Override
