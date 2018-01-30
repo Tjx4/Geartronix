@@ -1,7 +1,10 @@
 package co.za.geartronix.presenters;
 
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.VideoView;
 
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
@@ -26,6 +29,17 @@ public class FirstTimePresenter extends BaseAppActivityPresenter implements IFir
 
     @Override
     public void setViews() {
+        final VideoView vodaVid = (VideoView)getActivity().findViewById(R.id.vdoVoda);
+        String fileName = "android.resource://"+  getActivity().getPackageName() + "/raw/dashboard_animation";
+        vodaVid.setVideoURI(Uri.parse(fileName));
+        vodaVid.start();
+        vodaVid.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+            @Override
+            public void onCompletion(MediaPlayer mp) {
+                vodaVid.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override
