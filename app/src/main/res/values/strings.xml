@@ -85,4 +85,7 @@
     <string name="loading_services">Loading services...</string>
     <string name="loading_gallery">Loading Gallery...</string>
     <string name="no_linked_users">No linked users found</string>
+    <string name="register_new_user">Register new user</string>
+    <string name="exit_app">Exit app</string>
+    <string name="manual_sign_in">Manual sign in</string>
 </resources>

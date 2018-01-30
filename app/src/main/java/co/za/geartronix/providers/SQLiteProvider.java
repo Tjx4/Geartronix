@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.za.geartronix.models.ContactDetailsModel;
 import co.za.geartronix.models.MemberModel;
 import co.za.geartronix.models.NamesModel;
 import co.za.geartronix.models.UserModel;
@@ -83,7 +84,7 @@ public class SQLiteProvider extends SQLiteOpenHelper {
 
         user.setGender(cursor.getString(2).charAt(0));
 
-        ContactDetailsProvider contacts = new ContactDetailsProvider();
+        ContactDetailsModel contacts = new ContactDetailsModel();
         contacts.setContactNumbers(new String[]{ cursor.getString(3) });
         contacts.setEmails(new String[]{cursor.getString(4)});
         user.setContactDetailsProvider(contacts);
@@ -114,7 +115,7 @@ public class SQLiteProvider extends SQLiteOpenHelper {
 
                 user.setGender(cursor.getString(4).charAt(0));
 
-                ContactDetailsProvider contacts = new ContactDetailsProvider();
+                ContactDetailsModel contacts = new ContactDetailsModel();
                 contacts.setContactNumbers(new String[]{ cursor.getString(5) });
                 contacts.setEmails(new String[]{cursor.getString(6)});
                 user.setContactDetailsProvider(contacts);
@@ -149,7 +150,7 @@ public class SQLiteProvider extends SQLiteOpenHelper {
 
                 user.setGender(cursor.getString(4).charAt(0));
 
-                ContactDetailsProvider contacts = new ContactDetailsProvider();
+                ContactDetailsModel contacts = new ContactDetailsModel();
                 contacts.setContactNumbers(new String[]{ cursor.getString(5) });
                 contacts.setEmails(new String[]{cursor.getString(6)});
                 user.setContactDetailsProvider(contacts);

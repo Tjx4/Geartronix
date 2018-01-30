@@ -1,6 +1,6 @@
-package co.za.geartronix.providers;
+package co.za.geartronix.models;
 
-public class ContactDetailsProvider {
+public class ContactDetailsModel {
     private String[] contactNumbers;
     private String[] emails;
 

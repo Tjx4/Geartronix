@@ -7,7 +7,7 @@
         <item
             android:id="@+id/action_register"
             android:icon="@drawable/register_icon"
-            android:title="Register new userName"/>
+            android:title="@string/register_new_user"/>
 
         <item
             android:id="@+id/action_switch_users"
@@ -17,13 +17,13 @@
         <item
             android:id="@+id/action_exit"
             android:icon="@drawable/close_icon"
-            android:title="Exit app"
+            android:title="@string/exit_app"
             app:showAsAction="never"/>
 
         <item
             android:id="@+id/action_username_password"
             android:icon="@drawable/signin_icon"
-            android:title="Manual sign in"
+            android:title="@string/manual_sign_in"
             app:showAsAction="never"/>
 
     </group>

@@ -7,6 +7,7 @@ import java.util.List;
 import co.za.geartronix.R;
 import co.za.geartronix.activities.BaseActivity;
 import co.za.geartronix.models.CarModel;
+import co.za.geartronix.models.ContactDetailsModel;
 import co.za.geartronix.models.MemberModel;
 import co.za.geartronix.models.MessageModel;
 import co.za.geartronix.models.NamesModel;
@@ -130,7 +131,7 @@ public class MockProvider {
         Bitmap propic = BitmapFactory.decodeResource( activity.getResources(), R.drawable.profpic );
         mockUser.setProfilePic(propic);
 
-        ContactDetailsProvider contactDetailes = new ContactDetailsProvider();
+        ContactDetailsModel contactDetailes = new ContactDetailsModel();
         String[] contactnumbers = new String[]{"823835792", "842630120"};
         contactDetailes.setContactNumbers(contactnumbers);
         String[] emails = new String[]{"rocboyt@gmail.com", "tlmahlaula@gmail.com"};

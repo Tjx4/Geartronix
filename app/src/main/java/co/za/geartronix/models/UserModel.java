@@ -4,7 +4,6 @@ import android.graphics.Bitmap;
 import org.json.JSONException;
 import org.json.JSONObject;
 import java.util.List;
-import co.za.geartronix.providers.ContactDetailsProvider;
 
 public class UserModel extends BaseModel{
     private Bitmap profilePic;
@@ -17,7 +16,7 @@ public class UserModel extends BaseModel{
     private String city;
     private String idNo;
     private String password;
-    private ContactDetailsProvider contactDetailsProvider;
+    private ContactDetailsModel contactDetailsProvider;
     private List<CarModel> cars;
     private List<MessageModel> messages;
     private ProgressBarModel progressBar1;
@@ -82,11 +81,11 @@ public class UserModel extends BaseModel{
         this.id = id;
     }
 
-    public ContactDetailsProvider getContactDetailsProvider() {
+    public ContactDetailsModel getContactDetailsProvider() {
         return contactDetailsProvider;
     }
 
-    public void setContactDetailsProvider(ContactDetailsProvider contactDetailsProvider) {
+    public void setContactDetailsProvider(ContactDetailsModel contactDetailsProvider) {
         this.contactDetailsProvider = contactDetailsProvider;
     }
 

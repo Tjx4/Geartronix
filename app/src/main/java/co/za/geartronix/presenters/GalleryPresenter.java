@@ -85,18 +85,18 @@ public class GalleryPresenter extends BaseOverflowMenuPresenter implements IGall
     protected String getRemoteJson(int methodIndex) throws IOException {
         if(methodIndex == 0)
             return makeGalleryHttpCall();
-
-        return null;
+        else
+            return null;
     }
 
     @Override
     public String checkServicesUpdate() throws IOException, JSONException {
-        GalleryModel remoteGalleryModel = new GalleryModel();
+        GalleryModel remoteGallery = new GalleryModel();
         String response = getRemoteJson(actionIndex);
-        remoteGalleryModel.setModel(new JSONObject(response));
+        remoteGallery.setModel(new JSONObject(response));
 
-        if (hasUpdate(remoteGalleryModel) || !isCached())
-            cacheProvider.updateGallery(remoteGalleryModel);
+        if (hasUpdate(remoteGallery) || !isCached())
+            cacheProvider.updateGallery(remoteGallery);
 
         return response;
     }

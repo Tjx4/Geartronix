@@ -32,7 +32,6 @@ public class CacheProvider {
             galleryModel.setModel(connectionsJSONString);
 
             return galleryModel;
-
         }
         catch (Exception e) {
             return null;
@@ -48,7 +47,6 @@ public class CacheProvider {
             servicesListModel.setModel(connectionsJSONString);
 
             return servicesListModel;
-
         }
         catch (Exception e) {
             return null;

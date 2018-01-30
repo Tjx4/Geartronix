@@ -74,8 +74,18 @@ public class ReferralPresenter extends BaseOverflowMenuPresenter implements IRef
     }
 
     @Override
-    public void getNumberFromPhoneContacts() {
+    public boolean getNumberFromPhoneContacts() {
         isRequestingContacts = true;
+        boolean isSuccessFull = false;
+
+        showShortToast("showContactList");
+
+        return isSuccessFull;
+    }
+
+    @Override
+    public void showContactList() {
+        showShortToast("showContactList");
     }
 
     @Override
@@ -92,12 +102,10 @@ public class ReferralPresenter extends BaseOverflowMenuPresenter implements IRef
 
     @Override
     protected String getRemoteJson(int methodIndex) throws IOException {
-        if(methodIndex == 0)
-            getNumberFromPhoneContacts();
-        else if(methodIndex == 1)
-            return sendReferral();
-
-            return null;
+            if(methodIndex == 1)
+                return sendReferral();
+            else
+                return null;
     }
 
     @Override
@@ -113,6 +121,10 @@ public class ReferralPresenter extends BaseOverflowMenuPresenter implements IRef
     @Override
     protected Object doAsyncOperation(int actionIndex) throws Exception {
         this.actionIndex = actionIndex;
+
+        if (actionIndex == 0)
+            return getNumberFromPhoneContacts();
+
         referralModel = new ReferralModel();
         String response = getRemoteJson(actionIndex);
         referralModel.setModel(new JSONObject(response));
@@ -124,11 +136,14 @@ public class ReferralPresenter extends BaseOverflowMenuPresenter implements IRef
         if(outOfFocus)
             return;
 
-        if(isRequestingContacts){
+        if(actionIndex == 0) {
             isRequestingContacts = false;
+            boolean isSuccessful = Boolean.parseBoolean(result.toString());
 
-            showShortToast("Get contacts from phone book");
-            return;
+            if(isSuccessful)
+                showContactList();
+            else
+                showErrorMessage("We apologise for the inconvenience, there was a problem retrieving your contacts please type the number in manually", getActivity().getString(R.string.error));
         }
         else
         {

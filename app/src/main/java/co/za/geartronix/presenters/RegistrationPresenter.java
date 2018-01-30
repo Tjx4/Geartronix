@@ -17,7 +17,7 @@ import co.za.geartronix.models.MemberModel;
 import co.za.geartronix.models.NamesModel;
 import co.za.geartronix.models.RegistrationModel;
 import co.za.geartronix.models.UserModel;
-import co.za.geartronix.providers.ContactDetailsProvider;
+import co.za.geartronix.models.ContactDetailsModel;
 import co.za.geartronix.providers.DataServiceProvider;
 import co.za.geartronix.providers.HttpConnectionProvider;
 import co.za.geartronix.views.IRegistrationView;
@@ -133,7 +133,7 @@ public class RegistrationPresenter extends BaseSlideMenuPresenter implements IRe
         user.setCity(cityTxt.getText().toString());
         user.setGender(gender);
 
-        ContactDetailsProvider contactDetails = new ContactDetailsProvider();
+        ContactDetailsModel contactDetails = new ContactDetailsModel();
         contactDetails.setContactNumbers(new String[]{cellTxt.getText().toString()});
         contactDetails.setEmails(new String[]{emailTxt.getText().toString()});
         user.setContactDetailsProvider(contactDetails);

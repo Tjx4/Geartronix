@@ -5,7 +5,8 @@ import co.za.geartronix.activities.ReferralActivity;
 
 public interface IReferralPresenter extends IBaseAsyncPresenter {
     ReferralActivity getActivity();
-    void getNumberFromPhoneContacts();
+    boolean getNumberFromPhoneContacts();
+    void showContactList();
     String sendReferral() throws IOException;
     void checkAndSendReferall();
 }
