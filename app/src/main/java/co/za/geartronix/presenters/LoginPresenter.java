@@ -82,7 +82,6 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
     @Override
     public void switchUsers() {
         slideMenu.getItem(3).setVisible(true);
-        setLinkedUserDetails();
         isUserDialogOpened = true;
         showUserSelectionView();
     }
@@ -119,7 +118,6 @@ public class LoginPresenter extends BaseSlideMenuPresenter implements ILoginPres
 
         setLinkedUserDetails();
         isUserDialogOpened = false;
-
         passwordTxt.setText("");
     }
 
